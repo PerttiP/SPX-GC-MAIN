@@ -1,0 +1,60 @@
+{
+  "relpath": "/oktyr/sm2025generisk/NAME_CLUB_LEFT_CORNER.html",
+  "description": "OKTYR TEST TEMPLATE",
+  "playserver": "OVERLAY",
+  "playchannel": "1",
+  "playlayer": "5",
+  "webplayout": "5",
+  "out": "manual",
+  "dataformat": "json",
+  "uicolor": "3",
+  "onair": "false",
+  "imported": "1744295638951",
+  "DataFields": [
+    {
+      "field": "comment",
+      "ftype": "textfield",
+      "title": "Nickname of this item on the rundown",
+      "value": "[ Item nickname ]"
+    },
+    {
+      "ftype": "instruction",
+      "value": "⚠ WARNING: This item was auto-generated for OK Tyr adaptation and is not intended for manual editing."
+    },
+    {
+      "field": "f0",
+      "ftype": "textfield",
+      "title": "Number",
+      "value": "0"
+    },
+    {
+      "field": "f1",
+      "ftype": "textfield",
+      "title": "Fullname",
+      "value": ""
+    },
+    {
+      "field": "f2",
+      "ftype": "textfield",
+      "title": "Club",
+      "value": ""
+    },
+    {
+      "field": "f3",
+      "ftype": "textfield",
+      "title": "Location",
+      "value": ""
+    },
+    {
+      "field": "f99",
+      "ftype": "filelist",
+      "title": "Visual theme",
+      "assetfolder": "./themes/",
+      "extension": "css",
+      "value": "./themes/News.css"
+    }
+  ],
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-10T14:33:58.953Z"
+}
