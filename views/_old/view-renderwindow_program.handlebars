@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPX - PROGRAM EMULATOR</title>
+    <link rel="stylesheet" type="text/css" href="/css/spx_renderpopups.css">
+    <style>
+        .renderer  {
+            /* rendererscalable hardcoded to 1920x1080 */ 
+            margin: 0;
+            padding: 0;
+            border: 0px;
+            outline: 0px;
+            width: 1920px;
+            height: 1080px;
+            background-size: 10vw;
+            transform-origin: top left;
+            background-image: url('/img/checker60.png'); /* bgimage for local preview */
+        }
+
+    </style>
+    <script src="/js/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('connect', function () {
+            data={};
+            data.name   = 'SPX_PROGRAM'; // <---- Name of this socket connection
+            data.spxcmd = 'identifyClient';
+            socket.emit('SPXMessage2Server', data);
+        });
+
+        socket.on('SPXMessage2Client', function (data) {
+            // Handles messages coming from server to this client.
+            // All comms using 'SPXMessage2Client' as a conduit with data object and
+            // data.spxcmd as function identifier. Additional object values are payload.
+            // console.log('SPXMessage2Client received', data)
+            switch (data.spxcmd) {
+                case 'closeprogram':
+                    // console.log('Close program window request received from Controller');
+                    window.close();
+                    break;
+
+                default:
+                    // console.log('Unknown SPXMessage2Client command: ' + data.command);
+            }
+        }); // end SPXMessage2Client
+
+    </script>
+</head>
+<body onresize="resizePreview();" > <!-- onunload="sendWinClosedMessage('unload');" onload="sendWinClosedMessage('load');" -->
+     <!-- maybe in the future
+    <div id="toolbar">
+        <div>PROGRAM</div>
+        <div>Clear</div>
+        <div>Layers</div>
+    </div>
+    -->
+
+    <div class="watermark prog"></div>
+    <div id="previewBG" style="background-color: rgb(0, 0, 0); overflow: hidden;">
+        <iframe id="previewIF"
+            src="/renderer"
+            class="renderer"
+            ZZstyle="width: {{width}}; height: {{height}}; aspect-ratio: {{aspect}}; border: 1px solid purple;"
+        ></iframe>
+    </div>
+
+    <script>
+
+        function resizePreview() {
+            return
+            // Program renderer size set by SPX to {{width}}x{{height}}
+            let DefaultX = 1920;  // Math always defaults to 16:9
+            let DefaultY = 1080;
+
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+
+            if (DefaultX.includes('vw')) {
+                // Responsive settings, use window size! Added in v1.3.0
+                DefaultX = vw;
+                DefaultY = vy;
+            }
+
+            let Wpx = vw// document.getElementById('previewWidthRuler').offsetWidth;
+            let Sca = Wpx/DefaultX;
+            let Hpx = parseInt(DefaultY * Sca);
+            document.getElementById('previewBG').style.width=Wpx+'px';
+            document.getElementById('previewBG').style.height=Hpx+'px';
+            document.getElementById('previewIF').style.transform="scale("+Sca+")";
+            document.getElementById('previewBG').style.display='block';
+            // console.log('Resized to ' + Wpx + ' x ' + Hpx + ' px, scale multiplier: ' + Sca);
+        }
+
+        resizePreview();
+
+    </script>
+    
+</body>
+</html>
