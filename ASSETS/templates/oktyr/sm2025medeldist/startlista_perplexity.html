@@ -20,6 +20,74 @@
         }
     </script>
 
+  
+  <script>
+  // Initial table setup
+  const tbody = document.querySelector('#startlist tbody');
+  for (let i = 0; i < 10; i++) {
+    tbody.innerHTML += `
+      <tr>
+        <td id="number-${i}"></td>
+        <td id="name-${i}"></td>
+        <td id="club-${i}"></td>
+        <td id="start-${i}"></td>
+      </tr>`;
+  }
+  
+  // Modified update function (moved to js/spx_interface.js)
+/*
+  function update(data) {
+    const jsonData = JSON.parse(data);
+    const runnerData = jsonData.runners[0];
+    const itemCount = Math.min(parseInt(runnerData.numberOfItems), 10);
+  
+    // Process each item
+    for (let i = 1; i <= itemCount; i++) {
+      const item = runnerData[`item${i}`];
+      const rowIdx = i - 1;
+      
+      item.forEach(field => {
+        const cellMap = {
+          'f0': `number-${rowIdx}`,
+          'f1': `name-${rowIdx}`,
+          'f2': `club-${rowIdx}`,
+          'f5': `start-${rowIdx}`
+        };
+        
+        if (cellMap[field.field]) {
+          const element = document.getElementById(cellMap[field.field]);
+          if (element) element.textContent = field.value || '';
+        }
+      });
+    }
+  
+    // Clear remaining rows
+    for (let i = itemCount; i < 10; i++) {
+      document.getElementById(`number-${i}`).textContent = '';
+      document.getElementById(`name-${i}`).textContent = '';
+      document.getElementById(`club-${i}`).textContent = '';
+      document.getElementById(`start-${i}`).textContent = '';
+    }
+  }
+  
+  // Add periodic refresh
+  let isUpdating = false;
+  setInterval(async () => {
+    if (!isUpdating) {
+      isUpdating = true;
+      try {
+        const response = await fetch('your-data-source.json');
+        const data = await response.text();
+        update(data);
+      } catch (error) {
+        console.error('Update failed:', error);
+      }
+      isUpdating = false;
+    }
+  }, 60000); // Update every 60 seconds
+*/
+  </script>  
+
     <!-- A template definition object for SPX. -->
     <!-- Place it as the LAST item within the HEAD section -->   
     <script type="text/javascript">

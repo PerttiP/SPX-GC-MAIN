@@ -17,7 +17,6 @@ function update(data) {
     }
 }
 
-
 function play() {
     // Execute animation in
     runAnimationIN()
