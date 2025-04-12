@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./spx_styles.css">
+        <script src="./spx_parse.js"></script>
+        <title>My First SPX Template</title>
+
+        <script>
+            function runAnimationIN() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f0').classList = "fadeIN"
+            }
+
+            function runAnimationOUT() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f0').classList = "fadeOUT"
+            }
+        </script>
+
+        <!-- An example template definition object for SPX. -->
+        <!-- Place it as the last item within the HEAD section -->
+
+        <script>
+            window.SPXGCTemplateDefinition = {
+                "description": "Top left with icon",
+                "playserver": "OVERLAY",
+                "playchannel": "1",
+                "playlayer": "7",
+                "webplayout": "7",
+                "steps" : "1",
+                "out": "manual",
+                "uicolor": "2",
+                "dataformat": "json",
+                "DataFields": [
+                    {
+                        "ftype" : "instruction",
+                        "value" : "An example demo template definition. Learn what it does and make use of it's capabilities."
+                    },
+                    {
+                        "field" : "f0",
+                        "ftype" : "textfield",
+                        "title" : "Info text",
+                        "value" : ""
+                    },
+                    {
+                        "field": "f1",
+                        "ftype": "dropdown",
+                        "title": "Select logo scaling",
+                        "value": "0.3",
+                        "items": [
+                            {
+                                "text": "Tiny logo",
+                                "value": "0.3"
+                            },
+                            {
+                                "text": "Huge logo",
+                                "value": "1.2"
+                            }
+                        ]
+                    },
+                    {
+                        "field" : "f2",
+                        "ftype" : "textarea",
+                        "title" : "Multiline field",
+                        "value" : "First line\nSecond line\n\nFourth one"
+                    },
+                    {
+                        "ftype" : "divider"
+                    },
+                    {
+                        "field": "f3",
+                        "ftype": "filelist",
+                        "title": "Choose background image from global ASSETS-folder",
+                        "assetfolder" : "/media/images/bg/" ,
+                        "extension" : "png",
+                        "value": "/media/images/bg/checker.png",
+                    },
+                    {
+                        "field": "f4",
+                        "ftype": "filelist",
+                        "title": "Choose CSS stylesheet from template's relative styles-folder",
+                        "assetfolder" : "./styles/" ,
+                        "extension" : "css",
+                        "value": "./styles/defaultStyle.css",
+                    },
+                    {
+                        "field": "f5",
+                        "ftype": "number",
+                        "title": "Rotation degrees",
+                        "value": "45",
+                    },
+                    {
+                        "field": "f6",
+                        "ftype": "checkbox",
+                        "title": "Show logo",
+                        "value": "1",
+                    },
+                    {
+                        "field": "f7",
+                        "ftype": "button",
+                        "title": "Click me",
+                        "descr": "Describe button function here",
+                        "fcall": "myCustomHello('world')"
+                    },
+                    {
+                        "ftype": "spacer"
+                    },
+                    {
+                        "field": "f8",
+                        "ftype": "color",
+                        "title": "Text color",
+                        "value": "rgba(255, 255, 255, 1.0)"
+                    }
+                ]
+            };
+        </script>
+
+</head>
+
+<body>
+    <div class="SPXWindow"> 
+        <div id="f0"></div>
+        <div id="f1"></div>
+        <div id="f2"></div>
+        <div id="f3"></div>
+        <div id="f4"></div>
+        <div id="f5"></div>
+        <div id="f6"></div>
+        <div id="f7"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="js/spx_interface.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" id="DynamicTheme" href="themes/News.css" />
+    <title>Start List template</title>
+
+    <script>
+        function runAnimationIN() {
+            // basic animation by swapping the CSS class
+            document.getElementById('f0').classList = "fadeIN"
+        }
+
+        function runAnimationOUT() {
+            // basic animation by swapping the CSS class
+            document.getElementById('f0').classList = "fadeOUT"
+        }
+    </script>
+
+    <!-- A template definition object for SPX. -->
+    <!-- Place it as the LAST item within the HEAD section -->   
+    <script type="text/javascript">
+        window.SPXGCTemplateDefinition = {
+            "description": "Fullscreen start list template",
+            "playserver": "OVERLAY",
+            "playchannel": "1",
+            "playlayer": "7",
+            "webplayout": "7",
+            "out": "manual",
+            "uicolor": "2",
+            "dataformat": "json",
+            "DataFields": [
+                {   
+                    "field" : "comment",
+                    "ftype" : "textfield",
+                    "title" : "A fullscreen start list in the middle of the screen",
+                    "value" : "[ NR NAMN KLUBB STARTTID ]"
+                },
+                {
+                    "ftype" : "instruction",
+                    "value" : "You can leave any field empty. This is a fullscreen overlay with a News theme."
+                },
+                ...Array(10).fill().flatMap((_,i) => [
+                    { field: `f0_${i}`, title: `Number ${i+1}`, ftype: "textfield" },
+                    { field: `f1_${i}`, title: `Name ${i+1}`, ftype: "textfield" },
+                    { field: `f2_${i}`, title: `Club ${i+1}`, ftype: "textfield" },
+                    { field: `f5_${i}`, title: `Start ${i+1}`, ftype: "textfield" }
+                ])
+            ],
+
+            onData: function(data) {
+                // Data population logic here
+                for (let i = 0; i < 10; i++) {
+                    const fields = [
+                        data[`f0_${i}`],  // Number
+                        data[`f1_${i}`],  // Name
+                        data[`f2_${i}`],  // Club
+                        data[`f5_${i}`]   // Starttime
+                    ];
+                    
+                    fields.forEach((value, idx) => {
+                        const cell = document.getElementById(
+                            `${['number','name','club','start'][idx]}-${i}`
+                        );
+                        if (cell) cell.textContent = value || '';
+                    });
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+  <table id="startlist">
+    <thead>
+      <tr><th>Number</th><th>Name</th><th>Club</th><th>Start</th></tr>
+    </thead>
+    <tbody>
+      <!-- Rows will be populated dynamically via JavaScript -->
+    </tbody>
+  </table> 
+</body>
+
+</html>

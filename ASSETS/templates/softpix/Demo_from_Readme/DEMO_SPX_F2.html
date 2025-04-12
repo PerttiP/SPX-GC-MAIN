@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./spx_styles.css">
+        <script src="./spx_parse.js"></script>
+        <title>My First SPX Template</title>
+
+        <script>
+            function runAnimationIN() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f0').classList = "fadeIN"
+            }
+
+            function runAnimationOUT() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f0').classList = "fadeOUT"
+            }
+        </script>
+
+        <!-- An example template definition object for SPX. -->
+        <!-- Place it as the last item within the HEAD section -->
+
+        <script>
+            window.SPXGCTemplateDefinition = {
+                "description": "DEMO TEST",
+                "playserver": "OVERLAY",
+                "playchannel": "1",
+                "playlayer": "7",
+                "webplayout": "7",
+                "steps" : "1",
+                "out": "manual",
+                "uicolor": "2",
+                "dataformat": "json",
+                "DataFields": [
+                    {
+                        "ftype" : "instruction",
+                        "value" : "An example demo template definition. Learn what it does and make use of it's capabilities."
+                    },
+                    {
+                        "field" : "f2",
+                        "ftype" : "textarea",
+                        "title" : "Multiline field",
+                        "value" : "First line\nSecond line\n\nFourth one"
+                    },
+                ]
+            };
+        </script>
+
+</head>
+
+<body>
+    <div class="SPXWindow"> 
+       
+        <div id="f2">field ftype textarea</div>
+       
+    </div>
+</body>
+
+</html>
