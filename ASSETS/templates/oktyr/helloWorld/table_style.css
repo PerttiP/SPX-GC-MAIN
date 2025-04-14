@@ -1,12 +1,26 @@
+/* Make the table responsive */
+.ListAsTable {
+    display: block; /* Allow overflow handling */
+    width: 100%; /* Occupy the full width of the container */
+}
+
+/*
+Tables normally have display: table as their default CSS display property, 
+which supports table-specific layout behaviors such as automatic column sizing.
+*/
 table {
     border-collapse: collapse;
     width: 100%;
+    max-width: 100%; /* Prevent the table from exceeding the container size */
 }
 th, td {
     border: 1px solid black;
     padding: 8px;
     text-align: left;
+    background-color: #f2f2f2;
+    font-size: 1em; /* Adjust font size for readability */
 }
 th {
     background-color: #f2f2f2;
+    font-size: 1em; /* Adjust font size for readability */
 }

@@ -1,6 +1,7 @@
 
-# I have a JavaScript file spx_parse.js with a function coded like this: '// This is a generic BASIC command handler
-
+# I have a JavaScript file spx_parse.js with a function coded like this: 
+```js
+// This is a generic BASIC command handler
 // between SPX and the template. See other
 // SPX templates for more advanced functionality
 // such as Update() etc..
@@ -15,7 +16,11 @@ if ( value == "null" || value == "undefined" ) value = "";
 document.getElementById(field).innerHTML = value
 }
 }
-}'. How can I use this function or an adapted function that periodically can update all 40 values (10 rows with 4 columns per row) in the HTML table by retrieving data values from a external JSON file with structure similar to "{
+}
+```
+How can I use this function or an adapted function that periodically can update all 40 values (10 rows with 4 columns per row) in the HTML table by retrieving data values from a external JSON file with structure similar to "
+```js
+{
 "runners": [
 {
 "description": "Startlist with runners data values",
@@ -100,7 +105,10 @@ document.getElementById(field).innerHTML = value
             ]
         }
     ]
-    }". So if the JSON contains 2 items then the start list should show 2 rows, If it has 3 items then show 3 rows etc. If the JSON has more than 10 items, only the first 10 items should be shown in the startlist. The JSON file may be updated externally, which is the reason that the update() function should be called periodically, like every minute or so. How adapt the code from previous answer to achieve this?
+    }
+    ```
+    
+    So if the JSON contains 2 items then the start list should show 2 rows, If it has 3 items then show 3 rows etc. If the JSON has more than 10 items, only the first 10 items should be shown in the startlist. The JSON file may be updated externally, which is the reason that the update() function should be called periodically, like every minute or so. How adapt the code from previous answer to achieve this?
 
 Here's how to modify your implementation to handle the JSON structure and dynamic updates:
 
