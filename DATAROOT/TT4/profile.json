@@ -1,0 +1,44 @@
+{
+  "templates": [
+    {
+      "description": "My table template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "steps": "10",
+      "DataFields": [
+        {
+          "ftype": "instruction",
+          "value": "This template has several pages (steps). Click 'Continue' for next page..."
+        },
+        {
+          "field": "f100",
+          "ftype": "textfield",
+          "title": "Message",
+          "value": "Hello Table!"
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1744641424719",
+      "relpath": "/oktyr/tablePagination/tableMultiPages.html"
+    }
+  ],
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-14T14:37:04.719Z",
+  "showExtras": {
+    "CustomControls": [
+      {
+        "ftype": "button",
+        "description": "Next Page",
+        "bgclass": "bg_blue",
+        "text": "Next Page",
+        "fcall": "demo_log('Hello world!')"
+      }
+    ]
+  }
+}

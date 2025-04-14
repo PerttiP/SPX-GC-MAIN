@@ -59,9 +59,16 @@ function APIConnector(mode='') {
         });
 } // APIConnector
 
+// Handler function defined in SPX Project Extras - Function Library:
+// 'demo_popup('Hello world!')'
 function demo_popup(message) {
     // A basic hello world example
     alert('A basic example of a custom function.\nThe text given as function argument was:\n\n' + message)
+} // demo_popup
+
+function demo_log(message) {
+    // A basic hello world example
+    console.log('A basic example of a custom function.\nThe text given as function argument was:\n\n' + message)
 } // demo_popup
 
 function demo_toggle(eventButton) {

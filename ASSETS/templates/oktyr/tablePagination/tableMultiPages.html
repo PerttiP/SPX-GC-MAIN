@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8" />
         
-        <link rel="stylesheet" href="./spx_styles.css">
-        <link rel="stylesheet" href="table_style.css">
-        <script src="./spx_parse.js"></script>
+        <link rel="stylesheet" href="css/spx_styles.css">
+        <link rel="stylesheet" href="css/table_style.css">
+        <script src="js/spx_parse.js"></script>
         <title>My SPX Table Template</title>
 
         <script>
@@ -22,6 +22,32 @@
                 document.getElementById('f100').classList = "fadeOUT"
 
             }
+
+            function runAnimationNEXT() {
+                /*
+                var timelineNext = anime.timeline({
+                    easing:   'easeInOutCubic',
+                    duration: 800
+                })
+
+                .add({
+                    targets:    ['#title2'],
+                    opacity:    {value: 1, duration: 50, easing: 'linear'},
+                    clipPath:   { value: [clipHCen, clipNone], delay: 200},
+                },50)
+                */
+                // THIS WORKS!
+                //alert('runAnimationNEXT() CALLED!');
+
+                // Function to handle "Next Page" button       
+                if (currentPage < maxPage) {
+                    currentPage++; // Increment the page number
+                    updateTable();
+                } else {
+                    console.log("No more pages available!");
+                }        
+
+            } // runAnimationNEXT
         </script>
 
         <script>
@@ -33,7 +59,13 @@
                 "webplayout": "7",
                 "out": "manual",
                 "uicolor": "2",
+                "steps": "10",
+                
                 "DataFields": [
+                    {
+                        "ftype" : "instruction",
+                        "value" : "This template has several pages (steps). Click 'Continue' for next page..."
+                    },
                     {
                         "field" : "f100",
                         "ftype" : "textfield",
@@ -57,7 +89,7 @@
                     </tbody>
                 </table>
             </div>
-            <script src="load_dyn_data_table.js"></script>
+            <script src="js/load_dyn_data_table.js"></script>
         </div>
     </body>
 
