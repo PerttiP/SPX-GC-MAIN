@@ -6,6 +6,7 @@
         
         <link rel="stylesheet" href="css/spx_styles.css">
         <link rel="stylesheet" href="css/table_style.css">
+        <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
         <script src="js/spx_parse.js"></script>
         <title>My SPX Table Template</title>
 
@@ -20,22 +21,10 @@
             function runAnimationOUT() {
                 // basic animation by swapping the CSS class
                 document.getElementById('f100').classList = "fadeOUT"
-
+                // TODO:
             }
 
             function runAnimationNEXT() {
-                /*
-                var timelineNext = anime.timeline({
-                    easing:   'easeInOutCubic',
-                    duration: 800
-                })
-
-                .add({
-                    targets:    ['#title2'],
-                    opacity:    {value: 1, duration: 50, easing: 'linear'},
-                    clipPath:   { value: [clipHCen, clipNone], delay: 200},
-                },50)
-                */
                 // THIS WORKS!
                 //alert('runAnimationNEXT() CALLED!');
 
@@ -81,9 +70,6 @@
         <div class="SPXWindow">
             <div class="ListAsTable">
                 <table id="data-table">
-                    <thead>
-                    <!-- Column headers will be populated dynamically via JavaScript -->
-                    </thead>
                     <tbody>
                     <!-- Rows will be populated dynamically via JavaScript -->
                     </tbody>
