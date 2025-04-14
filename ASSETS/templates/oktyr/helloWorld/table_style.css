@@ -1,7 +1,18 @@
+
+html, body {
+    height: 100%; /* Ensure the body covers the full viewport height */
+}
+
 /* Make the table responsive */
-.ListAsTable {
+.ListAsTable_V0 {
     display: block; /* Allow overflow handling */
     width: 100%; /* Occupy the full width of the container */
+}
+
+.ListAsTable {
+    height: 100%; /* Make the container fill the entire viewport height */
+    display: flex; /* Use flexbox for easier row sizing */
+    flex-direction: column; /* Ensure rows are stacked vertically */
 }
 
 /*
@@ -11,16 +22,21 @@ which supports table-specific layout behaviors such as automatic column sizing.
 table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 100%; /* Prevent the table from exceeding the container size */
+    height: 100%;
+    table-layout: fixed; /* FIXME: Equal column widths - REALLY??? */
+  /*  max-width: 100%; /* Prevent the table from exceeding the container size */
 }
 th, td {
     border: 1px solid black;
     padding: 8px;
     text-align: left;
     background-color: #f2f2f2;
-    font-size: 1em; /* Adjust font size for readability */
+    font-size: calc(1vw + 0.5vh); /* Text size adjusts proportionally */
 }
-th {
-    background-color: #f2f2f2;
-    font-size: 1em; /* Adjust font size for readability */
+tr {
+    height: 10%; /* Each row takes up 10% of the table's height */
+}
+
+.hidden {
+    display: none; /* Hide rows with no data */
 }

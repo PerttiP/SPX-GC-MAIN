@@ -26,11 +26,69 @@ const jsonData = {
 
 // FIXME2:
 // fetch('http://yourwebsite.com/DATAROOT/Table_TestData/startList.json')
-    
+/*
+fetch('./DATAROOT/Table_TestData/startList.json')
+    .then(response => { return response.json(); })
+    .then(data => {
+
+        // Create table column headers dynamically
+        const table = document.getElementById('data-table');
+        const headers = ["Number", "Name", "Club", "Start"]; // Hardcoded column headers
+
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Populate table rows from JSON data
+        const tableBody = document.querySelector('tbody');
+        const maxRows = 10;
+
+        Object.values(data).forEach((itemGroup, index) => {
+            if (index >= maxRows) return; // Ensure max 10 rows
+
+            const row = document.createElement('tr');
+            itemGroup.slice(0, headers.length).forEach(item => {
+                const cell = document.createElement('td');
+                cell.textContent = item.value || ""; // Use empty string if value is missing
+                row.appendChild(cell);
+            });
+
+            // If row data is empty, add "hidden" class
+            const isEmpty = itemGroup.every(item => !item.value);
+            if (isEmpty) {
+                row.classList.add('hidden'); // Make rows with no data invisible
+            }
+
+            tableBody.appendChild(row);
+        });
+
+        // Fill remaining rows with hidden placeholders to maintain table layout
+        const currentRowCount = tableBody.querySelectorAll('tr').length;
+        for (let i = currentRowCount; i < maxRows; i++) {
+            const placeholderRow = document.createElement('tr');
+            placeholderRow.classList.add('hidden'); // Invisible row
+            for (let j = 0; j < headers.length; j++) { 
+                const placeholderCell = document.createElement('td');
+                placeholderRow.appendChild(placeholderCell);
+            }
+            tableBody.appendChild(placeholderRow);
+        }
+    })
+    .catch(error => console.error('Error loading JSON data:', error));
+*/
+
+// VERSION SOM FUNKAR:
 fetch('startList.json')
     .then(response => {
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.log(`HTTP error! status: ${response.status}`);
+            //throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json(); // Parse JSON data
     })
@@ -66,7 +124,7 @@ fetch('startList.json')
     .catch(error => {
         console.error('Error fetching JSON data:', error);
     });
-
+// SLUT VERSION SOM FUNKAR
 
 /*
 const table = document.getElementById('data-table');
