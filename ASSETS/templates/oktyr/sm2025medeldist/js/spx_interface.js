@@ -120,11 +120,11 @@ setInterval(async () => {
 // Play handler
 function play() {
   // console.log('----- Play handler called.')
-  // if (typeof runAnimationIN === "function") { 
-  //   runAnimationIN()
-  // } else {
-  //   console.error('runAnimationIN() function missing from SPX template.')
-  // }
+  if (typeof runAnimationIN === "function") { 
+    runAnimationIN()
+  } else {
+     console.error('runAnimationIN() function missing from SPX template.')
+  }
 }
 
 // Stop handler

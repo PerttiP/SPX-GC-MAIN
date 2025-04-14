@@ -1,0 +1,53 @@
+{
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-14T10:05:47.091Z",
+  "templates": [
+    {
+      "description": "My first template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "DataFields": [
+        {
+          "field": "f_title",
+          "ftype": "textfield",
+          "title": "Message",
+          "value": "Hello World!"
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1744622565537",
+      "relpath": "/oktyr/helloWorld/helloWorld.html",
+      "itemID": "1744622583949"
+    },
+    {
+      "description": "My first template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "DataFields": [
+        {
+          "field": "f100",
+          "ftype": "textfield",
+          "title": "Message",
+          "value": "Hello World!"
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1744624204592",
+      "relpath": "/oktyr/helloWorld/table.html",
+      "itemID": "1744624214227"
+    }
+  ],
+  "project": "TABLE_TEST",
+  "rundown": "TABLE_TEST_RD"
+}

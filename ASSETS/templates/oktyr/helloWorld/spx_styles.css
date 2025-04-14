@@ -29,7 +29,7 @@ body, html {
     border:                 1px solid #0f0b0b;
 }
 
-#f0 {
+#f_title, #f100 {
     opacity:                0; /* animated */
     font-size:              5em;
     font-weight:            bold;

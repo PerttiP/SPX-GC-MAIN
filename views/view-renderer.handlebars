@@ -529,6 +529,7 @@
                     break;
 
                 case 'updateTemplate':
+                    console.log('SPXMessage2Client with spxcmd = updateTemplate received to renderer', data);
                     setTimeout(function(){ updateLayer(data.webplayout,data.fields); }, 10);
                     break;
 

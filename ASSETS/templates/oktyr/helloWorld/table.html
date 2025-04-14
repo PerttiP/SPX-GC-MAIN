@@ -4,18 +4,22 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="./spx_styles.css">
+        <link rel="stylesheet" href="table_style.css">
         <script src="./spx_parse.js"></script>
-        <title>My First SPX Template</title>
+        <title>My SPX Table Template</title>
 
         <script>
             function runAnimationIN() {
                 // basic animation by swapping the CSS class
-                document.getElementById('f_title').classList = "fadeIN"
+                document.getElementById('f100').classList = "fadeIN"
+                document.getElementById('data-table').classList = "fadeIN"
+                document.getElementsByClassName('ListAsTable').classList = "fadeIN"
             }
 
             function runAnimationOUT() {
                 // basic animation by swapping the CSS class
-                document.getElementById('f_title').classList = "fadeOUT"
+                document.getElementById('f100').classList = "fadeOUT"
+
             }
         </script>
 
@@ -30,7 +34,7 @@
                 "uicolor": "2",
                 "DataFields": [
                     {
-                        "field" : "f_title",
+                        "field" : "f100",
                         "ftype" : "textfield",
                         "title" : "Message",
                         "value" : "Hello World!"
@@ -41,8 +45,18 @@
     </head>
 
     <body>
-        <div class="SPXWindow"> 
-            <div id="f_title"></div>
+        <div class="SPXWindow">
+            <div class="ListAsTable">
+            <table id="data-table">
+                <thead>
+                <!-- Column headers will be populated dynamically via JavaScript -->
+                </thead>
+                <tbody>
+                <!-- Rows will be populated dynamically via JavaScript -->
+                </tbody>
+            </table>
+            </div>
+            <script src="load_dyn_data_table.js"></script>
         </div>
     </body>
 
