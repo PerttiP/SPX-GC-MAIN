@@ -15,7 +15,7 @@ function update(data) {
     // Retrieve the element whose id matches the current key
     var idField = document.getElementById(dataField);
     if (idField) {
-      // Retrieve the text value
+      // Retrieve the field text value
       let fString = templateData[dataField];
       if ( fString != 'undefined' && fString != 'null' ) {
         // Update the visible content of the element
@@ -24,12 +24,13 @@ function update(data) {
         idField.innerText = '';
       }
     } else {
+      // Pertti: Seems to never enter the else branch?
       switch (dataField) {
         case 'comment':
         case 'epochID':
           // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
           break;
-          //FIXME: WHen are thses called and what can they be used for?
+          //FIXME: What can these be used for?
           case 'f_list_titel':
             //alert('Update handler with f_list_titel');
             break;
@@ -42,6 +43,7 @@ function update(data) {
     }
   }
 
+  // Once DOM updated we can initPageData and run animations...
   if (typeof runTemplateUpdate === "function") { 
     runTemplateUpdate() // Play will follow
   } else {
@@ -103,7 +105,8 @@ window.onerror = function (msg, url, row, col, error) {
   err.file = url;
   err.message = msg;
   err.line = row;
-  console.log('%c' + 'SPX Template Error Detected:', 'font-weight:bold; font-size: 1.2em; margin-top: 2em;');
+  console.log('%c' + 'SPX Template Error Detected:', 
+    'font-weight:bold; font-size: 1.2em; margin-top: 2em;');
   console.table(err);
   // spxlog('Template Error Auto Detected: file: ' + url + ', line: ' + row + ', msg; ' + msg,'WARN')
 };
