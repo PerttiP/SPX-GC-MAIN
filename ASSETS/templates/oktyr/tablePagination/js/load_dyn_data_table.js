@@ -7,22 +7,43 @@ const maxPage = 3; // Total pages: 3 (30 items, 10 items per page)
 const rowsPerPage = 10; // Number of rows per page
 let jsonDataGlob = {}; // This will hold the fetched JSON data
 
-
 // Fetch JSON data from the external file
+//const path = require('path');
+//import path from 'path';
 
-// FIXME:
-// fetch('./DATAROOT/Table_TestData/startList.json')
+
+// Get the root directory of the running Node.js application
+// The value of require.main.filename always points to the entry file (e.g., server.js) that started the Node.js process
+//const rootDir = path.dirname(require.main.filename);
+/*
+const spx = require('./spx_server_functions.js'); //FIXME: require is not defined
+const rootDir = spx.getStartUpFolder(); //FIXME: spx is not defined
+console.log('Root directory:', rootDir);
+
+//jsonDataDir = path.join('rootDir', 'DATAROOT\SM2025\data\D21\startList_30items.json');
+
+jsonDataDir = rootDir + 'DATAROOT\SM2025\data\D21\startList_30items.json'
+console.log('JSON Data directory:', jsonDataDir);
+*/
 
 // FIXME2:
 // fetch('http://yourwebsite.com/DATAROOT/Table_TestData/startList.json')
 
+// IMPORTANT: the JSON file must be hosted on a server, for fetch to work!!!
+
 // VERSION SOM FUNKAR:
-fetch('startList_30items.json') // retrieves all items from the JSON file in a single request
+//fetch(jsonDataDir) // retrieves all items from the JSON file in a single request
+fetch('startList_30items.json')
     .then(response => {
         if (!response.ok) {
             console.log(`HTTP error! status: ${response.status}`);
             //throw new Error(`HTTP error! status: ${response.status}`);
-            return;
+            // Attempt local file reading instead
+            fs.readFile(jsonDataDir, 'utf-8')
+                .then(data => {
+                    return data.json();
+                })
+                .catch(error => console.error('Error loading JSON data also with fs.readFile:', error));
         }
         return response.json(); // Parse JSON data
     })

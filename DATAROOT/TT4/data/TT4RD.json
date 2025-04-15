@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-14T15:30:07.251Z",
+  "updated": "2025-04-15T09:55:18.971Z",
   "templates": [
     {
       "description": "My table template",
@@ -24,11 +24,11 @@
           "value": "Hello Table!"
         }
       ],
-      "onair": "false",
+      "onair": "true",
       "dataformat": "json",
-      "imported": "1744644428884",
+      "imported": "1744710907968",
       "relpath": "/oktyr/tablePagination/tableMultiPages.html",
-      "itemID": "1744644436131"
+      "itemID": "1744710917012"
     }
   ],
   "project": "TT4",
