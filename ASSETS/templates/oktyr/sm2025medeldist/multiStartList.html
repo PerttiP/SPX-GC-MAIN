@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/spx_styles.css">
         <link rel="stylesheet" href="css/table_style.css">
         <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
-        <script src="js/spx_parse.js"></script>
+        <script src="js/spx_interface.js"></script>
         <title>My SPX Table Template</title>
 
         <script>
@@ -21,7 +21,7 @@
             function runAnimationOUT() {
                 // basic animation by swapping the CSS class
                 document.getElementById('f100').classList = "fadeOUT"
-                // TODO:
+                // FIXME:
                 document.getElementById('data-table').classList = "fadeOUT"
                 document.getElementsByClassName('ListAsTable').classList = "fadeOUT"
             }
@@ -39,7 +39,17 @@
                 }        
 
             } // runAnimationNEXT
+
+            function runTemplateUpdate() {
+                alert('runTemplateUpdate() CALLED!');
+                
+                console.clear();
+                e('DynamicTheme').href = e('f99').innerText;
+                e('list_titel').innerHTML = htmlDecode(e('f100').innerText);
+                e('vald_klass').innerHTML = htmlDecode(e('f101').innerText);
             
+                setTimeout(runAnimationIN, 100);
+            } // runTemplateUpdate
         </script>
 
         <script>
@@ -63,6 +73,38 @@
                         "ftype" : "textfield",
                         "title" : "Message",
                         "value" : "Hello Table!"
+                    },
+                    {
+                        "field" : "f101",
+                        "ftype" : "dropdown",
+                        "title" : "Select Class",
+                        "value" : "D21",
+                        "items" : [
+                            {
+                                "text": "D21",
+                                "value": "D21"
+                            },
+                            {
+                                "text": "H21",
+                                "value": "H21"
+                            },
+                            {
+                                "text": "D20",
+                                "value": "D20"
+                            },
+                            {
+                                "text": "H20",
+                                "value": "H20"
+                            },
+                            {
+                                "text": "D18",
+                                "value": "D18"
+                            },
+                            {
+                                "text": "H18",
+                                "value": "D18"
+                            }
+                        ]
                     }
                 ]
             };
@@ -80,6 +122,13 @@
             </div>
             <script src="js/load_dyn_data_table.js"></script>
         </div>
+
+        <div id="hiddenSpxData" data-info="See styles.css">
+            <div data-info="Theme........" id="f99"></div>
+            <div data-info="Main title..." id="f100"></div>            
+            <div data-info="Class........" id="f101"></div>
+        </div>
+    
     </body>
 
 </html>
