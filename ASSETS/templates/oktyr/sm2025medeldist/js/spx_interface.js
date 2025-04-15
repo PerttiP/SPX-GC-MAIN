@@ -9,11 +9,16 @@
 function update(data) {
   var templateData = JSON.parse(data);
   console.log('----- Update handler called with data:', templateData)
+
+  // Iterate over all enumerable properties
   for (var dataField in templateData) {
+    // Retrieve the element whose id matches the current key
     var idField = document.getElementById(dataField);
     if (idField) {
+      // Retrieve the text value
       let fString = templateData[dataField];
       if ( fString != 'undefined' && fString != 'null' ) {
+        // Update the visible content of the element
         idField.innerText = fString
       } else {
         idField.innerText = '';
@@ -24,6 +29,13 @@ function update(data) {
         case 'epochID':
           // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
           break;
+          //FIXME: WHen are thses called and what can they be used for?
+          case 'f_list_titel':
+            //alert('Update handler with f_list_titel');
+            break;
+          case 'f_vald_klass':
+            //alert('Update handler with f_vald klass');
+            break;
         default:
           console.error('ERROR Placeholder #' + dataField + ' missing from SPX template.');
       }
@@ -41,9 +53,9 @@ function update(data) {
 function play() {
   // console.log('----- Play handler called.')
   if (typeof runAnimationIN === "function") { 
-     runAnimationIN()
+    runAnimationIN()
   } else {
-     console.error('runAnimationIN() function missing from SPX template.')
+    console.error('runAnimationIN() function missing from SPX template.')
   }
 }
 

@@ -8,20 +8,20 @@
         <link rel="stylesheet" href="css/table_style.css">
         <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
         <script src="js/spx_interface.js"></script>
-        <title>My SPX Table Template</title>
+        <title>Start List Table Template</title>
 
         <script>
             function runAnimationIN() {
                 // basic animation by swapping the CSS class
-                document.getElementById('f100').classList = "fadeIN"
+                document.getElementById('list_titel').classList = "fadeIN"
                 document.getElementById('data-table').classList = "fadeIN"
                 document.getElementsByClassName('ListAsTable').classList = "fadeIN"
             }
 
             function runAnimationOUT() {
                 // basic animation by swapping the CSS class
-                document.getElementById('f100').classList = "fadeOUT"
-                // FIXME:
+                document.getElementById('list_titel').classList = "fadeOUT"
+                // FIXME: not hidden?
                 document.getElementById('data-table').classList = "fadeOUT"
                 document.getElementsByClassName('ListAsTable').classList = "fadeOUT"
             }
@@ -36,17 +36,33 @@
                     updateTable();
                 } else {
                     console.log("No more pages available!");
-                }        
-
+                    alert('Showing last page. No more pages available!');
+                }
             } // runAnimationNEXT
 
             function runTemplateUpdate() {
-                alert('runTemplateUpdate() CALLED!');
+                //alert('runTemplateUpdate() CALLED!');
                 
-                console.clear();
-                e('DynamicTheme').href = e('f99').innerText;
-                e('list_titel').innerHTML = htmlDecode(e('f100').innerText);
-                e('vald_klass').innerHTML = htmlDecode(e('f101').innerText);
+                //console.clear();
+                e('list_titel').innerHTML = htmlDecode(e('f_list_titel').innerText);
+                e('vald_klass').innerHTML = htmlDecode(e('f_vald_klass').innerText);
+
+                // TODO: Get the vald klass from dropdown
+                // NOTE: The value property is only available for form elements 
+                // like <input>, <textarea>, or <select>.
+                let element = document.getElementById('vald_klass');
+                console.log(element);
+
+                let selectedClass = "";
+                if (typeof (element) != 'undefined' && element != null) {
+                    // NOTE: Use innerText to get the content of the div.
+                    selectedClass = element.innerText;
+                    //alert('selectedClass' + selectedClass);
+                }
+
+                // TODO: Change the list titel based on selection
+                const listTitle = document.getElementById('list_titel');
+                listTitle.innerText = listTitle.innerText + " " + selectedClass;
             
                 setTimeout(runAnimationIN, 100);
             } // runTemplateUpdate
@@ -54,7 +70,7 @@
 
         <script>
             window.SPXGCTemplateDefinition = {
-                "description": "My table template",
+                "description": "Start list table template",
                 "playserver": "OVERLAY",
                 "playchannel": "1",
                 "playlayer": "7",
@@ -69,13 +85,13 @@
                         "value" : "This template has several pages (steps). Click 'Continue' for next page..."
                     },
                     {
-                        "field" : "f100",
+                        "field" : "f_list_titel",
                         "ftype" : "textfield",
-                        "title" : "Message",
-                        "value" : "Hello Table!"
+                        "title" : "Set list title",
+                        "value" : "START LISTA"
                     },
                     {
-                        "field" : "f101",
+                        "field" : "f_vald_klass",
                         "ftype" : "dropdown",
                         "title" : "Select Class",
                         "value" : "D21",
@@ -113,8 +129,11 @@
 
     <body>
         <div class="SPXWindow">
+            <div id="list_titel"></div>
+            <div id="vald_klass" hidden>Hidden Placeholder</div>
             <div class="ListAsTable">
                 <table id="data-table">
+                    <!-- No table header -->
                     <tbody>
                     <!-- Rows will be populated dynamically via JavaScript -->
                     </tbody>
@@ -124,9 +143,8 @@
         </div>
 
         <div id="hiddenSpxData" data-info="See styles.css">
-            <div data-info="Theme........" id="f99"></div>
-            <div data-info="Main title..." id="f100"></div>            
-            <div data-info="Class........" id="f101"></div>
+            <div data-info="List titel..." id="f_list_titel"></div>          
+            <div data-info="Vald klass..." id="f_vald_klass"></div>
         </div>
     
     </body>
