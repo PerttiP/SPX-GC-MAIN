@@ -81,8 +81,6 @@ function formatJSONAndSetDomFields(fieldData) {
   }
 }
 
-// Global exported function
-window.TyrAppGlobals.getRunnerData = getRunnerData;
 // This getRunnerData function is triggered by extra button 'Get Runners'!
 function getRunnerData(startNumber) {
   console.log('----- getRunnerData called with startNumber:', startNumber)
