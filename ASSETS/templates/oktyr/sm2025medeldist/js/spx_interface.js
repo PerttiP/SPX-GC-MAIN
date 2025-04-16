@@ -6,8 +6,14 @@
 // TEST: Global Window variables
 // -----------------------------
 
-window.TyrApp = {startNumber: 0}; // Access this as TyrApp.startNumber in HTML/JS
+//window.TyrApp = {startNumber: 0}; // Access this as TyrApp.startNumber in HTML/JS
 
+// FAST HACK (YES IT IS BAD I KNOW)
+// If window.AppGlobals does not exist (is undefined or null), it assigns an empty object {} to it.
+window.TyrAppGlobals = window.TyrAppGlobals || {};
+if (window.TyrAppGlobals.startNumber === undefined) {
+  window.TyrAppGlobals.startNumber = 0;
+}
 
 
 // Receive item data from SPX Graphics Controller (field editor)
