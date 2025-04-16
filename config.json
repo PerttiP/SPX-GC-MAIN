@@ -1,0 +1,46 @@
+{
+  "general": {
+    "username": "",
+    "password": "",
+    "hostname": "",
+    "greeting": "",
+    "langfile": "english.json",
+    "loglevel": "info",
+    "launchBrowser": false,
+    "apikey": "",
+    "logfolder": "C:/Users/perti/repo/SPX-GC_1.3.3/SPX-GC-main/LOG/",
+    "dataroot": "C:/Users/perti/repo/SPX-GC_1.3.3/SPX-GC-main/DATAROOT/",
+    "templatesource": "spx-ip-address",
+    "port": 5656,
+    "disableConfigUI": false,
+    "disableLocalRenderer": false,
+    "disableOpenFolderCommand": false,
+    "disableSeveralControllersWarning": false,
+    "hideRendererCursor": false,
+    "resolution": "HD",
+    "preview": "selected",
+    "renderer": "normal",
+    "autoplayLocalRenderer": true,
+    "recents": [
+      "GETRUNNER2/GRRD2",
+      "MedelDist/MedelDistRD",
+      "SPXPackDemo/SPXPackRD",
+      "DemoSPXTest/ExtraFunctions",
+      "DemoSPXTest/DemoFromSPXTest3"
+    ]
+  },
+  "casparcg": {
+    "servers": []
+  },
+  "osc": {
+    "enable": false,
+    "port": 57121
+  },
+  "globalExtras": {
+    "customscript": "/ExtraFunctions/demoFunctions.js",
+    "CustomControls": []
+  },
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-16T08:19:46.585Z"
+}

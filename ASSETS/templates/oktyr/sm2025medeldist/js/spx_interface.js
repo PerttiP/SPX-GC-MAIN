@@ -2,6 +2,14 @@
 // (c) Copyright 2021- SPX Graphics (https://spx.graphics)
 // ----------------------------------------------------------------
 
+
+// TEST: Global Window variables
+// -----------------------------
+
+window.TyrApp = {startNumber: 0}; // Access this as TyrApp.startNumber in HTML/JS
+
+
+
 // Receive item data from SPX Graphics Controller (field editor)
 // and store values in hidden DOM elements for
 // use in the template.

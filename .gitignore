@@ -24,7 +24,8 @@ thumbs.db
 Thumbs.db
 *env.json
 desktop.ini
-*config*.json
+# OK Tyr: Check in config.json to GitHub repo!
+#*config*.json
 static/*.json
 *.pdf
 sea-*.*

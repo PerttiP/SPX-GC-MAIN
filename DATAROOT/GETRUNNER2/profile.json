@@ -118,7 +118,7 @@
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-16T08:16:30.224Z",
+  "updated": "2025-04-16T08:47:33.978Z",
   "showExtras": {
     "CustomControls": [
       {
@@ -128,6 +128,7 @@
         "text": "Get Runner",
         "fcall": "getRunner()"
       }
-    ]
+    ],
+    "customscript": "ExtraFunctions/getRunnerFunctions.js"
   }
 }
