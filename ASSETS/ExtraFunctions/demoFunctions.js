@@ -156,3 +156,19 @@ function playSelectedAudio(selectList) {
     playServerAudio(sfx,message='Custom audio button')
 } // playSelectedAudio
 
+/*
+----------------------
+OK Tyr extra functions
+----------------------
+*/
+
+function SPX_UI_popup(message) {
+    // A basic message to OPERATOR in SPX UI
+    alert(message);
+}
+
+function getRunner() {
+    alert('getRunner() CALLED!');
+
+}
+

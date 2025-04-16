@@ -1,68 +1,8 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-15T15:01:54.483Z",
-  "templates": [
-    {
-      "description": "Start list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
-      "DataFields": [
-        {
-          "ftype": "instruction",
-          "value": "This template has several pages (steps). Click 'Continue' for next page..."
-        },
-        {
-          "field": "f_list_titel",
-          "ftype": "textfield",
-          "title": "Set list title",
-          "value": "ResultatLISTA"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D20",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "D18"
-            }
-          ]
-        }
-      ],
-      "onair": "true",
-      "dataformat": "json",
-      "imported": "1744729273187",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
-      "itemID": "1744729280525"
-    }
-  ],
+  "updated": "2025-04-16T06:51:58.831Z",
+  "templates": [],
   "project": "MedelDist",
   "rundown": "MedelDistRD"
 }
