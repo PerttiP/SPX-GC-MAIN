@@ -5,7 +5,19 @@
 let currentPage = 1; // Start at page 1
 const maxPage = 3; // Total pages: 3 (30 items, 10 items per page)
 const rowsPerPage = 10; // Number of rows per page
-let jsonDataGlob = {}; // This will hold the fetched JSON data
+
+// Global Window variables
+// ----------------------------------------------------
+// Access these as TyrAppGlobals.startNumber in HTML/JS
+// IT IS A FAST HACK (YES IT IS BAD I KNOW)
+
+// If window.TyrAppGlobals does not exist (is undefined or null), 
+// it assigns an empty object {} to it.
+window.TyrAppGlobals = window.TyrAppGlobals || {};
+if (window.TyrAppGlobals.jsonRunnerInfoData === undefined) {
+  window.TyrAppGlobals.jsonRunnerInfoData = {}; // This will hold the fetched JSON data
+}
+// ----------------------------------------------------
 
 // Fetch JSON data from the external file
 //const path = require('path');
@@ -49,30 +61,24 @@ fetch('startList_30items.json')
     })
     // Once fetched, the data remains in memory for the lifetime of the webpage
     .then(data => {
-        jsonDataGlob = data; // Store JSON data globally!
+        window.TyrAppGlobals.jsonRunnerInfoData = data; // Store JSON data globally!
 
         // Populate the table
         const table = document.getElementById('data-table');
-        const headers = ["Number", "Fullname", "Club", "Starttime"]; // Hardcoded column headers, max 4 !!!
 
-        // Create table headers from JSON (NOT WORKING: Cannot have all, only 4 columns)
-    //    const headers = jsonData.item1.map(item => item.title); // ["Number", "Fullname", "Club", "Location", "Class", "Starttime"]
+        //const headers = ["Number", "Fullname", "Club", "Starttime"]; // Hardcoded column headers, max 4 !!
+        // Skipping table headers!   
 
-        // Create table headers dynamically
-        /* FIXME: SKIP HEADERS!!!
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header;
-            headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-        */
-
-        // Initially load the first page
-        updateTable();
+        
+        if (document.getElementById('data-table')) {
+            // Initially load the first page, if there is a data table on the page
+            updateTable();
+        }
+        else {
+            // Or else, just use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
+            // TODO: nothing
+        }
+        
 
         // Populate only ONE page:
         /*
@@ -103,10 +109,10 @@ function updateTable() {
 
     const startIndex = (currentPage - 1) * rowsPerPage; // Determine start index for current page
     const endIndex = startIndex + rowsPerPage; // Determine end index for current page
-    const pageDataKeys = Object.keys(jsonDataGlob).slice(startIndex, endIndex); // Get relevant keys for the page
+    const pageDataKeys = Object.keys(window.TyrAppGlobals.jsonRunnerInfoData).slice(startIndex, endIndex); // Get relevant keys for the page
 
     pageDataKeys.forEach(key => {
-        const itemGroup = jsonDataGlob[key]; // Fetch data for each item
+        const itemGroup = window.TyrAppGlobals.jsonRunnerInfoData[key]; // Fetch data for each item
         const row = document.createElement('tr');
         if (itemGroup) {
             itemGroup.slice(0, 4).forEach(item => { // Only use first 4 fields
@@ -118,48 +124,3 @@ function updateTable() {
         }
     });
 }
-
-// VERSION SOM FUNKAR:
-/*
-fetch('startList.json')
-    .then(response => {
-        if (!response.ok) {
-            console.log(`HTTP error! status: ${response.status}`);
-            //throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json(); // Parse JSON data
-    })
-    .then(data => {
-        // Populate the table
-        const table = document.getElementById('data-table');
-        const headers = ["Number", "Name", "Club", "Start"]; // Hardcoded column headers
-
-        // Create table headers dynamically
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header;
-            headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        // Populate table rows from JSON data
-        const tbody = document.createElement('tbody');
-        Object.values(data).forEach(itemGroup => {
-            const row = document.createElement('tr');
-            itemGroup.slice(0, 4).forEach(item => { // Only use first 4 fields
-                const td = document.createElement('td');
-                td.textContent = item.value || ""; // Use empty string if value is null
-                row.appendChild(td);
-            });
-            tbody.appendChild(row);
-        });
-        table.appendChild(tbody);
-    })
-    .catch(error => {
-        console.error('Error fetching JSON data:', error);
-    });
-*/
-// SLUT VERSION SOM FUNKAR

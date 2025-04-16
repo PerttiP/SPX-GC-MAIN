@@ -65,6 +65,57 @@ function update(data) {
   }
 }
 
+// Borrowed from views\view-renderer.handlebars:
+function formatJSONAndSetDomFields(fieldData) {
+  console.log('formatJSONAndSetDomFields:', fieldData);
+  let formattedJsonOut = {};
+  if (fieldData) {
+      var keys = [];
+      for (var k in fieldData) keys.push(k);
+      fieldData.forEach((item,index) => {
+          let KEY = Object.keys(item)[0];
+          let VAL = fieldData[index][Object.keys(item)[0]]
+          formattedJsonOut[KEY]=VAL;
+      });
+      return JSON.stringify(formattedJsonOut)
+  }
+}
+
+// Global exported function
+window.TyrAppGlobals.getRunnerData = getRunnerData;
+// This getRunnerData function is triggered by extra button 'Get Runners'!
+function getRunnerData(startNumber) {
+  console.log('----- getRunnerData called with startNumber:', startNumber)
+
+  let item = {};
+  // Get the ONE and ONLY matching item from jsonRunnerInfoData
+  for (const [key, fields] of Object.entries(window.TyrAppGlobals.jsonRunnerInfoData)) {
+    const numberField = fields.find(
+      field => field.title === "Number" && field.value === startNumber
+    );
+    if (numberField) {
+      item = { key, fields }; // Return the key and the matching item array
+
+      if (item) {
+        //FIXME:
+        //ALT 1: Is it now we can call update() function above???
+        update(item.JSON);
+
+        //ALT2: Or do we need to do sth more???
+
+        // Once DOM updated we can set the fields in the SPX UI template def?
+        /*
+        if (typeof runTemplateUpdate === "function") { 
+          runTemplateUpdate() // Play will follow
+        } else {
+          console.error('runTemplateUpdate() function missing from SPX template.')
+        }
+        */
+      }
+    }
+  }  
+}
+
 // Play handler
 function play() {
   // console.log('----- Play handler called.')

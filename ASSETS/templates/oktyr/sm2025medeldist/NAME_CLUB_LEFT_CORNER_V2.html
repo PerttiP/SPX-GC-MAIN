@@ -25,7 +25,8 @@
     06.05.2024 Replaced GSAP with AnimeJS. Simplified source.
     08.04.2025 Changed theme to News.
     08.04.2025 Added number field as f0.
-    16.04.2025 Added 'Get Runner' button as plugin for showExtras prop in templates.
+    16.04.2025 Added 'Get Runner' button as extra function for showExtras prop in projects profile.json.
+               Need to use and get runner data via load_dyn_data_table.js (same as for multiStartList.html)
 -->
 
 
@@ -33,7 +34,9 @@
 <head>
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
+    <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <script type="text/javascript" src="js/load_dyn_data_table.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <link rel="stylesheet" type="text/css" id="DynamicTheme" href="themes/News.css" />
@@ -242,19 +245,7 @@
                     "extension" : "css",
                     "value": "./themes/News.css",
                 }
-            ]/*,  ONLY NEEDED IN PROJECT profile.json - set via UI Project Settings!
-            "showExtras": {
-                "customscript": "/ExtraFunctions/demoFunctions.js",
-                "CustomControls": [
-                    {
-                        "description": "Get Runner (by startnumber)",
-                        "ftype": "button",
-                        "bgclass": "bg_orange",
-                        "text": "Get Runner",
-                        "fcall": "getRunner",
-                    },
-                ]
-            },*/
+            ]
         };
 
     </script>
