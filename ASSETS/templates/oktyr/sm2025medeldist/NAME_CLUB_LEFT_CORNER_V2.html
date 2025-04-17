@@ -26,7 +26,8 @@
     08.04.2025 Changed theme to News.
     08.04.2025 Added number field as f0.
     16.04.2025 Added 'Get Runner' button as extra function for showExtras prop in projects profile.json.
-               Need to use and get runner data via load_dyn_data_table.js (same as for multiStartList.html)
+               Need to use and get runner data via load_dyn_data_table.js (same as for multiStartList.html).
+    17.04.2025 Corrected ftype to 'number' for field f0. Changed HTML element id to 'id="startnumber"'.
 -->
 
 
@@ -83,7 +84,7 @@
             padding: 0.2em 0;
         }
 
-        #number {
+        #startnumber {
             margin-right: 1em; /* Adjust space between number and name */            
         }
 
@@ -105,7 +106,7 @@
         
         function runTemplateUpdate() {
             e('DynamicTheme').href = e('f99').innerText;
-            e('number').innerHTML = htmlDecode(e('f0').innerText);
+            e('startnumber').innerHTML = htmlDecode(e('f0').innerText);
             e('text1').innerHTML = htmlDecode(e('f1').innerText);
             e('text2').innerHTML = htmlDecode(e('f2').innerText);
             e('text3').innerHTML = htmlDecode(e('f3').innerText);
@@ -116,7 +117,7 @@
             e('box4').style.display='flex';
 
             // Hide empty ones
-            if (e('f0').innerText=='') { e('number').style.display='none'; }
+            if (e('f0').innerText=='') { e('startnumber').style.display='none'; }
             if (e('f0').innerText=='' && e('f1').innerText=='') { e('box1').style.display='none'; }
             if (e('f2').innerText=='') { e('box3').style.display='none'; }
             if (e('f3').innerText=='') { e('box4').style.display='none'; }
@@ -141,14 +142,14 @@
             },0)
 
             .add({
-                targets:    ['#box1', '#number'],
+                targets:    ['#box1', '#startnumber'],
                 duration:   300, 
                 clipPath:   [clipEast,clipNone],
                 opacity:    [0,1],
             },50)
             
             .add({
-                targets:    ['#text1', '#number'],
+                targets:    ['#text1', '#startnumber'],
                 opacity:    { value: [0,1], duration: 300},
                 translateX: { value: ['50%','0%'], duration: 800 },
             },0)
@@ -170,7 +171,7 @@
             })
 
             .add({
-                targets:    ['#text1', '#number'],
+                targets:    ['#text1', '#startnumber'],
                 translateX: { value: ['50%'] },
             },0)
 
@@ -217,8 +218,8 @@
                 },
                 {
                     "field" : "f0",
-                    "ftype" : "textfield",
-                    "title" : "Number",
+                    "ftype" : "number",
+                    "title" : "Startnumber",
                     "value" : "999"
                 },
                 {
@@ -258,7 +259,7 @@
     <div class="SPXWindow left">
         <div id="logoLeft"></div>
         <div id="gfx">
-            <div id="box1" class="darkOnLite"><span id="number">123</span><span id="text1"></span></div>
+            <div id="box1" class="darkOnLite"><span id="startnumber">123</span><span id="text1"></span></div>
             <div id="details">
                 <div id="box3" class="liteOnColor">
                     <span id="text2"></span>
@@ -271,7 +272,7 @@
     </div>
 
     <div id="hiddenSpxData" data-info="See styles.css">
-        <div data-info="Number......." id="f0"></div>
+        <div data-info="Startnumber.." id="f0"></div>
         <div data-info="Fullname....." id="f1"></div>
         <div data-info="Club........." id="f2"></div>
         <div data-info="Location....." id="f3"></div>

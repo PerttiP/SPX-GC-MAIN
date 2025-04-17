@@ -10,7 +10,7 @@ html, body {
 }
 
 .ListAsTable {
-    height: 100%; /* Make the container fill the entire viewport height */
+    height: 90%; /* Make the container fill the entire viewport height */
     display: flex; /* Use flexbox for easier row sizing */
     flex-direction: column; /* Ensure rows are stacked vertically */
 }
@@ -31,10 +31,12 @@ th, td {
     padding: 8px;
     text-align: left;
     background-color: #f2f2f2;
-    font-size: calc(1vw + 0.5vh); /* Text size adjusts proportionally */
+    /*font-size: calc(1vw + 0.5vh); /* Text size adjusts proportionally */
+    /*font-size: calc(4.1vw + 0.4vh); /* approximately 88px ? */
+    font-size: calc(2vw + 0.2vh);
 }
 tr {
-    height: 10%; /* Each row takes up 10% of the table's height */
+    height: 9%; /* Each row takes up 10% of the table's height */
 }
 
 .hidden {

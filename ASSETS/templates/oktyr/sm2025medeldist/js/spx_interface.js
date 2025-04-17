@@ -28,6 +28,12 @@ if (window.TyrAppGlobals.jsonRunnerInfoData === undefined) {
 // and store values in hidden DOM elements for use in the template.
 
 function update(data) {
+  if (data.startsWith("<templateData>")) {
+    //let parser = new DOMParser();
+    //SEE 'BUMPER' demo in Template_Pack_1.3.2 for parsing example
+    console.log('----- Update handler where data starts with <templateData>');
+  }
+
   var templateData = JSON.parse(data);
   console.log('----- Update handler called with data:', templateData)
 
@@ -60,21 +66,14 @@ function update(data) {
           case 'f_vald_klass':
             //alert('Update handler with f_vald klass');
             break;
-          case 'f0':
-            alert('Update handler with missing f0');
-            break;
-          case 'f1':
-            alert('Update handler with missing f1');
-            break;
-          case 'f2':
-            alert('Update handler with missing f2');
-            break;
+          case 'f0':            
+          case 'f1':            
+          case 'f2':            
           case 'f3':
-            alert('Update handler with missing f3');
-            break;
-          
+            console.error('Required Placeholder #' + dataField + ' missing from SPX template.');
+            break;          
         default:
-          console.error('ERROR Placeholder #' + dataField + ' missing from SPX template.');
+          console.error('Placeholder #' + dataField + ' missing from SPX template.');
       }
     }
   }
@@ -114,45 +113,81 @@ function checkWindowTyrAppGlobals() {
   return true;
 }
 
-function findMatchingRunner(startNumberStr) {
-  if (!checkWindowTyrAppGlobals) { return null; }
+// Example JSON structure
+const jsonDataForTest = {
+  "item1": [
+      { "field": "f0", "ftype": "number", "title": "Number", "value": "444" },
+      { "field": "f1", "ftype": "textfield", "title": "Fullname", "value": "Namn Namnsson" }
+  ],
+  "item2": [
+      { "field": "f0", "ftype": "number", "title": "Number", "value": "445" },
+      { "field": "f1", "ftype": "textfield", "title": "Fullname", "value": "Kalle Anka" }
+  ]
+};
 
-  // Get the list of entries from jsonRunnerInfoData
-  const runnerInfoEntries = Object.entries(window.TyrAppGlobals.jsonRunnerInfoData);
+function findMatchingRunner(startNumber) {
+  // Convert startNumber to a string for comparison
+  const targetValue = startNumber.toString();
 
-  console.log(typeof startNumberStr);  
+  let jsonData = jsonDataForTest;
 
-  // Iterate through each entry
-  for (const [key, fields] of runnerInfoEntries) {
+  // Iterate over the items in the JSON structure
+  for (const itemKey in jsonData) {
+      console.info(itemKey);
 
-    console.log(typeof fields);
-
-      // Search for a field where title is "Number" and value matches startNumberStr
-      const matchingField = fields.find(field => {
-          console.log(typeof field.value);
-          return field.title === "Number" && field.value === startNumberStr;
-      });
-
-      // If a matching field is found, return the key and fields
-      if (matchingField) {
-          return { key, fields };
+      if (jsonData.hasOwnProperty(itemKey)) {
+          const itemArray = jsonData[itemKey];
+          
+          // Search through the array of objects for matching criteria
+          for (const obj of itemArray) {
+              if (
+                  obj.ftype === "number" && 
+                  obj.title === "Number" && 
+                  obj.value === targetValue
+              ) {
+                  return { itemKey, obj }; // Return the matching item and its parent key
+              }
+          }
       }
   }
 
-  // If no matching runner is found, return null
+  // Return null if no match is found
   return null;
 }
 
 // This getRunnerData function is triggered by extra button 'Get Runners'!
 function getRunnerData(startNumber) {
+  if (typeof startNumber !== 'number') {   
+      console.error("Invalid number");
+      return;
+  }
+
   const item = findMatchingRunner(startNumber.toString());
-  if (item) {
-      console.log(item);
+  console.log( item );
+
+  if (item !== null) {
+    console.log( item.itemKey );
+    if (item.obj !== null) {
+      console.log(item.obj);
       //FIXME:
       //ALT 1: Is it now we can call update() function above???
-      update(item.JSON);
+      //update(item.obj.JSON);
+  //    update(item.obj);
 
       //ALT2: Or do we need to do sth more???
+
+      //FIXME:
+      // I now want to update the textfields in editor with values from item.obj
+
+      const field_f0 = document.getElementById('f0');
+      field_f0.innerText = " 000 ";
+
+      const field_f1 = document.getElementById('f1');
+      field_f1.innerText = " Nu vill jag skriva över ett nytt namn här ";
+
+    }
+
+      
   }
   else {
     alert('Numret kunde inte hittas.');
@@ -166,29 +201,29 @@ function getRunner() {
   // Note: The prompt() function only works in client browsers, not in Node.js server-side!
   let input = prompt("Ange nummerlapps-nummer (1-999):", "0");
   if (input !== null) {
-      let number;        
-      try {
-          number = parseInt(input); // Convert to integer
-      }
-      catch {
-          console.error("Invalid number entered. Failed to parse as Int");
-      }       
-      
-      if (!isNaN(number)) {
-          // Use the integer value as needed
-          console.log("The number entered is:", number); // OK SO FAR!
-          window.TyrAppGlobals.startNumber = number;
+    let input_number = NaN;        
+    try {
+        input_number = parseInt(input); // Convert to integer
+    }
+    catch {
+        console.error("Invalid number entered. Failed to parse as Int");
+    }       
+    
+    if (!isNaN(input_number)) {
+        // Use the integer value as needed
+        console.log("The number entered is:", input_number); // OK SO FAR!
+        window.TyrAppGlobals.startNumber = input_number;
 
-          // TODO:
-          // Can we initiate the fetching of runner data from here?
-          getRunnerData(number);
-          //window.TyrAppGlobals.getRunnerData(number);
+        // TODO:
+        // Can we initiate the fetching of runner data from here?
+        getRunnerData(input_number);
+        //window.TyrAppGlobals.getRunnerData(input_number);
 
-      } else {
-          console.log("Invalid number entered. Please add another number (1-999)");
-          alert('Numret var felaktigt. Försök med annat nummer (1-999)');          
-          // We keep the previous start number?
-      }
+    } else {
+        console.log("Invalid number entered. Please try another number (1-999)");
+        alert('Numret var felaktigt. Försök med annat nummer (1-999)');          
+        // We keep the previous start number?
+    }
   }
 }
 

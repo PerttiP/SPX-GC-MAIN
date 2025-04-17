@@ -45,7 +45,7 @@ console.log('JSON Data directory:', jsonDataDir);
 
 // VERSION SOM FUNKAR:
 //fetch(jsonDataDir) // retrieves all items from the JSON file in a single request
-fetch('startList_30items.json')
+fetch('startList_12items.json')
     .then(response => {
         if (!response.ok) {
             console.log(`HTTP error! status: ${response.status}`);
@@ -66,9 +66,8 @@ fetch('startList_30items.json')
         // Populate the table
         const table = document.getElementById('data-table');
 
-        //const headers = ["Number", "Fullname", "Club", "Starttime"]; // Hardcoded column headers, max 4 !!
-        // Skipping table headers!   
-
+        //const headers = ["Startnumber", "Fullname", "Club", "Starttime"]; // Hardcoded column headers, max 4 !!
+        // Skipping table headers!
         
         if (document.getElementById('data-table')) {
             // Initially load the first page, if there is a data table on the page
@@ -76,7 +75,7 @@ fetch('startList_30items.json')
         }
         else {
             // Or else, just use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
-            // TODO: nothing
+            // TODO: nothing?
         }
         
 
