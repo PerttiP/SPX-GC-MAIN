@@ -8,15 +8,8 @@ const rowsPerPage = 10; // Number of rows per page
 
 // Global Window variables
 // ----------------------------------------------------
-// Access these as TyrAppGlobals.startNumber in HTML/JS
-// IT IS A FAST HACK (YES IT IS BAD I KNOW)
-
-// If window.TyrAppGlobals does not exist (is undefined or null), 
-// it assigns an empty object {} to it.
-window.TyrAppGlobals = window.TyrAppGlobals || {};
-if (window.TyrAppGlobals.jsonRunnerInfoData === undefined) {
-  window.TyrAppGlobals.jsonRunnerInfoData = {}; // This will hold the fetched JSON data
-}
+// 
+// 2025-04-18 18:00: MOVED ALL GLOBALS to init_global_data.js and LOADED ON TOP in HTML head !!!
 // ----------------------------------------------------
 
 // Fetch JSON data from the external file
@@ -45,7 +38,9 @@ console.log('JSON Data directory:', jsonDataDir);
 
 // VERSION SOM FUNKAR:
 //fetch(jsonDataDir) // retrieves all items from the JSON file in a single request
-fetch('startList_12items.json')
+//fetch('startList_12items.json') // NOTE: This 12items file has 'number' as ftype for f0!
+fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
+
     .then(response => {
         if (!response.ok) {
             console.log(`HTTP error! status: ${response.status}`);
@@ -72,10 +67,25 @@ fetch('startList_12items.json')
         if (document.getElementById('data-table')) {
             // Initially load the first page, if there is a data table on the page
             updateTable();
+            console.log('updateTable() was CALLED!');
         }
         else {
             // Or else, just use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
             // TODO: nothing?
+            // CHeck size
+            let size;
+            if (Array.isArray(data)) {
+                // For arrays, return the number of elements
+                size = data.length;
+            } else if (data !== null && typeof data === 'object') {
+            // For objects, return the number of top-level keys
+            size = Object.keys(data).length;
+            }
+            else {
+            // For other types (string, number, etc.), return 0
+            size = 0;
+            }
+            console.log('Size of jsonRunnerInfoData: ', size);  
         }
         
 

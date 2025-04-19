@@ -28,6 +28,7 @@
     16.04.2025 Added 'Get Runner' button as extra function for showExtras prop in projects profile.json.
                Need to use and get runner data via load_dyn_data_table.js (same as for multiStartList.html).
     17.04.2025 Corrected ftype to 'number' for field f0. Changed HTML element id to 'id="startnumber"'.
+    19.04-2025 Added argument runnerData to runTemplateUpdate.
 -->
 
 
@@ -110,12 +111,21 @@
         let clipEast = "inset(0% 100% 0% 0%)";
         let clipSout = "inset(0% 0% 100% 0%)";
         
-        function runTemplateUpdate() {
+        
+        function runTemplateUpdate(runnerData) {
+            // Retrieve DOM elements and update them with decoded text from hidden or encoded sources.            
             e('DynamicTheme').href = e('f99').innerText;
+            /*
             e('startnumber').innerHTML = htmlDecode(e('f0').innerText);
             e('text1').innerHTML = htmlDecode(e('f1').innerText);
             e('text2').innerHTML = htmlDecode(e('f2').innerText);
             e('text3').innerHTML = htmlDecode(e('f3').innerText);
+            */
+            // PERTTI TEST 2025-04-19 : IT WORKS!
+            e('startnumber').innerHTML = runnerData.f0;
+            e('text1').innerHTML = runnerData.f1;
+            e('text2').innerHTML = runnerData.f2;
+            e('text3').innerHTML = runnerData.f3;
 
             // Show all
             e('box1').style.display='flex';

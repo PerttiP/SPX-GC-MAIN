@@ -14,6 +14,7 @@ if (window.TyrAppGlobals.startNumber === undefined) {
   window.TyrAppGlobals.startNumber = 0;
 }
 // Assign the function getRunner to window.TyrAppGlobals
+
 if (window.TyrAppGlobals.getRunnerData === undefined) {
     window.TyrAppGlobals.getRunnerData = getRunner;
 }
