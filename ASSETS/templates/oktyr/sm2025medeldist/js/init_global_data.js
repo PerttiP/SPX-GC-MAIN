@@ -24,10 +24,11 @@ if (typeof window.TyrAppGlobals === 'undefined' || window.TyrAppGlobals === unde
 if (window.SPXGCTemplateDefinition === undefined) {
     window.SPXGCTemplateDefinition = {};
 }  
-
+/*
 if (window.TyrAppGlobals.startNumber === undefined) {
     window.TyrAppGlobals.startNumber = 0;
 }
+*/
 
 if (window.TyrAppGlobals.jsonRunnerInfoData === undefined) {
     window.TyrAppGlobals.jsonRunnerInfoData = {}; // This will hold the fetched JSON data

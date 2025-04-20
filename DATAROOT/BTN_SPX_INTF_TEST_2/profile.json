@@ -13,7 +13,7 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-19T15:26:42.847Z",
+  "updated": "2025-04-20T10:20:02.444Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -126,7 +126,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745076402847",
+      "imported": "1745144402444",
       "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER_V3.html"
     }
   ]

@@ -1,3 +1,4 @@
+
 /*
     "Global" variables, outside of any functions or event handlers.
     These initialization variables are only executed once when the web page is loaded.
@@ -7,15 +8,18 @@ const maxPage = 3; // Total pages: 3 (30 items, 10 items per page)
 const rowsPerPage = 10; // Number of rows per page
 
 // Global Window variables
-// ----------------------------------------------------
-// 
-// 2025-04-18 18:00: MOVED ALL GLOBALS to init_global_data.js and LOADED ON TOP in HTML head !!!
-// ----------------------------------------------------
+// ----------------------------------------------------------
+// 2025-04-18 18:00: MOVED ALL GLOBALS to init_global_data.js 
+//                   which is LOADED ON TOP in HTML head !!!
+// ----------------------------------------------------------
+
+console.log('!!!! NOTE: This load_dyn_data_table.js script MUST EXECUTE SECOND AFTER THE init_global_data.js script !!!!');
+
+// -------------------------------------------------------------------
 
 // Fetch JSON data from the external file
 //const path = require('path');
 //import path from 'path';
-
 
 // Get the root directory of the running Node.js application
 // The value of require.main.filename always points to the entry file (e.g., server.js) that started the Node.js process
@@ -56,10 +60,14 @@ fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
     })
     // Once fetched, the data remains in memory for the lifetime of the webpage
     .then(data => {
+
+        console.log('AFTER FETCH: ');
+        console.log(data);
+
         window.TyrAppGlobals.jsonRunnerInfoData = data; // Store JSON data globally!
 
         // Populate the table
-        const table = document.getElementById('data-table');
+        //const table = document.getElementById('data-table');
 
         //const headers = ["Startnumber", "Fullname", "Club", "Starttime"]; // Hardcoded column headers, max 4 !!
         // Skipping table headers!
@@ -71,21 +79,25 @@ fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
         }
         else {
             // Or else, just use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
-            // TODO: nothing?
-            // CHeck size
+
+            // Check size
             let size;
             if (Array.isArray(data)) {
                 // For arrays, return the number of elements
                 size = data.length;
             } else if (data !== null && typeof data === 'object') {
-            // For objects, return the number of top-level keys
-            size = Object.keys(data).length;
+                // For objects, return the number of top-level keys
+                size = Object.keys(data).length;
             }
             else {
-            // For other types (string, number, etc.), return 0
-            size = 0;
+                // For other types (string, number, etc.), return 0
+                size = 0;
             }
-            console.log('Size of jsonRunnerInfoData: ', size);  
+            console.log('Size of jsonRunnerInfoData: ', size); //30
+
+            // TODO:
+            // OR MAYBE now call a function in spx_interface.js that will init a "global" var for the data ???
+        //    initJSONRunnerData(data);
         }
         
 
@@ -133,3 +145,7 @@ function updateTable() {
         }
     });
 }
+
+// -------------------------------------------------------------------
+
+console.log('!!!! Now load_dyn_data_table.js script has FINISHED !!!!');

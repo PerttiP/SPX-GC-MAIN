@@ -36,14 +36,17 @@
 <head>
     <meta charset="utf-8" />
     
-    <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
-    <script type="text/javascript" src="js/init_global_data.js"></script>    
+    <!-- NOTE: 
+     Scripts in the <head> section are executed before the rest of the page is loaded. 
+     Added defer to ensure scripts are executed in order and after the HTML document has been fully parsed.  
+    -->
+    <script type="text/javascript" src="js/init_global_data.js" defer></script>    
 
-    <script type="text/javascript" src="js/load_dyn_data_table.js"></script>
+    <script type="text/javascript" src="js/load_dyn_data_table.js" defer></script>
 
-    <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
 
-    <script type="text/javascript" src="js/spx_interface.js"></script>
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <link rel="stylesheet" type="text/css" id="DynamicTheme" href="themes/News.css" />
@@ -122,10 +125,18 @@
             e('text3').innerHTML = htmlDecode(e('f3').innerText);
             */
             // PERTTI TEST 2025-04-19 : IT WORKS!
-            e('startnumber').innerHTML = runnerData.f0;
-            e('text1').innerHTML = runnerData.f1;
-            e('text2').innerHTML = runnerData.f2;
-            e('text3').innerHTML = runnerData.f3;
+            if (runnerData) {
+                e('startnumber').innerHTML = runnerData.f0 || ""; // Default to empty if value is missing
+                e('text1').innerHTML = runnerData.f1 || "";
+                e('text2').innerHTML = runnerData.f2 || "";
+                e('text3').innerHTML = runnerData.f3 || "";
+            }
+            else {
+                e('startnumber').innerHTML = htmlDecode(e('f0').innerText);
+                e('text1').innerHTML = htmlDecode(e('f1').innerText);
+                e('text2').innerHTML = htmlDecode(e('f2').innerText);
+                e('text3').innerHTML = htmlDecode(e('f3').innerText);
+            }
 
             // Show all
             e('box1').style.display='flex';
@@ -279,7 +290,7 @@
     <div class="SPXWindow left">
         <div id="logoLeft"></div>
         <div id="gfx">
-            <div id="box1" class="darkOnLite"><span id="startnumber">123</span><span id="text1"></span></div>
+            <div id="box1" class="darkOnLite"><span id="startnumber">000</span><span id="text1"></span></div>
             <div id="details">
                 <div id="box3" class="liteOnColor">
                     <span id="text2"></span>
