@@ -14,9 +14,9 @@
 
 	----
 
-    NAME_CLUB_LEFT_CORNER
+    SplitTimes: PLACE (BIB-NR) NAMN TID
     Description: A lower third in the bottom left corner,
-    with data fields for NUMBER, NAME, CLUB, LOCATION.
+    with data fields for PLACE (BIB-NR) NAMN TID.
 
 	Changes:
     29.06.2022 Added FPS value check from SPX renderer
@@ -24,7 +24,7 @@
     06.05.2024 Replaced GSAP with AnimeJS. Simplified source.
     08.04.2025 Changed theme to News.
     08.04.2025 Added number field as f0.
-
+    21.04.2025 Renamed style tag from gfx to SPXgfx.
 -->
 
   <head>
@@ -47,7 +47,7 @@
         position: absolute;
       }
 
-      #gfx {
+      #SPXgfx {
         gap: 0;
         border: 0;
         opacity: 0 /* animated */;
@@ -99,6 +99,8 @@
 
       function runTemplateUpdate() {
         e("DynamicTheme").href = e("f99").innerText;
+
+        /*
         e("number").innerHTML = htmlDecode(e("f0").innerText);
         e("text1").innerHTML = htmlDecode(e("f1").innerText);
         e("text2").innerHTML = htmlDecode(e("f2").innerText);
@@ -122,10 +124,12 @@
         if (e("f3").innerText == "") {
           e("box4").style.display = "none";
         }
+        */
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
 
+      /*
       function runAnimationIN() {
         var timelineIn = anime
           .timeline({
@@ -135,7 +139,7 @@
 
           .add(
             {
-              targets: ["#gfx"],
+              targets: ["#SPXgfx"],
               opacity: [0, 1],
               duration: 50,
               easing: "linear",
@@ -199,7 +203,7 @@
 
           .add(
             {
-              targets: ["#gfx"],
+              targets: ["#SPXgfx"],
               clipPath: clipEast,
               opacity: { value: 0, duration: 200, delay: 500 },
             },
@@ -215,6 +219,7 @@
             500
           );
       } // runAnimationOUT
+      */
 
       window.SPXGCTemplateDefinition = {
         description: "Namestrap left",
@@ -230,7 +235,7 @@
             field: "comment",
             ftype: "textfield",
             title: "Nickname of this item on the rundown",
-            value: "[ PLAC NR NAMN TID ]",
+            value: "[ PLACE (BIB-NR) NAMN TID ]",
           },
           {
             ftype: "instruction",
@@ -287,24 +292,24 @@
                 value: "RC1",
               },
               {
-                text: "RC1",
-                value: "RC1",
+                text: "RC2",
+                value: "RC2",
               },
               {
-                text: "RC1",
-                value: "RC1",
+                text: "RC3",
+                value: "RC3",
               },
               {
-                text: "RC1",
-                value: "RC1",
+                text: "RC4",
+                value: "RC4",
               },
               {
-                text: "RC1",
-                value: "RC1",
+                text: "RC5",
+                value: "RC5",
               },
               {
-                text: "RC1",
-                value: "RC1",
+                text: "RC6",
+                value: "RC6",
               },
             ],
           },
@@ -327,28 +332,22 @@
             value: "OK Älgen",
           },
           {
-            field: "f3",
-            ftype: "textfield",
-            title: "Location",
-            value: "",
-          },
-          {
             field: "f99",
             ftype: "filelist",
             title: "Visual theme",
-            assetfolder: "./themes/",
+            assetfolder: "./css/themes/",
             extension: "css",
-            value: "./themes/News.css",
+            value: ".css/themes/News.css",
           },
         ],
       };
     </script>
   </head>
-  <!--
+  
   <body>
     <div class="SPXWindow left">
       <div id="logoLeft"></div>
-      <div id="gfx">
+      <div id="SPXgfx">
         <div id="box1" class="darkOnLite">
           <span id="number">123</span><span id="text1"></span>
         </div>
@@ -367,11 +366,11 @@
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
-      <div data-info="Location....." id="f3"></div>
       <div data-info="Theme........" id="f99"></div>
     </div>
   </body>
--->
+
+  <!--
   <body class="splitTime">
     <div class="container">
       <div class="graphic">
@@ -386,7 +385,9 @@
           <div class="club">OK Ravinen</div>
           <div class="time">1:02:36</div>
         </div>
-        <!-- <div class="runner"> -->
+    -->
+  <!-- <div class="runner"> -->
+  <!--
         <div class="runner selected">
           <div class="place">4</div>
           <div class="bib">71</div>
@@ -419,10 +420,12 @@
         </div>
       </div>
     </div>
+-->
 
     <div id="hiddenSpxData" data-info="See styles.css">
       <div data-info="List titel..." id="f_list_titel"></div>
       <div data-info="Vald klass..." id="f_vald_klass"></div>
+      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
     </div>
   </body>
 </html>

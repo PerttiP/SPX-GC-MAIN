@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/spx_styles.css" />
+    <script src="js/spx_parse.js"></script>
+    <title>My Welcome to SM template</title>
+
+    <script>
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        document.getElementById("f0").classList = "fadeIN";
+      }
+
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        document.getElementById("f0").classList = "fadeOUT";
+      }
+    </script>
+
+    <!-- A template definition object for SPX. -->
+    <!-- Place it as the LAST item within the HEAD section -->
+
+    <script type="text/javascript">
+      window.SPXGCTemplateDefinition = {
+        description: "My Welcome to SM template",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "7",
+        webplayout: "7",
+        out: "manual",
+        uicolor: "2",
+        dataformat: "json",
+        DataFields: [
+          {
+            field: "f0",
+            ftype: "textfield",
+            title: "Message",
+            value: "Välkommen till SM i Orientering 2025!",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="SPXWindow">
+      <div id="f0"></div>
+    </div>
+  </body>
+</html>

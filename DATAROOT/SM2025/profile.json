@@ -56,7 +56,7 @@
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-21T08:17:55.956Z",
+  "updated": "2025-04-21T14:01:57.573Z",
   "templates": [
     {
       "description": "Start list table template",
@@ -187,7 +187,7 @@
           "field": "comment",
           "ftype": "textfield",
           "title": "Nickname of this item on the rundown",
-          "value": "[ PLAC NR NAMN TID ]"
+          "value": "[ PLACE (BIB-NR) NAMN TID ]"
         },
         {
           "ftype": "instruction",
@@ -243,24 +243,24 @@
               "value": "RC1"
             },
             {
-              "text": "RC1",
-              "value": "RC1"
+              "text": "RC2",
+              "value": "RC2"
             },
             {
-              "text": "RC1",
-              "value": "RC1"
+              "text": "RC3",
+              "value": "RC3"
             },
             {
-              "text": "RC1",
-              "value": "RC1"
+              "text": "RC4",
+              "value": "RC4"
             },
             {
-              "text": "RC1",
-              "value": "RC1"
+              "text": "RC5",
+              "value": "RC5"
             },
             {
-              "text": "RC1",
-              "value": "RC1"
+              "text": "RC6",
+              "value": "RC6"
             }
           ]
         },
@@ -283,22 +283,16 @@
           "value": "OK Älgen"
         },
         {
-          "field": "f3",
-          "ftype": "textfield",
-          "title": "Location",
-          "value": ""
-        },
-        {
           "field": "f99",
           "ftype": "filelist",
           "title": "Visual theme",
-          "assetfolder": "./themes/",
+          "assetfolder": "./css/themes/",
           "extension": "css",
-          "value": "./themes/News.css"
+          "value": ".css/themes/News.css"
         }
       ],
       "onair": "false",
-      "imported": "1745223475956",
+      "imported": "1745244117572",
       "relpath": "/oktyr/sm2025medeldist/splitTimes.html"
     }
   ]

@@ -14,11 +14,11 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
+      "SM2025_V2/V2_RD_2",
+      "MD/MD1",
       "SM2025_V2/V2_RD_1",
-      "SPXPackDemo/SPXPackWIlliamsThemeTest",
-      "SPXPackDemo/SPXPackRD",
-      "DemoSPXTest3/DemoSPXTest4",
-      "SM2025/Medeldist"
+      "SM2025/Generisk_T2",
+      "SPXPackDemo/SPXPackWIlliamsThemeTest"
     ]
   },
   "globalExtras": {
@@ -26,5 +26,5 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-21T13:28:45.496Z"
+  "updated": "2025-04-21T14:29:15.389Z"
 }

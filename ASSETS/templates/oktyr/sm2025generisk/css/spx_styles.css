@@ -80,3 +80,26 @@ div {
   color: var(--theme-lite-color);
   background-color: var(--theme-brandColor);
 }
+
+#f0 {
+  opacity: 0; /* animated */
+  font-size: 5em;
+  font-weight: bold;
+  border-radius: 0.4em;
+  color: white;
+  background-color: #b30404;
+  padding: 0.2em 0.8em;
+  text-shadow: 2px 2px 2px #000000;
+}
+
+.fadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.5s;
+}
+
+.fadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.2s;
+}
