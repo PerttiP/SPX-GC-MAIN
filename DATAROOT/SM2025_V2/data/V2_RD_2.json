@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-21T14:29:36.103Z",
+  "updated": "2025-04-21T14:37:11.326Z",
   "templates": [
     {
       "description": "My Welcome to SM template",
@@ -14,16 +14,16 @@
       "dataformat": "json",
       "DataFields": [
         {
-          "field": "f0",
+          "field": "welcomeText",
           "ftype": "textfield",
           "title": "Message",
           "value": "Välkommen till SM i Orientering 2025!"
         }
       ],
-      "onair": "false",
-      "imported": "1745245748421",
+      "onair": "true",
+      "imported": "1745246192773",
       "relpath": "/oktyr/sm2025generisk/welcomeToSM2025.html",
-      "itemID": "1745245755300"
+      "itemID": "1745246200647"
     }
   ],
   "project": "SM2025_V2",

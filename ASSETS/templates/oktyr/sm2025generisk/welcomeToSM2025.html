@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX STYLE & THEME (css/spx_styles.css)! -->
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -9,12 +12,12 @@
     <script>
       function runAnimationIN() {
         // basic animation by swapping the CSS class
-        document.getElementById("f0").classList = "fadeIN";
+        document.getElementById("welcomeText").classList = "fadeIN";
       }
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
-        document.getElementById("f0").classList = "fadeOUT";
+        document.getElementById("welcomeText").classList = "fadeOUT";
       }
     </script>
 
@@ -33,7 +36,7 @@
         dataformat: "json",
         DataFields: [
           {
-            field: "f0",
+            field: "welcomeText",
             ftype: "textfield",
             title: "Message",
             value: "Välkommen till SM i Orientering 2025!",
@@ -43,9 +46,11 @@
     </script>
   </head>
 
+  <!-- NOTE: The 'field' identifier in the TemplateDefinition is allowed to have 
+        exactly the same name as the HTML divider id för the graphic overlay ! -->
   <body>
     <div class="SPXWindow">
-      <div id="f0"></div>
+      <div id="welcomeText"></div>
     </div>
   </body>
 </html>
