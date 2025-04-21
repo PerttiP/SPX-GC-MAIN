@@ -120,7 +120,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745225160436",
+      "imported": "1745241504083",
       "relpath": "/oktyr/sm2025generisk/NAME_CLUB_LEFT_CORNER.html"
     },
     {
@@ -165,11 +165,56 @@
         }
       ],
       "onair": "false",
-      "imported": "1745228092869",
+      "imported": "1745241500125",
+      "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ NAMN TITEL/ORGANISATION ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f_namn",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Per Forsberg"
+        },
+        {
+          "field": "f_titel",
+          "ftype": "textfield",
+          "title": "Title",
+          "value": "Speaker"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745242107964",
       "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-21T09:34:52.869Z"
+  "updated": "2025-04-21T13:28:27.965Z"
 }

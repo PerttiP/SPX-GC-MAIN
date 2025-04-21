@@ -2,7 +2,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   font-size: 20px;
   font-family: Inter, sans-serif;
   width: 1920px;
@@ -26,7 +27,11 @@ p {
   left: 0;
   width: 50%;
   height: 50%;
-  background: radial-gradient(100% 100% at 0% 100%, rgba(84, 136, 137, 0.8) 0%, rgba(84, 136, 137, 0) 100%);
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
 }
 .splitTime .graphic {
   position: absolute;
@@ -47,7 +52,11 @@ p {
   left: 0;
   width: 50%;
   height: 30%;
-  background: radial-gradient(100% 100% at 0% 100%, rgba(84, 136, 137, 0.8) 0%, rgba(84, 136, 137, 0) 100%);
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
 }
 .lowerThirdLeft .graphic {
   position: absolute;
@@ -71,7 +80,11 @@ p {
   right: 0;
   width: 50%;
   height: 30%;
-  background: radial-gradient(100% 100% at 100% 100%, rgba(84, 136, 137, 0.8) 0%, rgba(84, 136, 137, 0) 100%);
+  background: radial-gradient(
+    100% 100% at 100% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
 }
 .lowerThirdRight .graphic {
   position: absolute;
@@ -94,7 +107,11 @@ p {
   padding: 40px 300px;
   width: 100%;
   height: 100%;
-  background: radial-gradient(100% 100% at 0% 100%, rgba(84, 136, 137, 0.8) 0%, rgba(84, 136, 137, 0) 100%);
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
 }
 .resultList .graphic {
   width: 100%;
@@ -120,29 +137,29 @@ p {
   justify-content: space-between;
   text-align: right;
   align-items: center;
-  background-color: #B14340;
+  background-color: #b14340;
   font-size: 1.5rem;
   padding-right: 20px;
   color: white;
   font-weight: 600;
-  border-bottom: 2px solid #B14340;
+  border-bottom: 2px solid #b14340;
 }
 
 .title {
   text-align: left;
   align-items: center;
-  background-color: #B14340;
+  background-color: #b14340;
   font-size: 1.5rem;
   padding: 0.625rem;
   color: white;
   font-weight: 600;
-  border-bottom: 2px solid #B14340;
+  border-bottom: 2px solid #b14340;
   width: 100%;
   padding-left: 1.25rem;
 }
 
 .metaData {
-  background-color: #FAAA67;
+  background-color: #faaa67;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -175,7 +192,6 @@ p {
   justify-content: center;
   align-items: center;
 }
-
 .logo img {
   width: 35px;
   height: 35px;
@@ -195,7 +211,7 @@ p {
   min-width: 60px;
   padding: 0 1.25rem;
   text-align: center;
-  border-right: 2px solid #B14340;
+  border-right: 2px solid #b14340;
 }
 .runner .bib {
   font-weight: bold;
@@ -229,13 +245,13 @@ p {
   padding: 0.625rem;
 }
 .runner.leader {
-  border-bottom: 2px solid #89B6A5;
+  border-bottom: 2px solid #89b6a5;
 }
 .runner.leader .time {
-  background-color: #89B6A5;
+  background-color: #89b6a5;
 }
 .runner.selected {
-  background-color: #B14340;
+  background-color: #b14340;
   color: #ffffff;
 }
 .runner.selected .bib {
@@ -243,9 +259,8 @@ p {
 }
 .runner.selected .time {
   color: white;
-  background-color: #B14340;
+  background-color: #b14340;
 }
-
 .runner:last-child {
   border-bottom: none;
 }

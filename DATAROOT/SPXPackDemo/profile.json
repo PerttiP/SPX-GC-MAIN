@@ -426,9 +426,75 @@
       "onair": "false",
       "imported": "1744718889009",
       "relpath": "/softpix/Template_Pack_1.3.2/TITLE_2_STEPS.html"
+    },
+    {
+      "description": "Nametag Left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "2",
+      "webplayout": "2",
+      "out": "manual",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Namn",
+          "value": ""
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Info 1 ex. Klubb",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Info 2 ex. Klass",
+          "value": ""
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1745238543491",
+      "relpath": "/oktyr/sm2025generisk/lowerThirdLeft.html"
+    },
+    {
+      "description": "Nametag Right",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "1",
+      "webplayout": "1",
+      "out": "manual",
+      "uicolor": "4",
+      "DataFields": [
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Namn",
+          "value": ""
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Info 1 ex. Klubb",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Info 2 ex. Klass",
+          "value": ""
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1745238543504",
+      "relpath": "/oktyr/sm2025generisk/lowerThirdRight.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-15T12:08:09.009Z"
+  "updated": "2025-04-21T12:29:03.504Z"
 }

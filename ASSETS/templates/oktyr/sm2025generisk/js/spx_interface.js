@@ -10,62 +10,64 @@
 
 function update(data) {
   var templateData = JSON.parse(data);
-  console.log('----- Update handler called with data:', templateData)
+  console.log("----- Update handler called with data:", templateData);
   for (var dataField in templateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
       let fString = templateData[dataField];
-      if ( fString != 'undefined' && fString != 'null' ) {
-        idField.innerText = fString
+      if (fString != "undefined" && fString != "null") {
+        idField.innerText = fString;
       } else {
-        idField.innerText = '';
+        idField.innerText = "";
       }
     } else {
       switch (dataField) {
-        case 'comment':
-        case 'epochID':
+        case "comment":
+        case "epochID":
           // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
           break;
         default:
-          console.error('ERROR Placeholder #' + dataField + ' missing from SPX template.');
+          console.error(
+            "ERROR Placeholder #" + dataField + " missing from SPX template."
+          );
       }
     }
   }
 
-  if (typeof runTemplateUpdate === "function") { 
-    runTemplateUpdate() // Play will follow
+  if (typeof runTemplateUpdate === "function") {
+    runTemplateUpdate(); // Play will follow
   } else {
-    console.error('runTemplateUpdate() function missing from SPX template.')
+    console.error("runTemplateUpdate() function missing from SPX template.");
   }
 }
 
 // Play handler
 function play() {
   // console.log('----- Play handler called.')
-  // if (typeof runAnimationIN === "function") { 
-  //   runAnimationIN()
-  // } else {
-  //   console.error('runAnimationIN() function missing from SPX template.')
-  // }
+  if (typeof runAnimationIN === "function") {
+    runAnimationIN();
+  } else {
+    console.error("runAnimationIN() function missing from SPX template.");
+  }
 }
 
 // Stop handler
 function stop() {
   // console.log('----- Stop handler called.')
-  if (typeof runAnimationOUT === "function") { 
-    runAnimationOUT()
+  if (typeof runAnimationOUT === "function") {
+    runAnimationOUT();
   } else {
-    console.error('runAnimationOUT() function missing from SPX template.')
+    console.error("runAnimationOUT() function missing from SPX template.");
   }
 }
 
 // Continue handler
 function next(data) {
-  console.log('----- Next handler called.')
-  if (typeof runAnimationNEXT === "function") { 
-    runAnimationNEXT()
+  console.log("----- Next handler called.");
+  if (typeof runAnimationNEXT === "function") {
+    runAnimationNEXT();
   } else {
-    console.error('runAnimationNEXT() function missing from SPX template.')
+    console.error("runAnimationNEXT() function missing from SPX template.");
   }
 }
 
@@ -78,11 +80,11 @@ function htmlDecode(txt) {
 // Utility function
 function e(elementID) {
   if (!elementID) {
-    console.warn('Element ID is falsy, returning null.');
+    console.warn("Element ID is falsy, returning null.");
     return null;
   }
   if (!document.getElementById(elementID)) {
-    console.warn('Element ' + elementID + ' not found, returning null.');
+    console.warn("Element " + elementID + " not found, returning null.");
     return null;
   }
   return document.getElementById(elementID);
@@ -93,7 +95,10 @@ window.onerror = function (msg, url, row, col, error) {
   err.file = url;
   err.message = msg;
   err.line = row;
-  console.log('%c' + 'SPX Template Error Detected:', 'font-weight:bold; font-size: 1.2em; margin-top: 2em;');
+  console.log(
+    "%c" + "SPX Template Error Detected:",
+    "font-weight:bold; font-size: 1.2em; margin-top: 2em;"
+  );
   console.table(err);
   // spxlog('Template Error Auto Detected: file: ' + url + ', line: ' + row + ', msg; ' + msg,'WARN')
 };
@@ -105,7 +110,7 @@ function validString(str) {
     case "UNDEFINED":
     case "NULL":
     case "":
-      return false;  // not a valid string
+      return false; // not a valid string
       break;
   }
   return true; // is a valid string
