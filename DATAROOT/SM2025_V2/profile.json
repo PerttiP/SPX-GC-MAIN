@@ -1,0 +1,175 @@
+{
+  "templates": [
+    {
+      "description": "Nametag Left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "2",
+      "webplayout": "2",
+      "out": "manual",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Namn",
+          "value": ""
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Info 1 ex. Klubb",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Info 2 ex. Klass",
+          "value": ""
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1745224713672",
+      "relpath": "/oktyr/sm2025generisk/lowerThirdLeft.html"
+    },
+    {
+      "description": "Nametag Right",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "1",
+      "webplayout": "1",
+      "out": "manual",
+      "uicolor": "4",
+      "DataFields": [
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Namn",
+          "value": ""
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Info 1 ex. Klubb",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Info 2 ex. Klass",
+          "value": ""
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1745224713686",
+      "relpath": "/oktyr/sm2025generisk/lowerThirdRight.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ NR NAMN KLUBB (ORT) ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": "999"
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f3",
+          "ftype": "textfield",
+          "title": "Location",
+          "value": ""
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745225160436",
+      "relpath": "/oktyr/sm2025generisk/NAME_CLUB_LEFT_CORNER.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ NAMN TITEL/ORGANISATION ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f_namn",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Per Forsberg"
+        },
+        {
+          "field": "f_titel",
+          "ftype": "textfield",
+          "title": "Title",
+          "value": "Speaker"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745228092869",
+      "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER.html"
+    }
+  ],
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-21T09:34:52.869Z"
+}

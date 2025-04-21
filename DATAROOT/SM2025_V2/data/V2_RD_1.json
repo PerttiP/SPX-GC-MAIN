@@ -1,0 +1,67 @@
+{
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-21T09:35:10.102Z",
+  "templates": [
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ NR NAMN KLUBB (ORT) ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": ""
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Club",
+          "value": "-"
+        },
+        {
+          "field": "f3",
+          "ftype": "textfield",
+          "title": "Location",
+          "value": "Kommentator"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745225160436",
+      "relpath": "/oktyr/sm2025generisk/NAME_CLUB_LEFT_CORNER.html",
+      "itemID": "1745225177828"
+    }
+  ],
+  "project": "SM2025_V2",
+  "rundown": "V2_RD_1"
+}

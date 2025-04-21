@@ -14,19 +14,18 @@
 
 	----
 
-    NAME_CLUB_LEFT_CORNER
+    NAME_TITLE_LEFT_CORNER
     Description: A lower third in the bottom left corner,
-    with data fields for NUMBER, NAME, CLUB, LOCATION.
+    with data fields for NAME, TITLE.
 
 	Changes:
     29.06.2022 Added FPS value check from SPX renderer
     24.08.2022 Fixed bug FPS value check (if not available)
     06.05.2024 Replaced GSAP with AnimeJS. Simplified source.
     08.04.2025 Changed theme to News.
-    08.04.2025 Added number field as f0.
 -->
 
-  <!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX! -->
+  <!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX (css/spx_styles.css)! -->
 
   <head>
     <meta charset="utf-8" />
@@ -42,13 +41,15 @@
     />
     <style>
       .SPXWindow {
+        /* SPX specific? See spx_styles.css */
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
         position: absolute;
       }
 
-      #gfx {
+      #SPXgfx {
+        /* SPX specific? See spx_styles.css */
         gap: 0;
         border: 0;
         opacity: 0 /* animated */;
@@ -64,7 +65,7 @@
       #box1 {
         font-size: 3vw;
         font-family: "BOLD";
-        padding: 0.1em 0.5em;
+        padding: 0 0.1em;
       }
 
       #details {
@@ -73,22 +74,17 @@
         flex-direction: row;
       }
 
-      #box3,
-      #box4 {
+      #box2 {
         font-size: 2vw;
         font-family: "REGU";
-        padding: 0.2em 0;
+        padding: 0 0.1em;
       }
 
-      #number {
-        margin-right: 1em; /* Adjust space between number and name */
+      #g_namn {
+        padding: 0 0.05em;
       }
 
-      #text2 {
-        padding: 0 0.8em;
-      }
-
-      #text3 {
+      #g_titel {
         padding-right: 0.8em;
       }
     </style>
@@ -100,28 +96,19 @@
 
       function runTemplateUpdate() {
         e("DynamicTheme").href = e("f99").innerText;
-        e("number").innerHTML = htmlDecode(e("f0").innerText);
-        e("text1").innerHTML = htmlDecode(e("f1").innerText);
-        e("text2").innerHTML = htmlDecode(e("f2").innerText);
-        e("text3").innerHTML = htmlDecode(e("f3").innerText);
+        e("g_namn").innerHTML = htmlDecode(e("f_namn").innerText);
+        e("g_titel").innerHTML = htmlDecode(e("f_titel").innerText);
 
         // Show all
         e("box1").style.display = "flex";
-        e("box3").style.display = "flex";
-        e("box4").style.display = "flex";
+        e("box2").style.display = "flex";
 
         // Hide empty ones
-        if (e("f0").innerText == "") {
-          e("number").style.display = "none";
-        }
-        if (e("f0").innerText == "" && e("f1").innerText == "") {
+        if (e("g_namn").innerText == "") {
           e("box1").style.display = "none";
         }
-        if (e("f2").innerText == "") {
-          e("box3").style.display = "none";
-        }
-        if (e("f3").innerText == "") {
-          e("box4").style.display = "none";
+        if (e("g_titel").innerText == "") {
+          e("box2").style.display = "none";
         }
 
         setTimeout(runAnimationIN, 50);
@@ -136,7 +123,7 @@
 
           .add(
             {
-              targets: ["#gfx"],
+              targets: ["#SPXgfx"],
               opacity: [0, 1],
               duration: 50,
               easing: "linear",
@@ -146,7 +133,7 @@
 
           .add(
             {
-              targets: ["#box1", "#number"],
+              targets: ["#box1"],
               duration: 300,
               clipPath: [clipEast, clipNone],
               opacity: [0, 1],
@@ -156,7 +143,7 @@
 
           .add(
             {
-              targets: ["#text1", "#number"],
+              targets: ["#g_namn"],
               opacity: { value: [0, 1], duration: 300 },
               translateX: { value: ["50%", "0%"], duration: 800 },
             },
@@ -165,7 +152,7 @@
 
           .add(
             {
-              targets: ["#box3", "#box4", "#text2", "#text3"],
+              targets: ["#box1", "#box2", "#g_namn", "#g_titel"],
               opacity: { value: [0, 1], duration: 50, easing: "linear" },
               translateY: { value: ["-100%", "0%"], duration: 500 },
               delay: anime.stagger(100),
@@ -183,7 +170,7 @@
 
           .add(
             {
-              targets: ["#text1", "#number"],
+              targets: ["#g_namn"],
               translateX: { value: ["50%"] },
             },
             0
@@ -191,7 +178,7 @@
 
           .add(
             {
-              targets: ["#text3", "#text2"],
+              targets: ["#g_titel"],
               opacity: { value: 0, duration: 200, easing: "linear" },
               delay: anime.stagger(100),
             },
@@ -200,7 +187,7 @@
 
           .add(
             {
-              targets: ["#gfx"],
+              targets: ["#SPXgfx"],
               clipPath: clipEast,
               opacity: { value: 0, duration: 200, delay: 500 },
             },
@@ -233,7 +220,7 @@
             field: "comment",
             ftype: "textfield",
             title: "Nickname of this item on the rundown",
-            value: "[ NR NAMN KLUBB (ORT) ]",
+            value: "[ NAMN TITEL/ORGANISATION ]",
           },
           {
             ftype: "instruction",
@@ -241,28 +228,16 @@
               "You can leave any field empty. This is a lower-left overlay with a News theme.",
           },
           {
-            field: "f0",
-            ftype: "textfield",
-            title: "Number",
-            value: "999",
-          },
-          {
-            field: "f1",
+            field: "f_namn",
             ftype: "textfield",
             title: "Fullname",
-            value: "Hälge Hälgesson",
+            value: "Per Forsberg",
           },
           {
-            field: "f2",
+            field: "f_titel",
             ftype: "textfield",
-            title: "Club",
-            value: "OK Älgen",
-          },
-          {
-            field: "f3",
-            ftype: "textfield",
-            title: "Location",
-            value: "",
+            title: "Title",
+            value: "Speaker",
           },
           {
             field: "f99",
@@ -282,26 +257,21 @@
   <body>
     <div class="SPXWindow left">
       <div id="logoLeft"></div>
-      <div id="gfx">
-        <div id="box1" class="darkOnLite">
-          <span id="number">123</span><span id="text1"></span>
+      <div id="SPXgfx">
+        <div id="box1" class="liteOnColor">
+          <span id="g_namn"></span>
         </div>
         <div id="details">
-          <div id="box3" class="liteOnColor">
-            <span id="text2"></span>
-          </div>
-          <div id="box4" class="liteOnColor">
-            <span id="text3"></span>
+          <div id="box2" class="liteOnColor">
+            <span id="g_titel"></span>
           </div>
         </div>
       </div>
     </div>
 
     <div id="hiddenSpxData" data-info="See spx_styles.css">
-      <div data-info="Number......." id="f0"></div>
-      <div data-info="Fullname....." id="f1"></div>
-      <div data-info="Club........." id="f2"></div>
-      <div data-info="Location....." id="f3"></div>
+      <div data-info="Fullname....." id="f_namn"></div>
+      <div data-info="Title........" id="f_titel"></div>
       <div data-info="Theme........" id="f99"></div>
     </div>
   </body>
