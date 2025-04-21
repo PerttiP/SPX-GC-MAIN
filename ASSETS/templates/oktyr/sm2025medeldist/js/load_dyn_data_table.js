@@ -40,10 +40,11 @@ console.log('JSON Data directory:', jsonDataDir);
 
 // IMPORTANT: the JSON file must be hosted on a server, for fetch to work!!!
 
-// VERSION SOM FUNKAR:
-//fetch(jsonDataDir) // retrieves all items from the JSON file in a single request
-//fetch('startList_12items.json') // NOTE: This 12items file has 'number' as ftype for f0!
-fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
+// Retrieve all items from the JSON file in a single request
+
+// NOTE: JSON Specification Compliance: JSON mandates double quotes for key names.
+fetch('startList_12items.json') // NOTE: This 12items file has 'number' as ftype for f0!
+//fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
 
     .then(response => {
         if (!response.ok) {
@@ -61,10 +62,17 @@ fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
     // Once fetched, the data remains in memory for the lifetime of the webpage
     .then(data => {
 
-        console.log('AFTER FETCH: ');
+        console.log('======  DATA AFTER FETCH:');
         console.log(data);
 
-        window.TyrAppGlobals.jsonRunnerInfoData = data; // Store JSON data globally!
+    //    window.TyrAppGlobals.jsonRunnerInfoData = data; // Store JSON data globally!
+        
+        //FIXME:
+        // jsonRunnerInfoDataGlob = data;
+
+
+        //TODO: Override with hard coded test data here?
+
 
         // Populate the table
         //const table = document.getElementById('data-table');
@@ -78,7 +86,7 @@ fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
             console.log('updateTable() was CALLED!');
         }
         else {
-            // Or else, just use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
+            // Or else, use the jsonRunnerInfoData for lower thirds with runner info by getRunnerData()
 
             // Check size
             let size;
@@ -98,8 +106,10 @@ fetch('startList_30items.json')  // NOTE: This has 'textfield' for f0 !!!!!!!
             // TODO:
             // OR MAYBE now call a function in spx_interface.js that will init a "global" var for the data ???
         //    initJSONRunnerData(data);
-        }
-        
+
+            // OR MAYBE set a "global" variable in the spx_interface.js ???
+
+        }        
 
         // Populate only ONE page:
         /*

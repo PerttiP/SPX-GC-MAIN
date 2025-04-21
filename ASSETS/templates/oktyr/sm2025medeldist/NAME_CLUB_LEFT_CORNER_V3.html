@@ -28,7 +28,8 @@
     16.04.2025 Added 'Get Runner' button as extra function for showExtras prop in projects profile.json.
                Need to use and get runner data via load_dyn_data_table.js (same as for multiStartList.html).
     17.04.2025 Corrected ftype to 'number' for field f0. Changed HTML element id to 'id="startnumber"'.
-    19.04-2025 Added argument runnerData to runTemplateUpdate.
+    19.04.2025 Added argument runnerData to runTemplateUpdate.
+    19.04.2025 Added 'defer' to all JS file imports.
 -->
 
 
@@ -40,13 +41,39 @@
      Scripts in the <head> section are executed before the rest of the page is loaded. 
      Added defer to ensure scripts are executed in order and after the HTML document has been fully parsed.  
     -->
-    <script type="text/javascript" src="js/init_global_data.js" defer></script>    
-
+    <!--
+    <script type="text/javascript" src="js/init_global_data.js" defer></script>
     <script type="text/javascript" src="js/load_dyn_data_table.js" defer></script>
+    -->
+    <script>
+        (function() {
+            // Define a function to dynamically load a script
+            function loadScript(src) {
+                const script = document.createElement("script");
+                script.src = src;
+                script.type = "text/javascript";
+                script.defer = true; // Ensure the script execution is deferred
+                document.head.appendChild(script);
+                console.log(`Script loaded: ${src}`);
+            }
+        
+            // Check sessionStorage to see if the scripts are already loaded
+            if (!sessionStorage.getItem("initScriptsLoaded")) {
+                // Add the required scripts
+                //loadScript("js/init_global_data.js");
+                loadScript("js/load_dyn_data_table.js");
+        
+                // Set the flag in sessionStorage to indicate the scripts are loaded
+                sessionStorage.setItem("initScriptsLoaded", "true");
+                console.log("Scripts imported for the first time in this session.");
+            } else {
+                console.log("Scripts were already loaded during this session.");
+            }
+        })();
+    </script>
 
     <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
-
-    <script type="text/javascript" src="js/spx_interface.js" defer></script>
+ <!--  <script type="text/javascript" src="js/spx_interface.js" defer></script> --> 
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <link rel="stylesheet" type="text/css" id="DynamicTheme" href="themes/News.css" />
