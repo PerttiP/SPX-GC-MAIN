@@ -48,34 +48,40 @@
           "field": "f99",
           "ftype": "filelist",
           "title": "Visual theme",
-          "assetfolder": "./themes/",
+          "assetfolder": "./css/themes/",
           "extension": "css",
-          "value": "./themes/News.css"
+          "value": "./css/themes/News.css"
         }
       ],
       "onair": "false",
-      "imported": "1744791288292",
-      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER_V2.html"
+      "imported": "1745248989255",
+      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER.html"
     },
     {
-      "description": "Start list table template",
+      "description": "Namestrap left",
       "playserver": "OVERLAY",
       "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
+      "playlayer": "5",
+      "webplayout": "5",
       "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
+      "dataformat": "json",
+      "uicolor": "3",
       "DataFields": [
         {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ PLACE (BIB-NR) NAMN TID ]"
+        },
+        {
           "ftype": "instruction",
-          "value": "This template has several pages (steps). Click 'Continue' for next page..."
+          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
         },
         {
           "field": "f_list_titel",
           "ftype": "textfield",
-          "title": "Set list title",
-          "value": "START LISTA"
+          "title": "Set title",
+          "value": "MELLANTID"
         },
         {
           "field": "f_vald_klass",
@@ -108,27 +114,73 @@
               "value": "D18"
             }
           ]
+        },
+        null,
+        {
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "",
+          "items": [
+            {
+              "text": "RC1",
+              "value": "RC1"
+            },
+            {
+              "text": "RC2",
+              "value": "RC2"
+            },
+            {
+              "text": "RC3",
+              "value": "RC3"
+            },
+            {
+              "text": "RC4",
+              "value": "RC4"
+            },
+            {
+              "text": "RC5",
+              "value": "RC5"
+            },
+            {
+              "text": "RC6",
+              "value": "RC6"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": "999"
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
         }
       ],
       "onair": "false",
-      "dataformat": "json",
-      "imported": "1744791390224",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
+      "imported": "1745252927389",
+      "relpath": "/oktyr/sm2025medeldist/IndividualSplitTimes.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-16T08:47:33.978Z",
-  "showExtras": {
-    "CustomControls": [
-      {
-        "ftype": "button",
-        "description": "Get Runner by startnumber (nummerlapp)",
-        "bgclass": "bg_blue",
-        "text": "Get Runner",
-        "fcall": "getRunner()"
-      }
-    ],
-    "customscript": "ExtraFunctions/getRunnerFunctions.js"
-  }
+  "updated": "2025-04-21T16:28:47.389Z"
 }

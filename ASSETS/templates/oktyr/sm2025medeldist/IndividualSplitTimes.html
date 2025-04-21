@@ -32,7 +32,9 @@
     <title>LEFT CORNER</title>
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
+    <!-- FIXME: Which style file to use? Merge the files into one? -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/spx_styles.css" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -129,97 +131,15 @@
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
 
-      /*
       function runAnimationIN() {
-        var timelineIn = anime
-          .timeline({
-            easing: "easeOutCubic",
-            duration: 500,
-          })
-
-          .add(
-            {
-              targets: ["#SPXgfx"],
-              opacity: [0, 1],
-              duration: 50,
-              easing: "linear",
-            },
-            0
-          )
-
-          .add(
-            {
-              targets: ["#box1", "#number"],
-              duration: 300,
-              clipPath: [clipEast, clipNone],
-              opacity: [0, 1],
-            },
-            50
-          )
-
-          .add(
-            {
-              targets: ["#text1", "#number"],
-              opacity: { value: [0, 1], duration: 300 },
-              translateX: { value: ["50%", "0%"], duration: 800 },
-            },
-            0
-          )
-
-          .add(
-            {
-              targets: ["#box3", "#box4", "#text2", "#text3"],
-              opacity: { value: [0, 1], duration: 50, easing: "linear" },
-              translateY: { value: ["-100%", "0%"], duration: 500 },
-              delay: anime.stagger(100),
-            },
-            50
-          );
-      } // runAnimationIN
+        // basic animation by swapping the CSS class
+        document.getElementById("SPXgfx").classList = "fadeIN";
+      }
 
       function runAnimationOUT() {
-        var timelineOut = anime
-          .timeline({
-            easing: "easeInCubic",
-            duration: 600,
-          })
-
-          .add(
-            {
-              targets: ["#text1", "#number"],
-              translateX: { value: ["50%"] },
-            },
-            0
-          )
-
-          .add(
-            {
-              targets: ["#text3", "#text2"],
-              opacity: { value: 0, duration: 200, easing: "linear" },
-              delay: anime.stagger(100),
-            },
-            100
-          )
-
-          .add(
-            {
-              targets: ["#SPXgfx"],
-              clipPath: clipEast,
-              opacity: { value: 0, duration: 200, delay: 500 },
-            },
-            100
-          )
-
-          .add(
-            {
-              targets: "#logoLeft",
-              clipPath: clipEast,
-              duration: 200,
-            },
-            500
-          );
-      } // runAnimationOUT
-      */
+        // basic animation by swapping the CSS class
+        document.getElementById("SPXgfx").classList = "fadeOUT";
+      }
 
       window.SPXGCTemplateDefinition = {
         description: "Namestrap left",
@@ -240,7 +160,7 @@
           {
             ftype: "instruction",
             value:
-              "You can leave any field empty. This is a lower-left overlay with a News theme.",
+              "You can leave any field empty. This is a lower-right overlay with a News theme.",
           },
           {
             field: "f_list_titel",
@@ -337,15 +257,15 @@
             title: "Visual theme",
             assetfolder: "./css/themes/",
             extension: "css",
-            value: ".css/themes/News.css",
+            value: "./css/themes/News.css",
           },
         ],
       };
     </script>
   </head>
-  
+
   <body>
-    <div class="SPXWindow left">
+    <div class="SPXWindow right">
       <div id="logoLeft"></div>
       <div id="SPXgfx">
         <div id="box1" class="darkOnLite">
@@ -363,69 +283,13 @@
     </div>
 
     <div id="hiddenSpxData" data-info="See styles.css">
+      <div data-info="List titel..." id="f_list_titel"></div>
+      <div data-info="Vald klass..." id="f_vald_klass"></div>
+      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
       <div data-info="Theme........" id="f99"></div>
-    </div>
-  </body>
-
-  <!--
-  <body class="splitTime">
-    <div class="container">
-      <div class="graphic">
-        <div class="header">
-          <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
-          <p>D21 - TV 1</p>
-        </div>
-        <div class="runner leader">
-          <div class="place">1</div>
-          <div class="bib">11</div>
-          <div class="name">Helena Bergman</div>
-          <div class="club">OK Ravinen</div>
-          <div class="time">1:02:36</div>
-        </div>
-    -->
-  <!-- <div class="runner"> -->
-  <!--
-        <div class="runner selected">
-          <div class="place">4</div>
-          <div class="bib">71</div>
-          <div class="name">Izabella Ljungberg</div>
-          <div class="club">OK Tyr</div>
-          <div class="time">+0:12</div>
-        </div>
-        <div class="runner">
-          <div class="place">5</div>
-          <div class="bib">52</div>
-          <div class="name">Erika Källvik-Lufen</div>
-          <div class="club">IFK Göteborg Orientering</div>
-          <div class="time">+0:43</div>
-        </div>
-        <div class="runner">
-          <div class="place">6</div>
-          <div class="bib">102</div>
-          <div class="name">
-            Ett extremt långt namn som vi ska se hur det påverkar design
-          </div>
-          <div class="club">Från ett långt klubbnamn i sverige</div>
-          <div class="time">+1:22</div>
-        </div>
-        <div class="runner">
-          <div class="place">7</div>
-          <div class="bib">112</div>
-          <div class="name">Sandre Hane</div>
-          <div class="club">Gotlandsbro IK</div>
-          <div class="time">+108:03</div>
-        </div>
-      </div>
-    </div>
--->
-
-    <div id="hiddenSpxData" data-info="See styles.css">
-      <div data-info="List titel..." id="f_list_titel"></div>
-      <div data-info="Vald klass..." id="f_vald_klass"></div>
-      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
     </div>
   </body>
 </html>
