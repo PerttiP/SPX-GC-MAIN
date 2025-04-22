@@ -57,6 +57,9 @@
           // NOTE: Use innerText to get the content of the div.
           selectedClass = element.innerText;
           //alert('selectedClass' + selectedClass);
+
+          // Save persistently
+          localStorage.setItem("selectedClass", selectedClass);
         }
 
         // TODO: Change the list title bar based on selection
@@ -124,6 +127,13 @@
                 value: "D18",
               },
             ],
+          },
+          {
+            field: "f_refetch_btn",
+            ftype: "button",
+            title: "Refetch data",
+            descr: "Refetch runners data",
+            fcall: "refetchRunnersData()",
           },
         ],
       };

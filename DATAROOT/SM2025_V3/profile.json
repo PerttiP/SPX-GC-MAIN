@@ -154,14 +154,21 @@
           "value": "999"
         },
         {
+          "field": "f_follow_runner_btn",
+          "ftype": "button",
+          "title": "Follow Selected Runner",
+          "descr": "Set selected Runner bib to follow",
+          "fcall": "followSelectedRunner()"
+        },
+        {
           "field": "f1",
-          "ftype": "textfield",
+          "ftype": "caption",
           "title": "Fullname",
           "value": "Hälge Hälgesson"
         },
         {
           "field": "f2",
-          "ftype": "textfield",
+          "ftype": "caption",
           "title": "Club",
           "value": "OK Älgen"
         },
@@ -175,7 +182,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745329219767",
+      "imported": "1745339141976",
       "relpath": "/oktyr/sm2025medeldist/IndividualSplitTimes.html"
     },
     {
@@ -229,15 +236,22 @@
               "value": "D18"
             }
           ]
+        },
+        {
+          "field": "f_refetch_btn",
+          "ftype": "button",
+          "title": "Refetch data",
+          "descr": "Refetch runners data",
+          "fcall": "refetchRunnersData()"
         }
       ],
       "onair": "false",
       "dataformat": "json",
-      "imported": "1745328865347",
+      "imported": "1745333018295",
       "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-22T13:40:19.767Z"
+  "updated": "2025-04-22T16:25:41.976Z"
 }

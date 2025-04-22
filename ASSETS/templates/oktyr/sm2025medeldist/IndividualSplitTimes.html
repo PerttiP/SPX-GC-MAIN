@@ -33,6 +33,7 @@
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <script type="text/javascript" src="js/RunnerData.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
     <!-- FIXME: Which style file to use? Merge the files into one? -->
     <link rel="stylesheet" type="text/css" href="css/spx_styles_med.css" />
@@ -118,6 +119,9 @@
         if (typeof element != "undefined" && element != null) {
           // NOTE: Use innerText to get the content of the div.
           selectedClass = element.innerText;
+
+          // Save persistently
+          localStorage.setItem("selectedClass", selectedClass);
         }
 
         const list_titel = document.getElementById("list_titel");
@@ -236,18 +240,25 @@
           {
             field: "f0",
             ftype: "textfield",
-            title: "Number",
+            title: "Bib Number of Runner to Follow",
             value: "999",
           },
           {
+            field: "f_follow_runner_btn",
+            ftype: "button",
+            title: "Follow Selected Runner",
+            descr: "Set selected Runner bib to follow",
+            fcall: "followSelectedRunner()",
+          },
+          {
             field: "f1",
-            ftype: "textfield",
+            ftype: "caption",
             title: "Fullname",
             value: "Hälge Hälgesson",
           },
           {
             field: "f2",
-            ftype: "textfield",
+            ftype: "caption",
             title: "Club",
             value: "OK Älgen",
           },

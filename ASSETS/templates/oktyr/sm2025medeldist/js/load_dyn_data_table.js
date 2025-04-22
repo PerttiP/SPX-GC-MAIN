@@ -77,7 +77,7 @@ fetch("startList_12items.json") // NOTE: This 12items file has 'number' as ftype
     // Skipping table headers in graphic overlay!
     if (document.getElementById("data-table")) {
       // Initially load the first page, if there is a data table on the page
-      updateTable(data);
+      updateTable();
       console.log("updateTable() was CALLED!");
     } else {
       // Or else, use the jsonRunnerInfoDataGlob for lower thirds with runner info by getRunnerData()

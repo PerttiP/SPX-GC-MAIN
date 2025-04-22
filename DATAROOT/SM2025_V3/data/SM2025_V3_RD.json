@@ -1,8 +1,74 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-22T13:44:51.406Z",
+  "updated": "2025-04-22T16:25:56.706Z",
   "templates": [
+    {
+      "description": "Start list table template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "steps": "10",
+      "DataFields": [
+        {
+          "ftype": "instruction",
+          "value": "This template has several pages (steps). Click 'Continue' for next page..."
+        },
+        {
+          "field": "f_list_titel",
+          "ftype": "textfield",
+          "title": "Set list title",
+          "value": "START LISTA"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "D18"
+            }
+          ]
+        },
+        {
+          "field": "f_refetch_btn",
+          "ftype": "button",
+          "title": "Refetch data",
+          "descr": "Refetch runners data",
+          "fcall": "refetchRunnersData()"
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1745333018295",
+      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
+      "itemID": "1745333026420"
+    },
     {
       "description": "Namestrap left",
       "playserver": "OVERLAY",
@@ -100,14 +166,21 @@
           "value": "999"
         },
         {
+          "field": "f_follow_runner_btn",
+          "ftype": "button",
+          "title": "Follow Selected Runner",
+          "descr": "Set selected Runner bib to follow",
+          "fcall": "followSelectedRunner()"
+        },
+        {
           "field": "f1",
-          "ftype": "textfield",
+          "ftype": "caption",
           "title": "Fullname",
           "value": "Hälge Hälgesson"
         },
         {
           "field": "f2",
-          "ftype": "textfield",
+          "ftype": "caption",
           "title": "Club",
           "value": "OK Älgen"
         },
@@ -121,126 +194,9 @@
         }
       ],
       "onair": "false",
-      "imported": "1745326671125",
+      "imported": "1745339141976",
       "relpath": "/oktyr/sm2025medeldist/IndividualSplitTimes.html",
-      "itemID": "1745326682930"
-    },
-    {
-      "description": "Start list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
-      "DataFields": [
-        {
-          "ftype": "instruction",
-          "value": "This template has several pages (steps). Click 'Continue' for next page..."
-        },
-        {
-          "field": "f_list_titel",
-          "ftype": "textfield",
-          "title": "Set list title",
-          "value": "START LISTA"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "D18"
-            }
-          ]
-        }
-      ],
-      "onair": "false",
-      "dataformat": "json",
-      "imported": "1745328865347",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
-      "itemID": "1745328872810"
-    },
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ NR NAMN KLUBB (ORT) ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "999"
-        },
-        {
-          "field": "f1",
-          "ftype": "textfield",
-          "title": "Fullname",
-          "value": "Hälge Hälgesson"
-        },
-        {
-          "field": "f2",
-          "ftype": "textfield",
-          "title": "Club",
-          "value": "OK Älgen"
-        },
-        {
-          "field": "f3",
-          "ftype": "textfield",
-          "title": "Location",
-          "value": ""
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745328958305",
-      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER.html",
-      "itemID": "1745328965188"
+      "itemID": "1745339150785"
     }
   ],
   "project": "SM2025_V3",
