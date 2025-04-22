@@ -14,11 +14,11 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
+      "SM2025_V3/SM2025_V3_RD",
       "MD_V2/MD_V2_RD",
       "SM2025_V2/V2_RD_3",
       "SM2025_V2/V2_RD_2",
-      "MD/MD1",
-      "SM2025_V2/V2_RD_1"
+      "MD/MD1"
     ]
   },
   "globalExtras": {
@@ -26,5 +26,5 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-21T16:29:02.134Z"
+  "updated": "2025-04-22T09:49:09.789Z"
 }

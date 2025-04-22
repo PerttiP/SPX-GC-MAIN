@@ -1,5 +1,6 @@
 /* Styles based on SPX demo helloWorld */
 /*  Change 1: Added gfx, and renamed it to SPXgfx */
+/*  Change 2: Renamed it back to gfx */
 
 * {
   box-sizing: border-box;
@@ -21,6 +22,18 @@ html {
   font-family: sans-serif;
 }
 
+/* 
+.SPXWindow {
+*/
+/* display: flex; */
+/*
+  align-items: flex-end;
+  justify-content: flex-start;
+  /* position: absolute; */
+/*
+}
+*/
+
 .SPXWindow {
   display: flex;
   align-items: center;
@@ -34,7 +47,7 @@ html {
   border: 1px solid #0f0b0b;
 }
 
-#SPXgfx {
+#gfx {
   position: relative;
 }
 

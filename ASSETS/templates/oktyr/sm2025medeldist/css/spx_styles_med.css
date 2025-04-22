@@ -1,6 +1,7 @@
-/* spx_styles_gen.css */
+/* spx_styles_med.css */
 /* Styles based on Softpix Template Pack 1.3.2 */
 /*  Change 1: Added fadeIN, fadeOUT. Added welcomeText. */
+/*  Change 2: Renamed SPXgfx back to gfx */
 
 *,
 *:before,
@@ -37,7 +38,7 @@ html {
   border-bottom-width: var(--theme-viewport-padding-bottom);
 }
 
-#SPXgfx {
+#gfx {
   position: relative;
 }
 
