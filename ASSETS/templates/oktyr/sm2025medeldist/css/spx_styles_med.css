@@ -2,6 +2,7 @@
 /* Styles based on Softpix Template Pack 1.3.2 */
 /*  Change 1: Added fadeIN, fadeOUT. Added welcomeText. */
 /*  Change 2: Renamed SPXgfx back to gfx */
+/*  Change 3: Copied gfx children from oktyr_style.css */
 
 *,
 *:before,
@@ -21,14 +22,15 @@ html {
   background-color: rgba(255, 255, 255, 0);
 }
 
+/* .SPXWindow will act as a viewport-sized container that hides overflowing content */
 .SPXWindow {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: absolute;
-  box-sizing: border-box;
+  box-sizing: border-box; /* width and height include padding and borders. */
   background-size: 100% 100%;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0); /* transparent */
 
   border-style: solid;
   border-color: rgba(12, 221, 12, 0); /* MARGIN COLOR */
@@ -38,12 +40,68 @@ html {
   border-bottom-width: var(--theme-viewport-padding-bottom);
 }
 
+/* #gfx and its children will be organized according to the layout rules of relative and block-level positioning. */
 #gfx {
   position: relative;
+  opacity: 0;
 }
 
-div {
+/* start of Copied from oktyr_style.css */
+.title {
+  text-align: left;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding: 0.625rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+  width: 100%;
+  padding-left: 1.25rem;
+}
+
+.metaData {
+  background-color: #faaa67;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  color: #301525;
   white-space: nowrap;
+  padding: 0.625rem 1.25rem;
+}
+.metaData .first {
+  width: 12.5rem;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.metaData .second {
+  font-size: 1rem;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo {
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img {
+  width: 35px;
+  height: 35px;
+}
+/* end of Copied from oktyr_style.css. */
+
+div {
+  white-space: nowrap; /* single line */
   overflow: hidden;
 }
 
@@ -66,6 +124,7 @@ div {
   font-family: monospace !important;
 }
 
+/* From SPX demo */
 .liteOnDark {
   color: var(--theme-lite-color);
   background-color: var(--theme-dark-color);
@@ -85,8 +144,7 @@ div {
   color: var(--theme-lite-color);
   background-color: var(--theme-brandColor);
 }
-
-#welcomeText {
+*/ #welcomeText {
   opacity: 0; /* animated */
   font-size: 5em;
   font-weight: bold;
