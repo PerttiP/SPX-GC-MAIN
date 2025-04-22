@@ -25,6 +25,7 @@
     08.04.2025 Changed theme to News.
     08.04.2025 Added number field as f0.
     21.04.2025 Renamed style tag from gfx to SPXgfx.
+    22-04.2025 Renamed SPXgfx back to gfx.
 -->
 
   <head>
@@ -33,7 +34,7 @@
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
     <!-- FIXME: Which style file to use? Merge the files into one? -->
-    <link rel="stylesheet" type="text/css" href="css/spx_styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/spx_styles_med.css" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -49,7 +50,7 @@
         position: absolute;
       }
 
-      #SPXgfx {
+      #gfx {
         gap: 0;
         border: 0;
         opacity: 0 /* animated */;
@@ -133,12 +134,12 @@
 
       function runAnimationIN() {
         // basic animation by swapping the CSS class
-        document.getElementById("SPXgfx").classList = "fadeIN";
+        document.getElementById("gfx").classList = "fadeIN";
       }
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
-        document.getElementById("SPXgfx").classList = "fadeOUT";
+        document.getElementById("gfx").classList = "fadeOUT";
       }
 
       window.SPXGCTemplateDefinition = {
@@ -200,7 +201,6 @@
               },
             ],
           },
-          ,
           {
             field: "f_vald_kontroll",
             ftype: "dropdown",
@@ -267,7 +267,7 @@
   <body>
     <div class="SPXWindow right">
       <div id="logoLeft"></div>
-      <div id="SPXgfx">
+      <div id="gfx">
         <div id="box1" class="darkOnLite">
           <span id="number">123</span><span id="text1"></span>
         </div>
