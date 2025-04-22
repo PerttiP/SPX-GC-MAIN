@@ -1,3 +1,6 @@
+/* Styles based on SPX demo helloWorld */
+/*  Change 1: Added gfx, and renamed it to SPXgfx */
+
 * {
   box-sizing: border-box;
   margin: 0px;
