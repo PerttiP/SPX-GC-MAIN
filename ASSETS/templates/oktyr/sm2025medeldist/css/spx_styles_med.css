@@ -42,11 +42,36 @@ html {
 
 /* #gfx and its children will be organized according to the layout rules of relative and block-level positioning. */
 #gfx {
-  position: relative;
+  /*position: relative;*/ /* FIXME: Is this needed? */
   opacity: 0;
 }
 
 /* start of Copied from oktyr_style.css */
+.splitTime .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.splitTime .graphic {
+  position: absolute;
+  min-width: 35rem;
+  bottom: 40px;
+  left: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .title {
   text-align: left;
   align-items: center;

@@ -4,45 +4,82 @@
 
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
 
-// Mock function to simulate the API response
-async function fetchMockApiResponse() {
+// MOCKTEST: Mock function to simulate the API response
+async function fetchMockApiResponse(klass) {
   // Simulated delay (like a real API call)
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  // Mock data
-  return {
-    competition: "Medel-Kval",
-    class: "D21",
-    runners: [
-      {
-        bib: "101",
-        name: "Anna Andersson",
-        club: "OK Tyr",
-        start_time: "12:00",
-        split_times: [2450, 5080, 7840],
-        final_time: 10800,
-        place: 1,
-      },
-      {
-        bib: "102",
-        name: "Lisa Bergström",
-        club: "IFK Göteborg",
-        start_time: "12:02",
-        split_times: [2520, 5190, 7950],
-        final_time: 10950,
-        place: 2,
-      },
-      {
-        bib: "103",
-        name: "Karin Johansson",
-        club: "OK Djerf",
-        start_time: "12:04",
-        split_times: [2580, 5300, 8080],
-        final_time: 11200,
-        place: 3,
-      },
-    ],
-  };
+  if (klass === "D21") {
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "101",
+          name: "Anna Andersson",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "102",
+          name: "Lisa Bergström",
+          club: "IFK Göteborg",
+          start_time: "12:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "103",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+      ],
+    };
+  } else if (klass === "H21") {
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "201",
+          name: "Johan Olsson",
+          club: "OK SKogsmårdarna",
+          start_time: "14:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "202",
+          name: "Pär Hultgren",
+          club: "IFK Malmö",
+          start_time: "14:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "203",
+          name: "Kalle Arvidsson",
+          club: "OK Björnen",
+          start_time: "14:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+      ],
+    };
+  }
 }
 
 function refetchRunnersData() {
@@ -52,14 +89,13 @@ function refetchRunnersData() {
 
   if (selectedClass === null) {
     console.error("refetchRunnersData with selectedClass === null");
-    alert("Refetch misslyckades!");
+    alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
     return;
   }
   // TODO: API request
 
-  // TODO: Simulate a API response?
-  // Example usage
-  fetchMockApiResponse().then((mockData) => {
+  // MOCKTEST: Simulate an API response
+  fetchMockApiResponse(selectedClass).then((mockData) => {
     console.log("Mock API Response:", mockData);
   });
 }

@@ -45,17 +45,20 @@
     />
     <!-- NOTE: These styles will override the styles from imported stylesheet -->
     <style>
+      /*
       .SPXWindow {
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
         position: absolute;
       }
-
+      */
+      /*
       #gfx {
         gap: 0;
         border: 0;
-        opacity: 0 /* animated */;
+        opacity: 0 /* animated */
+      /*
         z-index: 10;
         display: flex;
         bottom: 5vh;
@@ -64,7 +67,7 @@
         transform-origin: bottom left;
         border-left: var(--theme-accent-width) solid var(--theme-brandColor);
       }
-
+      */
       #box1 {
         font-size: 3vw;
         font-family: "BOLD";
@@ -108,6 +111,9 @@
         //console.clear();
         e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
         e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+        e("vald_kontroll").innerHTML = htmlDecode(
+          e("f_vald_kontroll").innerText
+        );
 
         // TODO: Get the vald klass from dropdown
         // NOTE: The value property is only available for form elements
@@ -275,31 +281,60 @@
     </script>
   </head>
 
-  <body>
-    <div class="SPXWindow right">
-      <div id="gfx">
-        <div id="box1" class="header">
-          <!-- CSS's cascade rule: Last one wins! -->
-          <div id="logoLeft" class="logo">
-            <img src="images/sun_logo.png" alt="" />
+  <!--
+  <body class="splitTime">
+    <div id="gfx">
+      <div class="container">
+        <div class="graphic">
+          <div id="box1" class="header">
+            <div id="logoLeft" class="logo">
+              <img src="images/sun_logo.png" alt="" />
+            </div>
+            <p>
+              <span id="list_titel">MELLANTID</span
+              ><span id="vald_klass">HD XX</span
+              ><span id="vald_kontroll">RC 1</span>
+            </p>
           </div>
-          <p>
-            <span id="list_titel">MELLANTID</span
-            ><span id="vald_klass">HD XX</span
-            ><span id="vald_kontroll">RC 1</span>
-          </p>
         </div>
       </div>
-    </div>
+-->
 
-    <div id="hiddenSpxData" data-info="See styles.css">
-      <div data-info="List titel..." id="f_list_titel"></div>
-      <div data-info="Vald klass..." id="f_vald_klass"></div>
-      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
-      <div data-info="Number......." id="f0"></div>
-      <div data-info="Fullname....." id="f1"></div>
-      <div data-info="Club........." id="f2"></div>
-      <div data-info="Theme........" id="f99"></div>
+  <body class="splitTime">
+    <div id="gfx">
+      <div class="container">
+        <div class="graphic">
+          <div class="header">
+            <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
+            <p>D21 - TV 1</p>
+          </div>
+          <div class="runner leader">
+            <div class="place">1</div>
+            <div class="bib">11</div>
+            <div class="name">Helena Bergman</div>
+            <div class="club">OK Ravinen</div>
+            <div class="time">1:02:36</div>
+          </div>
+          <!-- <div class="runner"> -->
+          <div class="runner selected">
+            <div class="place">4</div>
+            <div class="bib">71</div>
+            <div class="name">Izabella Ljungberg</div>
+            <div class="club">OK Tyr</div>
+            <div class="time">+0:12</div>
+          </div>
+        </div>
+
+        <div id="hiddenSpxData" data-info="See styles.css">
+          <div data-info="List titel..." id="f_list_titel"></div>
+          <div data-info="Vald klass..." id="f_vald_klass"></div>
+          <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
+          <div data-info="Number......." id="f0"></div>
+          <div data-info="Fullname....." id="f1"></div>
+          <div data-info="Club........." id="f2"></div>
+          <div data-info="Theme........" id="f99"></div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

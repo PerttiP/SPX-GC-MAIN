@@ -1,15 +1,20 @@
-// Class for individual item
+// Class for individual item (defaults to textfield)
 class Item {
-  constructor(field, ftype, title, value) {
+  constructor(field, value, title = "Info", ftype = "textfield") {
     this.field = field;
     this.ftype = ftype;
     this.title = title;
     this.value = value;
   }
 
-  // Method to get a formatted string of the item
+  // To get a formatted string of the item (for graphic display)
   getFormattedItem() {
     return `${this.title}: ${this.value}`;
+  }
+
+  // To get an editor field item ("f0": "First field value")
+  getEditorFieldItem() {
+    return `${this.field}: ${this.value}`;
   }
 }
 
@@ -17,7 +22,7 @@ class Item {
 class ItemList {
   constructor(items) {
     this.items = items.map(
-      (item) => new Item(item.field, item.ftype, item.title, item.value)
+      (item) => new Item(item.field, item.value, item.title, item.ftype)
     );
   }
 
@@ -29,6 +34,11 @@ class ItemList {
   // Method to display all items as formatted strings
   displayItems() {
     return this.items.map((item) => item.getFormattedItem());
+  }
+
+  // Method to display all editor field items
+  displayFieldItems() {
+    return this.items.map((item) => item.getEditorFieldItem());
   }
 }
 
@@ -53,6 +63,7 @@ class MultiItemContainer {
     return this.itemLists.map(({ key, itemList }) => ({
       listKey: key,
       formattedItems: itemList.displayItems(),
+      formattedFieldItems: itemList.displayFieldItems(),
     }));
   }
 }
