@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+    (c) 2024 SPX Graphics
+    Template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
+	----
+
+    splitTime.html
+    Description: A lower third in the bottom left corner,
+    with data fields for split times with BIB NAME TIME.
+
+	Changes:
+    21.04.2025 Kept style tag as gfx and not renamed to SPXgfx.
+    23.04.2025 This template uses styles from William in oktyr_style.css!
+-->
+
   <head>
     <meta charset="UTF-8" />
 
     <title>Graphics - Split Time</title>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <script type="text/javascript" src="js/RunnerData.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
     <link
       rel="stylesheet"
@@ -15,14 +30,52 @@
     />
 
     <script>
+      function runTemplateUpdate() {
+        e("DynamicTheme").href = e("f99").innerText;
+
+        //console.clear();
+        e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
+        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+        e("vald_kontroll").innerHTML = htmlDecode(
+          e("f_vald_kontroll").innerText
+        );
+
+        // TODO: Get the vald klass from dropdown
+        // NOTE: The value property is only available for form elements
+        // like <input>, <textarea>, or <select>.
+        let element = document.getElementById("f_vald_klass");
+        console.log(element);
+
+        let selectedClass = "";
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+
+          // Save persistently
+          localStorage.setItem("selectedClass", selectedClass);
+        }
+
+        const list_titel = document.getElementById("list_titel");
+        list_titel.innerText = list_titel.innerText + " ";
+
+        const vald_klass = document.getElementById("vald_klass");
+        vald_klass.innerText = vald_klass.innerText + " ";
+
+        const vald_kontroll = document.getElementById("vald_kontroll");
+        vald_kontroll.innerText = vald_kontroll.innerText;
+
+        setTimeout(runAnimationIN, 50);
+      } // runTemplateUpdate
       function runAnimationIN() {
         // basic animation by swapping the CSS class
-        document.getElementById("gfx").classList = "fadeIN";
+        //document.getElementById("graphic").classList = "fadeIN";
+        document.getElementById("container").classList = "fadeIN";
       }
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
-        document.getElementById("gfx").classList = "fadeOUT";
+        //document.getElementById("graphic").classList = "fadeOUT";
+        document.getElementById("container").classList = "fadeOUT";
       }
 
       window.SPXGCTemplateDefinition = {
@@ -200,6 +253,16 @@
           <div class="time">+108:03</div>
         </div>
       </div>
+    </div>
+
+    <div id="hiddenSpxData" data-info="See styles.css">
+      <div data-info="List titel..." id="f_list_titel"></div>
+      <div data-info="Vald klass..." id="f_vald_klass"></div>
+      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
+      <div data-info="Number......." id="f0"></div>
+      <div data-info="Fullname....." id="f1"></div>
+      <div data-info="Club........." id="f2"></div>
+      <div data-info="Theme........" id="f99"></div>
     </div>
   </body>
 </html>
