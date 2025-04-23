@@ -268,12 +268,24 @@ p {
 .fadeIN {
   opacity: 1 !important;
   transition: all;
+  transition-duration: 0.5s;
+}
+/* FIXME: Not working: */
+.fadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.2s;
+}
+
+.oktyrfadeIN {
+  opacity: 1 !important;
+  transition: all;
   transition-duration: 0.8s;
   animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
   animation-name: fadeIn;
 }
-
-.fadeOUT {
+/* FIXME: Not working: */
+.oktyrfadeOUT {
   opacity: 0 !important;
   transition: all;
   transition-duration: 0.4s;

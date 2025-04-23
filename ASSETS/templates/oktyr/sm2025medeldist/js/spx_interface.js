@@ -86,12 +86,19 @@ function refetchRunnersData() {
   //alert("refetchRunnersData() CALLED!"); // OK!
 
   selectedClass = localStorage.getItem("selectedClass");
+  selectedRunnerBib = localStorage.getItem("selectedRunnerBib");
 
   if (selectedClass === null) {
     console.error("refetchRunnersData with selectedClass === null");
     alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
     return;
   }
+  if (selectedRunnerBib === null) {
+    console.error("refetchRunnersData with selectedRunnerBib === null");
+    alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
+    return;
+  }
+
   // TODO: API request
 
   // MOCKTEST: Simulate an API response
