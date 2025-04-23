@@ -247,7 +247,7 @@
       ],
       "onair": "false",
       "dataformat": "json",
-      "imported": "1745333018295",
+      "imported": "1745418954642",
       "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
     },
     {
@@ -375,11 +375,11 @@
         }
       ],
       "onair": "false",
-      "imported": "1745416530896",
+      "imported": "1745419244738",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-23T13:55:30.896Z"
+  "updated": "2025-04-23T14:40:44.739Z"
 }

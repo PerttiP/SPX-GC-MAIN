@@ -53,11 +53,16 @@
 
           // Save persistently
           localStorage.setItem("selectedClass", selectedClass);
+          console.log("Class saved: ", selectedClass);
         }
 
         // Get the runner bib number
-        testBibNr = htmlDecode(e("f0").innerText);
-        alert(testBibNr);
+        selectedRunnerBib = htmlDecode(e("f0").innerText);
+        //alert(selectedRunnerBib);
+        if (selectedRunnerBib) {
+          localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
+          console.log("BibNr saved", selectedRunnerBib);
+        }
 
         // e("number").innerHTML = htmlDecode(e("f0").innerText);
 
@@ -69,6 +74,8 @@
 
         const vald_kontroll = document.getElementById("vald_kontroll");
         vald_kontroll.innerText = vald_kontroll.innerText;
+
+        console.log("vald_kontroll.innerText: ", vald_kontroll.innerText);
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate

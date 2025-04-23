@@ -5,10 +5,34 @@
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
 
 // MOCKTEST: Mock function to simulate the API response
-async function fetchMockApiResponse(klass) {
+/*
+  An async function always returns a Promise, regardless of whether you use await inside the function or not.
+*/
+async function fetchMockApiResponse(klass, bibnr) {
   // Simulated delay (like a real API call)
   await new Promise((resolve) => setTimeout(resolve, 500));
 
+  // MOCTKEST responding with one runner to follow (444)
+  if (bibnr === "444") {
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "444",
+          name: "Ferry Fyråsen",
+          club: "OK Fyran",
+          start_time: "14:44",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+      ],
+    };
+  }
+
+  // MOCKTEST responding with several runners in a specific class (D21 or H21)
   if (klass === "D21") {
     // Mock data
     return {
@@ -82,28 +106,52 @@ async function fetchMockApiResponse(klass) {
   }
 }
 
-function refetchRunnersData() {
-  //alert("refetchRunnersData() CALLED!"); // OK!
+let selectedClass;
+let selectedRunnerBib;
 
+function getDataFromLocalStorage() {
   selectedClass = localStorage.getItem("selectedClass");
   selectedRunnerBib = localStorage.getItem("selectedRunnerBib");
 
   if (selectedClass === null) {
     console.error("refetchRunnersData with selectedClass === null");
     alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
-    return;
+    return false;
   }
   if (selectedRunnerBib === null) {
     console.error("refetchRunnersData with selectedRunnerBib === null");
     alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
-    return;
+    return false;
   }
+  return true;
+}
+
+function refetchRunnersData() {
+  //alert("refetchRunnersData() CALLED!"); // OK!
+
+  if (!getDataFromLocalStorage()) return;
 
   // TODO: API request
 
-  // MOCKTEST: Simulate an API response
-  fetchMockApiResponse(selectedClass).then((mockData) => {
+  // MOCKTEST: Simulate an API response (will return Mock data for class D21 or H21)!
+  fetchMockApiResponse(selectedClass, selectedRunnerBib).then((mockData) => {
     console.log("Mock API Response:", mockData);
+  });
+}
+
+function followSelectedRunner() {
+  //alert("followSelectedRunner() CALLED!"); // OK!
+
+  if (!getDataFromLocalStorage()) return;
+
+  // TODO: API request
+
+  // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!
+  fetchMockApiResponse(selectedClass, selectedRunnerBib).then((mockData) => {
+    console.log("Mock API Response:", mockData);
+
+    // TODO: Now in update()
+    // We want to substitute data in the overlay and in static labels of editor.
   });
 }
 
