@@ -43,17 +43,20 @@ class RunnerDataFromAPI {
 
 // Example usage:
 // Assuming the data from the API is stored in a variable called apiResponse
+/*
 const apiResponse = {
   split: {
     id: 150,
     name: "Radio 2",
     runners: [
-      /* The runners data from the API */
+      // The runners data from the API...
     ],
   },
 };
+*/
 
 // Creating an instance of RunnerDataFromAPI
+/*
 const runnerData = new RunnerDataFromAPI(
   apiResponse.split.id,
   apiResponse.split.name,
@@ -67,3 +70,4 @@ console.log("Runners with split times:", runnersWithTime);
 // Sorting runners by their placement
 const sortedRunners = runnerData.sortRunnersByPlace();
 console.log("Sorted runners by place:", sortedRunners);
+*/

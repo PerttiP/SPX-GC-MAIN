@@ -20,22 +20,150 @@ console.log("global.configfileref: ", global.configfileref);
 // From client-side the actual DOM resides directly on the global window object
 let currentTemplateDefinition;
 
+// Save persistently (as a string!)
+localStorage.setItem("doUpdateEditorFieldLabels", JSON.stringify(false));
+
 // Listen for event when HTML has been completely parsed and the DOM constructed (but before images and subframes have loaded).
+// WARNING: This event will be triggered by SPX-GC also for PlayLayer events !!!
 document.addEventListener("DOMContentLoaded", function () {
   if (typeof window.SPXGCTemplateDefinition !== "undefined") {
     currentTemplateDefinition = window.SPXGCTemplateDefinition;
     console.log(
-      "SPXGCTemplateDefinition has been set:",
+      "currentTemplateDefinition has been set:",
       currentTemplateDefinition
     );
+
+    // FIXME: Only rewrite this once for the session!!!
+    let testFlag = JSON.parse(
+      localStorage.getItem("doUpdateEditorFieldLabels")
+    );
+    // if (!testFlag) { // Only rewrite if we are NOT in the doUpdateEditorFieldLabels mode!
+    // OR EVEN BETTER?:
+    if (localStorage.getItem("currentTD_DataFields") === null) {
+      // If the key doesn't exist, it returns null!
+      let currentTD_DataFields = window.SPXGCTemplateDefinition.DataFields;
+      console.log(
+        "currentTD_DataFields has also been set:",
+        currentTD_DataFields
+      );
+
+      console.log(typeof currentTD_DataFields);
+
+      localStorage.setItem(
+        "currentTD_DataFields",
+        JSON.stringify(currentTD_DataFields)
+      );
+    } else {
+      console.log(
+        "Intentionally NOT rewriting the stored currentTD_DataFields!!!"
+      );
+    }
   } else {
     console.error("SPXGCTemplateDefinition is not defined on the window.");
   }
 });
 
-let doUpdateEditorFieldLabels = false;
+function getNewValueForField(field, newData) {
+  switch (field) {
+    case "f0":
+      if (typeof newData.f0 === "string" || myVar instanceof String)
+        return newData.f0; // new value for f0 (Bib)
+      else if (typeof newData.f0 === "number" && Number.isInteger(newData.f0))
+        return newData.f0.toString();
+      else return newData[field]; // unchanged!
+    case "f1":
+      return newData.f1; // new value for f1 (Name)
+    case "f2":
+      return newData.f2; // new value for f2 (Club)
+    default:
+      return newData[field]; // unchanged!
+  }
+}
 
-const newDataFromAPI = {
+// TODO: test if this works:
+
+// FIXME:
+/*
+spx_interface.js:56 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'DataFields')
+*/
+function updateRunnerDataFieldsInTemplateDefinition(newDataFields) {
+  // Create a shallow clone of the DataFields array
+  //  const updatedDataFields = window.SPXGCTemplateDefinition.DataFields.map(
+
+  // FIXME?: undefined
+  //  console.log(currentTemplateDefinition);
+
+  let currentTD_DataFields = JSON.parse(
+    localStorage.getItem("currentTD_DataFields")
+  );
+
+  console.log(currentTD_DataFields); //OK!
+
+  let doReplace = false;
+  let updatedDataFields = null;
+
+  //if (currentTemplateDefinition && currentTemplateDefinition.DataFields) {
+  if (currentTD_DataFields) {
+    updatedDataFields = currentTD_DataFields.map(
+      //currentTemplateDefinition.DataFields.map(
+      (fieldItem) => {
+        // Only modify the 'number' and 'caption' fields that we care about to change:
+        if (
+          (fieldItem.ftype === "caption" && //"textfield" &&
+            ["f0", "f1", "f2"].includes(fieldItem.field)) ||
+          (fieldItem.ftype === "number" && ["f0"].includes(fieldItem.field))
+        ) {
+          return {
+            ...fieldItem,
+            value: getNewValueForField(fieldItem.field, newDataFields),
+          };
+        }
+        // Keep others intact:
+        return fieldItem;
+      }
+    );
+
+    console.log(
+      "Will now try to update the window.SPXGCTemplateDefinition.DataFields..."
+    );
+
+    if (
+      window.SPXGCTemplateDefinition &&
+      window.SPXGCTemplateDefinition.DataFields
+    ) {
+      try {
+        // Try to update the 'real' template definition with the new array...
+        window.SPXGCTemplateDefinition.DataFields = updatedDataFields;
+      } catch (error) {
+        //console.log(window.SPXGCTemplateDefinition.DataFields);
+        console.error("Failed to update the template definition", error);
+        console.log("With updatedDataFields: ", updatedDataFields);
+        doReplace = true;
+      }
+    } else {
+      // If window template def not found, do replace
+      doReplace = true;
+    }
+  } else {
+    // If not stored, do replace
+    doReplace = true;
+  }
+
+  // FIXME: Why not always replace if we have valid data in updatedDataFields...?
+
+  if (doReplace) {
+    // FALLBACK: Save the updatedDataFields to local storage...?
+    localStorage.setItem(
+      "currentTD_DataFields",
+      JSON.stringify(updatedDataFields)
+    );
+    console.log("Replaced currentTD_DataFields with updatedDataFields");
+  }
+
+  // Trigger any re-rendering or template update as needed...
+}
+
+let newDataFromAPI = {
   comment: "[ PLACE BIB-NR NAME TIME ]",
   f_list_titel: "Split",
   f_vald_klass: "",
@@ -50,11 +178,12 @@ const newDataFromAPI = {
 /*
   An async function always returns a Promise, regardless of whether you use await inside the function or not.
 */
+
 async function fetchMockApiResponse(klass, bibnr) {
   // Simulated delay (like a real API call)
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  // MOCTKEST responding with one runner to follow (444)
+  // MOCKTEST responding with one runner to follow (444)
   if (bibnr === "444") {
     // Mock data
     return {
@@ -73,7 +202,20 @@ async function fetchMockApiResponse(klass, bibnr) {
       ],
     };
   }
-
+}
+/*
+async function fetchMockApiResponse(selKlass, selBib) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        // resolve should return an object with a runners property
+        runners: [{ name: "Ferry Fyråsen", bib: "444" }],
+      });
+    }, 500);
+  });
+}
+*/
+async function fetchMockApiResponseMany(klass) {
   // MOCKTEST responding with several runners in a specific class (D21 or H21)
   if (klass === "D21") {
     // Mock data
@@ -148,10 +290,12 @@ async function fetchMockApiResponse(klass, bibnr) {
   }
 }
 
+// -------------------------------------- MOCK DATA END
+
 let selectedClass;
 let selectedRunnerBib;
 // Flag for update(data) function:
-let doUpdateTemplateDataFields = false;
+//let doUpdateTemplateDataFields = false;
 
 function getDataFromLocalStorage() {
   selectedClass = localStorage.getItem("selectedClass");
@@ -167,13 +311,34 @@ function getDataFromLocalStorage() {
     alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
     return false;
   }
+  console.log("selectedClass: ", selectedClass);
+  console.log("selectedRunnerBib: ", selectedRunnerBib);
   return true;
 }
-
+/* FIXME: Not working correctly
+async function checkRunners(runners) {
+  // Check if `runners` is an array and then its length.
+  if (runners && Array.isArray(runners)) {
+    if (runners.length === 1) {
+      console.log("Fetched 1 runner.");
+      return 1;
+    } else {
+      console.log(`Fetched ${runners.length} runners.`);
+      return runners.length;
+    }
+  } else {
+    console.error("The runners property is missing or not an array.");
+    return 0;
+  }
+}
+*/
 function refetchRunnersData() {
   //alert("refetchRunnersData() CALLED!"); // OK!
 
-  if (!getDataFromLocalStorage()) return;
+  if (!getDataFromLocalStorage()) {
+    console.warn("Failed to get data from local storage");
+    return;
+  }
 
   // TODO: API request
 
@@ -186,20 +351,120 @@ function refetchRunnersData() {
 function followSelectedRunner() {
   alert("followSelectedRunner() CALLED!"); // OK!
 
-  if (!getDataFromLocalStorage()) return;
+  if (!getDataFromLocalStorage()) {
+    console.warn("Failed to get data from local storage");
+    return;
+  }
+
+  // HARD-CODED MOCKTEST 2025-04-24:
+  const mockData = {
+    competition: "Medel-Kval",
+    class: "H21",
+    runners: [
+      {
+        bib: "444",
+        name: "Ferry Fyråsen",
+        club: "OK Fyran",
+        start_time: "14:44",
+        split_times: [2450, 5080, 7840],
+        final_time: 10800,
+        place: 4,
+      },
+    ],
+  };
+
+  // TODO: Now in update()
+  // We want to substitute data in the overlay and in 'caption' labels of editor.
+  let doUpdateFlag = true;
+  localStorage.setItem(
+    "doUpdateEditorFieldLabels",
+    JSON.stringify(doUpdateFlag)
+  );
+
+  console.log("Has this flag been set to string representation of 'true'?");
+  // Debug: immediately check the stored value
+  console.log(JSON.parse(localStorage.getItem("doUpdateEditorFieldLabels"))); // Should log: true
+
+  // USE CASE 1: We are following ONE (1) runner:
+  /*
+    let numRunners = checkRunners(mockData.runners);
+    console.log("numRunners: ", numRunners);
+    */
+  if (mockData.runners && Array.isArray(mockData.runners)) {
+    if (mockData.runners.length === 1) {
+      console.log("Fetched 1 runner.");
+
+      newDataFromAPI.f_list_titel = "Split";
+      newDataFromAPI.f_vald_klass = mockData.class;
+      newDataFromAPI.f_vald_kontroll = "LÄGG TILL RC";
+
+      if (Array.isArray(mockData.runners)) {
+        newDataFromAPI.f0 = mockData.runners[0].bib;
+        newDataFromAPI.f1 = mockData.runners[0].name;
+        newDataFromAPI.f2 = mockData.runners[0].club;
+      } else {
+        newDataFromAPI.f0 = mockData.runners.bib;
+        newDataFromAPI.f1 = mockData.runners.name;
+        newDataFromAPI.f2 = mockData.runners.club;
+      }
+      console.log("Received newDataFromAPI: ", newDataFromAPI);
+    } else {
+      console.log("Received many runners data from API");
+    }
+
+    // FIXME: Update window.SPXGCTemplateDefinition.DataFields
+    updateRunnerDataFieldsInTemplateDefinition(newDataFromAPI);
+  }
+}
+
+function followSelectedRunner_2() {
+  alert("followSelectedRunner_2() CALLED!");
+
+  if (!getDataFromLocalStorage()) {
+    console.warn("Failed to get data from local storage");
+    return;
+  }
 
   // TODO: API request
 
+  let mockData; // Added for context?
+
   // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!
   fetchMockApiResponse(selectedClass, selectedRunnerBib).then((mockData) => {
+    // Check if mockData exists before accessing its properties.
+    if (mockData === null || mockData === undefined) {
+      alert(
+        "Fetch från API misslyckades!\n Välj klass och skriv giltigt startnummer\n Försök sedan på nytt!"
+      );
+      //return;
+
+      // HARD-CODED MOCKTEST 2025-04-24: since now mockData is not returned from call above?
+      mockData = {
+        competition: "Medel-Kval",
+        class: "H21",
+        runners: [
+          {
+            bib: "444",
+            name: "Ferry Fyråsen",
+            club: "OK Fyran",
+            start_time: "14:44",
+            split_times: [2450, 5080, 7840],
+            final_time: 10800,
+            place: 4,
+          },
+        ],
+      };
+    }
+
     console.log("Mock API Response:", mockData);
 
     // TODO: Now in update()
     // We want to substitute data in the overlay and in static labels of editor.
-    doUpdateEditorFieldLabels = true;
+    //  doUpdateEditorFieldLabels = true;
 
     /*
     // Mock data
+    // 
     return {
       competition: "Medel-Kval",
       class: "H21",
@@ -213,31 +478,67 @@ function followSelectedRunner() {
           final_time: 10800,
           place: 4,
         },
+       ],
+    };
     */
 
-    newDataFromAPI.f_list_titel = "Split";
-    newDataFromAPI.f_vald_klass = mockData.class;
-    newDataFromAPI.f_vald_kontroll = "LÄGG TILL RC";
-    newDataFromAPI.f0 = mockData.runners.bib;
-    newDataFromAPI.f1 = mockData.runners.name;
-    newDataFromAPI.f2 = mockData.runners.club;
+    // USE CASE 1: We are following ONE (1) runner:
+    /*
+    let numRunners = checkRunners(mockData.runners);
+    console.log("numRunners: ", numRunners);
+    */
+    if (mockData.runners && Array.isArray(mockData.runners)) {
+      if (mockData.runners.length === 1) {
+        console.log("Fetched 1 runner.");
+
+        newDataFromAPI.f_list_titel = "Split";
+        newDataFromAPI.f_vald_klass = mockData.class;
+        newDataFromAPI.f_vald_kontroll = "LÄGG TILL RC";
+
+        if (Array.isArray(mockData.runners)) {
+          newDataFromAPI.f0 = mockData.runners[0].bib;
+          newDataFromAPI.f1 = mockData.runners[0].name;
+          newDataFromAPI.f2 = mockData.runners[0].club;
+        } else {
+          newDataFromAPI.f0 = mockData.runners.bib;
+          newDataFromAPI.f1 = mockData.runners.name;
+          newDataFromAPI.f2 = mockData.runners.club;
+        }
+        console.log("Received newDataFromAPI: ", newDataFromAPI);
+      } else {
+        console.log("Received many runners data from API");
+      }
+
+      // FIXME: Update window.SPXGCTemplateDefinition.DataFields
+      updateRunnerDataFieldsInTemplateDefinition(newDataFromAPI);
+    }
   });
 }
 
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.
-
+// WARNING: This function is most likely called by SPX-GC server and thus
+// it executes in server-side context and CANNOT reliably retrieve
+// "global" data or data in local storage at the client-side/browser context!!!
 function update(data) {
-  const templateData = null;
+  let templateData = null;
 
-  if (doUpdateEditorFieldLabels) {
-    if (newDataFromAPI) {
-      newTemplateDataFromAPI.updateField("f0", newDataFromAPI.f0);
-      newTemplateDataFromAPI.updateField("f1", newDataFromAPI.f1);
-      newTemplateDataFromAPI.updateField("f2", newDataFromAPI.f2);
-    }
+  let testFlag = JSON.parse(localStorage.getItem("doUpdateEditorFieldLabels")); // JSON parse to boolean!
+  console.log("testFlag", testFlag);
+  console.log("typeof testFlag: ", typeof testFlag);
+
+  if (testFlag) alert("testFlag IS boolean true!!!"); // WARNING: I NEVER see this alert!!!
+
+  if (testFlag || testFlag === "true") {
     templateData = new SPXTemplateData(newDataFromAPI);
+    if (newDataFromAPI) {
+      //FIXME: actually unnecessary right now?
+      templateData.updateField("f0", newDataFromAPI.f0);
+      templateData.updateField("f1", newDataFromAPI.f1);
+      templateData.updateField("f2", newDataFromAPI.f2);
+    }
+    console.log("##### doUpdateEditorFieldLabels !!!!!");
   } else {
     console.log("----- Update handler called with data:", data);
     // Parse the incoming JSON data and create our structured object.
@@ -267,6 +568,9 @@ function update(data) {
   } else {
     console.error("runTemplateUpdate() function missing from SPX template.");
   }
+
+  // TODO: Reset flag?
+  //  doUpdateEditorFieldLabels = false;
 }
 
 /*

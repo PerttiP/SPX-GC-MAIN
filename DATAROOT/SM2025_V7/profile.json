@@ -1,0 +1,135 @@
+{
+  "templates": [
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ PLACE BIB-NR NAME TIME ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
+        },
+        {
+          "field": "f_list_titel",
+          "ftype": "textfield",
+          "title": "Set title",
+          "value": "Split"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "D18"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "RC1",
+          "items": [
+            {
+              "text": "RC1",
+              "value": "RC1"
+            },
+            {
+              "text": "RC2",
+              "value": "RC2"
+            },
+            {
+              "text": "RC3",
+              "value": "RC3"
+            },
+            {
+              "text": "RC4",
+              "value": "RC4"
+            },
+            {
+              "text": "RC5",
+              "value": "RC5"
+            },
+            {
+              "text": "RC6",
+              "value": "RC6"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Bib Number of Runner to Follow",
+          "value": "999"
+        },
+        {
+          "field": "f_follow_runner_btn",
+          "ftype": "button",
+          "title": "Follow Selected Runner",
+          "descr": "Set selected Runner bib to follow",
+          "fcall": "followSelectedRunner()"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": "ADD DROPDOWN FOR BIB NR!"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745510388735",
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+    }
+  ],
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-24T15:59:48.735Z"
+}

@@ -69,6 +69,7 @@ class MultiItemContainer {
 }
 
 // Example data
+/*
 const example_data = {
   item1: [
     { field: "f0", ftype: "number", title: "Number", value: "444" },
@@ -105,8 +106,9 @@ const example_data = {
     { field: "f5", ftype: "textfield", title: "Starttime", value: "12:00" },
   ],
 };
-
+*/
 // Creating an instance of MultiItemContainer
+/*
 const multiItemContainer = new MultiItemContainer(example_data);
 
 // Displaying all non-empty items
@@ -117,3 +119,4 @@ console.log(
   "Formatted Items from All Lists:",
   multiItemContainer.displayAllItems()
 );
+*/
