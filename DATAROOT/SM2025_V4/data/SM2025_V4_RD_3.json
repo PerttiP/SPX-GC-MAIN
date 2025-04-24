@@ -1,70 +1,8 @@
 {
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-24T08:34:31.781Z",
   "templates": [
-    {
-      "description": "Start list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
-      "DataFields": [
-        {
-          "ftype": "instruction",
-          "value": "This template has several pages (steps). Click 'Continue' for next page..."
-        },
-        {
-          "field": "f_list_titel",
-          "ftype": "textfield",
-          "title": "Set list title",
-          "value": "START LISTA"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "D18"
-            }
-          ]
-        },
-        {
-          "field": "f_refetch_btn",
-          "ftype": "button",
-          "title": "Refetch data",
-          "descr": "Refetch runners data",
-          "fcall": "refetchRunnersData()"
-        }
-      ],
-      "onair": "false",
-      "dataformat": "json",
-      "imported": "1745424024853",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
-    },
     {
       "description": "Namestrap left",
       "playserver": "OVERLAY",
@@ -388,7 +326,7 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": "Hälge Hälgesson"
+          "value": "ADD DROPDOWN FOR BIB NR!"
         },
         {
           "field": "f2",
@@ -405,69 +343,12 @@
           "value": "./css/themes/News.css"
         }
       ],
-      "onair": "false",
-      "imported": "1745425456132",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
-    },
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ NR NAMN KLUBB (ORT) ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "999"
-        },
-        {
-          "field": "f1",
-          "ftype": "textfield",
-          "title": "Fullname",
-          "value": "Hälge Hälgesson"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": "OK Älgen"
-        },
-        {
-          "field": "f3",
-          "ftype": "caption",
-          "title": "Location",
-          "value": ""
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745425459571",
-      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER_V4.html"
+      "onair": "true",
+      "imported": "1745432110978",
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "itemID": "1745483487377"
     }
   ],
-  "warning": "Modifications done in the SPX will overwrite this file.",
-  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-23T16:24:19.571Z"
+  "project": "SM2025_V4",
+  "rundown": "SM2025_V4_RD_3"
 }

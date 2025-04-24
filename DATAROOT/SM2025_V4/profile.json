@@ -1,24 +1,87 @@
 {
   "templates": [
     {
-      "description": "Start list table template",
+      "description": "Namestrap left",
       "playserver": "OVERLAY",
       "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
+      "playlayer": "5",
+      "webplayout": "5",
       "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
+      "dataformat": "json",
+      "uicolor": "3",
       "DataFields": [
         {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ NR NAMN KLUBB (ORT) ]"
+        },
+        {
           "ftype": "instruction",
-          "value": "This template has several pages (steps). Click 'Continue' for next page..."
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": "999"
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f3",
+          "ftype": "caption",
+          "title": "Location",
+          "value": ""
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745430256697",
+      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER_V4.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ PLACE BIB-NR NAME TIME ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
         },
         {
           "field": "f_list_titel",
           "ftype": "textfield",
-          "title": "Set list title",
-          "value": "START LISTA"
+          "title": "Set title",
+          "value": "Split"
         },
         {
           "field": "f_vald_klass",
@@ -53,17 +116,74 @@
           ]
         },
         {
-          "field": "f_refetch_btn",
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "RC1",
+          "items": [
+            {
+              "text": "RC1",
+              "value": "RC1"
+            },
+            {
+              "text": "RC2",
+              "value": "RC2"
+            },
+            {
+              "text": "RC3",
+              "value": "RC3"
+            },
+            {
+              "text": "RC4",
+              "value": "RC4"
+            },
+            {
+              "text": "RC5",
+              "value": "RC5"
+            },
+            {
+              "text": "RC6",
+              "value": "RC6"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Bib Number of Runner to Follow",
+          "value": "999"
+        },
+        {
+          "field": "f_follow_runner_btn",
           "ftype": "button",
-          "title": "Refetch data",
-          "descr": "Refetch runners data",
-          "fcall": "refetchRunnersData()"
+          "title": "Follow Selected Runner",
+          "descr": "Set selected Runner bib to follow",
+          "fcall": "followSelectedRunner()"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
         }
       ],
       "onair": "false",
-      "dataformat": "json",
-      "imported": "1745424024853",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
+      "imported": "1745431402519",
+      "relpath": "/oktyr/sm2025medeldist/IndividualSplitTimes.html"
     },
     {
       "description": "Namestrap left",
@@ -388,7 +508,7 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": "Hälge Hälgesson"
+          "value": "ADD DROPDOWN FOR BIB NR!"
         },
         {
           "field": "f2",
@@ -406,68 +526,11 @@
         }
       ],
       "onair": "false",
-      "imported": "1745425456132",
+      "imported": "1745432110978",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
-    },
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ NR NAMN KLUBB (ORT) ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "999"
-        },
-        {
-          "field": "f1",
-          "ftype": "textfield",
-          "title": "Fullname",
-          "value": "Hälge Hälgesson"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": "OK Älgen"
-        },
-        {
-          "field": "f3",
-          "ftype": "caption",
-          "title": "Location",
-          "value": ""
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745425459571",
-      "relpath": "/oktyr/sm2025medeldist/NAME_CLUB_LEFT_CORNER_V4.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-23T16:24:19.571Z"
+  "updated": "2025-04-23T18:15:10.978Z"
 }

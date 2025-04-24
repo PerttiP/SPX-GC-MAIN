@@ -4,6 +4,48 @@
 
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
 
+// TEST1: Can client side access the global type from Node.js ? */
+/*
+test = global.configfileref;
+console.log("global.configfileref: ", global.configfileref);
+*/
+// TEST1 ANSWER: No it cannot
+
+// TEST2: Can client side access JSDOM ?
+// Original method using just JSDOM
+//const dom = new JSDOM(templatehtml, { runScripts: "dangerously" });
+// TEST2 ANSWER: No, For browser-based HTML parsing, use the native DOMParser API instead of JSDOM.
+
+// TEST3:
+// From client-side the actual DOM resides directly on the global window object
+let currentTemplateDefinition;
+
+// Listen for event when HTML has been completely parsed and the DOM constructed (but before images and subframes have loaded).
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof window.SPXGCTemplateDefinition !== "undefined") {
+    currentTemplateDefinition = window.SPXGCTemplateDefinition;
+    console.log(
+      "SPXGCTemplateDefinition has been set:",
+      currentTemplateDefinition
+    );
+  } else {
+    console.error("SPXGCTemplateDefinition is not defined on the window.");
+  }
+});
+
+let doUpdateEditorFieldLabels = false;
+
+const newDataFromAPI = {
+  comment: "[ PLACE BIB-NR NAME TIME ]",
+  f_list_titel: "Split",
+  f_vald_klass: "",
+  f_vald_kontroll: "",
+  f0: "",
+  f1: "",
+  f2: "",
+  f99: "",
+};
+
 // MOCKTEST: Mock function to simulate the API response
 /*
   An async function always returns a Promise, regardless of whether you use await inside the function or not.
@@ -108,6 +150,8 @@ async function fetchMockApiResponse(klass, bibnr) {
 
 let selectedClass;
 let selectedRunnerBib;
+// Flag for update(data) function:
+let doUpdateTemplateDataFields = false;
 
 function getDataFromLocalStorage() {
   selectedClass = localStorage.getItem("selectedClass");
@@ -140,7 +184,7 @@ function refetchRunnersData() {
 }
 
 function followSelectedRunner() {
-  //alert("followSelectedRunner() CALLED!"); // OK!
+  alert("followSelectedRunner() CALLED!"); // OK!
 
   if (!getDataFromLocalStorage()) return;
 
@@ -152,6 +196,31 @@ function followSelectedRunner() {
 
     // TODO: Now in update()
     // We want to substitute data in the overlay and in static labels of editor.
+    doUpdateEditorFieldLabels = true;
+
+    /*
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "444",
+          name: "Ferry Fyråsen",
+          club: "OK Fyran",
+          start_time: "14:44",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+    */
+
+    newDataFromAPI.f_list_titel = "Split";
+    newDataFromAPI.f_vald_klass = mockData.class;
+    newDataFromAPI.f_vald_kontroll = "LÄGG TILL RC";
+    newDataFromAPI.f0 = mockData.runners.bib;
+    newDataFromAPI.f1 = mockData.runners.name;
+    newDataFromAPI.f2 = mockData.runners.club;
   });
 }
 
@@ -160,8 +229,51 @@ function followSelectedRunner() {
 // use in the template.
 
 function update(data) {
+  const templateData = null;
+
+  if (doUpdateEditorFieldLabels) {
+    if (newDataFromAPI) {
+      newTemplateDataFromAPI.updateField("f0", newDataFromAPI.f0);
+      newTemplateDataFromAPI.updateField("f1", newDataFromAPI.f1);
+      newTemplateDataFromAPI.updateField("f2", newDataFromAPI.f2);
+    }
+    templateData = new SPXTemplateData(newDataFromAPI);
+  } else {
+    console.log("----- Update handler called with data:", data);
+    // Parse the incoming JSON data and create our structured object.
+    const parsedData = JSON.parse(data);
+    templateData = new SPXTemplateData(parsedData);
+  }
+
+  console.log("----- Update handler using templateData:", templateData);
+
+  // --- Programmatically update the f1 and f2 fields ---
+  // For example, you might grab new values from somewhere or compute them:
+  // THIS TEST WORKED FOR GRAPHIC OVERLAY (but not for editor):
+  /*
+  const newF1Value = "Updated Fullname"; // e.g., calculate or get user input
+  const newF2Value = "Updated Club Name";
+  templateData.updateField("f1", newF1Value);
+  templateData.updateField("f2", newF2Value);
+  */
+
+  // --- Update any DOM elements associated with our data ---
+  // This replaces the loop you already had.
+  templateData.updateDom();
+
+  // --- Call the SPX provided template update function ---
+  if (typeof runTemplateUpdate === "function") {
+    runTemplateUpdate(); // This triggers the graphic overlay update.
+  } else {
+    console.error("runTemplateUpdate() function missing from SPX template.");
+  }
+}
+
+/*
+function update(data) {
   var templateData = JSON.parse(data);
   console.log("----- Update handler called with data:", templateData);
+  // Update any DOM elements associated with our data
   for (var dataField in templateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
@@ -191,15 +303,16 @@ function update(data) {
     console.error("runTemplateUpdate() function missing from SPX template.");
   }
 }
+*/
 
 // Play handler
 function play() {
   // console.log('----- Play handler called.')
-  // if (typeof runAnimationIN === "function") {
-  //   runAnimationIN()
-  // } else {
-  //   console.error('runAnimationIN() function missing from SPX template.')
-  // }
+  if (typeof runAnimationIN === "function") {
+    runAnimationIN();
+  } else {
+    console.error("runAnimationIN() function missing from SPX template.");
+  }
 }
 
 // Stop handler

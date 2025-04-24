@@ -3,10 +3,11 @@
 
     Purpose:
         Used by splitTime.html and spx_interface.js for re-updating
-        SPX Template Data in the update() function, called by PlayLayer an UpdateLayer.
+        SPX Template Data in the update() function, called by PlayLayer and UpdateLayer.
  */
 
 class SPXTemplateData {
+  /*
   constructor({
     comment,
     f_list_titel,
@@ -29,10 +30,85 @@ class SPXTemplateData {
       }
     }
   }
+  */
 
-  // Method example to get a specific field value.
+  /**
+   * 
+   * @param {*} data 
+   * Example Parameter apiData = {
+      comment: '[ PLACE BIB-NR NAME TIME ]',
+      f_list_titel: 'Split',
+      f_vald_klass: 'H20',
+      f_vald_kontroll: 'RC5',
+      f0: '444',
+      f1: 'Hälge Hälgesson',
+      f2: 'OK Älgen',
+      f99: './css/themes/News.css'
+    };
+   */
+  constructor(data) {
+    // Fixed properties (OK Tyr specific fields for UI controls)
+    this.comment = data.comment;
+    this.f_list_titel = data.f_list_titel;
+    this.f_vald_klass = data.f_vald_klass;
+    this.f_vald_kontroll = data.f_vald_kontroll;
+
+    // Initialize a dedicated fields property
+    /*
+      Dedicated Object Approach: 
+      Create and populate a separate this.fields object in the constructor, 
+      then have getField and updateField operate only on that object.
+    */
+    this.fields = {};
+
+    for (let key in data) {
+      // Check for keys that match pattern "fX" (like f0, f1, f2, etc.)
+      if (data.hasOwnProperty(key) && /^f\d+$/.test(key)) {
+        this.fields[key] = data[key];
+      }
+    }
+  }
+
   getField(fieldName) {
     return this.fields[fieldName];
+  }
+
+  updateField(field, newValue) {
+    if (this.fields.hasOwnProperty(field)) {
+      this.fields[field] = newValue;
+    } else {
+      console.error(`Field "${field}" not found in SPXTemplateData.`);
+    }
+  }
+
+  // This method goes through relevant fields and updates any DOM element that has its id
+
+  updateDom() {
+    // Update fixed properties
+    const fixedFields = [
+      "comment",
+      "f_list_titel",
+      "f_vald_klass",
+      "f_vald_kontroll",
+    ];
+    fixedFields.forEach((field) => {
+      let element = document.getElementById(field);
+      if (element) {
+        element.innerText = this[field];
+      }
+    });
+
+    // Now update the dynamic fields from the dedicated fields object (like f0, f1, f2, etc.)
+    if (this.fields) {
+      for (let key in this.fields) {
+        if (this.fields.hasOwnProperty(key)) {
+          let element = document.getElementById(key);
+          if (element) {
+            element.innerText = this.fields[key];
+          }
+        }
+      }
+    }
   }
 }
 

@@ -107,7 +107,7 @@ const example_data = {
 };
 
 // Creating an instance of MultiItemContainer
-const multiItemContainer = new MultiItemContainer(data);
+const multiItemContainer = new MultiItemContainer(example_data);
 
 // Displaying all non-empty items
 console.log("All Non-Empty Items:", multiItemContainer.getAllNonEmptyItems());

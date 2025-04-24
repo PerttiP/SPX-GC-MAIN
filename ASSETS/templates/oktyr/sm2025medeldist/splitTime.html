@@ -20,8 +20,11 @@
     <title>Graphics - Split Time</title>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
-    <script type="text/javascript" src="js/RunnerData.js"></script>
-    <script type="text/javascript" src="js/spx_interface.js"></script>
+    <!-- Next scripts use defer and are executed in order -->
+    <script type="text/javascript" src="js/RunnerData.js" defer></script>
+    <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
+    <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -31,6 +34,8 @@
 
     <script>
       function runTemplateUpdate() {
+        // TODO: Set f1 and f2 label fields from localStorage if
+
         e("DynamicTheme").href = e("f99").innerText;
 
         //console.clear();
@@ -187,6 +192,222 @@
                 text: "RC6",
                 value: "RC6",
               },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
             ],
           },
           {
@@ -206,7 +427,9 @@
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            value: "Hälge Hälgesson",
+            /* value: localStorage.getItem("selectedName"), */
+            /*value: () => localStorage.getItem("selectedClass"), */
+            value: "ADD DROPDOWN FOR BIB NR!",
           },
           {
             field: "f2",
