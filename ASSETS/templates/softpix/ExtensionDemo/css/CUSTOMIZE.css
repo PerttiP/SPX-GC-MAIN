@@ -1,0 +1,13 @@
+
+:root {
+    --accent-color: rgb(7, 145, 11); /* any valid CSS color */
+  }
+
+/* Default fonts */
+@font-face { font-family: "LITE"; src: url("../fonts/BarlowSemiCondensed-Light.ttf"); }
+@font-face { font-family: "REGU"; src: url("../fonts/BarlowSemiCondensed-Regular.ttf"); }
+@font-face { font-family: "MEDI"; src: url("../fonts/BarlowSemiCondensed-Medium.ttf"); }
+@font-face { font-family: "BOLD"; src: url("../fonts/BarlowSemiCondensed-Bold.ttf"); }
+@font-face { font-family: "SEMI"; src: url("../fonts/BarlowSemiCondensed-SemiBold.ttf"); }
+@font-face { font-family: "XTRA"; src: url("../fonts/BarlowSemiCondensed-ExtraBold.ttf"); }
+@font-face { font-family: "BLAC"; src: url("../fonts/BarlowSemiCondensed-Black.ttf"); }

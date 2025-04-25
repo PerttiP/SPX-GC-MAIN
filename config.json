@@ -14,17 +14,17 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
-      "SM2025_V8/SM2025_V8_RD",
-      "SM2025_V7/SM2025_V7_RD_4",
-      "SM2025_V7/SM2025_V7_RD_3",
-      "SM2025_V7/SM2025_V7_RD_2",
-      "SM2025_V7/SM2025_V7_RD"
+      "SPXAPITEST2/myRundownFile21",
+      "SPXAPITEST2/APITESTRD3",
+      "SPXAPITEST2/APITESTRD2",
+      "SPXAPITEST2/APITEST2RD1",
+      "SPX_API_TEST/SPXAPITEST_RD1"
     ]
   },
   "globalExtras": {
-    "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
+    "customscript": "\\ExtraFunctions\\demoFunctions.js"
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-24T16:34:10.152Z"
+  "updated": "2025-04-25T14:48:02.957Z"
 }

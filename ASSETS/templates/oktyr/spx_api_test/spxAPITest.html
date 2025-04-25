@@ -2,12 +2,18 @@
 
 <!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX STYLE (css/spx_styles.css)! 
       This template is using the generic BASIC SPX command handler (js/spx_parse.js).
+
+      CHANGES:
+      spxAPITest - for generating rundown files in project 'SPX_API_TEST'.
+      Uses the updated js/spx_api_req_post.js as command handler.
 -->
 
 <html>
   <head>
     <meta charset="utf-8" />
+    <!--
     <link rel="stylesheet" href="css/spx_styles_gen.css" />
+    -->
     <script src="js/spx_api_req_post.js"></script>
     <title>My Welcome to SM template - SPX API Test</title>
 
@@ -28,7 +34,7 @@
 
     <script type="text/javascript">
       window.SPXGCTemplateDefinition = {
-        description: "My Welcome to SM template",
+        description: "My Welcome to SM template - SPX API Test",
         playserver: "OVERLAY",
         playchannel: "1",
         playlayer: "7",
@@ -43,16 +49,99 @@
             title: "Message",
             value: "Välkommen till SM i Orientering 2025!",
           },
+          {
+            field: "f_vald_klass",
+            ftype: "dropdown",
+            title: "Select Class",
+            value: "D21",
+            items: [
+              {
+                text: "D21",
+                value: "D21",
+              },
+              {
+                text: "H21",
+                value: "H21",
+              },
+              {
+                text: "D20",
+                value: "D20",
+              },
+              {
+                text: "H20",
+                value: "H20",
+              },
+              {
+                text: "D18",
+                value: "D18",
+              },
+              {
+                text: "H18",
+                value: "D18",
+              },
+            ],
+          },
+          {
+            field: "f_vald_kontroll",
+            ftype: "dropdown",
+            title: "Select RadioControl",
+            value: "RC1",
+            items: [
+              {
+                text: "RC1",
+                value: "RC1",
+              },
+              {
+                text: "RC2",
+                value: "RC2",
+              },
+              {
+                text: "RC3",
+                value: "RC3",
+              },
+              {
+                text: "RC4",
+                value: "RC4",
+              },
+              {
+                text: "RC5",
+                value: "RC5",
+              },
+              {
+                text: "RC6",
+                value: "RC6",
+              },
+            ],
+          },
+          {
+            field: "f0",
+            ftype: "textfield",
+            title: "Bib Number of Runner to Follow",
+            value: "999",
+          },
+          {
+            field: "f1",
+            ftype: "caption",
+            title: "Fullname",
+            value: "ADD DROPDOWN FOR BIB NR!",
+          },
+          {
+            field: "f2",
+            ftype: "caption",
+            title: "Club",
+            value: "OK Älgen",
+          },
         ],
       };
     </script>
   </head>
 
   <!-- NOTE: The 'field' identifier in the TemplateDefinition is allowed to have 
-        exactly the same name as the HTML divider id för the graphic overlay ! -->
+        exactly the same name as the HTML divider id for the graphic overlay ! -->
   <body>
     <div class="SPXWindow">
       <div id="welcomeText"></div>
+      <script src="js/load_dyn_data_table_V2.js"></script>
     </div>
   </body>
 </html>

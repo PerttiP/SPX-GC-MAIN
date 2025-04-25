@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./spx_styles.css">
+        <script src="./spx_parse.js"></script>
+        <title>My First SPX Template</title>
+
+        <script>
+            function runAnimationIN() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f_title').classList = "fadeIN"
+            }
+
+            function runAnimationOUT() {
+                // basic animation by swapping the CSS class
+                document.getElementById('f_title').classList = "fadeOUT"
+            }
+        </script>
+
+        <script>
+            window.SPXGCTemplateDefinition = {
+                "description": "My first template",
+                "playserver": "OVERLAY",
+                "playchannel": "1",
+                "playlayer": "7",
+                "webplayout": "7",
+                "out": "manual",
+                "uicolor": "2",
+                "DataFields": [
+                    {
+                        "field" : "f_title",
+                        "ftype" : "textfield",
+                        "title" : "Message",
+                        "value" : "Hello World!"
+                    }
+                ]
+            };
+        </script>
+    </head>
+
+    <body>
+        <div class="SPXWindow"> 
+            <div id="f_title"></div>
+        </div>
+    </body>
+
+</html>
