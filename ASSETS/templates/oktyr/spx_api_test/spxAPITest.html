@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX STYLE (css/spx_styles.css)! 
+      This template is using the generic BASIC SPX command handler (js/spx_parse.js).
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/spx_styles_gen.css" />
+    <script src="js/spx_api_req_post.js"></script>
+    <title>My Welcome to SM template - SPX API Test</title>
+
+    <script>
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        document.getElementById("welcomeText").classList = "fadeIN";
+      }
+
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        document.getElementById("welcomeText").classList = "fadeOUT";
+      }
+    </script>
+
+    <!-- A template definition object for SPX. -->
+    <!-- Place it as the LAST item within the HEAD section -->
+
+    <script type="text/javascript">
+      window.SPXGCTemplateDefinition = {
+        description: "My Welcome to SM template",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "7",
+        webplayout: "7",
+        out: "manual",
+        uicolor: "2",
+        dataformat: "json",
+        DataFields: [
+          {
+            field: "welcomeText",
+            ftype: "textfield",
+            title: "Message",
+            value: "Välkommen till SM i Orientering 2025!",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <!-- NOTE: The 'field' identifier in the TemplateDefinition is allowed to have 
+        exactly the same name as the HTML divider id för the graphic overlay ! -->
+  <body>
+    <div class="SPXWindow">
+      <div id="welcomeText"></div>
+    </div>
+  </body>
+</html>

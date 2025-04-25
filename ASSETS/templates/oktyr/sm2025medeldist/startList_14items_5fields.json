@@ -31,7 +31,7 @@
       "title": "Club",
       "value": "OK Ankeborg"
     },
-    { "field": "f3", "ftype": "textfield", "title": "Location", "value": "" },
+
     { "field": "f4", "ftype": "textfield", "title": "Class", "value": "H21" },
     {
       "field": "f5",
