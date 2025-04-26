@@ -3,14 +3,14 @@
     {
       "field": "f0",
       "ftype": "number",
-      "title": "StartStartNumber",
+      "title": "StartNumber",
       "value": "444"
     },
     {
       "field": "f1",
       "ftype": "textfield",
       "title": "Fullname",
-      "value": "Namn Namnsson"
+      "value": "Firstname Lastname"
     },
     { "field": "f2", "ftype": "textfield", "title": "Club", "value": "OK Tyr" },
 
@@ -26,7 +26,7 @@
     {
       "field": "f0",
       "ftype": "number",
-      "title": "StartStartNumber",
+      "title": "StartNumber",
       "value": "445"
     },
     {

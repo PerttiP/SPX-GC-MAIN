@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-26T08:20:37.068Z",
+  "updated": "2025-04-26T09:09:28.552Z",
   "templates": [
     {
       "description": "My Welcome to SM template - SPX API Test",
@@ -84,6 +84,26 @@
           ]
         },
         {
+          "field": "f_vald_runner",
+          "ftype": "dropdown",
+          "title": "Select Runner",
+          "value": "0 - Default Test Runner",
+          "items": [
+            {
+              "text": "1 - Firstname Lastname",
+              "value": "1"
+            },
+            {
+              "text": "2 - Firstname Lastname",
+              "value": "2"
+            },
+            {
+              "text": "3 - Firstname Lastname",
+              "value": "3"
+            }
+          ]
+        },
+        {
           "field": "f0",
           "ftype": "textfield",
           "title": "Bib Number of Runner to Follow",
@@ -103,9 +123,9 @@
         }
       ],
       "onair": "false",
-      "imported": "1745655565803",
+      "imported": "1745658524236",
       "relpath": "/oktyr/spx_api_test/spxAPITest.html",
-      "itemID": "1745655573650"
+      "itemID": "1745658536501"
     }
   ],
   "project": "SPXAPITEST3",
