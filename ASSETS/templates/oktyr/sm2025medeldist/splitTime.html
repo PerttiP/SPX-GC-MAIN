@@ -24,6 +24,7 @@
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
+    <!-- WARN: This template needs a new fresh spx_interface (spx_inteface_V0 is working but not the best way) -->
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
     <link
       rel="stylesheet"
@@ -33,6 +34,10 @@
     />
 
     <script>
+      function getSelectedRunnersName() {
+        return "Testar om namn kan ändras i en caption field";
+      }
+
       function runTemplateUpdate() {
         // TODO: Set f1 and f2 label fields from localStorage if
 
@@ -195,6 +200,26 @@
             ],
           },
           {
+            field: "f_vald_runner",
+            ftype: "dropdown",
+            title: "Select Runner",
+            value: "0 - Default Test Runner",
+            items: [
+              {
+                text: "1 - Firstname Lastname",
+                value: "1",
+              },
+              {
+                text: "2 - Firstname Lastname",
+                value: "2",
+              },
+              {
+                text: "3 - Firstname Lastname",
+                value: "3",
+              },
+            ],
+          },
+          {
             field: "f0",
             ftype: "textfield",
             title: "Bib Number of Runner to Follow",
@@ -207,19 +232,34 @@
             descr: "Set selected Runner bib to follow",
             fcall: "followSelectedRunner()",
           },
+          // Uncaught ReferenceError: getSelectedRunnersName is not defined
+          /*
+                {
+                  field: "f1",
+                  ftype: "caption",
+                  title: "Fullname",
+                  value: getSelectedRunnersName(),
+                },
+                */
+          /*
+                {
+                  field: "f1",
+                  ftype: "caption",
+                  title: "Fullname",
+                  value: `getSelectedRunnersName();`, // This is just a string, not a function call!
+                },
+                */
           {
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            /* value: localStorage.getItem("selectedName"), */
-            /*value: () => localStorage.getItem("selectedClass"), */
-            value: "ADD DROPDOWN FOR BIB NR!",
+            value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works!
           },
           {
             field: "f2",
             ftype: "caption",
             title: "Club",
-            value: "OK Älgen",
+            value: "",
           },
           {
             field: "f99",
@@ -285,10 +325,12 @@
       </div>
     </div>
 
+    <!-- Required hidden fields for editor UI input controls -->
     <div id="hiddenSpxData" data-info="See styles.css">
       <div data-info="List titel..." id="f_list_titel"></div>
       <div data-info="Vald klass..." id="f_vald_klass"></div>
       <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
+      <div data-info="Vald runner..." id="f_vald_runner"></div>
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>

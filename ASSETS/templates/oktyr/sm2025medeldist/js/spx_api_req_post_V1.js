@@ -3,6 +3,8 @@
 // SPX templates for more advanced functionality
 // such as Update() etc..
 
+console.warn("======== This version of this script is DEPRECATED!!! =========");
+
 // GOAL:
 /*
 

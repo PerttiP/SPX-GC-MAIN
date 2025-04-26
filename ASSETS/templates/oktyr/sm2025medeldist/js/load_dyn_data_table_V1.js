@@ -14,6 +14,8 @@ jsonRunnerInfoDataGlob = {};
 //                   which is LOADED ON TOP in HTML head !!!
 // ----------------------------------------------------------
 
+console.warn("======== This version of this script is DEPRECATED!!! =========");
+
 console.log(
   "!!!! NOTE: This load_dyn_data_table.js script MUST EXECUTE SECOND AFTER THE init_global_data.js script !!!!"
 );

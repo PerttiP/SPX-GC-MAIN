@@ -4,6 +4,59 @@
 
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
 
+let selectedClass;
+let selectedRunnerBib;
+
+function getDataFromLocalStorage() {
+  selectedClass = localStorage.getItem("selectedClass");
+  selectedRunnerBib = localStorage.getItem("selectedRunnerBib");
+
+  if (selectedClass === null) {
+    console.error("refetchRunnersData with selectedClass === null");
+    alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
+    return false;
+  }
+  if (selectedRunnerBib === null) {
+    console.error("refetchRunnersData with selectedRunnerBib === null");
+    alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
+    return false;
+  }
+  console.log("selectedClass: ", selectedClass);
+  console.log("selectedRunnerBib: ", selectedRunnerBib);
+  return true;
+}
+
+// Editor button click handler
+function followSelectedRunner() {
+  alert("followSelectedRunner() CALLED!"); // OK!
+
+  if (!getDataFromLocalStorage()) {
+    console.warn("Failed to get Runner data from local storage");
+    return;
+  }
+
+  // HARD-CODED MOCKTEST 2025-04-24:
+  const mockData = {
+    competition: "Medel-Kval",
+    class: "H21",
+    runners: [
+      {
+        bib: "444",
+        name: "Ferry Fyråsen",
+        club: "OK Fyran",
+        start_time: "14:44",
+        split_times: [2450, 5080, 7840],
+        final_time: 10800,
+        place: 4,
+      },
+    ],
+  };
+}
+
+function getSelectedRunnersName() {
+  return "Testar om namn kan ändras i en caption field";
+}
+
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.

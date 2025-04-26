@@ -2,36 +2,47 @@
 // (c) Copyright 2021- SPX Graphics (https://spx.graphics)
 // ----------------------------------------------------------------
 
+console.warn("======== This version of this script is DEPRECATED!!! =========");
+
 // Global Variables
 // ----------------------------------------------------
 // These initialization variables are only executed once when the web page is loaded.
 // THIS IS A FAST HACK (YES IT IS BAD I KNOW).
 
 // Initialize SPXGCTemplateDefinition if it doesn't exist
-if (typeof window.SPXGCTemplateDefinition === 'undefined' || window.SPXGCTemplateDefinition === undefined) {
+if (
+  typeof window.SPXGCTemplateDefinition === "undefined" ||
+  window.SPXGCTemplateDefinition === undefined
+) {
   window.SPXGCTemplateDefinition = {};
 }
 
 const jsonRunnerInfoDataGlob = {
-  item1: [ // In JavaScript object literals, you can omit the quotes for keys if they follow valid identifier rules:
-      { field: "f0", ftype: "number", title: "Number", value: "111" },
-      { field: "f1", ftype: "textfield", title: "Fullname", value: "Elva Elvenius" },
-      { field: "f2", ftype: "textfield", title: "Club", value: "OK Tyr" },
-      { field: "f3", ftype: "textfield", title: "Location", value: "" },
-      { field: "f4", ftype: "textfield", title: "Class", value: "D21" },
-      { field: "f5", ftype: "textfield", title: "Starttime", value: "11:00" }
+  item1: [
+    // In JavaScript object literals, you can omit the quotes for keys if they follow valid identifier rules:
+    { field: "f0", ftype: "number", title: "Number", value: "111" },
+    {
+      field: "f1",
+      ftype: "textfield",
+      title: "Fullname",
+      value: "Elva Elvenius",
+    },
+    { field: "f2", ftype: "textfield", title: "Club", value: "OK Tyr" },
+    { field: "f3", ftype: "textfield", title: "Location", value: "" },
+    { field: "f4", ftype: "textfield", title: "Class", value: "D21" },
+    { field: "f5", ftype: "textfield", title: "Starttime", value: "11:00" },
   ],
   item2: [
-      { field: "f0", ftype: "number", title: "Number", value: "222" },
-      { field: "f1", ftype: "textfield", title: "Fullname", value: "Sidan Två" },
-      { field: "f2", ftype: "textfield", title: "Club", value: "OK Ankeborg" },
-      { field: "f3", ftype: "textfield", title: "Location", value: "" },
-      { field: "f4", ftype: "textfield", title: "Class", value: "H21" },
-      { field: "f5", ftype: "textfield", title: "Starttime", value: "12:15" }
-  ]
+    { field: "f0", ftype: "number", title: "Number", value: "222" },
+    { field: "f1", ftype: "textfield", title: "Fullname", value: "Sidan Två" },
+    { field: "f2", ftype: "textfield", title: "Club", value: "OK Ankeborg" },
+    { field: "f3", ftype: "textfield", title: "Location", value: "" },
+    { field: "f4", ftype: "textfield", title: "Class", value: "H21" },
+    { field: "f5", ftype: "textfield", title: "Starttime", value: "12:15" },
+  ],
 };
 
-let jsonRunnerForcedPushDataGlob = {}
+let jsonRunnerForcedPushDataGlob = {};
 
 let selectedStartNumberGlob = 0;
 // TODO:
@@ -57,23 +68,26 @@ IMPORTANT:
 */
 
 // Maybe since I added it as a FUNCTION LIBRARY via Project settings???
-console.log('!!!! WARNING: This spx_interface.js MIGHT BE LOADED BY SPX BEFORE ANY OTHER SCRIPTS !!!!');
+console.log(
+  "!!!! WARNING: This spx_interface.js MIGHT BE LOADED BY SPX BEFORE ANY OTHER SCRIPTS !!!!"
+);
 
 //-----------------------------------------------------------------
 
 function isEmptyJson(data) {
   // Check for null or undefined
-  if (data == null) { // == operator covers both null and undefined!
+  if (data == null) {
+    // == operator covers both null and undefined!
     return true;
   }
-  
+
   // If it's an array, check its length
   if (Array.isArray(data)) {
     return data.length === 0;
   }
-  
+
   // If it's an object (but not an array), check its keys
-  if (typeof data === 'object') {
+  if (typeof data === "object") {
     return Object.keys(data).length === 0;
   }
 
@@ -83,7 +97,7 @@ function isEmptyJson(data) {
     return Object.keys(data).length === 0;
   }
   */
-  
+
   // For any other type (string, number, etc.), return false or adjust as needed
   return false;
 }
@@ -92,14 +106,13 @@ function getJsonSize(data) {
   if (Array.isArray(data)) {
     // For arrays, return the number of elements
     return data.length;
-  } else if (data !== null && typeof data === 'object') {
+  } else if (data !== null && typeof data === "object") {
     // For objects, return the number of top-level keys
     return Object.keys(data).length;
   }
   // For other types (string, number, etc.), return 0
   return 0;
 }
-
 
 // PERTTI TODO FUNCTION OR PUT IN OTHER TEST FUNCTION?
 /*
@@ -125,35 +138,37 @@ function updateGlobalTemplateValues(fieldUpdates) {
     window.SPXGCTemplateDefinition &&
     Array.isArray(window.SPXGCTemplateDefinition.DataFields)
   ) {
-    window.SPXGCTemplateDefinition.DataFields.forEach(function(fieldObj) {
+    window.SPXGCTemplateDefinition.DataFields.forEach(function (fieldObj) {
       // Only update if the object has a "field" property that matches one in our updates
       if (fieldObj.field && fieldUpdates.hasOwnProperty(fieldObj.field)) {
         fieldObj.value = fieldUpdates[fieldObj.field];
       }
     });
   } else {
-    console.error("SPXGCTemplateDefinition or its DataFields array does not exist");
+    console.error(
+      "SPXGCTemplateDefinition or its DataFields array does not exist"
+    );
   }
-  console.log('EXITED updateGlobalTemplateValues');
+  console.log("EXITED updateGlobalTemplateValues");
 }
 
 /**
  * Dynamically extracts the field identifiers (f0, f1, etc.) and their corresponding value properties.
- * @param {*} jsonData 
- * @returns 
+ * @param {*} jsonData
+ * @returns
  */
 function extractFieldValues(jsonData) {
   if (!jsonData || !Array.isArray(jsonData)) {
-      console.error("Invalid or missing JSON data.");
-      return null;
+    console.error("Invalid or missing JSON data.");
+    return null;
   }
 
   const valuesToUpdate = {};
 
-  jsonData.forEach(item => {
-      if (item.field && item.value !== undefined) {
-          valuesToUpdate[item.field] = item.value; // Map field to its value
-      }
+  jsonData.forEach((item) => {
+    if (item.field && item.value !== undefined) {
+      valuesToUpdate[item.field] = item.value; // Map field to its value
+    }
   });
 
   return valuesToUpdate;
@@ -173,18 +188,17 @@ function extractFieldValues(jsonData) {
 //   f3: "Some Location" // if needed
 // });
 
-
 // PERTTI TEST FUNCTION 2025-04-18 (fm):
 
 function forceEditorFieldsUpdate(newData) {
-  console.log(typeof newData); 
-  if (typeof newData !== 'object') {
+  console.log(typeof newData);
+  if (typeof newData !== "object") {
     console.error("forceEditorFieldsUpdate: newData must be an object!");
     // TODO?: If it's a string, attempt to parse it as JSON?
     return;
   }
 
-  console.log('forceEditorFieldsUpdate: newData:'); 
+  console.log("forceEditorFieldsUpdate: newData:");
   console.log(newData);
 
   // FIXME?:
@@ -194,13 +208,13 @@ function forceEditorFieldsUpdate(newData) {
 
   for (var field in jsonData) {
     if (document.getElementById(field)) {
-      console.log('field: ' + field);
-      let value = jsonData[field]
-      console.log('value: ' + value);
-      if ( value == "null" || value == "undefined" ) value = "";
+      console.log("field: " + field);
+      let value = jsonData[field];
+      console.log("value: " + value);
+      if (value == "null" || value == "undefined") value = "";
 
       // Update content with HTML markup
-    //  document.getElementById(field).innerHTML = value;
+      //  document.getElementById(field).innerHTML = value;
 
       // 2025-04-18 (em)
       // FIXME: Or use innerText ???
@@ -230,9 +244,9 @@ function forceEditorFieldsUpdate(newData) {
     }
     */
 
-    // Update hidden data elements
-    // If the hidden fields holding the values have IDs "f0", "f1", "f2", and "f3", this snippet will update those.
-    /*
+  // Update hidden data elements
+  // If the hidden fields holding the values have IDs "f0", "f1", "f2", and "f3", this snippet will update those.
+  /*
     Object.keys(runnerDataToUpdate).forEach(fieldId => {
       const el = document.getElementById(fieldId);
       if (el) {
@@ -260,38 +274,39 @@ function update(data) {
     //SEE 'BUMPER' demo in Template_Pack_1.3.2 for parsing example
     console.log('----- Update handler where data starts with <templateData>');
   }
-  */  
+  */
 
-  let templateData;  
+  let templateData;
 
   // Decide if:
   // UPDATE CODE FLOW: replacing with new data found from JSON data search by startNumber.
   // Or:
-  // ORIGINAL CODE FLOW: use original data from editor fields 
+  // ORIGINAL CODE FLOW: use original data from editor fields
 
- // if (checkWindowTyrAppGlobals() && forceNewDataUpdateGlob) {
+  // if (checkWindowTyrAppGlobals() && forceNewDataUpdateGlob) {
   if (forceNewDataUpdateGlob) {
     //if (!isEmptyJson(window.TyrAppGlobals.jsonRunnerForcedPushData)) {
     if (!isEmptyJson(jsonRunnerForcedPushDataGlob)) {
-      console.log('----- Using jsonRunnerForcedPushDataGlob!');
+      console.log("----- Using jsonRunnerForcedPushDataGlob!");
       //templateData = window.TyrAppGlobals.jsonRunnerForcedPushData;
       templateData = jsonRunnerForcedPushDataGlob;
-    }
-    else {
-      console.error('jsonRunnerForcedPushDataGlob (upd) WAS EMPTY!');
-      console.log('getJsonSize(jsonRunnerForcedPushDataGlob (upd)): ', getJsonSize(jsonRunnerForcedPushDataGlob));
+    } else {
+      console.error("jsonRunnerForcedPushDataGlob (upd) WAS EMPTY!");
+      console.log(
+        "getJsonSize(jsonRunnerForcedPushDataGlob (upd)): ",
+        getJsonSize(jsonRunnerForcedPushDataGlob)
+      );
       //TODO: Fallback? - How?
-      console.warn('Need to use Original code flow for update');
+      console.warn("Need to use Original code flow for update");
       templateData = JSON.parse(data);
     }
-  }
-  else {
-    console.log('Original code flow for update');
+  } else {
+    console.log("Original code flow for update");
     templateData = JSON.parse(data);
   }
 
-  console.log('----- Update handler called, using data:', templateData);
-  console.log('getJsonSize(templateData): ', getJsonSize(templateData));  
+  console.log("----- Update handler called, using data:", templateData);
+  console.log("getJsonSize(templateData): ", getJsonSize(templateData));
 
   // Iterate over all enumerable properties
   for (var dataField in templateData) {
@@ -300,44 +315,50 @@ function update(data) {
     if (idField) {
       // Retrieve the field text value
       let fString = templateData[dataField];
-      if ( fString != 'undefined' && fString != 'null' ) {
+      if (fString != "undefined" && fString != "null") {
         // Update the visible content of the element
-        idField.innerText = fString
+        idField.innerText = fString;
       } else {
-        idField.innerText = '';
+        idField.innerText = "";
       }
     } else {
       //alert('update(data) - IN ELSE BRANCH!');
       // Pertti: Enter else branch here if NOT found the field in DOM...
       // We do enter this else branch when PLAY clicked (and fields changed?)
       switch (dataField) {
-        case 'comment':
-        case 'epochID':
-          console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
+        case "comment":
+        case "epochID":
+          console.warn(
+            "FYI: Optional #" + dataField + " missing from SPX template..."
+          );
           break;
-          //FIXME: What can these be used for?
-          case 'f_list_titel':
-            //alert('Update handler with f_list_titel');
-            break;
-          case 'f_vald_klass':
-            //alert('Update handler with f_vald klass');
-            break;
-          case 'f0':            
-          case 'f1':            
-          case 'f2':            
-          case 'f3':
-            console.error('Required Placeholder #' + dataField + ' missing from SPX template.');
-            break;          
+        //FIXME: What can these be used for?
+        case "f_list_titel":
+          //alert('Update handler with f_list_titel');
+          break;
+        case "f_vald_klass":
+          //alert('Update handler with f_vald klass');
+          break;
+        case "f0":
+        case "f1":
+        case "f2":
+        case "f3":
+          console.error(
+            "Required Placeholder #" + dataField + " missing from SPX template."
+          );
+          break;
         default:
-          console.error('Placeholder #' + dataField + ' missing from SPX template.');
+          console.error(
+            "Placeholder #" + dataField + " missing from SPX template."
+          );
       }
     }
   }
 
-  console.log('NOW CALLING runTemplateUpdate() - Play will follow?');
+  console.log("NOW CALLING runTemplateUpdate() - Play will follow?");
 
   // Once DOM updated we can initPageData and run animations...
-/*
+  /*
   if (typeof runTemplateUpdate === "function") { 
     runTemplateUpdate() // Play will follow
   } else {
@@ -347,7 +368,7 @@ function update(data) {
 
   // PERTTI TEST 2025-04-19
   // Denna hårdkodade struktur funkar att skicka in och Overlayen visar då dessa!
-/*
+  /*
   let newTestValues = {
     f0: "729",            // New value for Startnumber
     f1: "Alice Anderson", // New value for Fullname
@@ -359,10 +380,9 @@ function update(data) {
 
   if (forceNewDataUpdateGlob) {
     runTemplateUpdate(extractFieldValues(templateData));
-  }
-  else {
+  } else {
     runTemplateUpdate(null);
-  }  
+  }
 }
 
 // NEW FUNCTION 2025-04-20
@@ -374,19 +394,21 @@ function getItemByStartNumber(startNumber) {
   if (window.TyrAppGlobals && window.TyrAppGlobals.jsonRunnerInfoData) {
   */
   if (jsonRunnerInfoDataGlob) {
-      const itemKey = `item${startNumber}`; // Build the item key, e.g., "item1", "item2"
-      const itemData = jsonRunnerInfoDataGlob[itemKey];
-      
-      if (itemData) {
-          console.log(`Retrieved data for ${itemKey}:`, itemData);
-          return itemData; // Return the specific item's data
-      } else {
-          console.error(`Item with startNumber ${startNumber} does not exist.`);
-          return null;
-      }
-  } else {
-      console.error("jsonRunnerInfoDataGlob is not initialized or does not exist.");
+    const itemKey = `item${startNumber}`; // Build the item key, e.g., "item1", "item2"
+    const itemData = jsonRunnerInfoDataGlob[itemKey];
+
+    if (itemData) {
+      console.log(`Retrieved data for ${itemKey}:`, itemData);
+      return itemData; // Return the specific item's data
+    } else {
+      console.error(`Item with startNumber ${startNumber} does not exist.`);
       return null;
+    }
+  } else {
+    console.error(
+      "jsonRunnerInfoDataGlob is not initialized or does not exist."
+    );
+    return null;
   }
 }
 
@@ -399,14 +421,13 @@ function getRunner() {
   // Note: The prompt() function only works in client browsers, not in Node.js server-side!
   let input = prompt("Ange nummerlapps-nummer (1-999):", "0");
   if (input !== null) {
-    let input_number = NaN;        
+    let input_number = NaN;
     try {
-        input_number = parseInt(input); 
+      input_number = parseInt(input);
+    } catch {
+      console.error("Invalid number entered. Failed to parse as Int");
     }
-    catch {
-        console.error("Invalid number entered. Failed to parse as Int");
-    }       
-    
+
     if (!isNaN(input_number)) {
       console.log("The number entered is:", input_number); // OK SO FAR!
 
@@ -423,37 +444,42 @@ function getRunner() {
         console.log("Retrieved runner data to update:", runnerDataToUpdate);
 
         if (isEmptyJson(runnerDataToUpdate)) {
-          console.warn('runnerDataToUpdate IS EMPTY!!!');
-          alert('runnerDataToUpdate IS EMPTY!!!');
+          console.warn("runnerDataToUpdate IS EMPTY!!!");
+          alert("runnerDataToUpdate IS EMPTY!!!");
           return; //--------------------------------------- RETURN !!!!!
         }
 
-        console.log('Updated runnerDataToUpdate, size: ', getJsonSize(runnerDataToUpdate));
+        console.log(
+          "Updated runnerDataToUpdate, size: ",
+          getJsonSize(runnerDataToUpdate)
+        );
 
         // TODO?:
         // PERTTI TEST 2025-04-18 (em):
-//          updateGlobalTemplateValues(runnerDataToUpdate);
+        //          updateGlobalTemplateValues(runnerDataToUpdate);
 
-        jsonRunnerForcedPushDataGlob = runnerDataToUpdate; 
-        console.log("Updated jsonRunnerForcedPushDataGlob, size:", getJsonSize(jsonRunnerForcedPushDataGlob));
-        forceNewDataUpdateGlob = true;       
+        jsonRunnerForcedPushDataGlob = runnerDataToUpdate;
+        console.log(
+          "Updated jsonRunnerForcedPushDataGlob, size:",
+          getJsonSize(jsonRunnerForcedPushDataGlob)
+        );
+        forceNewDataUpdateGlob = true;
 
         // PERTTI TEST 2025-04-18 (fm):
         forceEditorFieldsUpdate(runnerDataToUpdate);
 
         // TODO: As fallback or would it work better than using the window.TyrAppGlobals even?
-    //    runnerDataToUpdateGlob = runnerDataToUpdate;    
+        //    runnerDataToUpdateGlob = runnerDataToUpdate;
       } // end NULL-check
       else {
         console.log("No data found. Please try another number (1-999)");
-        alert('Inget data hittades. Försök med annat nummer (1-999)');      
+        alert("Inget data hittades. Försök med annat nummer (1-999)");
         // We keep the previous start number?
-    }
-    } 
-    else {
-        console.log("Invalid number entered. Please try another number (1-999)");
-        alert('Numret var felaktigt. Försök med annat nummer (1-999)');          
-        // We keep the previous start number?
+      }
+    } else {
+      console.log("Invalid number entered. Please try another number (1-999)");
+      alert("Numret var felaktigt. Försök med annat nummer (1-999)");
+      // We keep the previous start number?
     } // end isNaN-check
   }
 }
@@ -461,30 +487,30 @@ function getRunner() {
 // Play handler
 function play() {
   // console.log('----- Play handler called.')
-  if (typeof runAnimationIN === "function") { 
-    runAnimationIN()
+  if (typeof runAnimationIN === "function") {
+    runAnimationIN();
   } else {
-    console.error('runAnimationIN() function missing from SPX template.')
+    console.error("runAnimationIN() function missing from SPX template.");
   }
 }
 
 // Stop handler
 function stop() {
   // console.log('----- Stop handler called.')
-  if (typeof runAnimationOUT === "function") { 
-    runAnimationOUT()
+  if (typeof runAnimationOUT === "function") {
+    runAnimationOUT();
   } else {
-    console.error('runAnimationOUT() function missing from SPX template.')
+    console.error("runAnimationOUT() function missing from SPX template.");
   }
 }
 
 // Continue handler
 function next(data) {
-  console.log('----- SPX Next handler called.')
-  if (typeof runAnimationNEXT === "function") { 
-    runAnimationNEXT()
+  console.log("----- SPX Next handler called.");
+  if (typeof runAnimationNEXT === "function") {
+    runAnimationNEXT();
   } else {
-    console.error('runAnimationNEXT() function missing from SPX template.')
+    console.error("runAnimationNEXT() function missing from SPX template.");
   }
 }
 
@@ -499,11 +525,11 @@ function htmlDecode(txt) {
 // Provides a safe way to obtain a reference to a DOM element.
 function e(elementID) {
   if (!elementID) {
-    console.warn('Element ID is falsy, returning null.');
+    console.warn("Element ID is falsy, returning null.");
     return null;
   }
   if (!document.getElementById(elementID)) {
-    console.warn('Element ' + elementID + ' not found, returning null.');
+    console.warn("Element " + elementID + " not found, returning null.");
     return null;
   }
   return document.getElementById(elementID);
@@ -514,8 +540,10 @@ window.onerror = function (msg, url, row, col, error) {
   err.file = url;
   err.message = msg;
   err.line = row;
-  console.log('%c' + 'SPX Template Error Detected:', 
-    'font-weight:bold; font-size: 1.2em; margin-top: 2em;');
+  console.log(
+    "%c" + "SPX Template Error Detected:",
+    "font-weight:bold; font-size: 1.2em; margin-top: 2em;"
+  );
   console.table(err);
   // spxlog('Template Error Auto Detected: file: ' + url + ', line: ' + row + ', msg; ' + msg,'WARN')
 };
@@ -527,7 +555,7 @@ function validString(str) {
     case "UNDEFINED":
     case "NULL":
     case "":
-      return false  // not a valid string
+      return false; // not a valid string
       break;
   }
   return true; // is a valid string
@@ -536,16 +564,16 @@ function validString(str) {
 // TODO: Use this function???
 // Borrowed from views\view-renderer.handlebars:
 function formatJSONAndSetDomFields(fieldData) {
-  console.log('formatJSONAndSetDomFields:', fieldData);
+  console.log("formatJSONAndSetDomFields:", fieldData);
   let formattedJsonOut = {};
   if (fieldData) {
-      var keys = [];
-      for (var k in fieldData) keys.push(k);
-      fieldData.forEach((item,index) => {
-          let KEY = Object.keys(item)[0];
-          let VAL = fieldData[index][Object.keys(item)[0]]
-          formattedJsonOut[KEY]=VAL;
-      });
-      return JSON.stringify(formattedJsonOut)
+    var keys = [];
+    for (var k in fieldData) keys.push(k);
+    fieldData.forEach((item, index) => {
+      let KEY = Object.keys(item)[0];
+      let VAL = fieldData[index][Object.keys(item)[0]];
+      formattedJsonOut[KEY] = VAL;
+    });
+    return JSON.stringify(formattedJsonOut);
   }
 }

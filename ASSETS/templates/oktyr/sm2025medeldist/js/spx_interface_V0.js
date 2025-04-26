@@ -2,6 +2,8 @@
 // (c) Copyright 2021- SPX Graphics (https://spx.graphics)
 // ----------------------------------------------------------------
 
+console.warn("======== This version of this script is DEPRECATED!!! =========");
+
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
 
 // TEST1: Can client side access the global type from Node.js ? */
