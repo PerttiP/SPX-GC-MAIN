@@ -207,12 +207,17 @@ const content = {
 
 // Make the POST request to /rundown/json
 
-const url = "http://192.168.50.62:5656/api/v1/rundown/json";
+const OLD_url = "http://192.168.50.62:5656/api/v1/rundown/json"; // For FireFox ONLY ???
+
+const url = "http://192.168.50.158:5656/api/v1/rundown/json"; // For Chrome ONLY ???
 
 // NOTE: If you’re running your client-side code on the same server as SPX‑GC,
 // the relative URL /rundown/json should suffice.
-//fetch("/rundown/json", {
-fetch(url, {
+
+// NOTE2: The relative path should be /api/v1/rundown/json!
+
+fetch("/api/v1/rundown/json", {
+  //fetch(url, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

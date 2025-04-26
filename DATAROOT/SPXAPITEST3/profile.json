@@ -1,0 +1,114 @@
+{
+  "templates": [
+    {
+      "description": "My Welcome to SM template - SPX API Test",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "dataformat": "json",
+      "DataFields": [
+        {
+          "field": "welcomeText",
+          "ftype": "textfield",
+          "title": "Message",
+          "value": "Välkommen till SM i Orientering 2025!"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "D18"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "RC1",
+          "items": [
+            {
+              "text": "RC1",
+              "value": "RC1"
+            },
+            {
+              "text": "RC2",
+              "value": "RC2"
+            },
+            {
+              "text": "RC3",
+              "value": "RC3"
+            },
+            {
+              "text": "RC4",
+              "value": "RC4"
+            },
+            {
+              "text": "RC5",
+              "value": "RC5"
+            },
+            {
+              "text": "RC6",
+              "value": "RC6"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Bib Number of Runner to Follow",
+          "value": "999"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": "ADD DROPDOWN FOR BIB NR!"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": "OK Älgen"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745655565803",
+      "relpath": "/oktyr/spx_api_test/spxAPITest.html"
+    }
+  ],
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-26T08:19:25.803Z",
+  "showExtras": {
+    "CustomControls": [],
+    "customscript": "/ExtraFunctions/demoFunctions.js"
+  }
+}
