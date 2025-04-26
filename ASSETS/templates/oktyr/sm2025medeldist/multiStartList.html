@@ -31,13 +31,16 @@
         // THIS WORKS!
         //alert('runAnimationNEXT() CALLED!');
 
-        // Function to handle "Next Page" button
-        if (currentPage < maxPage) {
+        // Function to handle CONTINUE ("Next Page") button for next step (using "Global" variables in js/load_dyn_data_table.js)
+        // NOTE: Number of steps in template has been set to steps: "10"!
+        if (currentPage < maxNumPages) {
           currentPage++; // Increment the page number
           updateTable();
         } else {
           console.log("No more pages available!");
-          alert("Showing last page. No more pages available!");
+          alert(
+            "Showing last page. No more pages available!\n You can STOP the overlay... and restart PLAY again..."
+          );
         }
       } // runAnimationNEXT
 

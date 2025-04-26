@@ -64,6 +64,7 @@ function stop() {
 // Continue handler
 function next(data) {
   console.log("----- Next handler called.");
+
   if (typeof runAnimationNEXT === "function") {
     runAnimationNEXT();
   } else {

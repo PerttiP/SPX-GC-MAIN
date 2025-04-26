@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-26T12:53:16.223Z",
+  "updated": "2025-04-26T13:54:11.885Z",
   "templates": [
     {
       "description": "Start list table template",
@@ -65,9 +65,9 @@
       ],
       "onair": "false",
       "dataformat": "json",
-      "imported": "1745671870077",
+      "imported": "1745675602358",
       "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
-      "itemID": "1745671875955"
+      "itemID": "1745675607865"
     }
   ],
   "project": "MedelDist",
