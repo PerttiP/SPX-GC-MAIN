@@ -179,7 +179,7 @@
           "field": "f0",
           "ftype": "textfield",
           "title": "Bib Number of Runner to Follow",
-          "value": "999"
+          "value": "0"
         },
         {
           "field": "f_follow_runner_btn",
@@ -192,7 +192,7 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": "Testar om namn kan ändras i en caption field"
+          "value": ""
         },
         {
           "field": "f2",
@@ -210,7 +210,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745677770511",
+      "imported": "1745680351193",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     },
     {
@@ -344,5 +344,5 @@
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-26T14:29:30.511Z"
+  "updated": "2025-04-26T15:12:31.193Z"
 }

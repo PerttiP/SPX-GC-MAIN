@@ -34,8 +34,13 @@
     />
 
     <script>
+      function getSelectedRunnersBibNr() {
+        return localStorage.getItem("selectedRunnerBib");
+      }
       function getSelectedRunnersName() {
-        return "Testar om namn kan ändras i en caption field";
+        // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL!
+        //return "Testar om namn kan ändras i en caption field"; // OK!
+        return localStorage.getItem("selectedRunnersName");
       }
 
       function runTemplateUpdate() {
@@ -49,6 +54,7 @@
         e("vald_kontroll").innerHTML = htmlDecode(
           e("f_vald_kontroll").innerText
         );
+        e("vald_runner").innerHTML = htmlDecode(e("f_vald_runner").innerText);
 
         // Get the vald klass from dropdown
         // NOTE: The value property is only available for form elements
@@ -62,11 +68,29 @@
           selectedClass = element.innerText;
 
           // Save persistently
-          localStorage.setItem("selectedClass", selectedClass);
-          console.log("Class saved: ", selectedClass);
+          if (selectedClass) {
+            localStorage.setItem("selectedClass", selectedClass);
+            console.log("Class saved: ", selectedClass);
+          }
         }
 
-        // Get the runner bib number
+        // TODO:
+        // First try to get the bib number (AND name?) from dropdown
+        let elem_runner = document.getElementById("f_vald_runner");
+
+        let selectedRunnerInfo = "";
+        if (typeof elem_runner != "undefined" && elem_runner != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedRunnerInfo = elem_runner.innerText;
+
+          // Save persistently
+          if (selectedRunnerInfo) {
+            localStorage.setItem("selectedRunnerInfo", selectedRunnerInfo);
+            console.log("selectedRunnerInfo saved: ", selectedRunnerInfo);
+          }
+        }
+
+        // Then also get the runner bib number from editable input textfield
         selectedRunnerBib = htmlDecode(e("f0").innerText);
         //alert(selectedRunnerBib);
         if (selectedRunnerBib) {
@@ -87,8 +111,14 @@
 
         console.log("vald_kontroll.innerText: ", vald_kontroll.innerText);
 
+        const vald_runner_info = document.getElementById("vald_runner");
+        vald_runner.innerText = vald_runner.innerText;
+
+        console.log("vald_runner.innerText: ", vald_runner.innerText);
+
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
+
       function runAnimationIN() {
         // basic animation by swapping the CSS class
         const splitTimeElements = document.getElementsByClassName("splitTime");
@@ -223,7 +253,8 @@
             field: "f0",
             ftype: "textfield",
             title: "Bib Number of Runner to Follow",
-            value: "999",
+            //value: getSelectedRunnersBibNr(),
+            value: "0",
           },
           {
             field: "f_follow_runner_btn",
@@ -232,15 +263,6 @@
             descr: "Set selected Runner bib to follow",
             fcall: "followSelectedRunner()",
           },
-          // Uncaught ReferenceError: getSelectedRunnersName is not defined
-          /*
-                {
-                  field: "f1",
-                  ftype: "caption",
-                  title: "Fullname",
-                  value: getSelectedRunnersName(),
-                },
-                */
           /*
                 {
                   field: "f1",
@@ -253,7 +275,8 @@
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works!
+            //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init!
+            value: "",
           },
           {
             field: "f2",
@@ -287,7 +310,7 @@
         <div class="runner leader">
           <div class="place">1</div>
           <div class="bib">11</div>
-          <div class="name">Helena Bergman</div>
+          <div class="name"><span id="vald_runner">H B</span></div>
           <div class="club">OK Ravinen</div>
           <div class="time">1:02:36</div>
         </div>

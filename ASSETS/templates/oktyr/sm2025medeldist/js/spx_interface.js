@@ -2,7 +2,7 @@
 // (c) Copyright 2021- SPX Graphics (https://spx.graphics)
 // ----------------------------------------------------------------
 
-// Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
+// Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025 (medeldist)
 
 let selectedClass;
 let selectedRunnerBib;
@@ -54,7 +54,11 @@ function followSelectedRunner() {
 }
 
 function getSelectedRunnersName() {
-  return "Testar om namn kan ändras i en caption field";
+  return "Testar om namn kan ändras i en caption field"; // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL
+}
+
+function save() {
+  console.log("----- Save handler called");
 }
 
 // Receive item data from SPX Graphics Controller

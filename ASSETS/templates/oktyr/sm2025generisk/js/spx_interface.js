@@ -2,7 +2,7 @@
 // (c) Copyright 2021- SPX Graphics (https://spx.graphics)
 // ----------------------------------------------------------------
 
-// Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025.
+// Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025 (generisk).
 
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--
+    (c) 2024 SPX Graphics
+    Demo template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
+    Need custom templates? Get in touch! https://spx.graphics/contact
+
+	PLEASE SEE THE LICENSE FILE FOR TERMS AND CONDITIONS.  
+
+    ▸ spx.graphics | Copyright 2021-2024 SPX Graphics <https://spx.graphics>
+    
+    Version: ##-version-## / ##-comment-##
+    Build: ##-builddate-## 
+
+	----
+
+    NAME_TITLE_LEFT_CORNER
+    Description: A lower third in the bottom left corner,
+    with data fields for CAPTION, NAME, TITLE/ORGANIZATION.
+
+	Changes:
+    29.06.2022 Added FPS value check from SPX renderer
+    24.08.2022 Fixed bug FPS value check (if not available)
+    06.05.2024 Replaced GSAP with AnimeJS. Simplified source.
+    08.04.2025 Changed theme to News.
+    21.04.2025 Removed number field f0.
+    21.04.2025 Renamed style tag from gfx to SPXgfx.
+    27.04.2025 Changed to Williams stylesheet.
+-->
+
+  <!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX STYLE & THEME (css/spx_styles.css)! -->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>LEFT CORNER</title>
+    <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <script type="text/javascript" src="js/spx_interface.js"></script>
+    <!--
+    <link rel="stylesheet" type="text/css" href="css/spx_styles_gen.css" />
+    -->
+    <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      id="DynamicTheme"
+      href="css/themes/News.css"
+    />
+    <style>
+      #g_namn {
+        padding: 0 0.05em;
+      }
+
+      #g_titel {
+        padding-right: 0.8em;
+      }
+    </style>
+
+    <script>
+      let clipNone = "inset(0%   0% 0% 0%)";
+      let clipEast = "inset(0% 100% 0% 0%)";
+      let clipSout = "inset(0% 0% 100% 0%)";
+
+      function runTemplateUpdate() {
+        e("DynamicTheme").href = e("f99").innerText;
+        e("g_namn").innerHTML = htmlDecode(e("f_namn").innerText);
+        e("g_titel").innerHTML = htmlDecode(e("f_titel").innerText);
+
+        // Show all
+        /*
+        e("box1").style.display = "flex";
+        e("box2").style.display = "flex";
+
+        // Hide empty ones
+        if (e("g_namn").innerText == "") {
+          e("box1").style.display = "none";
+        }
+        if (e("g_titel").innerText == "") {
+          e("box2").style.display = "none";
+        }
+        */
+
+        setTimeout(runAnimationIN, 50);
+      } // runTemplateUpdate
+
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        const bodyElements = document.getElementsByClassName("lowerThirdLeft");
+        // iterate through the elements and add the class
+        for (let i = 0; i < bodyElements.length; i++) {
+          bodyElements[i].classList.add("fadeIN");
+        }
+      }
+
+      // FIXME: Hide it!!!
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        const bodyElements = document.getElementsByClassName("lowerThirdLeft");
+        // iterate through the elements and add the class
+        for (let i = 0; i < bodyElements.length; i++) {
+          bodyElements[i].classList.add("fadeOUT");
+        }
+      }
+
+      /*
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        document.getElementById("SPXgfx").classList = "fadeIN";
+        //FIXME: Uncaught ReferenceError: animate is not defined
+        //animate(".container", { left: "calc(7.75rem * 2)" });
+      }
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        document.getElementById("SPXgfx").classList = "fadeOUT";
+        //FIXME:
+        //animate(".container", { left: "calc(-7.75rem * 2)" });
+      }
+      */
+
+      window.SPXGCTemplateDefinition = {
+        description: "Namestrap left",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "5",
+        webplayout: "5",
+        out: "manual",
+        dataformat: "json",
+        uicolor: "3",
+        DataFields: [
+          {
+            field: "comment",
+            ftype: "textfield",
+            title: "Nickname of this item on the rundown",
+            value: "[ NAMN TITEL/ORGANISATION ]",
+          },
+          {
+            ftype: "instruction",
+            value:
+              "You can leave any field empty. This is a lower-left overlay with a News theme.",
+          },
+          {
+            field: "f_rubrik",
+            ftype: "textfield",
+            title: "Caption",
+            value: "SM 2025 Karlstad",
+          },
+          {
+            field: "f_namn",
+            ftype: "textfield",
+            title: "Fullname",
+            value: "Per Forsberg",
+          },
+          {
+            field: "f_titel",
+            ftype: "textfield",
+            title: "Title",
+            value: "Speaker",
+          },
+          {
+            field: "f99",
+            ftype: "filelist",
+            title: "Visual theme",
+            assetfolder: "./css/themes/",
+            extension: "css",
+            value: "./css/themes/News.css",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body class="lowerThirdLeft">
+    
+      <div class="container">
+        <div class="graphic">
+          <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
+          <div class="data">
+            <div class="title" id="g_rubrik"></div>
+            <div class="metaData">
+              <div class="first" id="g_namn"></div>
+              <div class="second" id="g_titel"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hiddenSpxData" data-info="See spx_styles.css">
+      <div data-info="Caption......" id="f_rubrik"></div>
+      <div data-info="Fullname....." id="f_namn"></div>
+      <div data-info="Title........" id="f_titel"></div>
+      <div data-info="Theme........" id="f99"></div>
+    </div>
+  </body>
+</html>
+
+<!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX! -->
+<!--
+  <body>
+    <div class="SPXWindow left">
+      <div id="logoLeft"></div>
+      <div id="SPXgfx">
+        <div id="box1" class="liteOnColor">
+          <span id="g_namn"></span>
+        </div>
+        <div id="details">
+          <div id="box2" class="liteOnColor">
+            <span id="g_titel"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hiddenSpxData" data-info="See spx_styles.css">
+      <div data-info="Fullname....." id="f_namn"></div>
+      <div data-info="Title........" id="f_titel"></div>
+      <div data-info="Theme........" id="f99"></div>
+    </div>
+  </body>
+-->
