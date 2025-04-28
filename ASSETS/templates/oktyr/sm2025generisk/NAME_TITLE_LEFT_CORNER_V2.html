@@ -25,6 +25,8 @@
     08.04.2025 Changed theme to News.
     21.04.2025 Removed number field f0.
     21.04.2025 Renamed style tag from gfx to SPXgfx.
+    27.04.2025 Removed the #box styling made by SPX.
+    27.04.2025 Simplified basic animation by swapping the CSS class.
     27.04.2025 Changed to Williams stylesheet.
 -->
 
@@ -60,22 +62,25 @@
 
       function runTemplateUpdate() {
         e("DynamicTheme").href = e("f99").innerText;
+        e("g_rubrik").innerHTML = htmlDecode(e("f_rubrik").innerText);
         e("g_namn").innerHTML = htmlDecode(e("f_namn").innerText);
         e("g_titel").innerHTML = htmlDecode(e("f_titel").innerText);
 
-        // Show all
-        /*
-        e("box1").style.display = "flex";
-        e("box2").style.display = "flex";
+        // Show all 'text-boxes'
+        e("g_rubrik").style.display = "flex";
+        e("g_namn").style.display = "flex";
+        e("g_titel").style.display = "flex";
 
         // Hide empty ones
+        if (e("g_rubrik").innerText == "") {
+          e("g_rubrik").style.display = "none";
+        }
         if (e("g_namn").innerText == "") {
-          e("box1").style.display = "none";
+          e("g_namn").style.display = "none";
         }
         if (e("g_titel").innerText == "") {
-          e("box2").style.display = "none";
+          e("g_titel").style.display = "none";
         }
-        */
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
@@ -98,7 +103,20 @@
           bodyElements[i].classList.add("fadeOUT");
         }
       }
-
+/*
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        document.getElementById("graphic").classList = "fadeIN";
+        //FIXME: Uncaught ReferenceError: animate is not defined
+        //animate(".container", { left: "calc(7.75rem * 2)" });
+      }
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        document.getElementById("graphic").classList = "fadeOUT";
+        //FIXME:
+        //animate(".container", { left: "calc(-7.75rem * 2)" });
+      }
+*/
       /*
       function runAnimationIN() {
         // basic animation by swapping the CSS class
@@ -171,7 +189,7 @@
         <div class="graphic">
           <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
           <div class="data">
-            <div class="title" id="g_rubrik"></div>
+            <div class="caption" id="g_rubrik"></div>
             <div class="metaData">
               <div class="first" id="g_namn"></div>
               <div class="second" id="g_titel"></div>
@@ -189,28 +207,3 @@
     </div>
   </body>
 </html>
-
-<!-- PLEASE KEEP THIS TEMPLATE AS A WORKING REFERENCE USING SPX! -->
-<!--
-  <body>
-    <div class="SPXWindow left">
-      <div id="logoLeft"></div>
-      <div id="SPXgfx">
-        <div id="box1" class="liteOnColor">
-          <span id="g_namn"></span>
-        </div>
-        <div id="details">
-          <div id="box2" class="liteOnColor">
-            <span id="g_titel"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="hiddenSpxData" data-info="See spx_styles.css">
-      <div data-info="Fullname....." id="f_namn"></div>
-      <div data-info="Title........" id="f_titel"></div>
-      <div data-info="Theme........" id="f99"></div>
-    </div>
-  </body>
--->

@@ -1,3 +1,8 @@
+/* oktyr_styles.css */
+/* Styles for SM2025 by William */
+/*  Changes: */
+/*    Change1: Added ID selector for hiddenSpxData */
+/*    Change2: Added Class selector for caption */
 * {
   box-sizing: border-box;
 }
@@ -42,12 +47,13 @@ p {
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
+/* selector applies styles to any element with the class "container" that is inside an element with the class "lowerThirdLeft" */
 .lowerThirdLeft .container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
+  /* at the bottom-left corner of its positioned ancestor */
   bottom: 0;
   left: 0;
   width: 50%;
@@ -62,15 +68,29 @@ p {
   position: absolute;
   width: fit-content;
   min-width: 500px;
+  /* at 40px from the bottom and left of its ancestor */
   bottom: 40px;
   left: 40px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* spaces its children evenly */
 }
-
+/* FROM SPX <script> section in HTML:
+#gfx {
+  gap: 0;
+  border: 0;
+  opacity: 0;
+  z-index: 10;
+  display: flex;
+  bottom: 5vh;
+  position: absolute;
+  flex-direction: column;
+  transform-origin: bottom left;
+  border-left: var(--theme-accent-width) solid var(--theme-brandColor);
+}
+*/
 .lowerThirdRight .container {
   display: flex;
   justify-content: center;
@@ -170,7 +190,8 @@ p {
   border-bottom: 2px solid #b14340;
 }
 
-.title {
+.title,
+.caption {
   text-align: left;
   align-items: center;
   background-color: #b14340;
@@ -181,6 +202,23 @@ p {
   border-bottom: 2px solid #b14340;
   width: 100%;
   padding-left: 1.25rem;
+}
+
+/* Lägg till nya selektorer för caption-bar och caption-text med utgångspunkt i dina tidigare .caption–stilar */
+.caption-bar {
+  text-align: left;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding: 0.625rem 0.625rem 0.625rem 1.25rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+  width: 100%;
+  display: flex;
+}
+.caption-text {
+  margin-left: 0.5rem;
 }
 
 .metaData {
@@ -304,4 +342,23 @@ p {
   transition-duration: 0.4s;
   animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
   animation-name: fadeOut;
+}
+
+#hiddenSpxData {
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  opacity: 0 !important; /* fully transparent (invisible)! */
+  padding: 1em;
+  display: flex;
+  z-index: 1000; /* appears above most other content, if need to show */
+  font-size: 3em;
+  border-radius: 1em;
+  position: absolute;
+  color: yellowgreen;
+  flex-direction: column;
+  border: 2px solid yellowgreen;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%);
+  font-family: monospace !important;
 }
