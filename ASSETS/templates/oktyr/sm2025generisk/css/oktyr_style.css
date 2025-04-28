@@ -1,8 +1,9 @@
 /* oktyr_styles.css */
 /* Styles for SM2025 by William */
 /*  Changes: */
-/*    Change1: Added ID selector for hiddenSpxData */
-/*    Change2: Added Class selector for caption */
+/*    Change1: Added ID selector for hiddenSpxData (required by template editor) */
+/*    Change2: Added Class selectors for caption, caption-bar and caption-text */
+/*    Change3: Added .graphic.vertical for vertical stacking option */
 * {
   box-sizing: border-box;
 }
@@ -80,7 +81,6 @@ p {
 }
 
 /* Vertical stacking version */
-/* When you add the "vertical" modifier, the flex direction changes */
 .lowerThirdLeft .graphic.vertical {
   flex-direction: column; /* Stack children vertically */
   justify-content: flex-start; /* FIXME? */
@@ -126,6 +126,11 @@ p {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
+}
+/* Vertical stacking version */
+.lowerThirdRight .graphic.vertical {
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* FIXME? */
 }
 
 .resultList .container {
@@ -213,7 +218,7 @@ p {
   padding-left: 1.25rem;
 }
 
-/* Lägg till nya selektorer för caption-bar och caption-text med utgångspunkt i dina tidigare .caption–stilar */
+/* Nya selektorer för caption-bar och caption-text */
 .caption-bar {
   text-align: left;
   align-items: center;

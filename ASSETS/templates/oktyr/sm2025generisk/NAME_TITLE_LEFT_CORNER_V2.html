@@ -100,7 +100,7 @@
           bodyElements[i].classList.add("fadeOUT");
         }
       }
-/*
+      /*
       function runAnimationIN() {
         // basic animation by swapping the CSS class
         document.getElementById("graphic").classList = "fadeIN";
@@ -181,12 +181,19 @@
     </script>
   </head>
 
-  <body class="lowerThirdLeft">    
-      <div class="container">
-        <div class="graphic">
-          <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
+  <body class="lowerThirdLeft">
+    <div class="container">
+      <div class="graphic vertical">
+        <!-- Caption bar med logo och caption text -->
+        <div class="caption-bar">
+          <div class="logo">
+            <img src="images/sun_logo.png" alt="" />
+          </div>
+          <div class="caption-text">
+            <span id="g_rubrik"></span>
+          </div>
+
           <div class="data">
-            <div class="caption" id="g_rubrik"></div>
             <div class="metaData">
               <div class="first" id="g_namn"></div>
               <div id="details">

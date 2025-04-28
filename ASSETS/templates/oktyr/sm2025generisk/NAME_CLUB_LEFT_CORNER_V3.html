@@ -30,7 +30,7 @@
     21.04.2025 Renamed style tag from gfx to SPXgfx.
     28.04.2025 Removed box4 and text3 (field f3).
     28.04.2025 Changed to Williams stylesheet.
-    28.04.2025 Using anime timeline (similar to SPX demo). FIXME: NOT PERFECT!
+    28.04.2025 Using anime timeline (similar to SPX demo).
 -->
 
   <head>
@@ -51,26 +51,13 @@
         /* FIXME: # or . ? */
         opacity: 0;
       }
-      /*
-      #graphic {
-        gap: 0;
-        border: 0;
-        opacity: 0;
-        z-index: 10;
-        display: flex;
-        bottom: 5vh;
-        position: absolute;
-        flex-direction: column;
-        transform-origin: bottom left;
-        border-left: var(--theme-accent-width) solid var(--theme-brandColor);
-      }
-      */
+
       #box1 {
         font-size: 3vw;
         font-family: "BOLD";
         padding: 0.1em 0.5em;
       }
-      /* MOVED TO oktyr_style.css */
+      /* MOVED TO oktyr_style.css as .metaData #details .second */
       /*
       #details {
         gap: 0;
@@ -84,11 +71,11 @@
         padding: 0.2em 0;
       }
 
-      #f0 {
+      #g0 {
         margin-right: 1em; /* Adjust space between number and name */
       }
 
-      #f2 {
+      #g2 {
         padding: 0 0.8em;
       }
     </style>
@@ -132,7 +119,7 @@
 
           .add(
             {
-              targets: [".graphic"], //FIXME: # or . ?
+              targets: [".graphic"],
               opacity: [0, 1],
               duration: 50,
               easing: "linear",
@@ -142,7 +129,7 @@
           // Animera in caption-bar (logo + caption-text)
           .add(
             {
-              targets: [".caption-bar"], //FIXME: # or . ?
+              targets: [".caption-bar"],
               translateX: ["-100%", "0%"],
               opacity: [0, 1],
               duration: 500,
@@ -181,7 +168,7 @@
           )
           .add(
             {
-              targets: [".graphic"], //FIXME: # or . ?
+              targets: [".graphic"],
               opacity: [1, 0],
               duration: 300,
             },
@@ -203,7 +190,7 @@
             field: "comment",
             ftype: "textfield",
             title: "Nickname of this item on the rundown",
-            value: "[ NR NAMN KLUBB ]",
+            value: "[ (RUBRIK) NR NAMN KLUBB ]",
           },
           {
             ftype: "instruction",
@@ -264,12 +251,12 @@
           <div class="metaData">
             <div class="first" id="box1">
               <!-- Span is inline, will appear on the same line -->
-              <span id="g0">0</span><span id="g1"></span>
+              <span id="g0"></span><span id="g1"></span>
             </div>
             <div id="details">
               <div class="second" id="box2">
                 <!-- Div is block-level, will start on its own line -->
-                <div id="g2">KLUBB</div>
+                <div id="g2"></div>
               </div>
             </div>
           </div>
@@ -286,30 +273,3 @@
     </div>
   </body>
 </html>
-
-<!--  
-
-  <body>
-    <div class="SPXWindow left">
-      <div id="logoLeft"></div>
-      <div id="gfx">
-        <div id="box1" class="darkOnLite">
-          <span id="number">123</span><span id="text1"></span>
-        </div>
-        <div id="details">
-          <div id="box3" class="liteOnColor">
-            <span id="text2"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="hiddenSpxData" data-info="See spx_styles.css">
-      <div data-info="Number......." id="f0"></div>
-      <div data-info="Fullname....." id="f1"></div>
-      <div data-info="Club........." id="f2"></div>
-      <div data-info="Theme........" id="f99"></div>
-    </div>
-  </body>
-</html>
--->
