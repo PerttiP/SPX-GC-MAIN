@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- 
+    (c) 2024 SPX Graphics
+    Demo template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
+    Need custom templates? Get in touch! https://spx.graphics/contact
+
+	PLEASE SEE THE LICENSE FILE FOR TERMS AND CONDITIONS.  
+
+    ▸ spx.graphics | Copyright 2021-2024 SPX Graphics <https://spx.graphics>
+    
+    Version: ##-version-## / ##-comment-##
+    Build: ##-builddate-## 
+
+	----
+
+    WELCOME TO SM 2025 - CENTER
+    Description: A welcome message in the center.
+
+	Changes:
+    27.04.2025 Using SPX controller interface (js/spx_interface.js).
+    27.04.2025 Changed to Williams stylesheet.
+-->
+
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <!--
+      <link rel="stylesheet" href="css/spx_styles_gen.css" />
+      -->
+      <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+      <script src="js/spx_interface.js"></script>
+      <title>My Welcome to SM template</title>
+
+      <script>
+        function runTemplateUpdate() {
+          // Intentionally empty
+        }
+
+        function runAnimationIN() {
+          // basic animation by swapping the CSS class
+          const bodyElements = document.getElementsByClassName("mainCaption");
+          // iterate through the elements and add the class
+          for (let i = 0; i < bodyElements.length; i++) {
+            bodyElements[i].classList = "fadeIN";
+          }
+        }
+
+        function runAnimationOUT() {
+          // basic animation by swapping the CSS class
+          const bodyElements = document.getElementsByClassName("mainCaption");
+          // iterate through the elements and add the class
+          for (let i = 0; i < bodyElements.length; i++) {
+            bodyElements[i].classList = "fadeOUT";
+          }
+        }
+      </script>
+
+      <!-- A template definition object for SPX. -->
+      <!-- Place it as the LAST item within the HEAD section -->
+
+      <script type="text/javascript">
+        window.SPXGCTemplateDefinition = {
+          description: "My Welcome to SM template",
+          playserver: "OVERLAY",
+          playchannel: "1",
+          playlayer: "7",
+          webplayout: "7",
+          out: "manual",
+          uicolor: "2",
+          dataformat: "json",
+          DataFields: [
+            {
+              field: "welcomeText",
+              ftype: "textfield",
+              title: "Message",
+              value: "Välkommen till SM i Orientering 2025!",
+            },
+          ],
+        };
+      </script>
+    </head>
+
+    <!-- NOTE: The 'field' identifier in the TemplateDefinition is allowed to have 
+        exactly the same name as the HTML divider id för the graphic overlay ! -->
+    <body class="mainCaption">
+      <div class="container">
+        <div class="graphic">
+          <div class="header" id="welcomeText"></div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+    <!-- No hidden fields needed here since no input controls in editor -->
+  </html>
+</html>

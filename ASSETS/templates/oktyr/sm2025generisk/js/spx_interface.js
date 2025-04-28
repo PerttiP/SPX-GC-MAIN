@@ -37,7 +37,7 @@ function update(data) {
   if (typeof runTemplateUpdate === "function") {
     runTemplateUpdate(); // Play will follow
   } else {
-    console.error("runTemplateUpdate() function missing from SPX template.");
+    console.warn("runTemplateUpdate() function missing from SPX template.");
   }
 }
 

@@ -132,6 +132,31 @@ p {
   opacity: 0;
 }
 
+.mainCaption .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /*padding: 40px 300px;*/
+  width: 80%;
+  height: 40%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+
+.mainCaption .graphic {
+  width: 80%;
+  height: fit-content;
+  min-height: 15rem;
+  /*margin: 40px;*/
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .header {
   display: flex;
   justify-content: space-between;

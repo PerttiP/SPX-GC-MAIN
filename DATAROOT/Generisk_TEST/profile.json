@@ -50,9 +50,30 @@
       "onair": "false",
       "imported": "1745757704239",
       "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER_V2.html"
+    },
+    {
+      "description": "My Welcome to SM template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "7",
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2",
+      "dataformat": "json",
+      "DataFields": [
+        {
+          "field": "welcomeText",
+          "ftype": "textfield",
+          "title": "Message",
+          "value": "Välkommen till SM i Orientering 2025!"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745761091117",
+      "relpath": "/oktyr/sm2025generisk/welcomeToSM2025_V2.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-27T12:41:44.239Z"
+  "updated": "2025-04-27T13:38:11.117Z"
 }

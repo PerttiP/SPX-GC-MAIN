@@ -1,61 +1,8 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-27T12:42:20.681Z",
-  "templates": [
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ NAMN TITEL/ORGANISATION ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f_rubrik",
-          "ftype": "textfield",
-          "title": "Caption",
-          "value": "SM 2025 Karlstad"
-        },
-        {
-          "field": "f_namn",
-          "ftype": "textfield",
-          "title": "Fullname",
-          "value": "Per Forsberg"
-        },
-        {
-          "field": "f_titel",
-          "ftype": "textfield",
-          "title": "Title",
-          "value": "Speaker"
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745757704239",
-      "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER_V2.html",
-      "itemID": "1745757712513"
-    }
-  ],
+  "updated": "2025-04-28T06:15:08.868Z",
+  "templates": [],
   "project": "Generisk_TEST",
   "rundown": "GENTESTRD1"
 }

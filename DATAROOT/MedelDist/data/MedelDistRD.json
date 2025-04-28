@@ -1,8 +1,158 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-27T12:37:18.925Z",
-  "templates": [],
+  "updated": "2025-04-27T12:56:08.927Z",
+  "templates": [
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ PLACE BIB-NR NAME TIME ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
+        },
+        {
+          "field": "f_list_titel",
+          "ftype": "textfield",
+          "title": "Set title",
+          "value": "Split"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "D18"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "RC1",
+          "items": [
+            {
+              "text": "RC1",
+              "value": "RC1"
+            },
+            {
+              "text": "RC2",
+              "value": "RC2"
+            },
+            {
+              "text": "RC3",
+              "value": "RC3"
+            },
+            {
+              "text": "RC4",
+              "value": "RC4"
+            },
+            {
+              "text": "RC5",
+              "value": "RC5"
+            },
+            {
+              "text": "RC6",
+              "value": "RC6"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_runner",
+          "ftype": "dropdown",
+          "title": "Select Runner",
+          "value": "0 - Default Test Runner",
+          "items": [
+            {
+              "text": "1 - Firstname Lastname",
+              "value": "1"
+            },
+            {
+              "text": "2 - Firstname Lastname",
+              "value": "2"
+            },
+            {
+              "text": "3 - Firstname Lastname",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Bib Number of Runner to Follow",
+          "value": "0"
+        },
+        {
+          "field": "f_follow_runner_btn",
+          "ftype": "button",
+          "title": "Follow Selected Runner",
+          "descr": "Set selected Runner bib to follow",
+          "fcall": "followSelectedRunner()"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": ""
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1745680351193",
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "itemID": "1745758562781"
+    }
+  ],
   "project": "MedelDist",
   "rundown": "MedelDistRD"
 }
