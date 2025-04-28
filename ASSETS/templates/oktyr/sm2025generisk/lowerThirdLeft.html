@@ -1,77 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+  <!--
+    (c) 2024 SPX Graphics
+    Demo template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
+    Need custom templates? Get in touch! https://spx.graphics/contact
 
-    <title>Graphics - Name tag Left</title>
-    <link rel="stylesheet" href="css/style.css" />
+	PLEASE SEE THE LICENSE FILE FOR TERMS AND CONDITIONS.  
+
+    ▸ spx.graphics | Copyright 2021-2024 SPX Graphics <https://spx.graphics>
+    
+    Version: ##-version-## / ##-comment-##
+    Build: ##-builddate-## 
+
+	----
+
+    lowerThirdLeft for OK TYR SM 2025
+
+    NAME_CLUB_LEFT_CORNER
+    Description: A lower third in the bottom left corner,
+    with data fields for NUMBER, NAME, CLUB.
+
+    Animation Lib
+    anime.js v3.2.0
+
+	Changes:
+    29.06.2022 Added FPS value check from SPX renderer
+    24.08.2022 Fixed bug FPS value check (if not available)
+    06.05.2024 Replaced GSAP with AnimeJS. Simplified source.
+    08.04.2025 Changed theme to News.
+    08.04.2025 Added number field as f0.
+    21.04.2025 Renamed style tag from gfx to SPXgfx.
+    28.04.2025 Removed box4 and text3 (field f3).
+    28.04.2025 Changed to Williams stylesheet.
+    28.04.2025 Using anime timeline (similar to SPX demo).
+-->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>LEFT CORNER</title>
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <script type="text/javascript" src="js/spx_interface.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <link
       rel="stylesheet"
       type="text/css"
       id="DynamicTheme"
-      href="css/themes/Default.css"
+      href="css/themes/News.css"
     />
-    <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <style>
+      /* För att animationen ska fungera – se till att .graphic initialt är dold */
+      .graphic {
+        /* FIXME: # or . ? */
+        opacity: 0;
+      }
+
+      #box1 {
+        font-size: 3vw;
+        font-family: "BOLD";
+        padding: 0.1em 0.5em;
+      }
+      /* MOVED TO oktyr_style.css as .metaData #details .second */
+      /*
+      #details {
+        gap: 0;
+        display: flex;
+        flex-direction: row;
+      }
+      */
+      #box2 {
+        font-size: 2vw;
+        font-family: "REGU";
+        padding: 0.2em 0;
+      }
+
+      #g0 {
+        margin-right: 1em; /* Adjust space between number and name */
+      }
+
+      #g2 {
+        padding: 0 0.8em;
+      }
+    </style>
+
     <script>
+      let clipNone = "inset(0%   0% 0% 0%)";
+      let clipEast = "inset(0% 100% 0% 0%)";
+      let clipSout = "inset(0% 0% 100% 0%)";
+
+      function runTemplateUpdate() {
+        e("DynamicTheme").href = e("f99").innerText;
+        e("g_rubrik").innerHTML = htmlDecode(e("f_rubrik").innerText);
+        e("g0").innerHTML = htmlDecode(e("f0").innerText);
+        e("g1").innerHTML = htmlDecode(e("f1").innerText);
+        e("g2").innerHTML = htmlDecode(e("f2").innerText);
+
+        // Show all text-boxes
+        e("box1").style.display = "flex";
+        e("box2").style.display = "flex";
+
+        // Hide empty ones
+        if (e("g0").innerText == "") {
+          e("g0").style.display = "none";
+        }
+        if (e("g0").innerText == "" && e("g1").innerText == "") {
+          e("box1").style.display = "none";
+        }
+        if (e("g2").innerText == "") {
+          e("box2").style.display = "none";
+        }
+
+        setTimeout(runAnimationIN, 50);
+      } // runTemplateUpdate
+
       function runAnimationIN() {
-        // basic animation by swapping the CSS class
-        document.getElementById("gfx").classList = "fadeIN";
-        animate(".container", { left: "calc(7.75rem * 2)" });
-      }
+        var timelineIn = anime
+          .timeline({
+            easing: "easeOutCubic",
+            duration: 500,
+          })
+
+          .add(
+            {
+              targets: [".graphic"],
+              opacity: [0, 1],
+              duration: 50,
+              easing: "linear",
+            },
+            0
+          )
+          // Animera in caption-bar (logo + caption-text)
+          .add(
+            {
+              targets: [".caption-bar"],
+              translateX: ["-100%", "0%"],
+              opacity: [0, 1],
+              duration: 500,
+            },
+            0
+          )
+          // Animera in box1 & box2 från undersidan med en staggered effekt
+          .add(
+            {
+              targets: ["#box1", "#box2"],
+              translateY: ["100%", "0%"],
+              opacity: [0, 1],
+              duration: 500,
+              delay: anime.stagger(50),
+            },
+            50
+          );
+      } // runAnimationIN
+
       function runAnimationOUT() {
-        // basic animation by swapping the CSS class
-        document.getElementById("gfx").classList = "fadeOUT";
-        animate(".container", { left: "calc(-7.75rem * 2)" });
-      }
-    </script>
-    <script>
+        var timelineOut = anime
+          .timeline({
+            easing: "easeInCubic",
+            duration: 500,
+          })
+
+          .add(
+            {
+              targets: ["#box1", "#box2", ".caption-bar"],
+              translateY: ["0%", "100%"],
+              opacity: [1, 0],
+              duration: 500,
+              delay: anime.stagger(100),
+            },
+            0
+          )
+          .add(
+            {
+              targets: [".graphic"],
+              opacity: [1, 0],
+              duration: 300,
+            },
+            100
+          );
+      } // runAnimationOUT
+
       window.SPXGCTemplateDefinition = {
-        description: "Nametag Left",
+        description: "Namestrap left",
         playserver: "OVERLAY",
         playchannel: "1",
-        playlayer: "2",
-        webplayout: "2",
+        playlayer: "5",
+        webplayout: "5",
         out: "manual",
+        dataformat: "json",
         uicolor: "3",
         DataFields: [
           {
+            field: "comment",
+            ftype: "textfield",
+            title: "Nickname of this item on the rundown",
+            value: "[ (RUBRIK) NR NAMN KLUBB ]",
+          },
+          {
+            ftype: "instruction",
+            value:
+              "You can leave any field empty. This is a lower-left overlay with a News theme.",
+          },
+          {
+            field: "f_rubrik",
+            ftype: "textfield",
+            title: "Caption",
+            value: "SM 2025 Karlstad",
+          },
+          {
             field: "f0",
             ftype: "textfield",
-            title: "Namn",
-            value: "",
+            title: "Number",
+            value: "999",
           },
           {
             field: "f1",
             ftype: "textfield",
-            title: "Info 1 ex. Klubb",
-            value: "",
+            title: "Fullname",
+            value: "Hälge Hälgesson",
           },
           {
             field: "f2",
             ftype: "textfield",
-            title: "Info 2 ex. Klass",
-            value: "",
+            title: "Club",
+            value: "OK Älgen",
+          },
+          {
+            field: "f99",
+            ftype: "filelist",
+            title: "Visual theme",
+            assetfolder: "./css/themes/",
+            extension: "css",
+            value: "./css/themes/News.css",
           },
         ],
       };
     </script>
   </head>
+
   <body class="lowerThirdLeft">
-    <div id="gfx">
-      <div class="container">
-        <div class="graphic">
-          <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
-          <div class="data">
-            <div class="title" id="f0"></div>
-            <div class="metaData">
-              <div class="first" id="f1"></div>
-              <div class="second" id="f2"></div>
+    <div class="container">
+      <div class="graphic vertical">
+        <!-- Caption bar med logo och caption text -->
+        <div class="caption-bar">
+          <div class="logo">
+            <img src="images/sun_logo.png" alt="" />
+          </div>
+          <div class="caption-text">
+            <span id="g_rubrik"></span>
+          </div>
+        </div>
+        <div class="data">
+          <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
+          <div class="metaData">
+            <div class="first" id="box1">
+              <!-- Span is inline, will appear on the same line -->
+              <span id="g0"></span><span id="g1"></span>
+            </div>
+            <div id="details">
+              <div class="second" id="box2">
+                <!-- Div is block-level, will start on its own line -->
+                <div id="g2"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div id="hiddenSpxData" data-info="See spx_styles.css">
+      <div data-info="StartNumber......" id="f_rubrik"></div>
+      <div data-info="StartNumber......" id="f0"></div>
+      <div data-info="Fullname........." id="f1"></div>
+      <div data-info="Club............." id="f2"></div>
+      <div data-info="Theme............" id="f99"></div>
     </div>
   </body>
 </html>

@@ -14,11 +14,16 @@
 
 	----
 
+    lowerThirdLeftDynamic for OK TYR SM 2025
+
     NAME_CLUB_LEFT_CORNER
     Description: A lower third in the bottom left corner,
     with data fields for NUMBER, NAME, CLUB.
 
-    Animation Lib
+    Extra Features:
+    With dynamic update of data from API enpoint.
+
+    Animation Lib:
     anime.js v3.2.0
 
 	Changes:
@@ -31,6 +36,7 @@
     28.04.2025 Removed box4 and text3 (field f3).
     28.04.2025 Changed to Williams stylesheet.
     28.04.2025 Using anime timeline (similar to SPX demo).
+    28.04.2025 Added dropdown for selecting runner by bib nr.
 -->
 
   <head>
@@ -71,8 +77,12 @@
         padding: 0.2em 0;
       }
 
-      #g0 {
+      #vald_runner_bib {
         margin-right: 1em; /* Adjust space between number and name */
+      }
+
+      #vald_runner_name {
+        margin-right: 1em; /* TODO?: Adjust space between number and name */
       }
 
       #g2 {
@@ -87,20 +97,64 @@
 
       function runTemplateUpdate() {
         e("DynamicTheme").href = e("f99").innerText;
-        e("g_rubrik").innerHTML = htmlDecode(e("f_rubrik").innerText);
-        e("g0").innerHTML = htmlDecode(e("f0").innerText);
-        e("g1").innerHTML = htmlDecode(e("f1").innerText);
-        e("g2").innerHTML = htmlDecode(e("f2").innerText);
+        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+
+        // TODO: Check that we have retrieved a valid runner from API
+        let validRunnerFoundFromAPI = true;
+
+        let validRunnerSelectedInUI = true;
+
+        // If selected a bib from dropdown
+        if (e("f_vald_runner_bib").innerText) {
+          e("vald_runner_bib").innerHTML = htmlDecode(
+            e("f_vald_runner_bib").innerText
+          );
+
+          // TDOD: Set name from local Storage? or from parameter?
+          e("vald_runner_name").innerHTML =
+            "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
+          // TODO: Set club name
+          validRunnerSelectedInUI = true;
+        } else {
+          alert(
+            "No runner selected! Trying to use runner id from input text field.\n Note that you may select a runner in dropdown\n."
+          );
+
+          // TODO: If not valid runner selected, then check if user has entered a bib number into input control?
+
+          if (e("f0").innerText !== "") {
+            e("vald_runner_bib").innerHTML = htmlDecode(e("f0").innerText);
+
+            e("vald_runner_name").innerHTML =
+              "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
+
+            // TODO: Set club name
+            validRunnerSelectedInUI = true;
+          } else {
+            alert(
+              "No runner selected! Please either select a runner in dropdown\n or write a valid runner id in input text field."
+            );
+            validRunnerSelectedInUI = false;
+            return; // <----------- RETURN!
+          }
+        }
+
+        if (!validRunnerFoundFromAPI && !validRunnerSelectedInUI) {
+          return; // <----------- RETURN!
+        }
 
         // Show all text-boxes
         e("box1").style.display = "flex";
         e("box2").style.display = "flex";
 
         // Hide empty ones
-        if (e("g0").innerText == "") {
-          e("g0").style.display = "none";
+        if (e("vald_runner_bib").innerText == "") {
+          e("vald_runner_bib").style.display = "none";
         }
-        if (e("g0").innerText == "" && e("g1").innerText == "") {
+        if (
+          e("vald_runner_bib").innerText == "" &&
+          e("vald_runner_name").innerText == ""
+        ) {
           e("box1").style.display = "none";
         }
         if (e("g2").innerText == "") {
@@ -204,20 +258,72 @@
             value: "SM 2025 Karlstad",
           },
           {
+            field: "f_vald_klass",
+            ftype: "dropdown",
+            title: "Select Class",
+            value: "D21",
+            items: [
+              {
+                text: "D21",
+                value: "D21",
+              },
+              {
+                text: "H21",
+                value: "H21",
+              },
+              {
+                text: "D20",
+                value: "D20",
+              },
+              {
+                text: "H20",
+                value: "H20",
+              },
+              {
+                text: "D18",
+                value: "D18",
+              },
+              {
+                text: "H18",
+                value: "D18",
+              },
+            ],
+          },
+          {
+            field: "f_vald_runner_bib",
+            ftype: "dropdown",
+            title: "Select Runner",
+            value: "0 - Default Test Runner",
+            items: [
+              {
+                text: "1 - Firstname Lastname",
+                value: "1",
+              },
+              {
+                text: "2 - Firstname Lastname",
+                value: "2",
+              },
+              {
+                text: "3 - Firstname Lastname",
+                value: "3",
+              },
+            ],
+          },
+          {
             field: "f0",
             ftype: "textfield",
             title: "Number",
-            value: "999",
+            value: "9999",
           },
           {
             field: "f1",
-            ftype: "textfield",
+            ftype: "caption",
             title: "Fullname",
             value: "Hälge Hälgesson",
           },
           {
             field: "f2",
-            ftype: "textfield",
+            ftype: "caption",
             title: "Club",
             value: "OK Älgen",
           },
@@ -243,7 +349,7 @@
             <img src="images/sun_logo.png" alt="" />
           </div>
           <div class="caption-text">
-            <span id="g_rubrik"></span>
+            <span id="vald_klass">HD XX</span>
           </div>
         </div>
         <div class="data">
@@ -251,7 +357,8 @@
           <div class="metaData">
             <div class="first" id="box1">
               <!-- Span is inline, will appear on the same line -->
-              <span id="g0"></span><span id="g1"></span>
+              <span id="vald_runner_bib">0</span>
+              <span id="vald_runner_name">H B</span>
             </div>
             <div id="details">
               <div class="second" id="box2">
@@ -265,7 +372,9 @@
     </div>
 
     <div id="hiddenSpxData" data-info="See spx_styles.css">
-      <div data-info="StartNumber......" id="f_rubrik"></div>
+      <div data-info="Rubrik..........." id="f_rubrik"></div>
+      <div data-info="Vald klass......." id="f_vald_klass"></div>
+      <div data-info="Vald runner......" id="f_vald_runner_bib"></div>
       <div data-info="StartNumber......" id="f0"></div>
       <div data-info="Fullname........." id="f1"></div>
       <div data-info="Club............." id="f2"></div>
