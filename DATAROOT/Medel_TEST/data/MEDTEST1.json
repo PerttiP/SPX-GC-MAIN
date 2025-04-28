@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-28T14:33:14.013Z",
+  "updated": "2025-04-28T15:39:20.794Z",
   "templates": [
     {
       "description": "Start list table template",
@@ -67,7 +67,7 @@
       "dataformat": "json",
       "imported": "1745846225870",
       "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
-      "itemID": "1745846257085"
+      "itemID": "1745852031499"
     },
     {
       "description": "Namestrap left",
@@ -216,117 +216,7 @@
       "onair": "false",
       "imported": "1745846225889",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "itemID": "1745846257086"
-    },
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ (RUBRIK) NR NAMN KLUBB ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f_rubrik",
-          "ftype": "textfield",
-          "title": "Caption",
-          "value": "SM 2025 Karlstad"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "D18"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_runner_bib",
-          "ftype": "dropdown",
-          "title": "Select Runner",
-          "value": "3",
-          "items": [
-            {
-              "text": "1 - Firstname Lastname",
-              "value": "1"
-            },
-            {
-              "text": "2 - Firstname Lastname",
-              "value": "2"
-            },
-            {
-              "text": "3 - Firstname Lastname",
-              "value": "3"
-            }
-          ]
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "9999"
-        },
-        {
-          "field": "f1",
-          "ftype": "caption",
-          "title": "Fullname",
-          "value": "Hälge Hälgesson"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": "OK Älgen"
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745850719402",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
-      "itemID": "1745850724671"
+      "itemID": "1745852031500"
     }
   ],
   "project": "Medel_TEST",

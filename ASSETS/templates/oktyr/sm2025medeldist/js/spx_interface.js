@@ -27,8 +27,14 @@ function getDataFromLocalStorage() {
 }
 
 // Editor button click handler
+// KEEP FOR NOW AS LEGACY for backwards compatibility
 function followSelectedRunner() {
-  alert("followSelectedRunner() CALLED!"); // OK!
+  updateFollowedRunner();
+}
+
+// Editor button click handler
+function updateFollowedRunner() {
+  alert("updateFollowedRunner() CALLED!");
 
   if (!getDataFromLocalStorage()) {
     console.warn("Failed to get Runner data from local storage");
@@ -55,10 +61,6 @@ function followSelectedRunner() {
 
 function getSelectedRunnersName() {
   return "Testar om namn kan ändras i en caption field"; // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL
-}
-
-function save() {
-  console.log("----- Save handler called");
 }
 
 // Receive item data from SPX Graphics Controller

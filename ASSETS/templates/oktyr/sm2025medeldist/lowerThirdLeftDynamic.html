@@ -96,7 +96,6 @@
       let clipSout = "inset(0% 0% 100% 0%)";
 
       function runTemplateUpdate() {
-        e("DynamicTheme").href = e("f99").innerText;
         e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
 
         // TODO: Check that we have retrieved a valid runner from API
@@ -328,12 +327,11 @@
             value: "OK Älgen",
           },
           {
-            field: "f99",
-            ftype: "filelist",
-            title: "Visual theme",
-            assetfolder: "./css/themes/",
-            extension: "css",
-            value: "./css/themes/News.css",
+            field: "f_update_from_api_btn",
+            ftype: "button",
+            title: "Update & Follow",
+            descr: "Update live data for selected Runner",
+            fcall: "updateFollowedRunner()",
           },
         ],
       };
@@ -378,7 +376,6 @@
       <div data-info="StartNumber......" id="f0"></div>
       <div data-info="Fullname........." id="f1"></div>
       <div data-info="Club............." id="f2"></div>
-      <div data-info="Theme............" id="f99"></div>
     </div>
   </body>
 </html>
