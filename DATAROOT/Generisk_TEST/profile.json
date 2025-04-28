@@ -48,7 +48,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745825855306",
+      "imported": "1745842461115",
       "relpath": "/oktyr/sm2025generisk/NAME_TITLE_LEFT_CORNER_V2.html"
     },
     {
@@ -69,7 +69,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1745761091117",
+      "imported": "1745836498197",
       "relpath": "/oktyr/sm2025generisk/welcomeToSM2025_V2.html"
     },
     {
@@ -183,11 +183,11 @@
         }
       ],
       "onair": "false",
-      "imported": "1745836389301",
+      "imported": "1745842465283",
       "relpath": "/oktyr/sm2025generisk/NAME_CLUB_LEFT_CORNER_V3.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-28T10:33:09.301Z"
+  "updated": "2025-04-28T12:14:25.283Z"
 }

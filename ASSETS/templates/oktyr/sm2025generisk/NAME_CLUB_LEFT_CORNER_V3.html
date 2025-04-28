@@ -16,7 +16,7 @@
 
     NAME_CLUB_LEFT_CORNER
     Description: A lower third in the bottom left corner,
-    with data fields for NUMBER, NAME, CLUB, LOCATION.
+    with data fields for NUMBER, NAME, CLUB.
 
     Animation Lib
     anime.js v3.2.0
@@ -70,13 +70,14 @@
         font-family: "BOLD";
         padding: 0.1em 0.5em;
       }
-
+      /* MOVED TO oktyr_style.css */
+      /*
       #details {
         gap: 0;
         display: flex;
         flex-direction: row;
       }
-
+      */
       #box2 {
         font-size: 2vw;
         font-family: "REGU";
@@ -248,7 +249,7 @@
 
   <body class="lowerThirdLeft">
     <div class="container">
-      <div class="graphic">
+      <div class="graphic vertical">
         <!-- Caption bar med logo och caption text -->
         <div class="caption-bar">
           <div class="logo">
@@ -262,9 +263,15 @@
           <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
           <div class="metaData">
             <div class="first" id="box1">
+              <!-- Span is inline, will appear on the same line -->
               <span id="g0">0</span><span id="g1"></span>
             </div>
-            <div class="second" id="box2"><span id="g2"></span></div>
+            <div id="details">
+              <div class="second" id="box2">
+                <!-- Div is block-level, will start on its own line -->
+                <div id="g2">KLUBB</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

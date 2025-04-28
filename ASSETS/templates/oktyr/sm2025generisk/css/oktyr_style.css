@@ -75,8 +75,17 @@ p {
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: row; /* Default: horizontally aligned */
   justify-content: space-between; /* spaces its children evenly */
 }
+
+/* Vertical stacking version */
+/* When you add the "vertical" modifier, the flex direction changes */
+.lowerThirdLeft .graphic.vertical {
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* FIXME? */
+}
+
 /* FROM SPX <script> section in HTML:
 #gfx {
   gap: 0;
@@ -245,6 +254,17 @@ p {
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+/* SPECIAL för class="metaData", id="details, class="second" */
+.metaData #details .second {
+  /* MOVED FROM SPX demo HTML style section */
+  gap: 0;
+  display: flex;
+  flex-direction: row;
+  /* EXTRA FROM COP */
+  font-size: 0.8rem; /* Mindre textstorlek */
+  font-family: Arial, sans-serif; /* Använd valfritt typsnitt */
+  color: #555; /* Annan färg */
 }
 
 .logo {
