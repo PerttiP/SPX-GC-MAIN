@@ -43,7 +43,8 @@
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
-    <script type="text/javascript" src="js/spx_interface.js"></script>
+    <!-- Next scripts use defer and are executed in order -->
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <link
       rel="stylesheet"
@@ -96,6 +97,8 @@
       let clipSout = "inset(0% 0% 100% 0%)";
 
       function runTemplateUpdate() {
+        // MOVED TO setDataFromTemplate() since we need to do this check earlier! ANd before user presses SAVE + PLAY !!!
+        /*
         e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
 
         // TODO: Check that we have retrieved a valid runner from API
@@ -141,6 +144,11 @@
         if (!validRunnerFoundFromAPI && !validRunnerSelectedInUI) {
           return; // <----------- RETURN!
         }
+        */
+
+        // TODO: Set name from API response
+        e("vald_runner_name").innerHTML = "SET RUNNER NAME FROM API RESPONSE!";
+        // TODO: Set club name
 
         // Show all text-boxes
         e("box1").style.display = "flex";
@@ -284,7 +292,7 @@
               },
               {
                 text: "H18",
-                value: "D18",
+                value: "H18",
               },
             ],
           },

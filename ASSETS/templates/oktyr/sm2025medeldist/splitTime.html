@@ -56,6 +56,9 @@
         );
         e("vald_runner").innerHTML = htmlDecode(e("f_vald_runner").innerText);
 
+        // FIXME:
+        // MOVE TO setDataFromTemplate() since we need to do this check earlier! And before user presses SAVE + PLAY !!!
+
         // Get the vald klass from dropdown
         // NOTE: The value property is only available for form elements
         // like <input>, <textarea>, or <select>.
@@ -193,7 +196,7 @@
               },
               {
                 text: "H18",
-                value: "D18",
+                value: "H18",
               },
             ],
           },
