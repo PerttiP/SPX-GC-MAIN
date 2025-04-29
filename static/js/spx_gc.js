@@ -2630,7 +2630,7 @@ function saveTemplateItemChangesByElement(itemrow) {
       working("");
       ToggleExpand(itemrow);
 
-      // PERTTI:
+      // PERTTI: Try to dispatch event to spx_controller (NOT WORKING)
       sendTemplateRundownItemSavedNotification({
         message: "Template rundown item changes saved successfully",
         templateId: data.epoch, //itemrow,

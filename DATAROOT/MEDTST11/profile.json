@@ -95,21 +95,14 @@
           "ftype": "caption",
           "title": "Club",
           "value": "OK Älgen"
-        },
-        {
-          "field": "f_update_from_api_btn",
-          "ftype": "button",
-          "title": "Update & Follow",
-          "descr": "Update live data for selected Runner",
-          "fcall": "window.updateFollowedRunner()"
         }
       ],
       "onair": "false",
-      "imported": "1745940866650",
+      "imported": "1745944088416",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-29T15:34:26.651Z"
+  "updated": "2025-04-29T16:28:08.416Z"
 }

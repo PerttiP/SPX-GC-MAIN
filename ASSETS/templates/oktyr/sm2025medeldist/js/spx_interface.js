@@ -10,7 +10,7 @@ let validRunnerSelectedInUI = true;
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
-// Set up a listener for event dispatched from spx_gc.js:
+// Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
 
@@ -49,63 +49,23 @@ function getDataFromLocalStorage() {
   return true;
 }
 
-// Editor button click handler
-// KEEP FOR NOW AS LEGACY for backwards compatibility
-function followSelectedRunner() {
-  updateFollowedRunner();
-}
-/*
-function runSaveDataFromTemplateUpdate() {
-  alert("runSaveDataFromTemplateUpdate() called!");
-}
-*/
-// In your JavaScript file (or inside a closure), attach the function to the window:
-/*
-window.runSaveDataFromTemplateUpdate = function () {
-  console.log("Template update saved (from window)!");
-  alert("window.runSaveDataFromTemplateUpdate() called!");
-  // Your code goes here...
-};
-*/
-
-// Editor button click handler
-// TODO: MOVE THIS TO HTML BODY?:
-/*
-function updateFollowedRunner() {
-  //alert("updateFollowedRunner() CALLED!");
-
-  getSelectedDataFromTemplate();
-
-  // ATTEMPT1: Move to body section in HTML???
-
-  // WORKAROUND: Have 2 different cases for this function, pass in case1/case2 as argument?:
-  /*
-  if (typeof runTemplateUpdate === "function") {
-    runTemplateUpdate(case1); // Play will follow
-  } else {
-    console.error("runTemplateUpdate() function missing from SPX template.");
-  }
-  */
-
 // HARD-CODED MOCKTEST 2025-04-24:
-/*
-  const mockData = {
-    competition: "Medel-Kval",
-    class: "H21",
-    runners: [
-      {
-        bib: "444",
-        name: "Ferry Fyråsen",
-        club: "OK Fyran",
-        start_time: "14:44",
-        split_times: [2450, 5080, 7840],
-        final_time: 10800,
-        place: 4,
-      },
-    ],
-  };
-}
-*/
+const mockData_OneRunner = {
+  competition: "Medel-Kval",
+  class: "H21",
+  runners: [
+    {
+      bib: "444",
+      name: "Ferry Fyråsen",
+      club: "OK Fyran",
+      start_time: "14:44",
+      split_times: [2450, 5080, 7840],
+      final_time: 10800,
+      place: 4,
+    },
+  ],
+};
+
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.
@@ -113,6 +73,13 @@ function updateFollowedRunner() {
 function update(data) {
   var templateData = JSON.parse(data);
   console.log("----- Update handler called with data:", templateData);
+
+  let c = templateData.comment;
+  let k = templateData.f_vald_klass;
+  let r = templateData.f_vald_runner_bib;
+
+  console.log("----- Vald runner bib: ", r);
+
   for (var dataField in templateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
@@ -140,7 +107,7 @@ function update(data) {
   let validRunnerFoundFromAPI = true;
 
   if (typeof runTemplateUpdate === "function") {
-    runTemplateUpdate(); // Play will follow
+    runTemplateUpdate(mockData_OneRunner); // Play will follow
   } else {
     console.error("runTemplateUpdate() function missing from SPX template.");
   }
@@ -198,6 +165,7 @@ function e(elementID) {
 }
 */
 
+// Renamed the e() function since it clashes with other function also called e()!
 function getEl(elementID) {
   if (!elementID) {
     console.warn("Element ID is falsy, returning null.");
@@ -245,7 +213,7 @@ function validString(str) {
 */
 // ----------------------------------------------------------------------------------
 function getProfileForCurrent() {
-  // Try to get form DOM
+  // Try to get from DOM
   let profileName = document.getElementById("profname").innerText;
 
   // Try to get from localStorage
@@ -255,17 +223,6 @@ function getProfileForCurrent() {
   }
   return profileName;
 } // getProfileForCurrent ended
-
-function setProfileForCurrent(profileName) {
-  // FIXME: remove?
-  // change profile to profileName and save to localStorage
-  if (profileName == "") {
-    // retrieve from localStorage
-    profileName = localStorage.SPX_CT_ProfileName || "...";
-  }
-  document.getElementById("profname").innerText = profileName;
-  localStorage.SPX_CT_ProfileName = profileName;
-} // setProfileForCurrent ended
 
 // ----------------------------------------------------------------
 

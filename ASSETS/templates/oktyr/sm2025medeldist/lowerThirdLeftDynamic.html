@@ -42,10 +42,9 @@
   <head>
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <!-- Next scripts use defer and are executed in order -->
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
+    <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <link
       rel="stylesheet"
@@ -94,13 +93,6 @@
 
     <script>
       // The code in the <head> is executed before the DOM is fully loaded.
-      /*
-      window.updateFollowedRunner = function () {
-        //alert("updateFollowedRunner() CALLED!");
-        console.log("window.updateFollowedRunner called in HEAD!");
-      };
-      */
-
       document.addEventListener("DOMContentLoaded", () => {
         console.log("!!!! DOM content loaded (html head)!!!! ");
       });
@@ -116,8 +108,8 @@
        * 2. Timing Issue: The JavaScript code runs before the HTML element is loaded and added to the DOM. This can occur if the script is placed in the <head> or loaded before the body of the document is fully parsed.
        */
 
-      function runTemplateUpdate() {
-        // MOVED TO setDataFromTemplate() since we need to do this check earlier! ANd before user presses SAVE + PLAY !!!
+      function runTemplateUpdate(runnerObj) {
+        // MOVED TO getSelectedDataFromTemplate() since I tried to add code to do this input control check earlier. But it FAILED.
         /*
         getEl("vald_klass").innerHTML = htmlDecode(getEl("f_vald_klass").innerText);
 
@@ -166,10 +158,13 @@
         }
         */
 
-        // TODO: Set name from API response
-        getEl("vald_runner_name").innerHTML =
-          "SET RUNNER NAME FROM API RESPONSE!";
+        getEl("vald_klass").innerHTML = runnerObj.class;
+
+        // TODO: Set bib and name from API response
+        getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
+        getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
         // TODO: Set club name
+        getEl("g2").innerHTML = runnerObj.runners[0].club;
 
         // Show all text-boxes
         getEl("box1").style.display = "flex";
@@ -347,14 +342,15 @@
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            value: "Hälge Hälgesson",
+            value: "",
           },
           {
             field: "f2",
             ftype: "caption",
             title: "Club",
-            value: "OK Älgen",
+            value: "",
           },
+          /*
           {
             field: "f_update_from_api_btn",
             ftype: "button",
@@ -362,6 +358,7 @@
             descr: "Update live data for selected Runner",
             fcall: "window.updateFollowedRunner()",
           },
+          */
         ],
       };
     </script>
@@ -411,12 +408,9 @@
 
     <script>
       //function getSelectedDataFromTemplate() {
+      // FIXME: Remove? Is it really needed, if we just use PLAY as trigger for update()
+      /*
       window.getSelectedDataFromTemplate = function () {
-        //function updateFollowedRunner() {
-        //window.updateFollowedRunner = function () {
-        // Redefined functionality
-        console.log("window.updateFollowedRunner (body version) called!");
-
         let element = document.getElementById("f_vald_klass");
         console.log(element); //FIXME: null
 
@@ -502,9 +496,9 @@
             return; // <----------- RETURN!
           }
         }
-
         return;
       };
+      */
     </script>
   </body>
 </html>
