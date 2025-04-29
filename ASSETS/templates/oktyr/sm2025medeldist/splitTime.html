@@ -46,15 +46,21 @@
       function runTemplateUpdate() {
         // TODO: Set f1 and f2 label fields from localStorage if
 
-        e("DynamicTheme").href = e("f99").innerText;
+        getEl("DynamicTheme").href = getEl("f99").innerText;
 
         //console.clear();
-        e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
-        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
-        e("vald_kontroll").innerHTML = htmlDecode(
-          e("f_vald_kontroll").innerText
+        getEl("list_titel").innerHTML = htmlDecode(
+          getEl("f_list_titel").innerText
         );
-        e("vald_runner").innerHTML = htmlDecode(e("f_vald_runner").innerText);
+        getEl("vald_klass").innerHTML = htmlDecode(
+          getEl("f_vald_klass").innerText
+        );
+        getEl("vald_kontroll").innerHTML = htmlDecode(
+          getEl("f_vald_kontroll").innerText
+        );
+        getEl("vald_runner").innerHTML = htmlDecode(
+          getEl("f_vald_runner").innerText
+        );
 
         // FIXME:
         // MOVE TO setDataFromTemplate() since we need to do this check earlier! And before user presses SAVE + PLAY !!!
@@ -94,14 +100,14 @@
         }
 
         // Then also get the runner bib number from editable input textfield
-        selectedRunnerBib = htmlDecode(e("f0").innerText);
+        selectedRunnerBib = htmlDecode(getEl("f0").innerText);
         //alert(selectedRunnerBib);
         if (selectedRunnerBib) {
           localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
           console.log("BibNr saved", selectedRunnerBib);
         }
 
-        // e("number").innerHTML = htmlDecode(e("f0").innerText);
+        // getEl("number").innerHTML = htmlDecode(getEl("f0").innerText);
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";

@@ -14,17 +14,17 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
-      "MedelTEST2/MEDTEST2",
-      "MedelTEST2/MEDTEST21",
-      "Medel_TEST/ExtraFunctions",
-      "Medel_TEST/MEDTEST2",
-      "Medel_TEST/MEDTEST1"
+      "MEDTST11/MEDTSTRD111",
+      "MEDELTEST10/MDTSTSRD103",
+      "MEDELTEST10/MDTSTRD102",
+      "MEDELTEST10/MDTSTRD101",
+      "MEDELTEST9/MEDTESTRD91"
     ]
   },
   "globalExtras": {
-    "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
+    "customscript": "/templates/oktyr/sm2025medeldist/js/buttonClickEventHandler.js"
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-29T06:43:33.751Z"
+  "updated": "2025-04-29T15:34:42.680Z"
 }

@@ -42,6 +42,7 @@
   <head>
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <!-- Next scripts use defer and are executed in order -->
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
@@ -92,14 +93,33 @@
     </style>
 
     <script>
+      // The code in the <head> is executed before the DOM is fully loaded.
+      /*
+      window.updateFollowedRunner = function () {
+        //alert("updateFollowedRunner() CALLED!");
+        console.log("window.updateFollowedRunner called in HEAD!");
+      };
+      */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("!!!! DOM content loaded (html head)!!!! ");
+      });
+
       let clipNone = "inset(0%   0% 0% 0%)";
       let clipEast = "inset(0% 100% 0% 0%)";
       let clipSout = "inset(0% 0% 100% 0%)";
 
+      /**
+       * The error "Failed to get element f_vald_klass by Id" indicates that the JavaScript code is unable to find an HTML element with the ID "f_vald_klass" in the current document. This typically happens when:
+       *
+       * 1. Element Doesn't Exist: The HTML element with the specified ID ("f_vald_klass") is not present in the DOM (Document Object Model) when the JavaScript code attempts to access it.
+       * 2. Timing Issue: The JavaScript code runs before the HTML element is loaded and added to the DOM. This can occur if the script is placed in the <head> or loaded before the body of the document is fully parsed.
+       */
+
       function runTemplateUpdate() {
         // MOVED TO setDataFromTemplate() since we need to do this check earlier! ANd before user presses SAVE + PLAY !!!
         /*
-        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+        getEl("vald_klass").innerHTML = htmlDecode(getEl("f_vald_klass").innerText);
 
         // TODO: Check that we have retrieved a valid runner from API
         let validRunnerFoundFromAPI = true;
@@ -107,13 +127,13 @@
         let validRunnerSelectedInUI = true;
 
         // If selected a bib from dropdown
-        if (e("f_vald_runner_bib").innerText) {
-          e("vald_runner_bib").innerHTML = htmlDecode(
-            e("f_vald_runner_bib").innerText
+        if (getEl("f_vald_runner_bib").innerText) {
+          getEl("vald_runner_bib").innerHTML = htmlDecode(
+            getEl("f_vald_runner_bib").innerText
           );
 
           // TDOD: Set name from local Storage? or from parameter?
-          e("vald_runner_name").innerHTML =
+          getEl("vald_runner_name").innerHTML =
             "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
           // TODO: Set club name
           validRunnerSelectedInUI = true;
@@ -124,10 +144,10 @@
 
           // TODO: If not valid runner selected, then check if user has entered a bib number into input control?
 
-          if (e("f0").innerText !== "") {
-            e("vald_runner_bib").innerHTML = htmlDecode(e("f0").innerText);
+          if (getEl("f0").innerText !== "") {
+            getEl("vald_runner_bib").innerHTML = htmlDecode(getEl("f0").innerText);
 
-            e("vald_runner_name").innerHTML =
+            getEl("vald_runner_name").innerHTML =
               "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
 
             // TODO: Set club name
@@ -147,25 +167,26 @@
         */
 
         // TODO: Set name from API response
-        e("vald_runner_name").innerHTML = "SET RUNNER NAME FROM API RESPONSE!";
+        getEl("vald_runner_name").innerHTML =
+          "SET RUNNER NAME FROM API RESPONSE!";
         // TODO: Set club name
 
         // Show all text-boxes
-        e("box1").style.display = "flex";
-        e("box2").style.display = "flex";
+        getEl("box1").style.display = "flex";
+        getEl("box2").style.display = "flex";
 
         // Hide empty ones
-        if (e("vald_runner_bib").innerText == "") {
-          e("vald_runner_bib").style.display = "none";
+        if (getEl("vald_runner_bib").innerText == "") {
+          getEl("vald_runner_bib").style.display = "none";
         }
         if (
-          e("vald_runner_bib").innerText == "" &&
-          e("vald_runner_name").innerText == ""
+          getEl("vald_runner_bib").innerText == "" &&
+          getEl("vald_runner_name").innerText == ""
         ) {
-          e("box1").style.display = "none";
+          getEl("box1").style.display = "none";
         }
-        if (e("g2").innerText == "") {
-          e("box2").style.display = "none";
+        if (getEl("g2").innerText == "") {
+          getEl("box2").style.display = "none";
         }
 
         setTimeout(runAnimationIN, 50);
@@ -339,7 +360,7 @@
             ftype: "button",
             title: "Update & Follow",
             descr: "Update live data for selected Runner",
-            fcall: "updateFollowedRunner()",
+            fcall: "window.updateFollowedRunner()",
           },
         ],
       };
@@ -379,11 +400,111 @@
 
     <div id="hiddenSpxData" data-info="See spx_styles.css">
       <div data-info="Rubrik..........." id="f_rubrik"></div>
-      <div data-info="Vald klass......." id="f_vald_klass"></div>
-      <div data-info="Vald runner......" id="f_vald_runner_bib"></div>
+      <div data-info="Vald klass......." id="f_vald_klass">HD XX</div>
+      <div data-info="Vald runner......" id="f_vald_runner_bib">0</div>
       <div data-info="StartNumber......" id="f0"></div>
       <div data-info="Fullname........." id="f1"></div>
       <div data-info="Club............." id="f2"></div>
     </div>
+
+    <!-- TODO: Ensure that HTML content has loaded before the following script runs -->
+
+    <script>
+      //function getSelectedDataFromTemplate() {
+      window.getSelectedDataFromTemplate = function () {
+        //function updateFollowedRunner() {
+        //window.updateFollowedRunner = function () {
+        // Redefined functionality
+        console.log("window.updateFollowedRunner (body version) called!");
+
+        let element = document.getElementById("f_vald_klass");
+        console.log(element); //FIXME: null
+
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+        } else {
+          console.error("Failed to get element f_vald_klass by Id");
+        }
+
+        //getEl("vald_klass").innerHTML = htmlDecode(getEl("f_vald_klass").innerText);
+
+        // If selected a bib from dropdown
+        if (getEl("f_vald_runner_bib").innerText) {
+          getEl("vald_runner_bib").innerHTML = htmlDecode(
+            getEl("f_vald_runner_bib").innerText
+          );
+        } else {
+          alert(
+            "No runner selected! Trying to use runner id from input text field.\n Note that you may select a runner in dropdown\n."
+          );
+
+          // If not valid runner selected, then check if user has entered a bib number into input control?
+          if (getEl("f0").innerText !== "") {
+            // TODO: Check that it is a number!
+            getEl("vald_runner_bib").innerHTML = htmlDecode(
+              getEl("f0").innerText
+            );
+
+            validRunnerSelectedInUI = true;
+          } else {
+            alert(
+              "No runner selected! Please either select a runner in dropdown\n or write a valid runner id in input text field."
+            );
+            validRunnerSelectedInUI = false;
+            return; // <----------- RETURN!
+          }
+        }
+
+        // Get the vald klass from dropdown
+        // NOTE: The value property is only available for form elements
+        // like <input>, <textarea>, or <select>.
+        element = document.getElementById("f_vald_klass");
+        console.log(element);
+
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+
+          // Save persistently
+          if (selectedClass) {
+            localStorage.setItem("selectedClass", selectedClass);
+            console.log("selectedClass saved: ", selectedClass);
+          }
+        }
+
+        // First try to get the bib number from dropdown
+        let elem_runner = document.getElementById("f_vald_runner");
+
+        if (typeof elem_runner != "undefined" && elem_runner != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedRunnerBib = elem_runner.innerText;
+
+          // Save persistently
+          if (selectedRunnerBib) {
+            localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
+            console.log("selectedRunnerBib saved: ", selectedRunnerBib);
+          } else {
+            validRunnerSelectedInUI = false;
+          }
+        }
+        if (!validRunnerSelectedInUI) {
+          // Try to get the runner bib number from editable input textfield instead
+          selectedRunnerBib = htmlDecode(getEl("f0").innerText);
+          //alert(selectedRunnerBib);
+          if (selectedRunnerBib) {
+            localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
+            console.log("BibNr saved", selectedRunnerBib);
+          } else {
+            console.error(
+              "Failed to get runner bib number from editor controls"
+            );
+            return; // <----------- RETURN!
+          }
+        }
+
+        return;
+      };
+    </script>
   </body>
 </html>

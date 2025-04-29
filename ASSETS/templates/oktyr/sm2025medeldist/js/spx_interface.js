@@ -10,6 +10,25 @@ let validRunnerSelectedInUI = true;
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
+// Set up a listener for event dispatched from spx_gc.js:
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("!!!! DOM content loaded (spx_interface) !!!! ");
+
+  // Listen for the custom "templateRundownItemSaved" event on window.
+  window.addEventListener("templateRundownItemSaved", (event) => {
+    // The event.detail carries the data you dispatched.
+    console.log("Notified of template rundown item save:", event.detail);
+  });
+});
+
+/* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined! */
+/*
+window.updateFollowedRunner = function () {
+  //alert("updateFollowedRunner() CALLED!");
+  console.log("window.updateFollowedRunner called in spx_interface.js!");
+};
+*/
+
 // TODO: Could we use local storage as a fallback to get 'previous' selected Runner's data?
 function getDataFromLocalStorage() {
   selectedClass = localStorage.getItem("selectedClass");
@@ -35,14 +54,41 @@ function getDataFromLocalStorage() {
 function followSelectedRunner() {
   updateFollowedRunner();
 }
+/*
+function runSaveDataFromTemplateUpdate() {
+  alert("runSaveDataFromTemplateUpdate() called!");
+}
+*/
+// In your JavaScript file (or inside a closure), attach the function to the window:
+/*
+window.runSaveDataFromTemplateUpdate = function () {
+  console.log("Template update saved (from window)!");
+  alert("window.runSaveDataFromTemplateUpdate() called!");
+  // Your code goes here...
+};
+*/
 
 // Editor button click handler
+// TODO: MOVE THIS TO HTML BODY?:
+/*
 function updateFollowedRunner() {
   //alert("updateFollowedRunner() CALLED!");
 
   getSelectedDataFromTemplate();
 
-  // HARD-CODED MOCKTEST 2025-04-24:
+  // ATTEMPT1: Move to body section in HTML???
+
+  // WORKAROUND: Have 2 different cases for this function, pass in case1/case2 as argument?:
+  /*
+  if (typeof runTemplateUpdate === "function") {
+    runTemplateUpdate(case1); // Play will follow
+  } else {
+    console.error("runTemplateUpdate() function missing from SPX template.");
+  }
+  */
+
+// HARD-CODED MOCKTEST 2025-04-24:
+/*
   const mockData = {
     competition: "Medel-Kval",
     class: "H21",
@@ -59,7 +105,7 @@ function updateFollowedRunner() {
     ],
   };
 }
-
+*/
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.
@@ -138,6 +184,7 @@ function htmlDecode(txt) {
 }
 
 // Utility function
+/*
 function e(elementID) {
   if (!elementID) {
     console.warn("Element ID is falsy, returning null.");
@@ -148,6 +195,20 @@ function e(elementID) {
     return null;
   }
   return document.getElementById(elementID);
+}
+*/
+
+function getEl(elementID) {
+  if (!elementID) {
+    console.warn("Element ID is falsy, returning null.");
+    return null;
+  }
+  var el = document.getElementById(elementID);
+  if (!el) {
+    console.warn("Element " + elementID + " not found, returning null.");
+    return null;
+  }
+  return el;
 }
 
 window.onerror = function (msg, url, row, col, error) {
@@ -176,81 +237,35 @@ function validString(str) {
   return true; // is a valid string
 }
 
-function getSelectedDataFromTemplate() {
-  e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+// ----------------------------------------------------------------------------------
+/*
+  Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js
 
-  // If selected a bib from dropdown
-  if (e("f_vald_runner_bib").innerText) {
-    e("vald_runner_bib").innerHTML = htmlDecode(
-      e("f_vald_runner_bib").innerText
-    );
-  } else {
-    alert(
-      "No runner selected! Trying to use runner id from input text field.\n Note that you may select a runner in dropdown\n."
-    );
+  WARN: USE WITH CARE! AND ONLY IF YOU KNOW FOR SURE WHAT YOU ARE DOING! :-)
+*/
+// ----------------------------------------------------------------------------------
+function getProfileForCurrent() {
+  // Try to get form DOM
+  let profileName = document.getElementById("profname").innerText;
 
-    // If not valid runner selected, then check if user has entered a bib number into input control?
-    if (e("f0").innerText !== "") {
-      // TODO: Check that it is a number!
-      e("vald_runner_bib").innerHTML = htmlDecode(e("f0").innerText);
-
-      validRunnerSelectedInUI = true;
-    } else {
-      alert(
-        "No runner selected! Please either select a runner in dropdown\n or write a valid runner id in input text field."
-      );
-      validRunnerSelectedInUI = false;
-      return false; // <----------- RETURN!
-    }
+  // Try to get from localStorage
+  if (profileName == "") {
+    // retrieve from localStorage
+    profileName = localStorage.SPX_CT_ProfileName || "...";
   }
+  return profileName;
+} // getProfileForCurrent ended
 
-  // Get the vald klass from dropdown
-  // NOTE: The value property is only available for form elements
-  // like <input>, <textarea>, or <select>.
-  let element = document.getElementById("f_vald_klass");
-  console.log(element);
-
-  if (typeof element != "undefined" && element != null) {
-    // NOTE: Use innerText to get the content of the div.
-    selectedClass = element.innerText;
-
-    // Save persistently
-    if (selectedClass) {
-      localStorage.setItem("selectedClass", selectedClass);
-      console.log("selectedClass saved: ", selectedClass);
-    }
+function setProfileForCurrent(profileName) {
+  // FIXME: remove?
+  // change profile to profileName and save to localStorage
+  if (profileName == "") {
+    // retrieve from localStorage
+    profileName = localStorage.SPX_CT_ProfileName || "...";
   }
-
-  // First try to get the bib number from dropdown
-  let elem_runner = document.getElementById("f_vald_runner");
-
-  if (typeof elem_runner != "undefined" && elem_runner != null) {
-    // NOTE: Use innerText to get the content of the div.
-    selectedRunnerBib = elem_runner.innerText;
-
-    // Save persistently
-    if (selectedRunnerBib) {
-      localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-      console.log("selectedRunnerBib saved: ", selectedRunnerBib);
-    } else {
-      validRunnerSelectedInUI = false;
-    }
-  }
-  if (!validRunnerSelectedInUI) {
-    // Try to get the runner bib number from editable input textfield instead
-    selectedRunnerBib = htmlDecode(e("f0").innerText);
-    //alert(selectedRunnerBib);
-    if (selectedRunnerBib) {
-      localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-      console.log("BibNr saved", selectedRunnerBib);
-    } else {
-      console.error("Failed to get runner bib number from editor controls");
-      return false; // <----------- RETURN!
-    }
-  }
-
-  return true;
-}
+  document.getElementById("profname").innerText = profileName;
+  localStorage.SPX_CT_ProfileName = profileName;
+} // setProfileForCurrent ended
 
 // ----------------------------------------------------------------
 
