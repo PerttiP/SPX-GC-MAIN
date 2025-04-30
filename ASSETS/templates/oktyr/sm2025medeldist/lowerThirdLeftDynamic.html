@@ -109,54 +109,11 @@
        */
 
       function runTemplateUpdate(runnerObj) {
-        // MOVED TO getSelectedDataFromTemplate() since I tried to add code to do this input control check earlier. But it FAILED.
-        /*
-        getEl("vald_klass").innerHTML = htmlDecode(getEl("f_vald_klass").innerText);
-
-        // TODO: Check that we have retrieved a valid runner from API
-        let validRunnerFoundFromAPI = true;
-
-        let validRunnerSelectedInUI = true;
-
-        // If selected a bib from dropdown
-        if (getEl("f_vald_runner_bib").innerText) {
-          getEl("vald_runner_bib").innerHTML = htmlDecode(
-            getEl("f_vald_runner_bib").innerText
-          );
-
-          // TDOD: Set name from local Storage? or from parameter?
-          getEl("vald_runner_name").innerHTML =
-            "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
-          // TODO: Set club name
-          validRunnerSelectedInUI = true;
-        } else {
-          alert(
-            "No runner selected! Trying to use runner id from input text field.\n Note that you may select a runner in dropdown\n."
-          );
-
-          // TODO: If not valid runner selected, then check if user has entered a bib number into input control?
-
-          if (getEl("f0").innerText !== "") {
-            getEl("vald_runner_bib").innerHTML = htmlDecode(getEl("f0").innerText);
-
-            getEl("vald_runner_name").innerHTML =
-              "SET RUNNER NAME FROM STORAGE OR PARAMETER!";
-
-            // TODO: Set club name
-            validRunnerSelectedInUI = true;
-          } else {
-            alert(
-              "No runner selected! Please either select a runner in dropdown\n or write a valid runner id in input text field."
-            );
-            validRunnerSelectedInUI = false;
-            return; // <----------- RETURN!
-          }
-        }
-
-        if (!validRunnerFoundFromAPI && !validRunnerSelectedInUI) {
+        console.log(runnerObj);
+        if (!runnerObj && !runnerObj.runners) {
+          console.error("runnerObj is EMPTY or NULL");
           return; // <----------- RETURN!
         }
-        */
 
         getEl("vald_klass").innerHTML = runnerObj.class;
 
@@ -319,6 +276,10 @@
             value: "0 - Default Test Runner",
             items: [
               {
+                text: "0 - Test Runner",
+                value: "0",
+              },
+              {
                 text: "1 - Firstname Lastname",
                 value: "1",
               },
@@ -329,6 +290,10 @@
               {
                 text: "3 - Firstname Lastname",
                 value: "3",
+              },
+              {
+                text: "444 - Ferry Fyråsen",
+                value: "444",
               },
             ],
           },
@@ -342,13 +307,13 @@
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            value: "",
+            value: "-",
           },
           {
             field: "f2",
             ftype: "caption",
             title: "Club",
-            value: "",
+            value: "-",
           },
           /*
           {

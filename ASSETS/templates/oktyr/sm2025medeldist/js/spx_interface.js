@@ -74,20 +74,79 @@ function update(data) {
   var templateData = JSON.parse(data);
   console.log("----- Update handler called with data:", templateData);
 
-  let c = templateData.comment;
-  let k = templateData.f_vald_klass;
-  let r = templateData.f_vald_runner_bib;
+  console.log("----- Vald klass: ", templateData.f_vald_klass);
+  console.log("----- Vald runner bib: ", templateData.f_vald_runner_bib);
 
-  console.log("----- Vald runner bib: ", r);
+  let apiData;
+  let mockData;
 
+  // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!
+  fetchMockApiResponse(selectedClass, selectedRunnerBib).then((mockData) => {
+    // Check if mockData exists before accessing its properties.
+    if (mockData === null || mockData === undefined) {
+      alert(
+        "Fetch från API misslyckades!\n Välj klass och skriv giltigt startnummer\n Försök sedan på nytt!"
+      );
+      //return;
+
+      // HARD-CODED MOCKTEST 2025-04-24: since now mockData is not returned from call above?
+      let mockData_444 = {
+        competition: "Medel-Kval",
+        class: "H21",
+        runners: [
+          {
+            bib: "444",
+            name: "Ferry Fyråsen",
+            club: "OK Fyran",
+            start_time: "14:44",
+            split_times: [2450, 5080, 7840],
+            final_time: 10800,
+            place: 4,
+          },
+        ],
+      };
+
+      mockData = mockData_444;
+    } //end if
+    else {
+      console.log("Mock API Response:", mockData);
+    }
+  }); // end .then
+
+  apiData = mockData;
+
+  // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
+  /*
+  const fieldOverrides = {
+    f0: apiData.runners[0].bib, // for example replace "9999" with "444"
+    f1: apiData.runners[0].name,
+    f2: apiData.runners[0].club,
+  };
+  */
+  const fieldOverrides = {
+    f0: "444", // for example replace "9999" with "444"
+    f1: "New F1",
+    f2: "New F2",
+  };
+
+  // Find an element in the DOM with an id matching the key
+  // Loop through each field in the templateData object
   for (var dataField in templateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
-      let fString = templateData[dataField];
-      if (fString != "undefined" && fString != "null") {
-        idField.innerText = fString;
+      // Check if this field should be overridden
+      if (fieldOverrides.hasOwnProperty(dataField)) {
+        idField.innerText = fieldOverrides[dataField];
+        // For debugging, log the changes.
+        console.log(
+          "Updated element with id:",
+          dataField,
+          "to",
+          idField.innerText
+        );
       } else {
-        idField.innerText = "";
+        // Otherwise use the value coming in from the templateData
+        idField.innerText = templateData[dataField];
       }
     } else {
       switch (dataField) {
@@ -101,13 +160,16 @@ function update(data) {
           );
       }
     }
-  }
+  } //end for
+
+  // TODO: Check if dataField and templateData now have updated values for f1 and f2!
 
   // TODO: Check that we have retrieved a valid runner from API
   let validRunnerFoundFromAPI = true;
 
   if (typeof runTemplateUpdate === "function") {
-    runTemplateUpdate(mockData_OneRunner); // Play will follow
+    //runTemplateUpdate(apiData); // Play will follow
+    runTemplateUpdate(mockData_OneRunner);
   } else {
     console.error("runTemplateUpdate() function missing from SPX template.");
   }
@@ -144,27 +206,14 @@ function next(data) {
   }
 }
 
-// Encoded text to HTML
+// Encoded HTML to plain text
+// Any HTML-encoded parts in the input string are decoded, and the function returns the plain text.
 function htmlDecode(txt) {
   var doc = new DOMParser().parseFromString(txt, "text/html");
   return doc.documentElement.textContent;
 }
 
 // Utility function
-/*
-function e(elementID) {
-  if (!elementID) {
-    console.warn("Element ID is falsy, returning null.");
-    return null;
-  }
-  if (!document.getElementById(elementID)) {
-    console.warn("Element " + elementID + " not found, returning null.");
-    return null;
-  }
-  return document.getElementById(elementID);
-}
-*/
-
 // Renamed the e() function since it clashes with other function also called e()!
 function getEl(elementID) {
   if (!elementID) {
@@ -225,5 +274,143 @@ function getProfileForCurrent() {
 } // getProfileForCurrent ended
 
 // ----------------------------------------------------------------
+
+// MOCKTEST: Mock function to simulate the API response
+/*
+  An async function always returns a Promise, regardless of whether you use await inside the function or not.
+*/
+
+// MOCKTEST for lowerThird and follow runner with bibnr:
+async function fetchMockApiResponse(klass, bibnr) {
+  // Simulated delay (like a real API call)
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  // MOCKTEST responding with one runner to follow (444)
+  if (bibnr === "444") {
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "444",
+          name: "Ferry Fyråsen",
+          club: "OK Fyran",
+          start_time: "14:44",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+      ],
+    };
+  } else if (bibnr === "0") {
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "0",
+          name: "Test Runner",
+          club: "OK Test",
+          start_time: "14:40",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 0,
+        },
+      ],
+    };
+  }
+  return null; // Explicitly return null if no match, else undefined would be returned
+}
+
+/*
+async function fetchMockApiResponse(selKlass, selBib) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        // resolve should return an object with a runners property
+        runners: [{ name: "Ferry Fyråsen", bib: "444" }],
+      });
+    }, 500);
+  });
+}
+*/
+
+// MOCKTEST for splitTime:
+async function fetchMockApiResponseMany(klass) {
+  // MOCKTEST responding with several runners in a specific class (D21 or H21)
+  if (klass === "D21") {
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "101",
+          name: "Anna Andersson",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "102",
+          name: "Lisa Bergström",
+          club: "IFK Göteborg",
+          start_time: "12:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "103",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+      ],
+    };
+  } else if (klass === "H21") {
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "201",
+          name: "Johan Olsson",
+          club: "OK SKogsmårdarna",
+          start_time: "14:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "202",
+          name: "Pär Hultgren",
+          club: "IFK Malmö",
+          start_time: "14:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "203",
+          name: "Kalle Arvidsson",
+          club: "OK Björnen",
+          start_time: "14:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+      ],
+    };
+  }
+}
+
+// -------------------------------------- MOCK DATA END
 
 console.log("!!!! Now spx_interface.js script has FINISHED !!!!");

@@ -1,4 +1,7 @@
 {
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-04-30T11:21:29.217Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -24,13 +27,13 @@
           "field": "f_rubrik",
           "ftype": "textfield",
           "title": "Caption",
-          "value": "SM 2025 Karlstad"
+          "value": "SM 2025 Karlstad - Väse"
         },
         {
           "field": "f_vald_klass",
           "ftype": "dropdown",
           "title": "Select Class",
-          "value": "D21",
+          "value": "H18",
           "items": [
             {
               "text": "D21",
@@ -62,7 +65,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "0 - Default Test Runner",
+          "value": "444",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -96,21 +99,21 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": ""
+          "value": "-"
         },
         {
           "field": "f2",
           "ftype": "caption",
           "title": "Club",
-          "value": ""
+          "value": "-"
         }
       ],
       "onair": "false",
-      "imported": "1746010009424",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
+      "imported": "1746011972694",
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
+      "itemID": "1746011978119"
     }
   ],
-  "warning": "Modifications done in the SPX will overwrite this file.",
-  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-30T10:46:49.424Z"
+  "project": "MEDTST12",
+  "rundown": "MTRD121"
 }
