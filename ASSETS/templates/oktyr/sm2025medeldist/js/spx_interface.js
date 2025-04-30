@@ -80,6 +80,16 @@ function update(data) {
   selectedClass = templateData.f_vald_klass;
   selectedRunnerBib = templateData.f_vald_runner_bib;
 
+  // Save persistently
+  if (selectedClass) {
+    localStorage.setItem("selectedClass", selectedClass);
+    console.log("Class saved: ", selectedClass);
+  }
+  if (selectedRunnerBib) {
+    localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
+    console.log("BibNr saved", selectedRunnerBib);
+  }
+
   let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
   // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!

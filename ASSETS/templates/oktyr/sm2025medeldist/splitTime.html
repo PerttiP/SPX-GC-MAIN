@@ -43,6 +43,10 @@
         return localStorage.getItem("selectedRunnersName");
       }
 
+      // What we need from API
+      // Objects for
+      //  * vald_runner:
+      //  * leader_runner:
       function runTemplateUpdate() {
         // TODO: Set f1 and f2 label fields from localStorage if
 
@@ -62,8 +66,8 @@
           getEl("f_vald_runner_bib").innerText
         );
 
-        // FIXME:
-        // MOVE TO setDataFromTemplate() since we need to do this check earlier! And before user presses SAVE + PLAY !!!
+        // TODO:
+        getEl("leader_runner").innerHTML = "Tove Alexandersson";
 
         // Get the vald klass from dropdown
         // NOTE: The value property is only available for form elements
@@ -71,43 +75,14 @@
         let element = document.getElementById("f_vald_klass");
         console.log(element);
 
-        let selectedClass = "";
-        if (typeof element != "undefined" && element != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedClass = element.innerText;
-
-          // Save persistently
-          if (selectedClass) {
-            localStorage.setItem("selectedClass", selectedClass);
-            console.log("Class saved: ", selectedClass);
-          }
+        // Get the runner bib number from editable input textfield?
+        /*
+        editableRunnerBib = htmlDecode(getEl("f0").innerText);
+        if (editableRunnerBib) {
+          localStorage.setItem("editableRunnerBib", editableRunnerBib);
+          console.log("Editable BibNr saved", editableRunnerBib);
         }
-
-        // TODO:
-        // First try to get the bib number (AND name?) from dropdown
-        let elem_runner = document.getElementById("f_vald_runner_bib");
-
-        let selectedRunnerInfo = "";
-        if (typeof elem_runner != "undefined" && elem_runner != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedRunnerInfo = elem_runner.innerText;
-
-          // Save persistently
-          if (selectedRunnerInfo) {
-            localStorage.setItem("selectedRunnerInfo", selectedRunnerInfo);
-            console.log("selectedRunnerInfo saved: ", selectedRunnerInfo);
-          }
-        }
-
-        // Then also get the runner bib number from editable input textfield
-        selectedRunnerBib = htmlDecode(getEl("f0").innerText);
-        //alert(selectedRunnerBib);
-        if (selectedRunnerBib) {
-          localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-          console.log("BibNr saved", selectedRunnerBib);
-        }
-
-        // getEl("number").innerHTML = htmlDecode(getEl("f0").innerText);
+        */
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";
@@ -327,7 +302,7 @@
         <div class="runner leader">
           <div class="place">1</div>
           <div class="bib">11</div>
-          <div class="name"><span id="vald_runner">H B</span></div>
+          <div class="name"><span id="leader_runner">A A</span></div>
           <div class="club">OK Ravinen</div>
           <div class="time">1:02:36</div>
         </div>
@@ -335,7 +310,7 @@
         <div class="runner selected">
           <div class="place">4</div>
           <div class="bib">71</div>
-          <div class="name">Izabella Ljungberg</div>
+          <div class="name"><span id="vald_runner">H B</span></div>
           <div class="club">OK Tyr</div>
           <div class="time">+0:12</div>
         </div>
