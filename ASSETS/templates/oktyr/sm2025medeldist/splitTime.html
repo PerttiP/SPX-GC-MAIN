@@ -47,12 +47,17 @@
       // Objects for
       //  * vald_runner:
       //  * leader_runner:
-      function runTemplateUpdate() {
-        // TODO: Set f1 and f2 label fields from localStorage if
+      function runSplitTemplateUpdate(
+        runnerObj,
+        leaderRunner,
+        topThreeRunners
+      ) {
+        // TODO: Set f1 and f2 label fields from localStorage if needed?
 
         getEl("DynamicTheme").href = getEl("f99").innerText;
 
         //console.clear();
+        // Populate from  editor fields
         getEl("list_titel").innerHTML = htmlDecode(
           getEl("f_list_titel").innerText
         );
@@ -62,18 +67,12 @@
         getEl("vald_kontroll").innerHTML = htmlDecode(
           getEl("f_vald_kontroll").innerText
         );
-        getEl("vald_runner").innerHTML = htmlDecode(
+        getEl("vald_runner_bib").innerHTML = htmlDecode(
           getEl("f_vald_runner_bib").innerText
         );
 
         // TODO:
-        getEl("leader_runner").innerHTML = "Tove Alexandersson";
-
-        // Get the vald klass from dropdown
-        // NOTE: The value property is only available for form elements
-        // like <input>, <textarea>, or <select>.
-        let element = document.getElementById("f_vald_klass");
-        console.log(element);
+        getEl("leader_runner").innerHTML = leaderRunner; //"Tove Alexandersson";
 
         // Get the runner bib number from editable input textfield?
         /*
@@ -83,6 +82,11 @@
           console.log("Editable BibNr saved", editableRunnerBib);
         }
         */
+
+        // Set bib and name from API response
+        getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
+        getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
+        getEl("vald_runner_club").innerHTML = runnerObj.runners[0].club;
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";
@@ -95,10 +99,11 @@
 
         console.log("vald_kontroll.innerText: ", vald_kontroll.innerText);
 
+        /*
         const vald_runner_info = document.getElementById("vald_runner");
         vald_runner.innerText = vald_runner.innerText;
-
         console.log("vald_runner.innerText: ", vald_runner.innerText);
+        */
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
@@ -224,20 +229,24 @@
                 value: "0",
               },
               {
-                text: "1 - Firstname Lastname",
-                value: "1",
+                text: "111 - Anna Andersson",
+                value: "111",
               },
               {
-                text: "2 - Firstname Lastname",
-                value: "2",
+                text: "222 - Lisa Bergström",
+                value: "222",
               },
               {
-                text: "3 - Firstname Lastname",
-                value: "3",
+                text: "333 - Karin Johansson",
+                value: "333",
               },
               {
                 text: "444 - Ferry Fyråsen",
                 value: "444",
+              },
+              {
+                text: "555 - Hanna Helenius",
+                value: "555",
               },
             ],
           },
@@ -309,9 +318,9 @@
         <!-- <div class="runner"> -->
         <div class="runner selected">
           <div class="place">4</div>
-          <div class="bib">71</div>
-          <div class="name"><span id="vald_runner">H B</span></div>
-          <div class="club">OK Tyr</div>
+          <div class="bib"><span id="vald_runner_bib">0</span></div>
+          <div class="name"><span id="vald_runner_name">H B</span></div>
+          <div class="club"><span id="vald_runner_club">OK Test</span></div>
           <div class="time">+0:12</div>
         </div>
         <div class="runner">

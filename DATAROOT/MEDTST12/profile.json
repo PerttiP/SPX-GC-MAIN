@@ -210,20 +210,24 @@
               "value": "0"
             },
             {
-              "text": "1 - Firstname Lastname",
-              "value": "1"
+              "text": "111 - Anna Andersson",
+              "value": "111"
             },
             {
-              "text": "2 - Firstname Lastname",
-              "value": "2"
+              "text": "222 - Lisa Bergström",
+              "value": "222"
             },
             {
-              "text": "3 - Firstname Lastname",
-              "value": "3"
+              "text": "333 - Karin Johansson",
+              "value": "333"
             },
             {
               "text": "444 - Ferry Fyråsen",
               "value": "444"
+            },
+            {
+              "text": "555 - Hanna Helenius",
+              "value": "555"
             }
           ]
         },
@@ -262,11 +266,11 @@
         }
       ],
       "onair": "false",
-      "imported": "1746019457355",
+      "imported": "1746026694014",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-30T13:24:17.355Z"
+  "updated": "2025-04-30T15:24:54.014Z"
 }

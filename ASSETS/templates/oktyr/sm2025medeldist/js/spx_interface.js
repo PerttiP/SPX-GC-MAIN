@@ -6,6 +6,7 @@
 
 let selectedClass;
 let selectedRunnerBib;
+let selectedRadioSplitId;
 let validRunnerSelectedInUI = true;
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
@@ -30,7 +31,7 @@ window.updateFollowedRunner = function () {
 */
 
 // TODO: Could we use local storage as a fallback to get 'previous' selected Runner's data?
-function getDataFromLocalStorage() {
+function getDataFromLocalStorage(isRadioSplit) {
   selectedClass = localStorage.getItem("selectedClass");
   selectedRunnerBib = localStorage.getItem("selectedRunnerBib");
 
@@ -44,9 +45,33 @@ function getDataFromLocalStorage() {
     alert("Refetch misslyckades! Välj klass och skriv giltigt startnummer!");
     return false;
   }
+  // Only for split time with radio controls:
+  if (isRadioSplit) {
+    if (selectedRadioSplitId === null) {
+      console.error("refetchRunnersData with selectedRadioSplitId === null");
+      alert(
+        "Refetch misslyckades! Välj klass och skriv giltigt startnummer och välj en radiokontroll!"
+      );
+      return false;
+    }
+  }
+
   console.log("selectedClass: ", selectedClass);
   console.log("selectedRunnerBib: ", selectedRunnerBib);
+  console.log("selectedRadioSplitId: ", selectedRadioSplitId);
   return true;
+}
+
+function getTopThreeRunners(runners) {
+  // Filter for runners whose place is 1, 2, or 3
+  const topRunners = runners.filter((runner) =>
+    [1, 2, 3].includes(runner.place)
+  );
+
+  // Sort the filtered runners in ascending order by `place` 1, 2, 3
+  topRunners.sort((a, b) => a.place - b.place); // compare function subtracts one runner’s place from the other’s
+
+  return topRunners;
 }
 
 // HARD-CODED MOCKTEST 2025-04-24:
@@ -92,9 +117,44 @@ function update(data) {
 
   let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
-  // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!
+  // MOCKTEST for SPLIT TIME
+  if (selectedClass === "D21") {
+    fetchMockApiResponseMany("D21").then((apiData) => {
+      // Check if data exists
+      if (!apiData || !apiData.runners || apiData.runners.length === 0) {
+        alert("No API data or runners available!");
+        return;
+      }
+      console.log("Mock API Response:", apiData);
+
+      // Use .find() to retrieve the runner where place === 1
+      const leaderRunner = apiData.runners.find((runner) => runner.place === 1);
+      if (leaderRunner) {
+        console.log("Leader Runner:", leaderRunner);
+        // You can now use leaderRunner.bib, leaderRunner.name, etc.
+      } else {
+        console.error("No runner with place === 1 found.");
+      }
+
+      const topThreeRunners = getTopThreeRunners(apiData.runners);
+      console.log(topThreeRunners);
+
+      if (typeof runSplitTemplateUpdate === "function") {
+        //runTemplateUpdate(mockData_OneRunner); // Play will follow
+        runSplitTemplateUpdate(apiData, leaderRunner, topThreeRunners);
+      } else {
+        console.error(
+          "runSplitTemplateUpdate() function missing from SPX template."
+        );
+      }
+    }); // end .then
+
+    return; // <------ RETURN !!!
+  }
+
+  // MOCKTEST for LowerThird: Simulate an API response (will return Mock data for bib id 444)!
   fetchMockApiResponse(selectedClass, selectedRunnerBib).then((apiData) => {
-    // Check if mockData exists before accessing its properties.
+    // Check if data exists before accessing its properties.
     if (apiData === null || apiData === undefined) {
       alert(
         "Fetch från API misslyckades!\n Välj klass och skriv giltigt startnummer\n Försök sedan på nytt!"
@@ -390,6 +450,8 @@ async function fetchMockApiResponse(selKlass, selBib) {
 // MOCKTEST for splitTime:
 async function fetchMockApiResponseMany(klass) {
   // MOCKTEST responding with several runners in a specific class (D21 or H21)
+  // Including current place on last (?) split during competition
+  // Also including split times for specific radio split control
   if (klass === "D21") {
     // Mock data
     return {
@@ -398,6 +460,33 @@ async function fetchMockApiResponseMany(klass) {
       runners: [
         {
           bib: "101",
+          name: "Zerafina Pekkala",
+          club: "OK Nåjd",
+          start_time: "11:00",
+          split_times: [24500, 50800, 78400],
+          final_time: 108000,
+          place: 12,
+        },
+        {
+          bib: "102",
+          name: "Linda Fahlin",
+          club: "OK Tyr",
+          start_time: "11:30",
+          split_times: [21500, 30800, 58400],
+          final_time: 10800,
+          place: 7,
+        },
+        {
+          bib: "333",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+        {
+          bib: "111",
           name: "Anna Andersson",
           club: "OK Tyr",
           start_time: "12:00",
@@ -406,22 +495,13 @@ async function fetchMockApiResponseMany(klass) {
           place: 1,
         },
         {
-          bib: "102",
+          bib: "222",
           name: "Lisa Bergström",
           club: "IFK Göteborg",
           start_time: "12:02",
           split_times: [2520, 5190, 7950],
           final_time: 10950,
           place: 2,
-        },
-        {
-          bib: "103",
-          name: "Karin Johansson",
-          club: "OK Djerf",
-          start_time: "12:04",
-          split_times: [2580, 5300, 8080],
-          final_time: 11200,
-          place: 3,
         },
       ],
     };
