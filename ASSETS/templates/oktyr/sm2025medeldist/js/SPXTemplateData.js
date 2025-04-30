@@ -4,6 +4,17 @@
     Purpose:
         Used by splitTime.html and spx_interface.js for re-updating
         SPX Template Data in the update() function, called by PlayLayer and UpdateLayer.
+
+    Requirements:
+        The DataFields array of window.SPXGCTemplateDefinition must have the following fields:
+          comment,
+          f_list_titel,
+          f_vald_klass,
+          f_vald_kontroll,
+          f0,
+          f1: 
+          f2,
+          f99,
  */
 
 class SPXTemplateData {

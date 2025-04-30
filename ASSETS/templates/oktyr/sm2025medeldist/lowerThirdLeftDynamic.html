@@ -37,6 +37,7 @@
     28.04.2025 Changed to Williams stylesheet.
     28.04.2025 Using anime timeline (similar to SPX demo).
     28.04.2025 Added dropdown for selecting runner by bib nr.
+    29.04.2025 Removed DynamicTheme from DOM (editor).
 -->
 
   <head>
@@ -102,7 +103,7 @@
       let clipSout = "inset(0% 0% 100% 0%)";
 
       /**
-       * The error "Failed to get element f_vald_klass by Id" indicates that the JavaScript code is unable to find an HTML element with the ID "f_vald_klass" in the current document. This typically happens when:
+       * The error "Failed to get element <ELEMENT_NAME> by Id" typically happens when:
        *
        * 1. Element Doesn't Exist: The HTML element with the specified ID ("f_vald_klass") is not present in the DOM (Document Object Model) when the JavaScript code attempts to access it.
        * 2. Timing Issue: The JavaScript code runs before the HTML element is loaded and added to the DOM. This can occur if the script is placed in the <head> or loaded before the body of the document is fully parsed.
@@ -120,7 +121,6 @@
         // TODO: Set bib and name from API response
         getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
         getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
-        // TODO: Set club name
         getEl("g2").innerHTML = runnerObj.runners[0].club;
 
         // Show all text-boxes
@@ -273,7 +273,7 @@
             field: "f_vald_runner_bib",
             ftype: "dropdown",
             title: "Select Runner",
-            value: "0 - Default Test Runner",
+            value: "0",
             items: [
               {
                 text: "0 - Test Runner",

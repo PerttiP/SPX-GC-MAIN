@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-04-30T11:21:29.217Z",
+  "updated": "2025-04-30T13:06:43.821Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -27,13 +27,13 @@
           "field": "f_rubrik",
           "ftype": "textfield",
           "title": "Caption",
-          "value": "SM 2025 Karlstad - Väse"
+          "value": "SM 2025 Karlstad"
         },
         {
           "field": "f_vald_klass",
           "ftype": "dropdown",
           "title": "Select Class",
-          "value": "H18",
+          "value": "D21",
           "items": [
             {
               "text": "D21",
@@ -65,7 +65,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "444",
+          "value": "0 - Default Test Runner",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -108,10 +108,10 @@
           "value": "-"
         }
       ],
-      "onair": "false",
-      "imported": "1746011972694",
+      "onair": "true",
+      "imported": "1746018396664",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
-      "itemID": "1746011978119"
+      "itemID": "1746018402417"
     }
   ],
   "project": "MEDTST12",

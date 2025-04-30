@@ -59,7 +59,7 @@
           getEl("f_vald_kontroll").innerText
         );
         getEl("vald_runner").innerHTML = htmlDecode(
-          getEl("f_vald_runner").innerText
+          getEl("f_vald_runner_bib").innerText
         );
 
         // FIXME:
@@ -85,7 +85,7 @@
 
         // TODO:
         // First try to get the bib number (AND name?) from dropdown
-        let elem_runner = document.getElementById("f_vald_runner");
+        let elem_runner = document.getElementById("f_vald_runner_bib");
 
         let selectedRunnerInfo = "";
         if (typeof elem_runner != "undefined" && elem_runner != null) {
@@ -239,11 +239,15 @@
             ],
           },
           {
-            field: "f_vald_runner",
+            field: "f_vald_runner_bib",
             ftype: "dropdown",
             title: "Select Runner",
-            value: "0 - Default Test Runner",
+            value: "0",
             items: [
+              {
+                text: "0 - Test Runner",
+                value: "0",
+              },
               {
                 text: "1 - Firstname Lastname",
                 value: "1",
@@ -255,6 +259,10 @@
               {
                 text: "3 - Firstname Lastname",
                 value: "3",
+              },
+              {
+                text: "444 - Ferry Fyråsen",
+                value: "444",
               },
             ],
           },
@@ -362,7 +370,7 @@
       <div data-info="List titel..." id="f_list_titel"></div>
       <div data-info="Vald klass..." id="f_vald_klass"></div>
       <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
-      <div data-info="Vald runner..." id="f_vald_runner"></div>
+      <div data-info="Vald runner..." id="f_vald_runner_bib"></div>
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>

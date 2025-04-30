@@ -10,10 +10,10 @@ let validRunnerSelectedInUI = true;
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
-// Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
 
+  // Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
   // Listen for the custom "templateRundownItemSaved" event on window.
   window.addEventListener("templateRundownItemSaved", (event) => {
     // The event.detail carries the data you dispatched.
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined! */
+/* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config! */
 /*
 window.updateFollowedRunner = function () {
   //alert("updateFollowedRunner() CALLED!");
@@ -77,13 +77,15 @@ function update(data) {
   console.log("----- Vald klass: ", templateData.f_vald_klass);
   console.log("----- Vald runner bib: ", templateData.f_vald_runner_bib);
 
-  let apiData;
-  let mockData;
+  selectedClass = templateData.f_vald_klass;
+  selectedRunnerBib = templateData.f_vald_runner_bib;
+
+  let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
   // MOCKTEST: Simulate an API response (will return Mock data for bib id 444)!
-  fetchMockApiResponse(selectedClass, selectedRunnerBib).then((mockData) => {
+  fetchMockApiResponse(selectedClass, selectedRunnerBib).then((apiData) => {
     // Check if mockData exists before accessing its properties.
-    if (mockData === null || mockData === undefined) {
+    if (apiData === null || apiData === undefined) {
       alert(
         "Fetch från API misslyckades!\n Välj klass och skriv giltigt startnummer\n Försök sedan på nytt!"
       );
@@ -106,73 +108,65 @@ function update(data) {
         ],
       };
 
-      mockData = mockData_444;
+      apiData = mockData_444;
     } //end if
     else {
-      console.log("Mock API Response:", mockData);
+      console.log("Mock API Response:", apiData);
+    }
+
+    // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
+    const fieldOverrides = {
+      f0: apiData.runners[0].bib, // for example replace "9999" with "444"
+      f1: apiData.runners[0].name,
+      f2: apiData.runners[0].club,
+    };
+
+    // Find an element in the DOM with an id matching the key
+    // Loop through each field in the templateData object
+    for (var dataField in templateData) {
+      var idField = document.getElementById(dataField);
+      if (idField) {
+        // Check if this field should be overridden
+        if (fieldOverrides.hasOwnProperty(dataField)) {
+          idField.innerText = fieldOverrides[dataField];
+          // For debugging, log the changes.
+          console.log(
+            "Updated element with id:",
+            dataField,
+            "to",
+            idField.innerText
+          );
+        } else {
+          // Otherwise use the value coming in from the templateData
+          idField.innerText = templateData[dataField];
+        }
+      } else {
+        switch (dataField) {
+          case "comment":
+          case "epochID":
+            // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
+            break;
+          default:
+            console.error(
+              "ERROR Placeholder #" + dataField + " missing from SPX template."
+            );
+        }
+      }
+    } //end for
+
+    // TODO: Check that we have retrieved a valid runner from API?
+    let validRunnerFoundFromAPI = true;
+
+    if (typeof runTemplateUpdate === "function") {
+      //runTemplateUpdate(mockData_OneRunner); // Play will follow
+      runTemplateUpdate(apiData);
+    } else {
+      console.error("runTemplateUpdate() function missing from SPX template.");
     }
   }); // end .then
 
-  apiData = mockData;
-
-  // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
-  /*
-  const fieldOverrides = {
-    f0: apiData.runners[0].bib, // for example replace "9999" with "444"
-    f1: apiData.runners[0].name,
-    f2: apiData.runners[0].club,
-  };
-  */
-  const fieldOverrides = {
-    f0: "444", // for example replace "9999" with "444"
-    f1: "New F1",
-    f2: "New F2",
-  };
-
-  // Find an element in the DOM with an id matching the key
-  // Loop through each field in the templateData object
-  for (var dataField in templateData) {
-    var idField = document.getElementById(dataField);
-    if (idField) {
-      // Check if this field should be overridden
-      if (fieldOverrides.hasOwnProperty(dataField)) {
-        idField.innerText = fieldOverrides[dataField];
-        // For debugging, log the changes.
-        console.log(
-          "Updated element with id:",
-          dataField,
-          "to",
-          idField.innerText
-        );
-      } else {
-        // Otherwise use the value coming in from the templateData
-        idField.innerText = templateData[dataField];
-      }
-    } else {
-      switch (dataField) {
-        case "comment":
-        case "epochID":
-          // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
-          break;
-        default:
-          console.error(
-            "ERROR Placeholder #" + dataField + " missing from SPX template."
-          );
-      }
-    }
-  } //end for
-
-  // TODO: Check if dataField and templateData now have updated values for f1 and f2!
-
-  // TODO: Check that we have retrieved a valid runner from API
-  let validRunnerFoundFromAPI = true;
-
-  if (typeof runTemplateUpdate === "function") {
-    //runTemplateUpdate(apiData); // Play will follow
-    runTemplateUpdate(mockData_OneRunner);
-  } else {
-    console.error("runTemplateUpdate() function missing from SPX template.");
-  }
+  // NOTE: Code immediately after .then(…) call will run synchronously after the promise is set up,
+  //  it will not wait for the promise to resolve.
 }
 
 // Play handler
@@ -257,7 +251,6 @@ function validString(str) {
 // ----------------------------------------------------------------------------------
 /*
   Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js
-
   WARN: USE WITH CARE! AND ONLY IF YOU KNOW FOR SURE WHAT YOU ARE DOING! :-)
 */
 // ----------------------------------------------------------------------------------
@@ -273,7 +266,7 @@ function getProfileForCurrent() {
   return profileName;
 } // getProfileForCurrent ended
 
-// ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------
 
 // MOCKTEST: Mock function to simulate the API response
 /*
@@ -318,7 +311,56 @@ async function fetchMockApiResponse(klass, bibnr) {
         },
       ],
     };
+  } else if (bibnr === "1") {
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "1",
+          name: "Anders Andersson",
+          club: "OK Test A",
+          start_time: "14:40",
+          split_times: [2850, 5280, 7940],
+          final_time: 10800,
+          place: 0,
+        },
+      ],
+    };
+  } else if (bibnr === "2") {
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "2",
+          name: "Bertil Barthelsson",
+          club: "OK Test B",
+          start_time: "14:42",
+          split_times: [3450, 6080, 9240],
+          final_time: 10800,
+          place: 0,
+        },
+      ],
+    };
+  } else if (bibnr === "3") {
+    return {
+      competition: "Medel-Kval",
+      class: "H21",
+      runners: [
+        {
+          bib: "3",
+          name: "Cesar Coreliusson",
+          club: "OK Test C",
+          start_time: "14:44",
+          split_times: [1450, 3080, 4840],
+          final_time: 10800,
+          place: 0,
+        },
+      ],
+    };
   }
+  console.log("Returning null from fetchMockApiResponse");
   return null; // Explicitly return null if no match, else undefined would be returned
 }
 
