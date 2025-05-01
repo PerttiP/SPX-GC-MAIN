@@ -91,6 +91,47 @@ const mockData_OneRunner = {
   ],
 };
 
+/**
+ * Given API data with a runners array, the selected class, and a selected bib,
+ * return the runner object that has that bib.
+ *
+ * @param {Object} apiData - The data returned from the API.
+ * @param {string} valdClass - The class value (e.g., "D21" or "H21").
+ * @param {string|number} valdBib - The bib value to look for.
+ * @returns {Object|null} The runner object if found; otherwise, null.
+ */
+function fetchSpecificRunnerFromApi(apiData, valdClass, valdBib) {
+  // Ensure that the API data exists and has runners
+  if (!apiData || !apiData.runners) {
+    console.error("No runners found in API data.");
+    alert("Inga löpardata från API endpoint.");
+    return null;
+  }
+
+  // TODO?:
+  // If you also want to check that the overall API data has the correct class,
+  // you can uncomment the following:
+  if (apiData.class !== valdClass) {
+    console.warn("API data class does not match the selected class.");
+    alert("Startnumret " + valdBib + " hittades inte för vald klass.");
+    return null;
+  }
+
+  // Find the runner with a bib that matches valdBib.
+  // Converting both values to strings can help when one is a string vs. number.
+  const runner = apiData.runners.find(
+    (runner) => String(runner.bib) === String(valdBib)
+  );
+
+  if (!runner) {
+    console.error(`No runner found with bib ${valdBib}.`);
+    alert("Startnumret " + valdBib + " hittades inte i löpardatat.");
+    return null;
+  }
+
+  return runner;
+}
+
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.
@@ -115,6 +156,9 @@ function update(data) {
     console.log("BibNr saved", selectedRunnerBib);
   }
 
+  // FIRST:
+  // Try to fetch specific / selected runner data from API endpoint
+
   //  let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
   // MOCKTEST for SPLIT TIME (with 3 objects: apiData, leaderRunner, topThreeRunners)
@@ -126,6 +170,21 @@ function update(data) {
         return;
       }
       console.log("Mock API Response:", apiData);
+      console.log("with: " + apiData.runners.length + " runners.");
+
+      const selectedRunner = fetchSpecificRunnerFromApi(
+        apiData,
+        selectedClass,
+        selectedRunnerBib
+      );
+
+      if (!selectedRunner) {
+        console.error(
+          "Specific runner with bib: " + selectedRunnerBib + " was not found."
+        );
+      } else {
+        console.log("Specific runner: ", selectedRunner);
+      }
 
       // Use .find() to retrieve the runner where place === 1
       const leaderRunner = apiData.runners.find((runner) => runner.place === 1);
@@ -149,7 +208,7 @@ function update(data) {
 
       if (typeof runSplitTemplateUpdate === "function") {
         //runTemplateUpdate(mockData_OneRunner); // Play will follow
-        runSplitTemplateUpdate(apiData, leaderRunner, topThreeRunners);
+        runSplitTemplateUpdate(selectedRunner, leaderRunner, topThreeRunners);
       } else {
         console.error(
           "runSplitTemplateUpdate() function missing from SPX template."
@@ -354,7 +413,7 @@ function getProfileForCurrent() {
 // MOCKTEST for lowerThird and follow runner with bibnr:
 async function fetchMockApiResponse(klass, bibnr) {
   // Simulated delay (like a real API call)
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   // MOCKTEST responding with one runner to follow (444)
   if (bibnr === "444") {

@@ -241,7 +241,7 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": ""
+          "value": "TEST: TESTAR NAMN I CAPTION FIELD"
         },
         {
           "field": "f2",
@@ -251,11 +251,11 @@
         }
       ],
       "onair": "false",
-      "imported": "1746081097651",
+      "imported": "1746085307058",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-01T06:31:41.221Z"
+  "updated": "2025-05-01T07:41:47.058Z"
 }

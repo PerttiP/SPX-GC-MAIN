@@ -35,22 +35,26 @@
     />
 
     <script>
-      function getSelectedRunnersBibNr() {
+      const selectedRunnerName = "TESTAR NAMN I CAPTION FIELD"; // TEST1 of string literal usage in SPX template
+
+      function getSelectedRunnerBibNr() {
         return localStorage.getItem("selectedRunnerBib");
       }
-      function getSelectedRunnersName() {
+      function getSelectedRunnerName() {
+        // TEST2 of string literal usage in SPX template
         // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL!
-        //return "Testar om namn kan ändras i en caption field"; // OK!
-        return localStorage.getItem("selectedRunnersName");
+        //return "Testar om namn kan ändras i en caption field"; // OK vid init!
+        return localStorage.getItem("selectedRunnerName");
       }
 
       // What we need from API
       // Objects for
-      //  * vald_runner: (runnerObj)
-      //  * leader_runner:
-      //  * top_three_runners:
+      //  * vald_runner: (valdRunner)
+      //  * leader_runner: (leaderRunner)
+      //  * top_three_runners: (topThreeRunners) -> Array!
+      // NOTE: Any of these MIGHT be null, if not found in API endpoint!
       function runSplitTemplateUpdate(
-        runnerObj,
+        valdRunner,
         leaderRunner,
         topThreeRunners
       ) {
@@ -79,10 +83,11 @@
         }
 
         // Show selected runner data in graphic overlay
-        // Set bib and name from API response
-        getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
-        getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
-        getEl("vald_runner_club").innerHTML = runnerObj.runners[0].club;
+        if (valdRunner) {
+          getEl("vald_runner_bib").innerHTML = valdRunner.bib;
+          getEl("vald_runner_name").innerHTML = valdRunner.name;
+          getEl("vald_runner_club").innerHTML = valdRunner.club;
+        }
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";
@@ -259,7 +264,9 @@
             ftype: "caption",
             title: "Fullname",
             //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init! But it would not work for updating.
-            value: "",
+            value: `TEST: ${selectedRunnerName}`, // FIXME: TEST1
+            //value: `TEST: ${getSelectedRunnerName()}`, // FIXME: TEST2
+            //value: "",
           },
           {
             field: "f2",

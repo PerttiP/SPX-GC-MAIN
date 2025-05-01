@@ -1,118 +1,8 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-01T06:32:55.672Z",
+  "updated": "2025-05-01T07:42:09.839Z",
   "templates": [
-    {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ (RUBRIK) NR NAMN KLUBB ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
-        },
-        {
-          "field": "f_rubrik",
-          "ftype": "textfield",
-          "title": "Caption",
-          "value": "SM 2025 Karlstad"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "H18"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_runner_bib",
-          "ftype": "dropdown",
-          "title": "Select Runner",
-          "value": "0",
-          "items": [
-            {
-              "text": "0 - Test Runner",
-              "value": "0"
-            },
-            {
-              "text": "1 - Firstname Lastname",
-              "value": "1"
-            },
-            {
-              "text": "2 - Firstname Lastname",
-              "value": "2"
-            },
-            {
-              "text": "3 - Firstname Lastname",
-              "value": "3"
-            },
-            {
-              "text": "444 - Ferry Fyråsen",
-              "value": "444"
-            }
-          ]
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "9999"
-        },
-        {
-          "field": "f1",
-          "ftype": "caption",
-          "title": "Fullname",
-          "value": "-"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": "-"
-        }
-      ],
-      "onair": "false",
-      "imported": "1746081101221",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
-      "itemID": "1746081111785"
-    },
     {
       "description": "Namestrap left",
       "playserver": "OVERLAY",
@@ -245,7 +135,7 @@
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": ""
+          "value": "TEST: TESTAR NAMN I CAPTION FIELD"
         },
         {
           "field": "f2",
@@ -255,9 +145,9 @@
         }
       ],
       "onair": "true",
-      "imported": "1746081097651",
+      "imported": "1746085307058",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "itemID": "1746081111786"
+      "itemID": "1746085313967"
     }
   ],
   "project": "MEDTST12",
