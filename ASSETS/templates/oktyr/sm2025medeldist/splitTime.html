@@ -12,6 +12,7 @@
 	Changes:
     21.04.2025 Kept style tag as gfx and not renamed to SPXgfx.
     23.04.2025 This template uses styles from William in oktyr_style.css!
+    29.04.2025 Removed DynamicTheme from DOM (editor).
 -->
 
   <head>
@@ -45,16 +46,15 @@
 
       // What we need from API
       // Objects for
-      //  * vald_runner:
+      //  * vald_runner: (runnerObj)
       //  * leader_runner:
+      //  * top_three_runners:
       function runSplitTemplateUpdate(
         runnerObj,
         leaderRunner,
         topThreeRunners
       ) {
         // TODO: Set f1 and f2 label fields from localStorage if needed?
-
-        getEl("DynamicTheme").href = getEl("f99").innerText;
 
         //console.clear();
         // Populate from  editor fields
@@ -71,18 +71,14 @@
           getEl("f_vald_runner_bib").innerText
         );
 
-        // TODO:
-        getEl("leader_runner").innerHTML = leaderRunner; //"Tove Alexandersson";
-
-        // Get the runner bib number from editable input textfield?
-        /*
-        editableRunnerBib = htmlDecode(getEl("f0").innerText);
-        if (editableRunnerBib) {
-          localStorage.setItem("editableRunnerBib", editableRunnerBib);
-          console.log("Editable BibNr saved", editableRunnerBib);
+        // Show leader runner data in graphic overlay
+        if (leaderRunner) {
+          getEl("leader_runner_bib").innerHTML = leaderRunner.bib;
+          getEl("leader_runner_name").innerHTML = leaderRunner.name; //"Tove Alexandersson";
+          getEl("leader_runner_club").innerHTML = leaderRunner.club;
         }
-        */
 
+        // Show selected runner data in graphic overlay
         // Set bib and name from API response
         getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
         getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
@@ -98,12 +94,6 @@
         vald_kontroll.innerText = vald_kontroll.innerText;
 
         console.log("vald_kontroll.innerText: ", vald_kontroll.innerText);
-
-        /*
-        const vald_runner_info = document.getElementById("vald_runner");
-        vald_runner.innerText = vald_runner.innerText;
-        console.log("vald_runner.innerText: ", vald_runner.innerText);
-        */
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
@@ -140,13 +130,12 @@
           {
             field: "comment",
             ftype: "textfield",
-            title: "Nickname of this item on the rundown",
+            title: "This is a split time overlay with OK Tyr theme.",
             value: "[ PLACE BIB-NR NAME TIME ]",
           },
           {
             ftype: "instruction",
-            value:
-              "You can leave any field empty. This is a lower-right overlay with a News theme.",
+            value: "Select from dropdowns. ",
           },
           {
             field: "f_list_titel",
@@ -213,8 +202,8 @@
                 value: "RC5",
               },
               {
-                text: "RC6",
-                value: "RC6",
+                text: "MÅL",
+                value: "FINISH",
               },
             ],
           },
@@ -252,11 +241,11 @@
           },
           {
             field: "f0",
-            ftype: "textfield",
+            ftype: "caption",
             title: "Bib Number of Runner to Follow",
-            //value: getSelectedRunnersBibNr(),
             value: "0",
           },
+          /*
           {
             field: "f_follow_runner_btn",
             ftype: "button",
@@ -264,19 +253,12 @@
             descr: "Set selected Runner bib to follow",
             fcall: "followSelectedRunner()",
           },
-          /*
-                {
-                  field: "f1",
-                  ftype: "caption",
-                  title: "Fullname",
-                  value: `getSelectedRunnersName();`, // This is just a string, not a function call!
-                },
-                */
+          */
           {
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init!
+            //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init! But it would not work for updating.
             value: "",
           },
           {
@@ -284,14 +266,6 @@
             ftype: "caption",
             title: "Club",
             value: "",
-          },
-          {
-            field: "f99",
-            ftype: "filelist",
-            title: "Visual theme",
-            assetfolder: "./css/themes/",
-            extension: "css",
-            value: "./css/themes/News.css",
           },
         ],
       };
@@ -310,9 +284,9 @@
         </div>
         <div class="runner leader">
           <div class="place">1</div>
-          <div class="bib">11</div>
-          <div class="name"><span id="leader_runner">A A</span></div>
-          <div class="club">OK Ravinen</div>
+          <div class="bib"><span id="leader_runner_bib">0</span></div>
+          <div class="name"><span id="leader_runner_name">A A</span></div>
+          <div class="club"><span id="leader_runner_club">OK Test</span></div>
           <div class="time">1:02:36</div>
         </div>
         <!-- <div class="runner"> -->
@@ -358,7 +332,6 @@
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
-      <div data-info="Theme........" id="f99"></div>
     </div>
   </body>
 </html>

@@ -115,9 +115,9 @@ function update(data) {
     console.log("BibNr saved", selectedRunnerBib);
   }
 
-  let apiData; // be sure that any code using these values runs AFTER the promise resolves
+  //  let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
-  // MOCKTEST for SPLIT TIME
+  // MOCKTEST for SPLIT TIME (with 3 objects: apiData, leaderRunner, topThreeRunners)
   if (selectedClass === "D21") {
     fetchMockApiResponseMany("D21").then((apiData) => {
       // Check if data exists
@@ -130,6 +130,7 @@ function update(data) {
       // Use .find() to retrieve the runner where place === 1
       const leaderRunner = apiData.runners.find((runner) => runner.place === 1);
       if (leaderRunner) {
+        // One single object
         console.log("Leader Runner:", leaderRunner);
         // You can now use leaderRunner.bib, leaderRunner.name, etc.
       } else {
@@ -138,6 +139,13 @@ function update(data) {
 
       const topThreeRunners = getTopThreeRunners(apiData.runners);
       console.log(topThreeRunners);
+
+      if (topThreeRunners && topThreeRunners.length === 3) {
+        // An array
+        console.log("Top-3 Runners:", topThreeRunners);
+      } else {
+        console.error("No top 3-runners with place 1,2,3 found.");
+      }
 
       if (typeof runSplitTemplateUpdate === "function") {
         //runTemplateUpdate(mockData_OneRunner); // Play will follow
@@ -450,8 +458,8 @@ async function fetchMockApiResponse(selKlass, selBib) {
 // MOCKTEST for splitTime:
 async function fetchMockApiResponseMany(klass) {
   // MOCKTEST responding with several runners in a specific class (D21 or H21)
-  // Including current place on last (?) split during competition
-  // Also including split times for specific radio split control
+  // Including current place on current or last passed (?) split during competition.
+  // Also including split times for all radio split controls.
   if (klass === "D21") {
     // Mock data
     return {

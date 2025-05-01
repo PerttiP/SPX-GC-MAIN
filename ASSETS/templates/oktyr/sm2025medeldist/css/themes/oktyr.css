@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+  align-items: center;
+  background-color: #084616;
+  font-size: 24px;
+  padding-right: 20px;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #084616;
+}
+
+.title {
+  background-color: #084616;
+  border-bottom: 2px solid #084616;
+}
+
+.metaData {
+  background-color: #00cb6c;
+}
+
+.logo {
+  background-color: white;
+}
+
+.runner {
+  background-color: white;
+}
+.runner .place {
+  border-right: 2px solid #084616;
+}
+.runner .bib {
+  color: #7d0017;
+}
+.runner .time {
+  background-color: #7d0017;
+  color: white;
+}
+.runner.leader {
+  border-bottom: 2px solid #e66f85;
+}
+.runner.leader .time {
+  background-color: #e66f85;
+}
+.runner.selected {
+  background-color: #084616;
+  color: #ffffff;
+}
+.runner.selected .bib {
+  color: #ffffff;
+}
+.runner.selected .time {
+  color: white;
+  background-color: #084616;
+}

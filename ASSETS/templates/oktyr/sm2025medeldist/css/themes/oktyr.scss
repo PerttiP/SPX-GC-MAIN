@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+}
+
+$color-primary: #084616;
+$color-primary-accent: #00cb6c;
+$color-secondary: #7d0017;
+$color-secondary-accent: #e66f85;
+$color-text-dark: #301525;
+$color-text-light: #ffffff;
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    align-items: center;
+    background-color: $color-primary;
+    font-size: 24px;
+    padding-right: 20px;
+    color: white;
+    font-weight: 600;
+    border-bottom: 2px solid $color-primary;
+}
+.title {
+    background-color: $color-primary;
+    border-bottom: 2px solid $color-primary;
+}
+.metaData {
+    background-color: $color-primary-accent;
+}
+.logo { 
+    background-color: white;
+}
+.runner {
+    background-color: white;
+    
+    .place {
+        border-right: 2px solid $color-primary;
+    }
+    .bib {
+        color: $color-secondary;
+    }
+    .time {
+        background-color: $color-secondary;
+        color: white;
+    }
+    &.leader {
+        border-bottom: 2px solid $color-secondary-accent;
+        .time {
+            background-color: $color-secondary-accent;
+        }
+    }
+    &.selected {
+        background-color: $color-primary;
+        color: $color-text-light;
+        .bib {
+            color: $color-text-light;
+        }
+        .time {
+            color: white;
+            background-color: $color-primary;
+        }
+    }
+}
