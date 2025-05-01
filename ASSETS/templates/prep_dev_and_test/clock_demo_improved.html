@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Realtime Stopwatch with Background Sync</title>
+    <style>
+      #clock {
+        font-family: monospace;
+        font-size: 2em;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock">0.00</div>
+
+    <script>
+      // Key used for localStorage to persist the clock's start time.
+      const LS_KEY_STARTTIME = "clockStartTime";
+
+      // Get the clock element
+      const clockEl = document.getElementById("clock");
+
+      // Retrieve the baseline start time from local storage if it exists; otherwise, set it now.
+      let startTime = localStorage.getItem(LS_KEY_STARTTIME);
+      if (startTime) {
+        startTime = parseInt(startTime, 10);
+      } else {
+        startTime = Date.now();
+        localStorage.setItem(LS_KEY_STARTTIME, startTime);
+      }
+
+      /**
+       * Formats the elapsed milliseconds into a time string.
+       *
+       * - If the elapsed time is 1 hour or more:
+       *     Format as H:MM.SS (e.g., "1:46.26")
+       * - Otherwise, it is formatted as M.SS (e.g., "9.57" when less than 10 minutes)
+       *
+       * @param {number} ms - The elapsed milliseconds.
+       * @returns {string} The formatted elapsed time.
+       */
+      function formatElapsedTime(ms) {
+        const totalSeconds = ms / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        // Always display two digits for the fractional part of the seconds.
+        const secondsStr = seconds.toFixed(2); // e.g., "26.26" or "9.57"
+        const fraction = secondsStr.split(".")[1]; // exactly two digits
+
+        if (hours > 0) {
+          return `${hours}:${minutes}.${fraction}`;
+        } else {
+          return `${minutes}.${fraction}`;
+        }
+      }
+
+      let timerId = null;
+
+      /**
+       * Updates the display of the clock.
+       *
+       * Instead of using a fixed 1000ms interval, we compute the delay until
+       * the next second boundary (1000 - (elapsed % 1000)). This self-adjusting
+       * technique helps maintain smooth updates even as timer delays occur.
+       */
+      function updateClock() {
+        const now = Date.now();
+        const elapsed = now - startTime;
+        clockEl.textContent = formatElapsedTime(elapsed);
+
+        // Calculate the delay until the next second boundary.
+        const delay = 1000 - (elapsed % 1000);
+        timerId = setTimeout(updateClock, delay);
+      }
+
+      /**
+       * Listens for visibility changes to help overcome background tab limitations.
+       *
+       * When the tab is hidden we clear the timer (to avoid unnecessary work),
+       * and when it becomes visible we immediately update the clock display.
+       * Additionally, we store (or retrieve) the baseline start time using local storage.
+       */
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          // Clear the timer when the tab is not visible to minimize resource usage.
+          if (timerId !== null) {
+            clearTimeout(timerId);
+            timerId = null;
+          }
+          // Save the current baseline to local storage.
+          localStorage.setItem(LS_KEY_STARTTIME, startTime);
+        } else {
+          // When the page becomes visible, retrieve the baseline and update immediately.
+          const storedStartTime = localStorage.getItem(LS_KEY_STARTTIME);
+          if (storedStartTime) {
+            startTime = parseInt(storedStartTime, 10);
+          }
+          updateClock();
+        }
+      });
+
+      // Start the clock updates.
+      updateClock();
+    </script>
+  </body>
+</html>

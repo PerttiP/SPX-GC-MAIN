@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Realtime Clock Example</title>
+    <style>
+      #clock {
+        font-family: monospace;
+        font-size: 2em;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock"></div>
+
+    <script>
+      (function () {
+        const clockEl = document.getElementById("clock");
+
+        // Set a start point (for a stopwatch-like clock) using Date.now()
+        const startTime = Date.now();
+
+        /**
+         * Formats the elapsed milliseconds as a clock string.
+         *
+         * If elapsed time is at least 1 hour, output:
+         *   H:MM.SS   (e.g., "1:46.26" for 1 hour, 46 minutes, and 26 hundredths)
+         * Otherwise, output:
+         *   M.SS      (e.g., "9.57" instead of "09.57")
+         *
+         * @param {number} ms - Elapsed milliseconds.
+         * @returns {string} - The formatted time string.
+         */
+        function formatElapsedTime(ms) {
+          // Convert milliseconds to seconds (and fractional seconds)
+          const totalSeconds = ms / 1000;
+
+          // Determine full hours and remaining minutes and seconds
+          const hours = Math.floor(totalSeconds / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+          const seconds = totalSeconds % 60;
+
+          // Always show exactly two digits for the fractional part of seconds.
+          // We use toFixed(2) then split to extract the decimals.
+          const secondsStr = seconds.toFixed(2); // e.g. "26.26" or "9.57"
+          const fraction = secondsStr.split(".")[1]; // always two digits
+
+          // When hours are present, include them separated by a colon.
+          // Note: We purposefully output minutes as-is (i.e. without a leading '0')
+          // to “leave out any unnecessary leading zeros.”
+          if (hours > 0) {
+            return `${hours}:${minutes}.${fraction}`;
+          } else {
+            return `${minutes}.${fraction}`;
+          }
+        }
+
+        /**
+         * Updates the clock element and schedules the next update
+         * in such a way that the update happens as close as possible
+         * to the next whole second.
+         */
+        function updateClock() {
+          const elapsed = Date.now() - startTime;
+          clockEl.textContent = formatElapsedTime(elapsed);
+
+          // Calculate the delay until the next update should occur.
+          // This helps compensate for any drift.
+          const delay = 1000 - (elapsed % 1000);
+          setTimeout(updateClock, delay);
+        }
+
+        // Start the recursive update loop.
+        updateClock();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,4 +1,7 @@
 {
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-05-01T13:31:19.524Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -62,7 +65,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "0",
+          "value": "222",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -133,7 +136,8 @@
       ],
       "onair": "false",
       "imported": "1746106162303",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
+      "itemID": "1746106173151"
     },
     {
       "description": "Split times left",
@@ -276,10 +280,10 @@
       ],
       "onair": "false",
       "imported": "1746106165028",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "itemID": "1746106173152"
     }
   ],
-  "warning": "Modifications done in the SPX will overwrite this file.",
-  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-01T13:29:25.028Z"
+  "project": "MEDTST12",
+  "rundown": "MTRD123"
 }

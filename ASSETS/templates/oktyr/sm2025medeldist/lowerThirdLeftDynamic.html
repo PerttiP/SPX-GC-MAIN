@@ -210,12 +210,13 @@
           );
       } // runAnimationOUT
 
+      // Layer 1 is at the very back and 20 is the highest ("closest to the camera")
       window.SPXGCTemplateDefinition = {
         description: "Namestrap left",
         playserver: "OVERLAY",
         playchannel: "1",
-        playlayer: "5",
-        webplayout: "5",
+        playlayer: "8",
+        webplayout: "8",
         out: "manual",
         dataformat: "json",
         uicolor: "3",
@@ -223,7 +224,7 @@
           {
             field: "comment",
             ftype: "textfield",
-            title: "Nickname of this item on the rundown",
+            title: "This is a lower third overlay with OK Tyr theme.",
             value: "[ (RUBRIK) NR NAMN KLUBB ]",
           },
           {
@@ -269,6 +270,21 @@
               },
             ],
           },
+          /* NOT REQUIRED HERE (Only for split time)
+          {
+            field: "f_vald_kontroll",
+            ftype: "dropdown",
+            title: "Select RadioControl",
+            value: "TV1",
+            items: [
+              { text: "TV1", value: "TV1" },
+              { text: "TV2", value: "TV2" },
+              { text: "TV3", value: "TV3" }, // "Förvarning"?
+              //{ text: "Förvarning", value: "Förvarning" },
+              { text: "MÅL", value: "MÅL" },
+            ],
+          },
+          */
           {
             field: "f_vald_runner_bib",
             ftype: "dropdown",
@@ -280,20 +296,40 @@
                 value: "0",
               },
               {
-                text: "1 - Firstname Lastname",
+                text: "1 - ",
                 value: "1",
               },
               {
-                text: "2 - Firstname Lastname",
+                text: "2 - ",
                 value: "2",
               },
               {
-                text: "3 - Firstname Lastname",
+                text: "3 - ",
                 value: "3",
+              },
+              {
+                text: "111 - Anna Andersson",
+                value: "111",
+              },
+              {
+                text: "222 - Lisa Bergström",
+                value: "222",
+              },
+              {
+                text: "333 - Karin Johansson",
+                value: "333",
               },
               {
                 text: "444 - Ferry Fyråsen",
                 value: "444",
+              },
+              {
+                text: "555 - Hanna Helenius",
+                value: "555",
+              },
+              {
+                text: "666 - Ozzy Osborne",
+                value: "666",
               },
             ],
           },
@@ -315,6 +351,12 @@
             title: "Club",
             value: "-",
           },
+          {
+            field: "fTemplateType",
+            ftype: "hidden",
+            title: "Type of Template",
+            value: "LowerThird",
+          },
           /*
           {
             field: "f_update_from_api_btn",
@@ -333,6 +375,7 @@
     <div class="container">
       <div class="graphic vertical">
         <!-- Caption bar med logo och caption text -->
+
         <div class="caption-bar">
           <div class="logo">
             <img src="images/sun_logo.png" alt="" />
@@ -346,13 +389,14 @@
           <div class="metaData">
             <div class="first" id="box1">
               <!-- Span is inline, will appear on the same line -->
-              <span id="vald_runner_bib">0</span>
-              <span id="vald_runner_name">H B</span>
+              <span id="vald_runner_bib"></span>
+              <span id="vald_runner_name"></span>
             </div>
             <div id="details">
               <div class="second" id="box2">
                 <!-- Div is block-level, will start on its own line -->
                 <div id="g2"></div>
+                <div id="gRunningTime">01:25.05</div>
               </div>
             </div>
           </div>
@@ -363,107 +407,13 @@
     <div id="hiddenSpxData" data-info="See spx_styles.css">
       <div data-info="Rubrik..........." id="f_rubrik"></div>
       <div data-info="Vald klass......." id="f_vald_klass">HD XX</div>
-      <div data-info="Vald runner......" id="f_vald_runner_bib">0</div>
+      <div data-info="Vald runner......" id="f_vald_runner_bib"></div>
       <div data-info="StartNumber......" id="f0"></div>
       <div data-info="Fullname........." id="f1"></div>
       <div data-info="Club............." id="f2"></div>
+      <!--
+      <div data-info="TemplateType......" id="fTemplateType"></div>
+      -->
     </div>
-
-    <!-- TODO: Ensure that HTML content has loaded before the following script runs -->
-
-    <script>
-      //function getSelectedDataFromTemplate() {
-      // FIXME: Remove? Is it really needed, if we just use PLAY as trigger for update()
-      /*
-      window.getSelectedDataFromTemplate = function () {
-        let element = document.getElementById("f_vald_klass");
-        console.log(element); //FIXME: null
-
-        if (typeof element != "undefined" && element != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedClass = element.innerText;
-        } else {
-          console.error("Failed to get element f_vald_klass by Id");
-        }
-
-        //getEl("vald_klass").innerHTML = htmlDecode(getEl("f_vald_klass").innerText);
-
-        // If selected a bib from dropdown
-        if (getEl("f_vald_runner_bib").innerText) {
-          getEl("vald_runner_bib").innerHTML = htmlDecode(
-            getEl("f_vald_runner_bib").innerText
-          );
-        } else {
-          alert(
-            "No runner selected! Trying to use runner id from input text field.\n Note that you may select a runner in dropdown\n."
-          );
-
-          // If not valid runner selected, then check if user has entered a bib number into input control?
-          if (getEl("f0").innerText !== "") {
-            // TODO: Check that it is a number!
-            getEl("vald_runner_bib").innerHTML = htmlDecode(
-              getEl("f0").innerText
-            );
-
-            validRunnerSelectedInUI = true;
-          } else {
-            alert(
-              "No runner selected! Please either select a runner in dropdown\n or write a valid runner id in input text field."
-            );
-            validRunnerSelectedInUI = false;
-            return; // <----------- RETURN!
-          }
-        }
-
-        // Get the vald klass from dropdown
-        // NOTE: The value property is only available for form elements
-        // like <input>, <textarea>, or <select>.
-        element = document.getElementById("f_vald_klass");
-        console.log(element);
-
-        if (typeof element != "undefined" && element != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedClass = element.innerText;
-
-          // Save persistently
-          if (selectedClass) {
-            localStorage.setItem("selectedClass", selectedClass);
-            console.log("selectedClass saved: ", selectedClass);
-          }
-        }
-
-        // First try to get the bib number from dropdown
-        let elem_runner = document.getElementById("f_vald_runner");
-
-        if (typeof elem_runner != "undefined" && elem_runner != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedRunnerBib = elem_runner.innerText;
-
-          // Save persistently
-          if (selectedRunnerBib) {
-            localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-            console.log("selectedRunnerBib saved: ", selectedRunnerBib);
-          } else {
-            validRunnerSelectedInUI = false;
-          }
-        }
-        if (!validRunnerSelectedInUI) {
-          // Try to get the runner bib number from editable input textfield instead
-          selectedRunnerBib = htmlDecode(getEl("f0").innerText);
-          //alert(selectedRunnerBib);
-          if (selectedRunnerBib) {
-            localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-            console.log("BibNr saved", selectedRunnerBib);
-          } else {
-            console.error(
-              "Failed to get runner bib number from editor controls"
-            );
-            return; // <----------- RETURN!
-          }
-        }
-        return;
-      };
-      */
-    </script>
   </body>
 </html>

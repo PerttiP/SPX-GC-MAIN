@@ -9,6 +9,8 @@ let selectedRunnerBib;
 let selectedRadioSplitId;
 let validRunnerSelectedInUI = true;
 
+let templateType; // "LowerThird" or "Split"
+
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -146,6 +148,8 @@ function update(data) {
   selectedClass = templateData.f_vald_klass;
   selectedRunnerBib = templateData.f_vald_runner_bib;
 
+  templateType = templateData.fTemplateType;
+
   // Save persistently
   if (selectedClass) {
     localStorage.setItem("selectedClass", selectedClass);
@@ -162,93 +166,104 @@ function update(data) {
   //  let apiData; // be sure that any code using these values runs AFTER the promise resolves
 
   // MOCKTEST for SPLIT TIME (with 3 objects: apiData, leaderRunner, topThreeRunners)
-  if (selectedClass === "D21") {
-    fetchMockApiResponseMany("D21").then((apiData) => {
-      // Check if data exists
-      if (!apiData || !apiData.runners || apiData.runners.length === 0) {
-        alert("No API data or runners available!");
-        return;
-      }
-      console.log("Mock API Response:", apiData);
-      console.log("with: " + apiData.runners.length + " runners.");
+  if (templateType === "Split") {
+    if (selectedClass === "D21") {
+      fetchMockApiResponseMany("D21").then((apiData) => {
+        // Check if data exists
+        if (!apiData || !apiData.runners || apiData.runners.length === 0) {
+          console.warn("No API data or runners available!");
+          alert(
+            "Fetch från API misslyckades!\n Välj klass och startnummer\n Försök sedan på nytt!"
+          );
+          return;
+        }
+        console.log("Mock API Response:", apiData);
+        console.log("with: " + apiData.runners.length + " runners.");
 
-      const selectedRunner = fetchSpecificRunnerFromApi(
-        apiData,
-        selectedClass,
-        selectedRunnerBib
-      );
-
-      if (!selectedRunner) {
-        console.error(
-          "Specific runner with bib: " + selectedRunnerBib + " was not found."
+        const selectedRunner = fetchSpecificRunnerFromApi(
+          apiData,
+          selectedClass,
+          selectedRunnerBib
         );
-      } else {
-        console.log("Specific runner: ", selectedRunner);
-      }
 
-      // Use .find() to retrieve the runner where place === 1
-      const leaderRunner = apiData.runners.find((runner) => runner.place === 1);
-      if (leaderRunner) {
-        // One single object
-        console.log("Leader Runner:", leaderRunner);
-        // You can now use leaderRunner.bib, leaderRunner.name, etc.
-      } else {
-        console.error("No runner with place === 1 found.");
-      }
+        if (!selectedRunner) {
+          // alerts visas redan från fetchSpecificRunnerFromApi funktionen!
+          console.warn(
+            "Specific runner with bib: " + selectedRunnerBib + " was not found."
+          );
+          // Let's continue to try to find the leader at least...
+        } else {
+          console.log("Specific runner: ", selectedRunner);
+        }
 
-      const topThreeRunners = getTopThreeRunners(apiData.runners);
-      console.log(topThreeRunners);
-
-      if (topThreeRunners && topThreeRunners.length === 3) {
-        // An array
-        console.log("Top-3 Runners:", topThreeRunners);
-      } else {
-        console.error("No top 3-runners with place 1,2,3 found.");
-      }
-
-      if (typeof runSplitTemplateUpdate === "function") {
-        //runTemplateUpdate(mockData_OneRunner); // Play will follow
-        runSplitTemplateUpdate(selectedRunner, leaderRunner, topThreeRunners);
-      } else {
-        console.error(
-          "runSplitTemplateUpdate() function missing from SPX template."
+        // Use .find() to retrieve the runner where place === 1
+        const leaderRunner = apiData.runners.find(
+          (runner) => runner.place === 1
         );
-      }
-    }); // end .then
+        if (leaderRunner) {
+          // One single object
+          console.log("Leader Runner:", leaderRunner);
+          // You can now use leaderRunner.bib, leaderRunner.name, etc.
+        } else {
+          console.error("No runner with place === 1 found.");
+        }
 
-    return; // <------ RETURN !!!
+        const topThreeRunners = getTopThreeRunners(apiData.runners);
+        console.log(topThreeRunners);
+
+        if (topThreeRunners && topThreeRunners.length === 3) {
+          // An array
+          console.log("Top-3 Runners:", topThreeRunners);
+        } else {
+          console.error("No top 3-runners with place 1,2,3 found.");
+        }
+
+        // NOTE: Only call for (templateType === "Split")
+        if (typeof runSplitTemplateUpdate === "function") {
+          //runTemplateUpdate(mockData_OneRunner); // Play will follow
+          runSplitTemplateUpdate(selectedRunner, leaderRunner, topThreeRunners);
+        } else {
+          console.warn(
+            "runSplitTemplateUpdate() function missing from SPX template."
+          );
+        }
+      }); // end .then
+
+      return; // <------ RETURN !!!
+    } // end selectedClass
   }
 
+  // TODO? IMPROVEMENT: Now it should be possible to simply use fetchSpecificRunnerFromApi for all data for one class?
   // MOCKTEST for LowerThird: Simulate an API response (will return Mock data for bib id 444)!
   fetchMockApiResponse(selectedClass, selectedRunnerBib).then((apiData) => {
-    // Check if data exists before accessing its properties.
-    if (apiData === null || apiData === undefined) {
+    let validRunnerFoundFromAPI = false;
+    // Check if data exists
+    if (!apiData || !apiData.runners || apiData.runners.length === 0) {
+      console.warn("No API data or runners available!");
       alert(
-        "Fetch från API misslyckades!\n Välj klass och skriv giltigt startnummer\n Försök sedan på nytt!"
+        "Fetch från API misslyckades!\n Välj klass och startnummer\n Försök sedan på nytt!"
       );
-      //return;
+      return;
+    }
+    console.log("Mock API Response:", apiData);
+    console.log("with: " + apiData.runners.length + " runners.");
 
-      // HARD-CODED MOCKTEST 2025-04-24: since now mockData is not returned from call above?
-      let mockData_444 = {
-        competition: "Medel-Kval",
-        class: "H21",
-        runners: [
-          {
-            bib: "444",
-            name: "Ferry Fyråsen",
-            club: "OK Fyran",
-            start_time: "14:44",
-            split_times: [2450, 5080, 7840],
-            final_time: 10800,
-            place: 4,
-          },
-        ],
-      };
+    const selectedRunner = fetchSpecificRunnerFromApi(
+      apiData,
+      selectedClass,
+      selectedRunnerBib
+    );
 
-      apiData = mockData_444;
-    } //end if
-    else {
-      console.log("Mock API Response:", apiData);
+    if (!selectedRunner) {
+      // alerts visas redan från fetchSpecificRunnerFromApi funktionen!
+      console.warn(
+        "Specific runner with bib: " + selectedRunnerBib + " was not found."
+      );
+
+      return; //################## RETURN !!!
+    } else {
+      console.log("Specific runner: ", selectedRunner);
+      validRunnerFoundFromAPI = true;
     }
 
     // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
@@ -281,7 +296,10 @@ function update(data) {
         switch (dataField) {
           case "comment":
           case "epochID":
-            // console.warn('FYI: Optional #' + dataField + ' missing from SPX template...');
+          case "fTemplateType":
+            console.warn(
+              "FYI: Optional #" + dataField + " missing from SPX template..."
+            );
             break;
           default:
             console.error(
@@ -292,11 +310,14 @@ function update(data) {
     } //end for
 
     // TODO: Check that we have retrieved a valid runner from API?
-    let validRunnerFoundFromAPI = true;
+    if (!validRunnerFoundFromAPI) {
+      console.warn("NOT validRunnerFoundFromAPI");
+      return; //################## RETURN !!!
+    }
 
+    // NOTE: Only call for (templateType === "LowerThird")
     if (typeof runTemplateUpdate === "function") {
-      //runTemplateUpdate(mockData_OneRunner); // Play will follow
-      runTemplateUpdate(apiData);
+      runTemplateUpdate(apiData); // Play will follow
     } else {
       console.error("runTemplateUpdate() function missing from SPX template.");
     }
@@ -415,7 +436,7 @@ async function fetchMockApiResponse(klass, bibnr) {
   // Simulated delay (like a real API call)
   await new Promise((resolve) => setTimeout(resolve, 200));
 
-  // MOCKTEST responding with one runner to follow (444)
+  // MOCKTEST responding with one runner to follow
   if (bibnr === "444") {
     return {
       competition: "Medel-Kval",
@@ -604,6 +625,24 @@ async function fetchMockApiResponseMany(klass) {
           split_times: [2580, 5300, 8080],
           final_time: 11200,
           place: 3,
+        },
+        {
+          bib: "444",
+          name: "Ferry Fyråsen",
+          club: "OK Fyran",
+          start_time: "14:44",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+        {
+          bib: "666",
+          name: "Ozzy Osborne",
+          club: "OK BatFromHell",
+          start_time: "16:46",
+          split_times: [12450, 35080, 53840],
+          final_time: 60800,
+          place: 666,
         },
       ],
     };

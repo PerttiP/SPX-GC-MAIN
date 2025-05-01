@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smooth Lightweight Clock Example</title>
+    <style>
+      /* Basic styling for the clock element */
+      #clock {
+        font-family: sans-serif;
+        font-size: 3em;
+        text-align: center;
+        margin-top: 20vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock"></div>
+
+    <!-- Load the lightweight-clock library from a CDN -->
+    <script src="https://unpkg.com/lightweight-clock/dist/index.min.js"></script>
+    <script>
+      /**
+       * This example uses the lightweight-clock library which prioritizes performance.
+       * It updates the clock display using internal timers optimized for smooth ticking.
+       *
+       * With this library, you set up a clock instance and then call its 'show' method,
+       * passing your chosen display element. (The library is designed to work with minimal configuration.)
+       *
+       * We also integrate the Page Visibility API:
+       * - When the tab is hidden, you can pause the ticking (if the library supports pause/resume).
+       * - When the tab is visible, you resume (or reinitialize) the clock immediately.
+       *
+       * Note: The actual options and API depend on the library version. This example assumes
+       * a simple API: once instantiated, the clock updates the element continuously.
+       */
+
+      // Get a handle on the clock element.
+      const clockEl = document.getElementById("clock");
+
+      // Assume LW_Clock is available as a global from the UMD build.
+      // For ES modules, you would 'import { LW_Clock } from "lightweight-clock";'
+      const clock = new window.LW_Clock({
+        // Optionally, you might specify formatting options here if supported.
+        // For example, you could include a function to format time as H:MM.SS.
+      });
+
+      // Start showing the clock in the provided element.
+      clock.show(clockEl);
+
+      // Integrating the Page Visibility API:
+      // This is a simple example to improve user experience when the tab becomes visible again.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          // If supported, pause the clock when not visible.
+          if (typeof clock.pause === "function") {
+            clock.pause();
+          }
+        } else {
+          // When the tab becomes visible again, resume or reinitialize it.
+          if (typeof clock.resume === "function") {
+            clock.resume();
+          } else {
+            // Alternatively, you might re-run the show() method or reload the page state.
+            clock.show(clockEl);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

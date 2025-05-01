@@ -123,11 +123,12 @@
       }
 
       window.SPXGCTemplateDefinition = {
-        description: "Namestrap left",
+        description: "Split times left",
         playserver: "OVERLAY",
         playchannel: "1",
-        playlayer: "5",
-        webplayout: "5",
+        //Layer 1 is at the very back and 20 is the highest ("closest to the camera")
+        playlayer: "6",
+        webplayout: "6",
         out: "manual",
         dataformat: "json",
         uicolor: "3",
@@ -255,6 +256,12 @@
             title: "Club",
             value: "",
           },
+          {
+            field: "fTemplateType",
+            ftype: "hidden",
+            title: "Type of Template",
+            value: "Split",
+          },
         ],
       };
     </script>
@@ -266,23 +273,23 @@
         <div class="header">
           <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
           <p>
-            <span id="list_titel">SPLIT</span><span id="vald_klass">HD XX</span
+            <span id="list_titel">SPLIT</span><span id="vald_klass"></span
             ><span id="vald_kontroll">RC 0</span>
           </p>
         </div>
         <div class="runner leader">
           <div class="place">1</div>
-          <div class="bib"><span id="leader_runner_bib">0</span></div>
-          <div class="name"><span id="leader_runner_name">A A</span></div>
-          <div class="club"><span id="leader_runner_club">OK Test</span></div>
+          <div class="bib"><span id="leader_runner_bib"></span></div>
+          <div class="name"><span id="leader_runner_name"></span></div>
+          <div class="club"><span id="leader_runner_club"></span></div>
           <div class="time">1:02:36</div>
         </div>
         <!-- <div class="runner"> -->
         <div class="runner selected">
           <div class="place">4</div>
-          <div class="bib"><span id="vald_runner_bib">0</span></div>
-          <div class="name"><span id="vald_runner_name">H B</span></div>
-          <div class="club"><span id="vald_runner_club">OK Test</span></div>
+          <div class="bib"><span id="vald_runner_bib"></span></div>
+          <div class="name"><span id="vald_runner_name"></span></div>
+          <div class="club"><span id="vald_runner_club"></span></div>
           <div class="time">+0:12</div>
         </div>
         <div class="runner">
@@ -320,6 +327,9 @@
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
+      <!--
+      <div data-info="TemplateType......" id="fTemplateType"></div>
+      -->
     </div>
   </body>
 </html>

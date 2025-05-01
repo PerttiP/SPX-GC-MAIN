@@ -1,0 +1,124 @@
+<!--
+What This Code Does
+Local Storage & Baseline Initialization: On load, the script attempts to get a stored start time from local storage. If none is found, it uses Date.now() as the baseline and saves it.
+
+Worker Creation and Ticking: A Web Worker is created by constructing a Blob from a string of JavaScript code. Inside the worker, when it receives an “init” command with the start time, it begins a loop using tick(). In each tick, it computes the elapsed time, posts a message with that elapsed value back to the main thread, then calculates a delay until the next approximate second boundary before calling itself again.
+
+Display Update: The main thread listens for messages from the worker. When an update message arrives, it formats the elapsed time (omitting extra leading zeros as needed) and updates the clock element in the DOM.
+
+Page Visibility Integration: When the page becomes hidden, the script writes the current baseline into local storage. When visibility resumes (i.e., the user returns to the tab), the script retrieves the baseline and sends an update command to the worker so that any drift due to browser throttling is immediately corrected.
+
+This approach offloads the repeating timing logic to a background thread and leverages persistent storage and visibility events to keep the clock display accurate even when facing the throttling challenges of background tabs.
+
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Realtime Clock with Web Worker and Page Visibility</title>
+    <style>
+      #clock {
+        font-family: monospace;
+        font-size: 2em;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock">0.00</div>
+
+    <script>
+      // Key to store/retrieve the clock's baseline start time in localStorage.
+      const LS_KEY_STARTTIME = "clockStartTime";
+
+      // Get the baseline from localStorage (if available) or set it now.
+      let startTime = localStorage.getItem(LS_KEY_STARTTIME);
+      if (startTime) {
+        startTime = parseInt(startTime, 10);
+      } else {
+        startTime = Date.now();
+        localStorage.setItem(LS_KEY_STARTTIME, startTime);
+      }
+
+      // Utility function: Formats elapsed milliseconds as:
+      //  - H:MM.SS if elapsed time is 1 hour or more (e.g., "1:46.26")
+      //  - M.SS otherwise (e.g., "9.57")
+      function formatElapsedTime(ms) {
+        const totalSeconds = ms / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        const secondsStr = seconds.toFixed(2); // always two digits after the decimal point
+        const fraction = secondsStr.split(".")[1];
+        if (hours > 0) {
+          return `${hours}:${minutes}.${fraction}`;
+        } else {
+          return `${minutes}.${fraction}`;
+        }
+      }
+
+      // --- Web Worker Setup ---
+      // Create a Web Worker from an inline Blob, so no external file is needed.
+      const workerCode = `
+      let startTime = 0;
+      // The tick function calculates the elapsed time, posts it, and then re-schedules itself.
+      function tick() {
+        if (!startTime) return;
+        const now = Date.now();
+        const elapsed = now - startTime;
+        postMessage({ elapsed: elapsed });
+        // Calculate the delay so that the next update fires near the start of the next second.
+        const delay = 1000 - (elapsed % 1000);
+        setTimeout(tick, delay);
+      }
+      // Listen for messages from the main thread.
+      onmessage = function(e) {
+        if (e.data.command === 'init') {
+          startTime = e.data.startTime;
+          tick();
+        } else if (e.data.command === 'updateStartTime') {
+          // Allows the main thread to update the baseline (e.g., on returning to a visible tab)
+          startTime = e.data.startTime;
+        }
+      };
+    `;
+      const blob = new Blob([workerCode], { type: "application/javascript" });
+      const worker = new Worker(URL.createObjectURL(blob));
+
+      // Get a handle on the display element.
+      const clockEl = document.getElementById("clock");
+
+      // Listen for tick messages from the worker.
+      worker.onmessage = function (e) {
+        // e.data.elapsed is the elapsed milliseconds computed in the worker.
+        const elapsed = e.data.elapsed;
+        clockEl.textContent = formatElapsedTime(elapsed);
+      };
+
+      // Initialize the worker by sending the stored startTime.
+      worker.postMessage({ command: "init", startTime: startTime });
+
+      // --- Page Visibility API Integration ---
+      // When the page visibility changes, re-sync the clock and update localStorage.
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+          // If the page becomes visible, retrieve the baseline from localStorage
+          // and send it to the worker immediately, ensuring the display updates.
+          const storedStartTime = localStorage.getItem(LS_KEY_STARTTIME);
+          if (storedStartTime) {
+            startTime = parseInt(storedStartTime, 10);
+            worker.postMessage({
+              command: "updateStartTime",
+              startTime: startTime,
+            });
+          }
+        } else {
+          // When hidden, update the stored baseline for persistence.
+          localStorage.setItem(LS_KEY_STARTTIME, startTime);
+        }
+      });
+    </script>
+  </body>
+</html>
