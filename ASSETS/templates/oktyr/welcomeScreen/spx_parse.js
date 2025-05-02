@@ -126,7 +126,7 @@ function play() {
 */
 
   // Example: Preset the stopwatch to 119 seconds and auto-resume
-  stopWatch.preset(119, true);
+  //  stopWatch.preset(119, true);
 
   // Example of pause/resume usage after a delay
   setTimeout(function () {
@@ -136,8 +136,18 @@ function play() {
 
   setTimeout(function () {
     stopWatch.resume();
-    console.log("Stopwatch resumed after pause.");
+    console.log("Stopwatch resumed after pause of 3 seconds.");
   }, 8000);
+
+  setTimeout(function () {
+    stopWatch.stop();
+    console.log("Stopwatch stopped after it was resumed 5 seconds ago.");
+  }, 13000);
+
+  setTimeout(function () {
+    stopWatch.preset(839, true); // auto-resume from preset
+    console.log("Stopwatch preset now set to 839 seconds");
+  }, 18000);
 
   if (typeof runAnimationIN === "function") {
     runAnimationIN(stopWatch);
