@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-02T10:13:00.560Z",
+  "updated": "2025-05-02T13:19:00.635Z",
   "templates": [
     {
       "description": "My Welcome to SM template",
@@ -18,12 +18,54 @@
           "ftype": "textfield",
           "title": "Message",
           "value": "Välkommen till SM i Orientering 2025!"
+        },
+        {
+          "field": "fPause",
+          "ftype": "button",
+          "title": "Pause",
+          "descr": "Pause StopWatch",
+          "fcall": "pauseMyStopWatch()"
+        },
+        {
+          "field": "fResume",
+          "ftype": "button",
+          "title": "Resume",
+          "descr": "Resume StopWatch",
+          "fcall": "resumeMyStopWatch()"
+        },
+        {
+          "field": "fStart",
+          "ftype": "button",
+          "title": "Start",
+          "descr": "Start StopWatch",
+          "fcall": "startMyStopWatch()"
+        },
+        {
+          "field": "fStop",
+          "ftype": "button",
+          "title": "Stop",
+          "descr": "Stop StopWatch",
+          "fcall": "stopMyStopWatch()"
+        },
+        {
+          "field": "fReset",
+          "ftype": "button",
+          "title": "Reset",
+          "descr": "Reset StopWatch",
+          "fcall": "resetMyStopWatch()"
+        },
+        {
+          "field": "fPreset",
+          "ftype": "button",
+          "title": "Preset",
+          "descr": "Preset StopWatch",
+          "fcall": "presetMyStopWatch(144)"
         }
       ],
       "onair": "false",
-      "imported": "1746180740103",
+      "imported": "1746191808474",
       "relpath": "/oktyr/welcomeScreen/welcomeToSM2025_TyrStopWatch.html",
-      "itemID": "1746180745463"
+      "itemID": "1746191814774"
     }
   ],
   "project": "TyrStopWatchTEST",

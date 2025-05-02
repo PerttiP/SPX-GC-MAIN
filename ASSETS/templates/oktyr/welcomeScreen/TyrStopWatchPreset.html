@@ -3,11 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./spx_styles.css" />
-    <script src="/js/lib/tyrstopwatch.js"></script>
-    <!--
-    <script src="./spx_parse.js"></script>
-    -->
-    <script src="./spx_parse.js"></script>
+    <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
+    <script src="/js/lib/tyrstopwatch.js" defer></script>
+    <script src="./spx_parse.js" defer></script>
 
     <!--
     <script type="text/javascript" src="js/buttonClickEventHandler.js"></script>
@@ -29,96 +27,27 @@
 
     <script>
       console.warn("This log should only be written ONCE per web session?");
-
       // TESTING MOVE TO ASSETS\templates\oktyr\sm2025medeldist\js\buttonClickEventHandler.js
-      /*
-      function pauseMyStopWatch() {
-        if (myStopWatch) myStopWatch.pause();
-      }
 
-      function resumeMyStopWatch() {
-        if (myStopWatch) myStopWatch.resume();
-      }
+      function runTemplateUpdate() {
+        setTimeout(runAnimationIN, 50);
+      } // runTemplateUpdate
 
-      function startMyStopWatch() {
-        if (myStopWatch) myStopWatch.start();
-      }
+      function runAnimationIN() {
+        console.debug("runAnimationIN");
 
-      function stopMyStopWatch() {
-        if (myStopWatch) myStopWatch.stop();
-      }
-
-      function resetMyStopWatch() {
-        if (myStopWatch) myStopWatch.reset();
-      }
-
-      function presetMyStopWatch(timeInSeconds) {
-        if (myStopWatch) myStopWatch.preset(timeInSeconds);
-      }
-      */
-
-      function runAnimationIN(sw, ts) {
-        console.debug("runAnimationIN: ts = ", ts);
-        /*
-        if (!window.myStopWatch) {
-          console.error("sw NOT created!!!???");
-          return;
-        }
-        if (!window.myTestStep) {
-          console.error("window.myTestStep NOT created!!!???");
-          return;
-        }
-*/
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeIN";
-
-        switch (ts) {
-          case 0:
-            if (sw) sw.start();
-            break;
-          case 1:
-            if (sw) sw.resume();
-            break;
-          case 2:
-            console.log(
-              "Last test will be start of presetToSeconds(144) when pressing PLAY"
-            );
-            break;
-          case 3:
-            if (sw) sw.start();
-            break;
-          default:
-            console.log("Tests finished");
-        }
 
         //    document.getElementById("stopwatch").classList = "fadeIN";
 
         document.getElementById("Clock_container").classList = "fadeIN";
 
-        if (sw) sw.unhide();
+        //   if (sw) sw.unhide(); //FIXME: do we need this any more?
       }
 
       function runAnimationOUT() {
         console.debug("runAnimationOUT");
-
-        switch (ts) {
-          case 0:
-            if (sw) sw.stop();
-            break;
-          case 1:
-            if (sw) sw.pause();
-            break;
-          case 2:
-            if (sw) sw.reset();
-            break;
-          case 3:
-            if (sw) sw.presetToSeconds(144);
-            break;
-          default:
-            console.log("Tests finished");
-        }
-
-        ts += 1;
 
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeOUT";
@@ -127,7 +56,7 @@
 
         document.getElementById("Clock_container").classList = "fadeOUT"; // IMPORTANT for hiding the whole container that has the clock!
 
-        if (sw) sw.hide();
+        //   if (sw) sw.hide(); //FIXME: do we need this any more?
       }
     </script>
 

@@ -3,15 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./spx_styles.css" />
-    <script src="/js/lib/tyrstopwatch.js"></script>
     <!--
     <script src="./spx_parse.js"></script>
-    -->
-    <script src="./spx_parse.js"></script>
-
-    <!--
+  -->
     <script type="text/javascript" src="js/buttonClickEventHandler.js"></script>
-    -->
 
     <title>TyrStopWatch Demo</title>
 
@@ -28,7 +23,7 @@
     </style>
 
     <script>
-      console.warn("This log should only be written ONCE per web session?");
+      let myStopWatch = null;
 
       // TESTING MOVE TO ASSETS\templates\oktyr\sm2025medeldist\js\buttonClickEventHandler.js
       /*
@@ -57,77 +52,35 @@
       }
       */
 
-      function runAnimationIN(sw, ts) {
-        console.debug("runAnimationIN: ts = ", ts);
-        /*
-        if (!window.myStopWatch) {
-          console.error("sw NOT created!!!???");
-          return;
-        }
-        if (!window.myTestStep) {
-          console.error("window.myTestStep NOT created!!!???");
-          return;
-        }
-*/
+      function runAnimationIN(stopWatchInstance) {
+        console.debug("runAnimationIN");
+
+        myStopWatch = stopWatchInstance;
+
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeIN";
 
-        switch (ts) {
-          case 0:
-            if (sw) sw.start();
-            break;
-          case 1:
-            if (sw) sw.resume();
-            break;
-          case 2:
-            console.log(
-              "Last test will be start of presetToSeconds(144) when pressing PLAY"
-            );
-            break;
-          case 3:
-            if (sw) sw.start();
-            break;
-          default:
-            console.log("Tests finished");
-        }
+        if (myStopWatch) myStopWatch.resume();
 
         //    document.getElementById("stopwatch").classList = "fadeIN";
 
         document.getElementById("Clock_container").classList = "fadeIN";
 
-        if (sw) sw.unhide();
+        if (myStopWatch) myStopWatch.unhide();
       }
 
       function runAnimationOUT() {
         console.debug("runAnimationOUT");
-
-        switch (ts) {
-          case 0:
-            if (sw) sw.stop();
-            break;
-          case 1:
-            if (sw) sw.pause();
-            break;
-          case 2:
-            if (sw) sw.reset();
-            break;
-          case 3:
-            if (sw) sw.presetToSeconds(144);
-            break;
-          default:
-            console.log("Tests finished");
-        }
-
-        ts += 1;
-
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeOUT";
+
+        if (myStopWatch) myStopWatch.pause();
 
         //    document.getElementById("stopwatch").classList = "fadeOUT";
 
         document.getElementById("Clock_container").classList = "fadeOUT"; // IMPORTANT for hiding the whole container that has the clock!
 
-        if (sw) sw.hide();
+        if (myStopWatch) myStopWatch.hide();
       }
     </script>
 
@@ -151,7 +104,16 @@
             title: "Message",
             value: "Välkommen till SM i Orientering 2025!",
           },
-          /*
+          {
+            field: "fPause",
+            ftype: "button",
+            title: "Pause",
+            descr: "Pause StopWatch",
+            //fcall: "pauseMyStopWatch()",
+            //value: `TEST: ${selectedRunnerName}`,
+            //fcall: `${myStopWatch.pause()}`,
+            fcall: "pauseMyStopWatch()",
+          },
           {
             field: "fResume",
             ftype: "button",
@@ -187,7 +149,6 @@
             descr: "Preset StopWatch",
             fcall: "presetMyStopWatch(144)",
           },
-          */
         ],
       };
     </script>
@@ -207,9 +168,7 @@
     </div>
 
     <!-- Include your stopwatch script -->
-    <!--
     <script src="/js/lib/tyrstopwatch.js"></script>
-    -->
     <!--
 <script>
   // Instantiate the stopwatch
@@ -220,10 +179,7 @@
 -->
 
     <!-- Your application script -> HERE ??? -->
-    <!-- If this file is put into the body section of the HTML it will ALWAYS be run EVERY TIME the page (DOM) is reloaded!!!-->
-    <!--
     <script src="./spx_parse.js"></script>
--->
     <!--
 <script src="/js/lib/spx_interface.js"></script>
 -->
