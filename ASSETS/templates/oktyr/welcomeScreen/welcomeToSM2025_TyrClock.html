@@ -9,13 +9,15 @@
 
     <title>TyrClock Demo</title>
     <style>
-      #clock {
+      #clock,
+      #clock2 {
         font-family: sans-serif;
         font-size: 3em;
         text-align: center;
         margin-top: 20vh;
         /* Pertti: */
         /*opacity: 1 !important;*/
+        background-color: #b30404;
       }
     </style>
 
@@ -24,12 +26,14 @@
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeIN";
         document.getElementById("clock").classList = "fadeIN";
+        document.getElementById("clock2").classList = "fadeIN";
       }
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
         //document.getElementById("f0").classList = "fadeOUT";
         document.getElementById("clock").classList = "fadeOUT";
+        document.getElementById("clock2").classList = "fadeOUT";
       }
     </script>
 

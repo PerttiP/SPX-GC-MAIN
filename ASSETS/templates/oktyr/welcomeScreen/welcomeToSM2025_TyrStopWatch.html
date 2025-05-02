@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./spx_styles.css" />
+    <!--
+    <script src="./spx_parse.js"></script>
+  -->
+
+    <title>TyrStopWatch Demo</title>
+
+    <style>
+      #stopwatch {
+        font-family: sans-serif;
+        font-size: 3em;
+        text-align: center;
+        margin-top: 20vh;
+        /* Pertti: */
+        /*opacity: 1 !important;*/
+        background-color: #b30404;
+      }
+    </style>
+
+    <script>
+      let myStopWatch = null;
+
+      function runAnimationIN(stopWatchInstance) {
+        console.debug("runAnimationIN");
+
+        myStopWatch = stopWatchInstance;
+
+        // basic animation by swapping the CSS class
+        //document.getElementById("f0").classList = "fadeIN";
+
+        if (myStopWatch) myStopWatch.resume();
+
+        //    document.getElementById("stopwatch").classList = "fadeIN";
+
+        document.getElementById("Clock_container").classList = "fadeIN";
+
+        if (myStopWatch) myStopWatch.unhide();
+      }
+
+      function runAnimationOUT() {
+        console.debug("runAnimationOUT");
+        // basic animation by swapping the CSS class
+        //document.getElementById("f0").classList = "fadeOUT";
+
+        if (myStopWatch) myStopWatch.pause();
+
+        //    document.getElementById("stopwatch").classList = "fadeOUT";
+
+        document.getElementById("Clock_container").classList = "fadeOUT"; // IMPORTANT for hiding the whole container that has the clock!
+
+        if (myStopWatch) myStopWatch.hide();
+      }
+    </script>
+
+    <!-- A template definition object for SPX. -->
+    <!-- Place it as the LAST item within the HEAD section -->
+
+    <script type="text/javascript">
+      window.SPXGCTemplateDefinition = {
+        description: "My Welcome to SM template",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "7",
+        webplayout: "7",
+        out: "manual",
+        uicolor: "2",
+        dataformat: "json",
+        DataFields: [
+          {
+            field: "f0",
+            ftype: "textfield",
+            title: "Message",
+            value: "Välkommen till SM i Orientering 2025!",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body>
+    <!--
+    <button onclick="stopwatch.pause()">Pause</button>
+    <button onclick="stopwatch.resume()">Resume</button>
+    <button onclick="stopwatch.stop()">Stop</button>
+    <button onclick="stopwatch.reset()">Reset</button>
+    -->
+
+    <div class="SPXWindow" id="Clock_container">
+      <div id="f0"></div>
+      <div id="stopwatch"></div>
+    </div>
+
+    <!-- Include your stopwatch script -->
+    <script src="/js/lib/tyrstopwatch.js"></script>
+    <!--
+<script>
+  // Instantiate the stopwatch
+  const swEl = document.getElementById("stopwatch");
+  const sw = new window.LW_TyrStopWatch();
+  sw.show(swEl);
+</script>
+-->
+
+    <!-- Your application script -> HERE ??? -->
+    <script src="./spx_parse.js"></script>
+    <!--
+<script src="/js/lib/spx_interface.js"></script>
+-->
+  </body>
+</html>

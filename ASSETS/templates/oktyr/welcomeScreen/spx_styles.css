@@ -48,6 +48,11 @@ html {
   background-color: #b30404;
 }
 
+.hiddenClock {
+  display: none !important;
+}
+
+/* Pertti: */
 .fadeIN {
   opacity: 1 !important;
   transition: all;

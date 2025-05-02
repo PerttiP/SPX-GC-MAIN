@@ -4,7 +4,6 @@
 // such as Update() etc..
 
 // Attach the TyrClock class to the global object as LW_TyrClock (if not already attached)
-/*
 if (typeof window !== "undefined") {
   if (window.LW_TyrClock) {
     console.debug("window.LW_TyrClock is attached to global window object!");
@@ -12,9 +11,9 @@ if (typeof window !== "undefined") {
     window.LW_TyrClock = TyrClock;
   }
 }
-*/
 
 // Attach the TyrStopWatch class to the global object as LW_TyrStopWatch (if not already attached)
+/*
 if (typeof window !== "undefined") {
   if (window.LW_TyrStopWatch) {
     console.debug(
@@ -24,6 +23,7 @@ if (typeof window !== "undefined") {
     window.LW_TyrStopWatch = TyrStopWatch;
   }
 }
+*/
 
 function update(data) {
   // Push data to template fields
@@ -37,7 +37,6 @@ function update(data) {
   }
 
   // Since tyrclock.js attached Clock as LW_Clock on the window, you can:
-  /*
   const myClock = new window.LW_TyrClock();
   const clockEl = document.getElementById("clock");
 
@@ -47,11 +46,9 @@ function update(data) {
   } else {
     console.debug("clockEl did not get any element by id");
   }
-  */
 }
 
 function play() {
-  /*
   const myClock2 = new window.LW_TyrClock();
   const clockEl2 = document.getElementById("clock2");
 
@@ -61,14 +58,9 @@ function play() {
   } else {
     console.debug("clockEl2 did not get any element by id");
   }
-*/
-  // Instantiate the stopwatch
-  const stopWatchEl = document.getElementById("stopwatch");
-  const stopWatch = new window.LW_TyrStopWatch();
-  stopWatch.show(stopWatchEl);
 
   // Execute animation in
-  runAnimationIN(stopWatch);
+  runAnimationIN();
 }
 
 function stop() {
