@@ -14,11 +14,11 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
+      "TyrClockTEST/TyrClockTESTRD2",
+      "TyrClockTEST/TyrClockTESTRD1",
       "MEDTST12/MTRD123",
       "MEDTST12/MTRD122",
-      "MEDTST12/MDTST13",
-      "MEDTST12/MTRD121",
-      "MEDTST11/MEDTSTRD111"
+      "MEDTST12/MDTST13"
     ]
   },
   "globalExtras": {
@@ -26,5 +26,5 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-01T13:29:33.158Z"
+  "updated": "2025-05-02T07:18:30.568Z"
 }

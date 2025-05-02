@@ -1,53 +1,61 @@
-
 * {
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
-*, *:before, *:after {
-    box-sizing: inherit;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-body, html {
-    padding:                0;
-    margin:                 0px;
-    overflow:               hidden;
-    font-family:            sans-serif;
+body,
+html {
+  padding: 0;
+  margin: 0px;
+  overflow: hidden;
+  font-family: sans-serif;
 }
 
 .SPXWindow {
-    display:                flex;
-    align-items:            center;
-    justify-content:        center;
-    width:                  1920px;
-    height:                 1080px;
-    overflow:               hidden;
-    position:               absolute;
-    transform-origin:       top left;
-    background-size:        100% 100%;
-    border:                 1px solid #0f0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  position: absolute;
+  transform-origin: top left;
+  background-size: 100% 100%;
+  border: 1px solid #0f0b0b;
 }
 
 #f0 {
-    opacity:                0; /* animated */
-    font-size:              5em;
-    font-weight:            bold;
-    border-radius:          0.4em;
-    color:                  white;
-    background-color:       #b30404;
-    padding:                0.2em 0.8em;
-    text-shadow:            2px 2px 2px #000000;
+  opacity: 0; /* animated */
+  font-size: 5em;
+  font-weight: bold;
+  border-radius: 0.4em;
+  color: white;
+  background-color: #b30404;
+  padding: 0.2em 0.8em;
+  text-shadow: 2px 2px 2px #000000;
+}
+
+/* Pertti: */
+#clock {
+  /*opacity: 1 !important;*/
+  background-color: #b30404;
 }
 
 .fadeIN {
-    opacity:                1 !important;
-    transition:             all;
-    transition-duration:    0.5s;
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.5s;
 }
 
 .fadeOUT {
-    opacity:                0 !important;
-    transition:             all;
-    transition-duration:    0.2s;
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.2s;
 }
