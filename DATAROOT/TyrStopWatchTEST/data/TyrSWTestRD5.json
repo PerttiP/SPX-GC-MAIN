@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-02T16:45:21.802Z",
+  "updated": "2025-05-02T18:01:05.188Z",
   "templates": [
     {
       "description": "My Welcome to SM template",
@@ -20,7 +20,7 @@
           "value": "Välkommen till SM i Orientering 2025!"
         }
       ],
-      "onair": "true",
+      "onair": "false",
       "imported": "1746204311905",
       "relpath": "/oktyr/welcomeScreen/TyrStopWatchPreset.html",
       "itemID": "1746204320347"
