@@ -4,6 +4,7 @@
 /*    Change1: Added ID selector for hiddenSpxData (required by template editor) */
 /*    Change2: Added Class selectors for caption, caption-bar and caption-text */
 /*    Change3: Added .graphic.vertical for vertical stacking option */
+/*          4: Removed SPECIAL för class="metaData", id="details, class="second" */
 * {
   box-sizing: border-box;
 }
@@ -235,7 +236,7 @@ p {
   margin-left: 0.5rem;
 }
 
-/* a toolbar or header-like region. */
+/* a toolbar or header-like region. ORANGE bakgrund! */
 .metaData {
   background-color: #faaa67;
   display: flex;
@@ -268,7 +269,6 @@ p {
   gap: 0;
   display: flex;
   flex-direction: row;
-
   font-size: 0.9rem;
   color: #555;
 }
@@ -317,22 +317,63 @@ p {
   width: 2.5rem;
   text-align: center;
 }
+
+/* W has set fixed widths (e.g., width: 12.5rem for .runner .name and .runner .club), and also overflow: hidden with ellipsis. */
+/*
 .runner .name {
   width: 12.5rem;
   padding-right: 1rem;
   font-weight: bold;
+  color: #301525;
   flex-grow: 1;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+*/
+
+/* P: remove the fixed width and instead let the item’s base size be 0 */
+.runner .name {
+  flex: 1 1 0;
+  padding-right: 1rem;
+  font-weight: bold;
+  color: #301525;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
 .runner .club {
   font-size: 1rem;
+  color: #301525;
   width: 12.5rem;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+*/
+
+/* P: remove the fixed width and instead let the item’s base size be 0 */
+.runner .club {
+  flex: 1 1 0;
+  padding-right: 1rem;
+  font-weight: bold;
+  color: #301525;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* P: FIXME: allow these flex items to shrink appropriately */
+/* SEE ASSETS\templates\oktyr\sm2025medeldist\README.md */
+/* Prevent any flex-child from forcing a minimum width */
+.runner .bib,
+.runner .name,
+.runner .club {
+  min-width: 0;
+}
+
 .runner .time {
   width: 6.25rem;
   font-weight: bold;
@@ -373,10 +414,12 @@ p {
   background-color: #b14340;
 }
 
-/* Might be needed by hide() and unhide() methods in TyrStopWatch */
+/* P: Might be needed by hide() and unhide() methods in TyrStopWatch */
+/*
 .hiddenClock {
   display: none !important;
 }
+*/
 
 .fadeIN {
   opacity: 1 !important;

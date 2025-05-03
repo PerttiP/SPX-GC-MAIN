@@ -414,6 +414,7 @@
   <!-- Span is inline, will appear on the same line -->
 
   <!-- MetaData?: Box1 (f0 och f1) och Box2 (f2) i generisk verkade OK? -->
+  <!-- Använd INTE class="metaData" för då blir det orange bakgrund för runner info -->
 
   <body class="lowerThirdLeft">
     <div class="container">
@@ -430,12 +431,15 @@
         </div>
 
         <div class="data">
+          <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
+
           <!-- <div class="runner selected"> -->
+
           <div class="runner">
             <div class="place">4</div>
-            <div class="bib"><span id="vald_runner_bib"></span></div>
-            <div class="name"><span id="vald_runner_name"></span></div>
-            <div class="club"><span id="club_name"></span></div>
+            <div class="bib" id="vald_runner_bib"></div>
+            <div class="name" id="vald_runner_name"></div>
+            <div class="club" id="club_name"></div>
             <div class="time">
               <div class="raceClock" id="Clock_container">
                 <span id="stopwatch"></span>
@@ -443,8 +447,10 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!--
+    <!--
         <div class="data">
           <div class="first" id="box1">            
             <span id="vald_runner_bib"></span>
@@ -460,7 +466,7 @@
           </div>
         -->
 
-        <!--
+    <!--
             <div class="klubbnamn" id="box2">
               
               <span id="club_name"></span>
@@ -469,8 +475,6 @@
               </div>
             </div>
     -->
-      </div>
-    </div>
 
     <div id="hiddenSpxData" data-info="See spx_styles.css">
       <div data-info="Rubrik..........." id="f_rubrik"></div>
