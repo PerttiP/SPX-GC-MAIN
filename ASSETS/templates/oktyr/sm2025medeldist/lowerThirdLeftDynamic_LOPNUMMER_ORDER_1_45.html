@@ -73,12 +73,12 @@
       }
       /* MOVED TO oktyr_style.css as .metaData #details .second */
       /*
-      #details {
-        gap: 0;
-        display: flex;
-        flex-direction: row;
-      }
-      */
+            #details {
+              gap: 0;
+              display: flex;
+              flex-direction: row;
+            }
+            */
       #box2 {
         font-size: 2vw;
         font-family: "REGU";
@@ -88,12 +88,12 @@
       #vald_runner_bib {
         margin-right: 1em; /* Adjust space between number and name */
       }
-
-      #vald_runner_name {
-        margin-right: 1em; /* TODO?: Adjust space between number and name */
-      }
-
-      #g2 {
+      /*
+            #vald_runner_name {
+              margin-right: 1em; 
+            }
+      */
+      #club_name {
         padding: 0 0.8em;
       }
     </style>
@@ -118,10 +118,21 @@
       function runTemplateUpdate(runnerObj) {
         // TODO: Calculate running time for the selected runner
         // based on löpnummer (1-45) beroende på klass
+        // SEE sm2025medeldist\js\raceConfigMedelFinaler.js
         /*
 
 
         */
+        const klass = "H21";
+        const lopnummer = 7; //1-45 i varje klass
+        const startTid = calculateStartTime(klass, lopnummer);
+        const bibNummer = calculateBibNumber(klass, lopnummer);
+        console.log(
+          `Klass ${klass} - Löpnummer ${lopnummer} startar kl. ${startTid} med bib ${bibNummer}`
+        );
+
+        // TODO:
+        // Beräkna running time för selected runner
 
         if (stopWatch) {
           stopWatch.preset(120, true);
@@ -138,7 +149,7 @@
         // TODO: Set bib and name from API response
         getEl("vald_runner_bib").innerHTML = runnerObj.runners[0].bib;
         getEl("vald_runner_name").innerHTML = runnerObj.runners[0].name;
-        getEl("g2").innerHTML = runnerObj.runners[0].club;
+        getEl("club_name").innerHTML = runnerObj.runners[0].club;
 
         // Show all text-boxes
         getEl("box1").style.display = "flex";
@@ -154,7 +165,7 @@
         ) {
           getEl("box1").style.display = "none";
         }
-        if (getEl("g2").innerText == "") {
+        if (getEl("club_name").innerText == "") {
           getEl("box2").style.display = "none";
         }
 
@@ -311,7 +322,7 @@
             field: "f_vald_runner_bib",
             ftype: "dropdown",
             title: "Select Runner",
-            value: "0",
+            value: "111",
             items: [
               {
                 text: "0 - Test Runner",
@@ -400,6 +411,10 @@
     </script>
   </head>
 
+  <!-- Span is inline, will appear on the same line -->
+
+  <!-- MetaData?: Box1 (f0 och f1) och Box2 (f2) i generisk verkade OK? -->
+
   <body class="lowerThirdLeft">
     <div class="container">
       <div class="graphic vertical">
@@ -413,25 +428,47 @@
             <span id="vald_klass">HD XX</span>
           </div>
         </div>
+
         <div class="data">
-          <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
-          <div class="metaData">
-            <div class="first" id="box1">
-              <!-- Span is inline, will appear on the same line -->
-              <span id="vald_runner_bib"></span>
-              <span id="vald_runner_name"></span>
-            </div>
-            <div id="details">
-              <div class="second" id="box2">
-                <!-- Div is block-level, will start on its own line -->
-                <div id="g2"></div>
-                <div class="raceClock" id="Clock_container">
-                  <div id="stopwatch"></div>
-                </div>
+          <!-- <div class="runner selected"> -->
+          <div class="runner">
+            <div class="place">4</div>
+            <div class="bib"><span id="vald_runner_bib"></span></div>
+            <div class="name"><span id="vald_runner_name"></span></div>
+            <div class="club"><span id="club_name"></span></div>
+            <div class="time">
+              <div class="raceClock" id="Clock_container">
+                <span id="stopwatch"></span>
               </div>
             </div>
           </div>
         </div>
+
+        <!--
+        <div class="data">
+          <div class="first" id="box1">            
+            <span id="vald_runner_bib"></span>
+            <span id="vald_runner_name"></span>
+          </div>
+
+          <div class="runner" id="box2">
+            <div class="place">7</div>
+            <div class="bib">112</div>
+            <div class="name">Sandre Hane</div>
+            <div class="club">Gotlandsbro IK</div>
+            <div class="time">+108:03</div>
+          </div>
+        -->
+
+        <!--
+            <div class="klubbnamn" id="box2">
+              
+              <span id="club_name"></span>
+              <div class="raceClock" id="Clock_container">
+                <span id="stopwatch"></span>
+              </div>
+            </div>
+    -->
       </div>
     </div>
 

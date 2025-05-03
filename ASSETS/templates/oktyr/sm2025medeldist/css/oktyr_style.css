@@ -235,6 +235,7 @@ p {
   margin-left: 0.5rem;
 }
 
+/* a toolbar or header-like region. */
 .metaData {
   background-color: #faaa67;
   display: flex;
@@ -260,16 +261,24 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 /* SPECIAL för class="metaData", id="details, class="second" */
+/*
 .metaData #details .second {
-  /* MOVED FROM SPX demo HTML style section */
   gap: 0;
   display: flex;
   flex-direction: row;
-  /* EXTRA FROM COP */
-  font-size: 0.8rem; /* Mindre textstorlek */
-  font-family: Arial, sans-serif; /* Använd valfritt typsnitt */
-  color: #555; /* Annan färg */
+
+  font-size: 0.9rem;
+  color: #555;
+}
+*/
+.metaData .klubbnamn {
+  font-size: 1rem;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .logo {
@@ -355,12 +364,9 @@ p {
 
 #stopwatch {
   font-family: sans-serif;
-  font-size: 3em;
+  font-size: 2em;
   text-align: center;
   margin-top: 20vh;
-  /* Pertti: */
-  /*opacity: 1 !important;*/
-  /*background-color: #b30404;*/
 
   /* From W */
   color: white;

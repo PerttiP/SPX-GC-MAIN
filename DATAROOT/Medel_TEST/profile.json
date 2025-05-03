@@ -140,7 +140,7 @@
         }
       ],
       "onair": "false",
-      "imported": "1746265347395",
+      "imported": "1746278028356",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
     },
     {
@@ -354,11 +354,211 @@
       "onair": "false",
       "imported": "1746265350862",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "5",
+      "webplayout": "5",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ (RUBRIK) NR NAMN KLUBB ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f_rubrik",
+          "ftype": "textfield",
+          "title": "Caption",
+          "value": "SM 2025 Karlstad"
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": "999"
+        },
+        {
+          "field": "f1",
+          "ftype": "textfield",
+          "title": "Fullname",
+          "value": "Hälge Hälgesson"
+        },
+        {
+          "field": "f2",
+          "ftype": "textfield",
+          "title": "Club",
+          "value": "OK Älgen"
+        },
+        {
+          "field": "f99",
+          "ftype": "filelist",
+          "title": "Visual theme",
+          "assetfolder": "./css/themes/",
+          "extension": "css",
+          "value": "./css/themes/News.css"
+        }
+      ],
+      "onair": "false",
+      "imported": "1746275872353",
+      "relpath": "/oktyr/sm2025generisk/lowerThirdLeft.html"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "8",
+      "webplayout": "8",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "steps": "2",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "This is a lower third overlay with OK Tyr theme.",
+          "value": "[ (RUBRIK) NR NAMN KLUBB ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f_rubrik",
+          "ftype": "textfield",
+          "title": "Caption",
+          "value": "SM 2025 Karlstad"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "H18"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_runner_bib",
+          "ftype": "dropdown",
+          "title": "Select Runner",
+          "value": "111",
+          "items": [
+            {
+              "text": "0 - Test Runner",
+              "value": "0"
+            },
+            {
+              "text": "1 - ",
+              "value": "1"
+            },
+            {
+              "text": "2 - ",
+              "value": "2"
+            },
+            {
+              "text": "3 - ",
+              "value": "3"
+            },
+            {
+              "text": "111 - Anna Andersson",
+              "value": "111"
+            },
+            {
+              "text": "222 - Lisa Bergström",
+              "value": "222"
+            },
+            {
+              "text": "333 - Karin Johansson",
+              "value": "333"
+            },
+            {
+              "text": "444 - Ferry Fyråsen",
+              "value": "444"
+            },
+            {
+              "text": "555 - Hanna Helenius",
+              "value": "555"
+            },
+            {
+              "text": "777 - Susanna Osborne",
+              "value": "777"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "textfield",
+          "title": "Number",
+          "value": "9999"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": "-"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": "-"
+        },
+        {
+          "field": "f_pause_stopwatch_btn",
+          "ftype": "button",
+          "title": "Pause StopWatch 10 seconds",
+          "descr": "Pause stopwatch for 10 seconds for selected runner",
+          "fcall": "pauseStopWatch()"
+        },
+        {
+          "field": "fTemplateType",
+          "ftype": "hidden",
+          "title": "Type of Template",
+          "value": "LowerThird"
+        }
+      ],
+      "onair": "false",
+      "imported": "1746278491506",
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_LOPNUMMER_ORDER_1_45.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-03T09:42:30.862Z",
+  "updated": "2025-05-03T13:21:31.506Z",
   "showExtras": {
     "CustomControls": [
       {
