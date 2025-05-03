@@ -1,7 +1,45 @@
+// COPY of static\js\lib\tyrstopwatch.js 2025-05-03 13:55
+
 // tyrStopWatch.js – expanded stopwatch functionality (non‑module version)
 //  - with seconds precision and formatted as H:MM.ss
 // Based partly on code by Mohammad-karimi with modifications for stopwatch behavior
 // from https://github.com/karimi-mohammad/lightweight-clock/blob/main/index.js
+
+/*
+Important things to consider 
+when instantiating and using this stopwatch from other .js files in a vanilla non‑module JavaScript environment.
+
+The key points are:
+
+1. Load Order: 
+Make sure your stopwatch code (the file that defines the class and attaches it to the global window 
+as LW_TyrStopWatch) is loaded before any script that will instantiate or use it. 
+This is usually handled by the order of <script> tags in your HTML.
+
+2. DOM-Ready Initialization: 
+Wrap your instantiation code inside a DOMContentLoaded listener (or place the script right before 
+the closing </body> tag) so that the HTML element (the stopwatch container) is available when you call the methods.
+
+3. Global Namespace Access: 
+Since your code attaches the class to window.LW_TyrStopWatch, you can simply reference it as such from any other script. 
+This way you’re not relying on ES modules or import/export statements.
+*/
+
+/*
+Extra features (added for OK Tyr)
+
+1. Functions hide() and unhide()
+
+NOTE: Requires the css class 'hiddenClass' specified as:
+
+.hiddenClock {
+  display: none !important;
+}
+
+2. Function preset(timeInSeconds, autoResume = false)
+
+If autoResume is set to true the watch will start ticking immediately after preset time was set.
+*/
 
 class TyrStopWatch {
   constructor() {
@@ -11,18 +49,14 @@ class TyrStopWatch {
     this.clockUpdateInterval = null;
     // The timestamp (in ms) when the stopwatch was last started or resumed.
     this.startTime = null;
-    // The timestamp (in ms) that the stopwatch was preset to.
-    this.presetTime = null;
     // The accumulated elapsed time (in ms) from earlier sessions.
     this.elapsedBase = 0;
     /*
-          The state of the stopwatch:
-            "running" – It’s actively updating the display.
-            "paused"  – The display is frozen although the internal elapsed time is still increasing.
-            "stopped" – The stopwatch is halted (the interval is cleared); elapsed time is fixed.
-        */
-    // The timestamp when pause was triggered last
-    this.pausedAtTime = 0;
+        The state of the stopwatch:
+          "running" – It’s actively updating the display.
+          "paused"  – The display is frozen although the internal elapsed time is still increasing.
+          "stopped" – The stopwatch is halted (the interval is cleared); elapsed time is fixed.
+      */
     this.state = "stopped";
   }
 
@@ -30,7 +64,6 @@ class TyrStopWatch {
   getElapsedTime() {
     if (this.state === "running" || this.state === "paused") {
       // When running or paused, elapsed time equals the time since the last start plus any previous elapsed time.
-      //  the internal time is: (current time - startTime) + elapsedBase
       return Date.now() - this.startTime + this.elapsedBase;
     } else {
       // When stopped, it's just the accumulated elapsed time.
@@ -69,14 +102,9 @@ class TyrStopWatch {
     }
     // If not already running, start the stopwatch.
     if (this.state !== "running") {
-      if (this.state === "preset") {
-        // If a preset time is set, then start from that timestamp
-        this.startTime = this.presetTime;
-      } else {
-        // If starting fresh (or after a reset) we begin from 0.
-        // (For a pause/resume, the elapsedBase has already been set.)
-        this.startTime = Date.now();
-      }
+      // If starting fresh (or after a reset) we begin from 0.
+      // (For a pause/resume, the elapsedBase has already been set.)
+      this.startTime = Date.now();
       this.state = "running";
     }
 
@@ -84,12 +112,11 @@ class TyrStopWatch {
     // it updates the displayed text. (If in paused state, the internal elapsed time is computed
     // but the displayed value remains frozen.)
     const updateClock = () => {
+      const elapsed = this.getElapsedTime();
       if (this.state === "running") {
-        const elapsed = this.getElapsedTime();
         this.clockContainerElement.textContent =
           this.formatElapsedTime(elapsed);
       }
-      // (When paused, we intentionally do nothing so that the displayed time remains frozen.)
     };
 
     // Clear any previous interval to avoid having multiple timers.
@@ -98,11 +125,6 @@ class TyrStopWatch {
     }
     // Use an update interval of 500ms (0.5 seconds) rather than 50ms.
     this.clockUpdateInterval = setInterval(updateClock, 500);
-
-    // TODO?:
-    // Immediately update the display.
-    updateClock();
-
     console.debug("Stopwatch started/resumed. State:", this.state);
   }
 
@@ -113,16 +135,15 @@ class TyrStopWatch {
     if (this.state === "running") {
       // Capture the current elapsed time.
       this.elapsedBase = Date.now() - this.startTime + this.elapsedBase;
-      this.pausedAtTime = this.elapsedBase;
       // Switch to "paused" so the display is no longer updated.
       this.state = "paused";
       // Update the display one last time to show the frozen time.
       this.clockContainerElement.textContent = this.formatElapsedTime(
-        this.pausedAtTime
+        this.elapsedBase
       );
       console.debug(
         "Stopwatch paused at:",
-        this.formatElapsedTime(this.pausedAtTime)
+        this.formatElapsedTime(this.elapsedBase)
       );
     }
   }
@@ -159,21 +180,7 @@ class TyrStopWatch {
   // For stopped mode, resume continues from the stopped time.
   // ------------------------------
   resume() {
-    if (this.state === "paused") {
-      this.startTime = this.pausedAtTime;
-      this.state = "running";
-      if (!this.clockUpdateInterval) {
-        console.warn(
-          "STRANGE BEHAVIOR: the clock update interval was not active when in paused state"
-        );
-        this.start();
-      }
-      // TODO?: Immediately update the display.
-      this.clockContainerElement.textContent = this.formatElapsedTime(
-        this.getElapsedTime()
-      );
-      console.debug("Stopwatch resumed from paused state. State:", this.state);
-    } else if (this.state === "stopped") {
+    if (this.state === "paused" || this.state === "stopped") {
       // Set a new start time so that getElapsedTime() continues from the existing elapsedBase.
       this.startTime = Date.now();
       this.state = "running";
@@ -181,7 +188,7 @@ class TyrStopWatch {
       if (!this.clockUpdateInterval) {
         this.start();
       }
-      console.debug("Stopwatch resumed from stopped state. State:", this.state);
+      console.debug("Stopwatch resumed. State:", this.state);
     }
   }
 
@@ -202,22 +209,6 @@ class TyrStopWatch {
     console.debug("Stopwatch reset to 0:00.00");
   }
 
-  presetToSeconds(timeInSeconds) {
-    let ms = timeInSeconds * 1000;
-
-    if (this.clockUpdateInterval) {
-      clearInterval(this.clockUpdateInterval);
-      this.clockUpdateInterval = null;
-    }
-    this.elapsedBase = ms;
-    //this.startTime = null;
-    this.state = "preset";
-    if (this.clockContainerElement) {
-      this.clockContainerElement.textContent = this.formatElapsedTime(ms);
-    }
-    console.debug("Stopwatch reset to: ", this.formatElapsedTime(ms));
-  }
-
   // ------------------------------
   // Shows the stopwatch in a provided HTML element,
   // resets to 0:00.00, and then immediately starts running.
@@ -230,6 +221,36 @@ class TyrStopWatch {
     this.reset(); // Set display to 0:00.00 and state to stopped.
     this.start();
     console.debug("Stopwatch show called, starting at 0:00.00");
+  }
+
+  // ------------------------------
+  // Preset: sets the stopwatch to a specific starting value (in seconds)
+  // and optionally auto-resumes from that time.
+  // ------------------------------
+  preset(timeInSeconds, autoResume = false) {
+    // Clear any existing interval.
+    if (this.clockUpdateInterval) {
+      clearInterval(this.clockUpdateInterval);
+      this.clockUpdateInterval = null;
+    }
+    // Set the elapsedBase to the provided preset time (in milliseconds)
+    this.elapsedBase = timeInSeconds * 1000;
+    // Initially, we keep the stopwatch stopped so that the display reflects the preset value.
+    this.startTime = null;
+    this.state = "stopped";
+    if (this.clockContainerElement) {
+      this.clockContainerElement.textContent = this.formatElapsedTime(
+        this.elapsedBase
+      );
+    }
+    console.debug(
+      `Stopwatch preset to ${this.formatElapsedTime(this.elapsedBase)}`
+    );
+    // If autoResume is true, resume the stopwatch immediately from the preset value.
+    if (autoResume) {
+      this.resume();
+      console.debug("Stopwatch auto-resumed from preset.");
+    }
   }
 
   // Hide the stopwatch by setting its container's display to 'none'
@@ -260,4 +281,8 @@ class TyrStopWatch {
 // Attach the TyrStopWatch class as LW_TyrStopWatch to the global object.
 if (typeof window !== "undefined") {
   window.LW_TyrStopWatch = TyrStopWatch;
+  console.log(
+    "Is this TyrStopWatch class only attached ONCE to the global object?"
+  );
+  //localStorage.setItem("hasTyrStopWatchBeenInstantiated", "true");
 }

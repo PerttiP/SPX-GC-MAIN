@@ -11,6 +11,8 @@ let validRunnerSelectedInUI = true;
 
 let templateType; // "LowerThird" or "Split"
 
+let stopWatch;
+
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -381,6 +383,9 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
+  // FIXME: remove, just a TEST:
+  pauseStopWatch();
+
   if (typeof runAnimationNEXT === "function") {
     runAnimationNEXT();
   } else {
@@ -449,6 +454,16 @@ function validString(str) {
 
 function pauseStopWatch() {
   alert("pauseStopWatch() CALLED!"); //
+
+  if (stopWatch) {
+    stopWatch.pause();
+    console.log("Stopwatch paused.");
+
+    setTimeout(function () {
+      stopWatch.resume();
+      console.log("Stopwatch resumed after pause of 10 seconds.");
+    }, 10000);
+  }
 }
 
 // ----------------------------------------------------------------------------------

@@ -16,29 +16,3 @@ window.updateFollowedRunner = function () {
 
   getSelectedDataFromTemplate();
 };
-
-let myStopWatch = null;
-
-function pauseMyStopWatch() {
-  if (myStopWatch) myStopWatch.pause();
-}
-
-function resumeMyStopWatch() {
-  if (myStopWatch) myStopWatch.resume();
-}
-
-function startMyStopWatch() {
-  if (myStopWatch) myStopWatch.start();
-}
-
-function stopMyStopWatch() {
-  if (myStopWatch) myStopWatch.stop();
-}
-
-function resetMyStopWatch() {
-  if (myStopWatch) myStopWatch.reset();
-}
-
-function presetMyStopWatch(timeInSeconds) {
-  if (myStopWatch) myStopWatch.preset(timeInSeconds);
-}

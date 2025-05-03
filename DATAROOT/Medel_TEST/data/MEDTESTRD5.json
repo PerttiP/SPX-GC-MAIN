@@ -1,4 +1,7 @@
 {
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-05-03T11:15:23.269Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -141,7 +144,8 @@
       ],
       "onair": "false",
       "imported": "1746265347395",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html",
+      "itemID": "1746265355684"
     },
     {
       "description": "Start list table template",
@@ -206,7 +210,8 @@
       "onair": "false",
       "dataformat": "json",
       "imported": "1745846225870",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
+      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
+      "itemID": "1746265355685"
     },
     {
       "description": "Split times left",
@@ -351,25 +356,12 @@
           "value": "Split"
         }
       ],
-      "onair": "false",
+      "onair": "true",
       "imported": "1746265350862",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "itemID": "1746265355686"
     }
   ],
-  "warning": "Modifications done in the SPX will overwrite this file.",
-  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-03T09:42:30.862Z",
-  "showExtras": {
-    "CustomControls": [
-      {
-        "ftype": "togglebutton",
-        "description": "Running time FREEZE and STOP",
-        "bgclass": "bg_blue",
-        "text0": "FREEZE TIME (10sec)",
-        "text1": "STOP TIME",
-        "fcall": "oktyr_toggleStopWatch(this)"
-      }
-    ],
-    "customscript": "ExtraFunctions/demoFunctions.js"
-  }
+  "project": "Medel_TEST",
+  "rundown": "MEDTESTRD5"
 }
