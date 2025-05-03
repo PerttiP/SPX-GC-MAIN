@@ -78,8 +78,10 @@ function getTopThreeRunners(runners) {
 
 // HARD-CODED MOCKTEST 2025-04-24:
 const mockData_OneRunner = {
+  // 'meta-data':
   competition: "Medel-Kval",
   class: "H21",
+  // 'runners' data i array:
   runners: [
     {
       bib: "444",
@@ -92,6 +94,28 @@ const mockData_OneRunner = {
     },
   ],
 };
+
+function validateApiResponse(data) {
+  if (
+    typeof data.competition !== "string" ||
+    typeof data.class !== "string" ||
+    !Array.isArray(data.runners)
+  )
+    return false;
+
+  return data.runners.every(
+    (runner) =>
+      typeof runner.bib === "string" && // TODO: Maybe allow number, if bib is always converted using string(bib)?
+      typeof runner.name === "string" &&
+      typeof runner.club === "string" &&
+      typeof runner.start_time === "string" &&
+      /^\d{2}:\d{2}$/.test(runner.start_time) &&
+      Array.isArray(runner.split_times) &&
+      runner.split_times.every((time) => Number.isInteger(time)) &&
+      Number.isInteger(runner.final_time) &&
+      Number.isInteger(runner.place)
+  );
+}
 
 /**
  * Given API data with a runners array, the selected class, and a selected bib,
@@ -180,6 +204,9 @@ function update(data) {
         console.log("Mock API Response:", apiData);
         console.log("with: " + apiData.runners.length + " runners.");
 
+        // Validate API data
+        console.log("validateApiResponse: ", validateApiResponse(apiData));
+
         const selectedRunner = fetchSpecificRunnerFromApi(
           apiData,
           selectedClass,
@@ -247,6 +274,9 @@ function update(data) {
     }
     console.log("Mock API Response:", apiData);
     console.log("with: " + apiData.runners.length + " runners.");
+
+    // Validate API data
+    console.log("validateApiResponse: ", validateApiResponse(apiData));
 
     const selectedRunner = fetchSpecificRunnerFromApi(
       apiData,
@@ -406,6 +436,21 @@ function validString(str) {
   return true; // is a valid string
 }
 
+// ---------------------------------------------------------------------------------
+/*
+  Extra functions:
+    Added extra button in rundown config
+    Required in SPX template:
+      field: "f_pause_stopwatch_btn",
+      ftype: "button",
+      fcall: "pauseStopWatch()" 
+*/
+// ---------------------------------------------------------------------------------
+
+function pauseStopWatch() {
+  alert("pauseStopWatch() CALLED!"); //
+}
+
 // ----------------------------------------------------------------------------------
 /*
   Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js
@@ -481,7 +526,7 @@ async function fetchMockApiResponse(klass, bibnr) {
           start_time: "14:40",
           split_times: [2850, 5280, 7940],
           final_time: 10800,
-          place: 0,
+          place: 3,
         },
       ],
     };
@@ -497,7 +542,7 @@ async function fetchMockApiResponse(klass, bibnr) {
           start_time: "14:42",
           split_times: [3450, 6080, 9240],
           final_time: 10800,
-          place: 0,
+          place: 2,
         },
       ],
     };
@@ -513,9 +558,100 @@ async function fetchMockApiResponse(klass, bibnr) {
           start_time: "14:44",
           split_times: [1450, 3080, 4840],
           final_time: 10800,
-          place: 0,
+          place: 1,
         },
       ],
+    };
+  } else if (bibnr === "111") {
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "111",
+          name: "Anna Andersson",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+      ],
+    };
+  } else if (bibnr === "222") {
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "222",
+          name: "Lisa Bergström",
+          club: "IFK Göteborg",
+          start_time: "12:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+      ],
+    };
+  } else if (bibnr === "333") {
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "333",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+      ],
+    };
+  } else if (bibnr === "444") {
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "444",
+          name: "Ferdina Fyrisdottir",
+          club: "OK Fyran",
+          start_time: "12:04",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+      ],
+    };
+  } else if (bibnr === "555") {
+    return {
+      competition: "Medel-Kval",
+      class: "D21",
+      runners: [
+        {
+          bib: "555",
+          name: "Hanna Helenius",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 5,
+        },
+      ],
+    };
+  } else if (bibnr === "777") {
+    // TESTING here WITHOUT 'meta-data'!: which is not expected to work since we expect FULL API data here!
+    return {
+      bib: "777",
+      name: "Susanna Negative Test Case",
+      club: "OK Negativt Test",
+      start_time: "12:00",
+      split_times: [2450, 5080, 7840],
+      final_time: 10800,
+      place: 1,
     };
   }
   console.log("Returning null from fetchMockApiResponse");
@@ -565,15 +701,6 @@ async function fetchMockApiResponseMany(klass) {
           place: 7,
         },
         {
-          bib: "333",
-          name: "Karin Johansson",
-          club: "OK Djerf",
-          start_time: "12:04",
-          split_times: [2580, 5300, 8080],
-          final_time: 11200,
-          place: 3,
-        },
-        {
           bib: "111",
           name: "Anna Andersson",
           club: "OK Tyr",
@@ -583,6 +710,24 @@ async function fetchMockApiResponseMany(klass) {
           place: 1,
         },
         {
+          bib: "333",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+        {
+          bib: "444",
+          name: "Ferdina Fyrisdottir",
+          club: "OK Fyran",
+          start_time: "12:04",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+        {
           bib: "222",
           name: "Lisa Bergström",
           club: "IFK Göteborg",
@@ -590,6 +735,24 @@ async function fetchMockApiResponseMany(klass) {
           split_times: [2520, 5190, 7950],
           final_time: 10950,
           place: 2,
+        },
+        {
+          bib: "555",
+          name: "Hanna Helenius",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 5,
+        },
+        {
+          bib: "777",
+          name: "Susanna Osborne",
+          club: "OK Bat",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 6,
         },
       ],
     };
@@ -636,13 +799,13 @@ async function fetchMockApiResponseMany(klass) {
           place: 4,
         },
         {
-          bib: "666",
-          name: "Ozzy Osborne",
-          club: "OK BatFromHell",
+          bib: "555",
+          name: "Pelle Pettersson",
+          club: "OK Hällefors",
           start_time: "16:46",
           split_times: [12450, 35080, 53840],
           final_time: 60800,
-          place: 666,
+          place: 5,
         },
       ],
     };

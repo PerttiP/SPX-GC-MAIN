@@ -23,6 +23,22 @@ Since your code attaches the class to window.LW_TyrStopWatch, you can simply ref
 This way you’re not relying on ES modules or import/export statements.
 */
 
+/*
+Extra features (added for OK Tyr)
+
+1. Functions hide() and unhide()
+
+NOTE: Requires the css class 'hiddenClass' specified as:
+
+.hiddenClock {
+  display: none !important;
+}
+
+2. Function preset(timeInSeconds, autoResume = false)
+
+If autoResume is set to true the watch will start ticking immediately after preset time was set.
+*/
+
 class TyrStopWatch {
   constructor() {
     // The HTML element where the time will be displayed.

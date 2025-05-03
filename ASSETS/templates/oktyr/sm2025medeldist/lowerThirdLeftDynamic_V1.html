@@ -5,7 +5,7 @@
     Demo template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
     Need custom templates? Get in touch! https://spx.graphics/contact
 
-	  PLEASE SEE THE LICENSE FILE FOR TERMS AND CONDITIONS.  
+	PLEASE SEE THE LICENSE FILE FOR TERMS AND CONDITIONS.  
 
     ▸ spx.graphics | Copyright 2021-2024 SPX Graphics <https://spx.graphics>
     
@@ -38,18 +38,12 @@
     28.04.2025 Using anime timeline (similar to SPX demo).
     28.04.2025 Added dropdown for selecting runner by bib nr.
     29.04.2025 Removed DynamicTheme from DOM (editor).
-
-
-  Important considerations:
-    Using the defer attribute or placing your code at the end of the <body> helps ensure that page rendering isn’t blocked.
 -->
 
   <head>
     <meta charset="utf-8" />
     <title>LEFT CORNER</title>
     <!-- Next scripts use defer and are executed in order -->
-    <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
-    <script type="text/javascript" src="/js/lib/tyrstopwatch.js" defer></script>
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
     <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
@@ -187,8 +181,6 @@
             },
             50
           );
-
-        document.getElementById("Clock_container").classList = "fadeIN";
       } // runAnimationIN
 
       function runAnimationOUT() {
@@ -216,8 +208,6 @@
             },
             100
           );
-
-        document.getElementById("Clock_container").classList = "fadeOUT"; // IMPORTANT for hiding the whole container that has the clock!
       } // runAnimationOUT
 
       // Layer 1 is at the very back and 20 is the highest ("closest to the camera")
@@ -338,8 +328,8 @@
                 value: "555",
               },
               {
-                text: "777 - Susanna Osborne",
-                value: "777",
+                text: "666 - Ozzy Osborne",
+                value: "666",
               },
             ],
           },
@@ -360,13 +350,6 @@
             ftype: "caption",
             title: "Club",
             value: "-",
-          },
-          {
-            field: "f_pause_stopwatch_btn",
-            ftype: "button",
-            title: "Pause StopWatch 10 seconds",
-            descr: "Pause stopwatch for 10 seconds for selected runner",
-            fcall: "pauseStopWatch()",
           },
           {
             field: "fTemplateType",
@@ -413,9 +396,7 @@
               <div class="second" id="box2">
                 <!-- Div is block-level, will start on its own line -->
                 <div id="g2"></div>
-                <div class="raceClock" id="Clock_container">
-                  <div id="stopwatch"></div>
-                </div>
+                <div id="gRunningTime">01:25.05</div>
               </div>
             </div>
           </div>
@@ -434,24 +415,5 @@
       <div data-info="TemplateType......" id="fTemplateType"></div>
       -->
     </div>
-
-    <!-- Inline initialization script -->
-    <script type="text/javascript" defer>
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log("!!!! DOM content loaded (inline initialization) !!!! ");
-
-        // Grab a reference to the container DOM element.
-        const stopWatchEl = document.getElementById("stopwatch");
-        if (!stopWatchEl) {
-          console.error("Could not get container element 'stopwatch' from DOM");
-          return;
-        }
-
-        // Instantiate and start the stopwatch. (Requires /js/lib/tyrstopwatch.js)
-        const stopWatch = new window.LW_TyrStopWatch();
-        stopWatch.show(stopWatchEl);
-        console.log("Stopwatch was started");
-      });
-    </script>
   </body>
 </html>
