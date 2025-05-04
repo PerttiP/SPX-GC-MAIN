@@ -37,6 +37,11 @@ NOTE: Requires the css class 'hiddenClass' specified as:
 2. Function preset(timeInSeconds, autoResume = false)
 
 If autoResume is set to true the watch will start ticking immediately after preset time was set.
+
+3. Function freeze
+
+Freeze time for freezeTimeInSeconds, then resume automatically jumping up the time with freezeTimeInSeconds.
+
 */
 
 class TyrStopWatch {
@@ -248,6 +253,29 @@ class TyrStopWatch {
     if (autoResume) {
       this.resume();
       console.debug("Stopwatch auto-resumed from preset.");
+    }
+  }
+
+  freeze(freezeTimeInSeconds) {
+    // Only freeze if currently running
+    if (this.state === "running") {
+      // Pause the stopwatch (this updates elapsedBase and stops further display updates)
+      this.pause();
+
+      // Option 1: If you want the freeze period to be added so that when resumed,
+      // the elapsed time immediately shows an extra freezeTimeInSeconds
+      this.elapsedBase += freezeTimeInSeconds * 1000;
+
+      // Then, after the freeze period, resume the stopwatch
+      setTimeout(() => {
+        // Optionally update the display immediately before resuming if needed:
+        this.resume();
+        console.debug(
+          "Stopwatch resumed after freeze of",
+          freezeTimeInSeconds,
+          "seconds."
+        );
+      }, freezeTimeInSeconds * 1000);
     }
   }
 

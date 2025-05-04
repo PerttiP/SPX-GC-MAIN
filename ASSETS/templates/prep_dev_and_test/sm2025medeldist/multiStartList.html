@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="css/spx_styles_med.css" />
+    <link rel="stylesheet" href="css/table_style.css" />
+    <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
+    <script src="js/spx_interface.js"></script>
+    <!-- This loads js/load_dyn_data_table_V2.js from the <body> section! -->
+
+    <title>Start List Table Template</title>
+
+    <script>
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        document.getElementById("listTitleBar").classList = "fadeIN";
+        document.getElementById("data-table").classList = "fadeIN";
+        document.getElementsByClassName("ListAsTable").classList = "fadeIN";
+      }
+
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        document.getElementById("listTitleBar").classList = "fadeOUT";
+        // FIXME: not hidden?
+        document.getElementById("data-table").classList = "fadeOUT";
+        document.getElementsByClassName("ListAsTable").classList = "fadeOUT";
+      }
+
+      function runAnimationNEXT() {
+        // THIS WORKS!
+        //alert('runAnimationNEXT() CALLED!');
+
+        // Function to handle CONTINUE ("Next Page") button for next step (using "Global" variables in js/load_dyn_data_table.js)
+        // NOTE: Number of steps in template has been set to steps: "10"!
+        if (currentPage < maxNumPages) {
+          currentPage++; // Increment the page number
+          updateTable();
+        } else {
+          console.log("No more pages available!");
+          alert(
+            "Showing last page. No more pages available!\n You can STOP the overlay... and restart PLAY again..."
+          );
+        }
+      } // runAnimationNEXT
+
+      function runTemplateUpdate() {
+        //alert('runTemplateUpdate() CALLED!');
+
+        //console.clear();
+        // First retrieve text to hidden elems
+        e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
+        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+
+        // Get the vald klass from dropdown
+        // NOTE: The value property is only available for form elements
+        // like <input>, <textarea>, or <select>.
+        let element = document.getElementById("vald_klass");
+        console.log(element);
+        let selectedClass = "";
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+          //alert('selectedClass' + selectedClass);
+
+          // Save persistently
+          localStorage.setItem("selectedClass", selectedClass);
+        }
+
+        // TODO: Change the list title bar based on selection
+        const listTitleBar = document.getElementById("listTitleBar");
+        listTitleBar.innerText =
+          document.getElementById("list_titel").innerText +
+          " - " +
+          selectedClass;
+
+        setTimeout(runAnimationIN, 100);
+      } // runTemplateUpdate
+    </script>
+
+    <script>
+      window.SPXGCTemplateDefinition = {
+        description: "Start list table template",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "7",
+        webplayout: "7",
+        out: "manual",
+        uicolor: "2",
+        steps: "10",
+
+        DataFields: [
+          {
+            ftype: "instruction",
+            value:
+              "This template has several pages (steps). Click 'Continue' for next page...",
+          },
+          {
+            field: "f_list_titel",
+            ftype: "textfield",
+            title: "Set list title",
+            value: "START LISTA",
+          },
+          {
+            field: "f_vald_klass",
+            ftype: "dropdown",
+            title: "Select Class",
+            value: "D21",
+            items: [
+              {
+                text: "D21",
+                value: "D21",
+              },
+              {
+                text: "H21",
+                value: "H21",
+              },
+              {
+                text: "D20",
+                value: "D20",
+              },
+              {
+                text: "H20",
+                value: "H20",
+              },
+              {
+                text: "D18",
+                value: "D18",
+              },
+              {
+                text: "H18",
+                value: "H18",
+              },
+            ],
+          },
+          {
+            field: "f_refetch_btn",
+            ftype: "button",
+            title: "Refetch data",
+            descr: "Refetch runners data",
+            fcall: "refetchRunnersData()",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="SPXWindow">
+      <div id="listTitleBar" class="darkOnLite title">Start lista</div>
+      <div id="list_titel" hidden>Hidden Placeholder</div>
+      <div id="vald_klass" hidden>Hidden Placeholder</div>
+      <div class="ListAsTable">
+        <table id="data-table">
+          <!-- No table header -->
+          <tbody>
+            <!-- Rows will be populated dynamically via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <script src="js/load_dyn_data_table_V2.js"></script>
+    </div>
+
+    <div id="hiddenSpxData" data-info="See styles.css">
+      <div data-info="List titel..." id="f_list_titel"></div>
+      <div data-info="Vald klass..." id="f_vald_klass"></div>
+    </div>
+  </body>
+</html>

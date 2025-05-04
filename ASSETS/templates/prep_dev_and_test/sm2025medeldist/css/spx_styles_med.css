@@ -1,0 +1,210 @@
+/* spx_styles_med.css */
+/* Styles based on Softpix Template Pack 1.3.2 */
+/* FIXME: Some templates still uses this css!!! */
+/*  Change 1: Added fadeIN, fadeOUT. Added welcomeText. */
+/*  Change 2: Renamed SPXgfx back to gfx */
+/*  Change 3: Copied gfx children from oktyr_style.css */
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+/* .SPXWindow will act as a viewport-sized container that hides overflowing content */
+.SPXWindow {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  box-sizing: border-box; /* width and height include padding and borders. */
+  background-size: 100% 100%;
+  background-color: rgba(255, 255, 255, 0); /* transparent */
+
+  border-style: solid;
+  border-color: rgba(12, 221, 12, 0); /* MARGIN COLOR */
+  border-top-width: var(--theme-viewport-padding-top);
+  border-left-width: var(--theme-viewport-padding-sides);
+  border-right-width: var(--theme-viewport-padding-sides);
+  border-bottom-width: var(--theme-viewport-padding-bottom);
+}
+
+/* #gfx and its children will be organized according to the layout rules of relative and block-level positioning. */
+#gfx {
+  /*position: relative;*/ /* FIXME: Is this needed? */
+  opacity: 0;
+}
+
+/* start of Copied from oktyr_style.css */
+.splitTime .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.splitTime .graphic {
+  position: absolute;
+  min-width: 35rem;
+  bottom: 40px;
+  left: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: left;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding: 0.625rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+  width: 100%;
+  padding-left: 1.25rem;
+}
+
+.metaData {
+  background-color: #faaa67;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  color: #301525;
+  white-space: nowrap;
+  padding: 0.625rem 1.25rem;
+}
+.metaData .first {
+  width: 12.5rem;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.metaData .second {
+  font-size: 1rem;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo {
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img {
+  width: 35px;
+  height: 35px;
+}
+/* end of Copied from oktyr_style.css. */
+
+div {
+  white-space: nowrap; /* single line */
+  overflow: hidden;
+}
+
+#hiddenSpxData {
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  opacity: 0; /* <----- widget opacity */
+  padding: 1em;
+  display: flex;
+  z-index: 1000;
+  font-size: 3em;
+  border-radius: 1em;
+  position: absolute;
+  color: yellowgreen;
+  flex-direction: column;
+  border: 2px solid yellowgreen;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%);
+  font-family: monospace !important;
+}
+
+/* From SPX demo */
+.liteOnDark {
+  color: var(--theme-lite-color);
+  background-color: var(--theme-dark-color);
+}
+
+.darkOnLite {
+  color: var(--theme-dark-color);
+  background-color: var(--theme-lite-color);
+}
+
+.darkOnColor {
+  color: var(--theme-dark-color);
+  background-color: var(--theme-brandColor);
+}
+
+.liteOnColor {
+  color: var(--theme-lite-color);
+  background-color: var(--theme-brandColor);
+}
+*/ #welcomeText {
+  opacity: 0; /* animated */
+  font-size: 5em;
+  font-weight: bold;
+  border-radius: 0.4em;
+  color: white;
+  background-color: #b30404;
+  padding: 0.2em 0.8em;
+  text-shadow: 2px 2px 2px #000000;
+}
+
+.fadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.5s;
+}
+
+.fadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.2s;
+}
+
+.oktyrfadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.8s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeIn;
+}
+
+.oktyrfadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.4s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeOut;
+}

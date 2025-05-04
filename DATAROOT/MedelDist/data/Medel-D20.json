@@ -1,17 +1,9 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-03T18:39:11.427Z",
+  "updated": "2025-05-04T07:09:04.926Z",
   "templates": [
     {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
       "DataFields": [
         {
           "field": "comment",
@@ -27,13 +19,13 @@
           "field": "f_list_titel",
           "ftype": "textfield",
           "title": "Set title",
-          "value": "Split"
+          "value": "Split D20"
         },
         {
           "field": "f_vald_klass",
           "ftype": "dropdown",
           "title": "Select Class",
-          "value": "D21",
+          "value": "D20",
           "items": [
             {
               "text": "D21",
@@ -97,18 +89,18 @@
           "field": "f_vald_runner",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "0 - Default Test Runner",
+          "value": "1",
           "items": [
             {
-              "text": "1 - Firstname Lastname",
+              "text": "301 - Fanny F",
               "value": "1"
             },
             {
-              "text": "2 - Firstname Lastname",
+              "text": "302 - Berit B",
               "value": "2"
             },
             {
-              "text": "3 - Firstname Lastname",
+              "text": "303 - Cissi C",
               "value": "3"
             }
           ]
@@ -147,12 +139,18 @@
           "value": "./css/themes/News.css"
         }
       ],
-      "onair": "false",
-      "imported": "1745680351193",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "itemID": "1745758562781"
+      "description": "Namestrap left - Template modified via UI",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "5",
+      "dataformat": "json",
+      "webplayout": "20",
+      "out": "manual",
+      "uicolor": "3",
+      "itemID": "1746342426184"
     }
   ],
   "project": "MedelDist",
-  "rundown": "MedelDistRD"
+  "rundown": "Medel-D20"
 }

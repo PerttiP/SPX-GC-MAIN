@@ -12,11 +12,6 @@
 	Changes:
     21.04.2025 Kept style tag as gfx and not renamed to SPXgfx.
     23.04.2025 This template uses styles from William in oktyr_style.css!
-    29.04.2025 Removed DynamicTheme from DOM (editor).
-
-
-  Important considerations:
-    Using the defer attribute or placing your code at the end of the <body> helps ensure that page rendering isn’t blocked.
 -->
 
   <head>
@@ -29,8 +24,8 @@
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
-    <!-- WARN: This template needs a new fresh spx_interface (spx_inteface_V0 is working but not the best way) -->
-    <script type="text/javascript" src="js/spx_interface.js" defer></script>
+    <!-- WARN: This uses the old deprecated version of js/spx_interface_V0.js -->
+    <script type="text/javascript" src="js/spx_interface_V0.js" defer></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -39,59 +34,43 @@
     />
 
     <script>
-      const selectedRunnerName = "TESTAR NAMN I CAPTION FIELD"; // TEST1 of string literal usage in SPX template
+      function runTemplateUpdate() {
+        // TODO: Set f1 and f2 label fields from localStorage if
 
-      function getSelectedRunnerBibNr() {
-        return localStorage.getItem("selectedRunnerBib");
-      }
-      function getSelectedRunnerName() {
-        // TEST2 of string literal usage in SPX template
-        // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL!
-        //return "Testar om namn kan ändras i en caption field"; // OK vid init!
-        return localStorage.getItem("selectedRunnerName");
-      }
-
-      // What we need from API
-      // Objects for
-      //  * vald_runner: (valdRunner)
-      //  * leader_runner: (leaderRunner)
-      //  * top_three_runners: (topThreeRunners) -> Array!
-      // NOTE: Any of these MIGHT be null, if not found in API endpoint!
-      function runSplitTemplateUpdate(
-        valdRunner,
-        leaderRunner,
-        topThreeRunners
-      ) {
-        // TODO: Set f1 and f2 label fields from localStorage if needed?
+        e("DynamicTheme").href = e("f99").innerText;
 
         //console.clear();
-        // Populate from  editor fields
-        getEl("list_titel").innerHTML = htmlDecode(
-          getEl("f_list_titel").innerText
-        );
-        getEl("vald_klass").innerHTML = htmlDecode(
-          getEl("f_vald_klass").innerText
-        );
-        getEl("vald_kontroll").innerHTML = htmlDecode(
-          getEl("f_vald_kontroll").innerText
-        );
-        getEl("vald_runner_bib").innerHTML = htmlDecode(
-          getEl("f_vald_runner_bib").innerText
+        e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
+        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+        e("vald_kontroll").innerHTML = htmlDecode(
+          e("f_vald_kontroll").innerText
         );
 
-        // Show leader runner data in graphic overlay
-        if (leaderRunner) {
-          getEl("leader_runner_bib").innerHTML = leaderRunner.bib;
-          getEl("leader_runner_name").innerHTML = leaderRunner.name; //"Tove Alexandersson";
-          getEl("leader_runner_club").innerHTML = leaderRunner.club;
+        // Get the vald klass from dropdown
+        // NOTE: The value property is only available for form elements
+        // like <input>, <textarea>, or <select>.
+        let element = document.getElementById("f_vald_klass");
+        console.log(element);
+
+        let selectedClass = "";
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+
+          // Save persistently
+          localStorage.setItem("selectedClass", selectedClass);
+          console.log("Class saved: ", selectedClass);
         }
 
-        // Show selected runner data in graphic overlay
-        if (valdRunner) {
-          getEl("vald_runner_bib").innerHTML = valdRunner.bib;
-          getEl("vald_runner_name").innerHTML = valdRunner.name;
-          getEl("vald_runner_club").innerHTML = valdRunner.club;
+        // Get the runner bib number
+        selectedRunnerBib = htmlDecode(e("f0").innerText);
+        //alert(selectedRunnerBib);
+        if (selectedRunnerBib) {
+          localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
+          console.log("BibNr saved", selectedRunnerBib);
         }
+
+        // e("number").innerHTML = htmlDecode(e("f0").innerText);
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";
@@ -106,7 +85,6 @@
 
         setTimeout(runAnimationIN, 50);
       } // runTemplateUpdate
-
       function runAnimationIN() {
         // basic animation by swapping the CSS class
         const splitTimeElements = document.getElementsByClassName("splitTime");
@@ -127,12 +105,11 @@
       }
 
       window.SPXGCTemplateDefinition = {
-        description: "Split times left",
+        description: "Namestrap left",
         playserver: "OVERLAY",
         playchannel: "1",
-        //Layer 1 is at the very back and 20 is the highest ("closest to the camera")
-        playlayer: "6",
-        webplayout: "6",
+        playlayer: "5",
+        webplayout: "5",
         out: "manual",
         dataformat: "json",
         uicolor: "3",
@@ -140,12 +117,13 @@
           {
             field: "comment",
             ftype: "textfield",
-            title: "This is a split time overlay with OK Tyr theme.",
+            title: "Nickname of this item on the rundown",
             value: "[ PLACE BIB-NR NAME TIME ]",
           },
           {
             ftype: "instruction",
-            value: "Select from dropdowns. ",
+            value:
+              "You can leave any field empty. This is a lower-right overlay with a News theme.",
           },
           {
             field: "f_list_titel",
@@ -189,77 +167,68 @@
             field: "f_vald_kontroll",
             ftype: "dropdown",
             title: "Select RadioControl",
-            value: "TV1",
-            items: [
-              { text: "TV1", value: "TV1" },
-              { text: "TV2", value: "TV2" },
-              { text: "TV3", value: "TV3" }, // "Förvarning"?
-              //{ text: "Förvarning", value: "Förvarning" },
-              { text: "MÅL", value: "MÅL" },
-            ],
-          },
-          {
-            field: "f_vald_runner_bib",
-            ftype: "dropdown",
-            title: "Select Runner",
-            value: "0",
+            value: "RC1",
             items: [
               {
-                text: "0 - Test Runner",
-                value: "0",
+                text: "RC1",
+                value: "RC1",
               },
               {
-                text: "111 - Anna Andersson",
-                value: "111",
+                text: "RC2",
+                value: "RC2",
               },
               {
-                text: "222 - Lisa Bergström",
-                value: "222",
+                text: "RC3",
+                value: "RC3",
               },
               {
-                text: "333 - Karin Johansson",
-                value: "333",
+                text: "RC4",
+                value: "RC4",
               },
               {
-                text: "444 - Ferry Fyråsen",
-                value: "444",
+                text: "RC5",
+                value: "RC5",
               },
               {
-                text: "555 - Hanna Helenius",
-                value: "555",
-              },
-              {
-                text: "777 - Susanna Osborne",
-                value: "777",
+                text: "RC6",
+                value: "RC6",
               },
             ],
           },
           {
             field: "f0",
-            ftype: "caption",
+            ftype: "textfield",
             title: "Bib Number of Runner to Follow",
-            value: "0",
+            value: "999",
+          },
+          {
+            field: "f_follow_runner_btn",
+            ftype: "button",
+            title: "Follow Selected Runner",
+            descr: "Set selected Runner bib to follow",
+            fcall: "followSelectedRunner()",
           },
           {
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init! But it would not work for updating.
-            value: `TEST: ${selectedRunnerName}`, // FIXME: TEST1
-            //value: `TEST: ${getSelectedRunnerName()}`, // FIXME: TEST2
-            //value: "",
+            /* value: localStorage.getItem("selectedName"), */
+            /*value: () => localStorage.getItem("selectedClass"), */
+            value: "ADD DROPDOWN FOR BIB NR!",
           },
           {
             field: "f2",
             ftype: "caption",
             title: "Club",
-            value: "",
+            value: "OK Älgen",
           },
           {
-            field: "fTemplateType",
-            ftype: "hidden",
-            title: "",
-            value: "Split",
+            field: "f99",
+            ftype: "filelist",
+            title: "Visual theme",
+            assetfolder: "./css/themes/",
+            extension: "css",
+            value: "./css/themes/News.css",
           },
         ],
       };
@@ -272,23 +241,23 @@
         <div class="header">
           <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
           <p>
-            <span id="list_titel">SPLIT</span><span id="vald_klass"></span
+            <span id="list_titel">SPLIT</span><span id="vald_klass">HD XX</span
             ><span id="vald_kontroll">RC 0</span>
           </p>
         </div>
         <div class="runner leader">
           <div class="place">1</div>
-          <div class="bib"><span id="leader_runner_bib"></span></div>
-          <div class="name"><span id="leader_runner_name"></span></div>
-          <div class="club"><span id="leader_runner_club"></span></div>
+          <div class="bib">11</div>
+          <div class="name">Helena Bergman</div>
+          <div class="club">OK Ravinen</div>
           <div class="time">1:02:36</div>
         </div>
         <!-- <div class="runner"> -->
         <div class="runner selected">
           <div class="place">4</div>
-          <div class="bib"><span id="vald_runner_bib"></span></div>
-          <div class="name"><span id="vald_runner_name"></span></div>
-          <div class="club"><span id="vald_runner_club"></span></div>
+          <div class="bib">71</div>
+          <div class="name">Izabella Ljungberg</div>
+          <div class="club">OK Tyr</div>
           <div class="time">+0:12</div>
         </div>
         <div class="runner">
@@ -317,18 +286,14 @@
       </div>
     </div>
 
-    <!-- Required hidden fields for editor UI input controls -->
     <div id="hiddenSpxData" data-info="See styles.css">
       <div data-info="List titel..." id="f_list_titel"></div>
       <div data-info="Vald klass..." id="f_vald_klass"></div>
       <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
-      <div data-info="Vald runner..." id="f_vald_runner_bib"></div>
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
-      <!--
-      <div data-info="TemplateType......" id="fTemplateType"></div>
-      -->
+      <div data-info="Theme........" id="f99"></div>
     </div>
   </body>
 </html>

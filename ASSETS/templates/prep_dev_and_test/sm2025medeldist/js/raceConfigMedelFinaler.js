@@ -166,35 +166,6 @@ function calculateStartTime(klass, bibnumber, customInterval) {
   return `${pad(resultHour)}:${pad(resultMinute)}:${pad(resultSecond)}`;
 }
 
-/**
- * Returnerar tävlingsklass för ett givet bib-nummer.
- *
- * För varje klass i raceConfig:
- *   - H21: bib 201–245
- *   - D21: bib 101–145
- *   - H20: bib 401–445
- *   - D20: bib 301–345
- *   - H18: bib 601–645
- *   - D18: bib 501–545
- *
- * @param {number} bibNumber - Det riktiga bib-numret att kolla.
- * @returns {string} Tävlingsklassen som bib-numret hör till (t.ex. "H21").
- * @throws {Error} Om bib-numret inte matchar något giltigt intervall.
- */
-function getClassForBibNumber(bibNumber) {
-  // Iterera över de konfigurerade tävlingsklasserna
-  for (const klass in raceConfig) {
-    if (raceConfig.hasOwnProperty(klass)) {
-      const minBib = raceConfig[klass].baseBib;
-      const maxBib = minBib + 44; // 45 bibnummer per klass
-      if (bibNumber >= minBib && bibNumber <= maxBib) {
-        return klass;
-      }
-    }
-  }
-  throw new Error("Bib-numret " + bibNumber + " matchar ingen tävlingsklass.");
-}
-
 /* -------------------------------
    Exempelanvändning:
 ------------------------------- */
@@ -245,21 +216,6 @@ try {
   console.log(
     `Klass ${klass2} - Löpnummer ${lopnummer2} startar kl. ${startTidCustom} med bib ${bibNummer2}`
   );
-} catch (error) {
-  console.error(error);
-}
-*/
-
-/* -------------------------------
-   Exempelanvändning:
-------------------------------- */
-
-/*
-try {
-  // Exempel: Bib-nummer 207 hör till H21 (eftersom H21 har bib 201-245)
-  const bib = 207;
-  const klass = getClassForBibNumber(bib);
-  console.log(`Bib ${bib} tillhör tävlingsklassen ${klass}`);
 } catch (error) {
   console.error(error);
 }

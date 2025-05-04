@@ -251,7 +251,6 @@ function update(data) {
           }
 
           // Update any DOM elements associated with our template data fields
-          // FIXME: Might not work correctly for SPLIT template type???
           updateTemplateDataFields(templateData, apiData);
 
           if (typeof runSplitTemplateUpdate === "function") {
@@ -323,7 +322,7 @@ function update(data) {
 
           if (typeof runTemplateUpdate === "function") {
             // This triggers the graphic overlay update
-            runTemplateUpdate(selectedRunner, templateData);
+            runTemplateUpdate(apiData, templateData);
           } else {
             console.error(
               "runTemplateUpdate() function missing from SPX template."

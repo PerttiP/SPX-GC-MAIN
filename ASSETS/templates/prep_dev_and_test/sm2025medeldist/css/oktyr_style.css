@@ -1,0 +1,457 @@
+/* oktyr_styles.css */
+/* Styles for SM2025 by William */
+/*  Changes: */
+/*    Change1: Added ID selector for hiddenSpxData (required by template editor) */
+/*    Change2: Added Class selectors for caption, caption-bar and caption-text */
+/*    Change3: Added .graphic.vertical for vertical stacking option */
+/*          4: Removed SPECIAL för class="metaData", id="details, class="second" */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 20px;
+  font-family: Inter, sans-serif;
+  width: 1920px;
+  height: 1080px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+p {
+  margin: 0;
+}
+
+.splitTime .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.splitTime .graphic {
+  position: absolute;
+  min-width: 35rem;
+  bottom: 40px;
+  left: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* selector applies styles to any element with the class "container" that is inside an element with the class "lowerThirdLeft" */
+.lowerThirdLeft .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* at the bottom-left corner of its positioned ancestor */
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 30%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.lowerThirdLeft .graphic {
+  position: absolute;
+  width: fit-content;
+  min-width: 500px;
+  /* at 40px from the bottom and left of its ancestor */
+  bottom: 40px;
+  left: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row; /* Default: horizontally aligned */
+  justify-content: space-between; /* spaces its children evenly */
+}
+
+/* Vertical stacking version */
+.lowerThirdLeft .graphic.vertical {
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* FIXME? */
+}
+
+/* FROM SPX <script> section in HTML:
+#gfx {
+  gap: 0;
+  border: 0;
+  opacity: 0;
+  z-index: 10;
+  display: flex;
+  bottom: 5vh;
+  position: absolute;
+  flex-direction: column;
+  transform-origin: bottom left;
+  border-left: var(--theme-accent-width) solid var(--theme-brandColor);
+}
+*/
+.lowerThirdRight .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 30%;
+  background: radial-gradient(
+    100% 100% at 100% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.lowerThirdRight .graphic {
+  position: absolute;
+  width: fit-content;
+  min-width: 500px;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+/* Vertical stacking version */
+.lowerThirdRight .graphic.vertical {
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* FIXME? */
+}
+
+.resultList .container {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  position: absolute;
+  padding: 40px 300px;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.resultList .graphic {
+  width: 100%;
+  height: fit-content;
+  margin: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.resultList .runner .club {
+  width: 400px;
+}
+.resultList .runner .time {
+  padding: 1rem 0.625rem;
+}
+
+#gfx {
+  opacity: 0;
+}
+
+.mainCaption .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /*padding: 40px 300px;*/
+  width: 80%;
+  height: 40%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+
+.mainCaption .graphic {
+  width: 80%;
+  height: fit-content;
+  min-height: 15rem;
+  /*margin: 40px;*/
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding-right: 20px;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+}
+
+.title,
+.caption {
+  text-align: left;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding: 0.625rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+  width: 100%;
+  padding-left: 1.25rem;
+}
+
+/* Nya selektorer för caption-bar och caption-text */
+.caption-bar {
+  text-align: left;
+  align-items: center;
+  background-color: #b14340;
+  font-size: 1.5rem;
+  padding: 0.625rem 0.625rem 0.625rem 1.25rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: 2px solid #b14340;
+  width: 100%;
+  display: flex;
+}
+.caption-text {
+  margin-left: 0.5rem;
+}
+
+/* a toolbar or header-like region. ORANGE bakgrund! */
+.metaData {
+  background-color: #faaa67;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  color: #301525;
+  white-space: nowrap;
+  padding: 0.625rem 1.25rem;
+}
+.metaData .first {
+  width: 12.5rem;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.metaData .second {
+  font-size: 1rem;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* SPECIAL för class="metaData", id="details, class="second" */
+/*
+.metaData #details .second {
+  gap: 0;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9rem;
+  color: #555;
+}
+*/
+.metaData .klubbnamn {
+  font-size: 1rem;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo {
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img {
+  width: 35px;
+  height: 35px;
+}
+
+.runner {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  color: #301525;
+  white-space: nowrap;
+}
+.runner .place {
+  font-weight: bold;
+  min-width: 60px;
+  padding: 0 1.25rem;
+  text-align: center;
+  border-right: 2px solid #b14340;
+}
+.runner .bib {
+  font-weight: bold;
+  color: #548889;
+  font-size: 0.75rem;
+  width: 2.5rem;
+  text-align: center;
+}
+
+/* W has set fixed widths (e.g., width: 12.5rem for .runner .name and .runner .club), and also overflow: hidden with ellipsis. */
+/*
+.runner .name {
+  width: 12.5rem;
+  padding-right: 1rem;
+  font-weight: bold;
+  color: #301525;
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+*/
+
+/* P: remove the fixed width and instead let the item’s base size be 0 */
+.runner .name {
+  flex: 1 1 0;
+  padding-right: 1rem;
+  font-weight: bold;
+  color: #301525;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+.runner .club {
+  font-size: 1rem;
+  color: #301525;
+  width: 12.5rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+*/
+
+/* P: remove the fixed width and instead let the item’s base size be 0 */
+.runner .club {
+  flex: 1 1 0;
+  padding-right: 1rem;
+  font-weight: bold;
+  color: #301525;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* P: FIXME: allow these flex items to shrink appropriately */
+/* SEE ASSETS\templates\oktyr\sm2025medeldist\README.md */
+/* Prevent any flex-child from forcing a minimum width */
+.runner .bib,
+.runner .name,
+.runner .club {
+  min-width: 0;
+}
+
+.runner .time {
+  width: 6.25rem;
+  font-weight: bold;
+  text-align: right;
+  background-color: #548889;
+  color: white;
+  padding: 0.625rem;
+}
+.runner.leader {
+  border-bottom: 2px solid #89b6a5;
+}
+.runner.leader .time {
+  background-color: #89b6a5;
+}
+.runner.selected {
+  background-color: #b14340;
+  color: #ffffff;
+}
+.runner.selected .bib {
+  color: #ffffff;
+}
+.runner.selected .time {
+  color: white;
+  background-color: #b14340;
+}
+.runner:last-child {
+  border-bottom: none;
+}
+
+#stopwatch {
+  font-family: sans-serif;
+  font-size: 2em;
+  text-align: center;
+  margin-top: 20vh;
+
+  /* From W */
+  color: white;
+  background-color: #b14340;
+}
+
+/* P: Might be needed by hide() and unhide() methods in TyrStopWatch */
+/*
+.hiddenClock {
+  display: none !important;
+}
+*/
+
+.fadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.8s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeIn;
+}
+
+.fadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.4s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeOut;
+}
+
+#hiddenSpxData {
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  opacity: 0 !important; /* fully transparent (invisible)! */
+  padding: 1em;
+  display: flex;
+  z-index: 1000; /* appears above most other content, if need to show */
+  font-size: 3em;
+  border-radius: 1em;
+  position: absolute;
+  color: yellowgreen;
+  flex-direction: column;
+  border: 2px solid yellowgreen;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%);
+  font-family: monospace !important;
+}
