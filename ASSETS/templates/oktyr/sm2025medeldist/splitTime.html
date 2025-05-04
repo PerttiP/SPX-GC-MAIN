@@ -27,10 +27,11 @@
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <!-- Next scripts use defer and are executed in order -->
+    <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
+    <script type="text/javascript" src="/js/lib/tyrstopwatch.js" defer></script>
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
-    <!-- WARN: This template needs a new fresh spx_interface (spx_inteface_V0 is working but not the best way) -->
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
     <link
       rel="stylesheet"
@@ -274,7 +275,7 @@
           <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
           <p>
             <span id="list_titel">SPLIT</span><span id="vald_klass"></span
-            ><span id="vald_kontroll">RC 0</span>
+            ><span id="vald_kontroll"></span>
           </p>
         </div>
         <div class="runner leader">
@@ -286,11 +287,15 @@
         </div>
         <!-- <div class="runner"> -->
         <div class="runner selected">
-          <div class="place">4</div>
+          <div class="place"></div>
           <div class="bib"><span id="vald_runner_bib"></span></div>
           <div class="name"><span id="vald_runner_name"></span></div>
           <div class="club"><span id="vald_runner_club"></span></div>
-          <div class="time">+0:12</div>
+          <div class="time">
+            <div class="raceClock" id="Clock_container">
+              <span id="stopwatch"></span>
+            </div>
+          </div>
         </div>
         <div class="runner">
           <div class="place">5</div>
@@ -331,5 +336,42 @@
       <div data-info="TemplateType......" id="fTemplateType"></div>
       -->
     </div>
+
+    <!-- Inline initialization script -->
+    <script type="text/javascript" defer>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("!!!! DOM content loaded (inline initialization) !!!! ");
+
+        /*
+          This code will run on each page load, so each page gets its own separate—and fresh—stopwatch instance. 
+          They do not share state or data between the pages unless you implement an external state persistence mechanism 
+          (like using sessionStorage, localStorage, a Shared Worker, or turning your app into a single‑page application).
+        */
+
+        // Grab a reference to the container DOM element.
+        const stopWatchEl = document.getElementById("stopwatch");
+        if (!stopWatchEl) {
+          console.error("Could not get container element 'stopwatch' from DOM");
+          return;
+        }
+
+        console.log("Type of LW_TyrStopWatch:", typeof window.LW_TyrStopWatch);
+        //console.log("Value of LW_TyrStopWatch:", window.LW_TyrStopWatch);
+
+        // Instantiate and start the stopwatch. (Requires /js/lib/tyrstopwatch.js)
+        stopWatch = new window.LW_TyrStopWatch();
+        if (stopWatch) {
+          stopWatch.show(stopWatchEl);
+        } else {
+          console.error(
+            "Failed to instantiate 'stopWatch' from window.LW_TyrStopWatch()"
+          );
+        }
+        console.log("Type of stopWatch:", typeof stopWatch);
+        console.log("Stopwatch was started");
+        // TODO?: Assign it to a global?
+        // window.stopWatch = stopWatch;
+      });
+    </script>
   </body>
 </html>

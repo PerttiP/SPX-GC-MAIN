@@ -252,7 +252,7 @@ function update(data) {
 
           // Update any DOM elements associated with our template data fields
           // FIXME: Might not work correctly for SPLIT template type???
-          updateTemplateDataFields(templateData, apiData);
+          updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> VERIFY IT!
 
           if (typeof runSplitTemplateUpdate === "function") {
             // This triggers the graphic overlay update
@@ -315,11 +315,10 @@ function update(data) {
             return; //################## RETURN !!!
           } else {
             console.log("Specific runner: ", selectedRunner);
-            //validRunnerFoundFromAPI = true;
           }
 
           // Update any DOM elements associated with our template data fields
-          updateTemplateDataFields(templateData, apiData);
+          updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> VERIFY IT!
 
           if (typeof runTemplateUpdate === "function") {
             // This triggers the graphic overlay update
@@ -470,17 +469,17 @@ function pauseStopWatch() {
   }
 }
 
-function updateTemplateDataFields(_templateData, _apiData) {
+function updateTemplateDataFields(currTemplateData, currApiData) {
   // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
   const fieldOverrides = {
-    f0: _apiData.runners[0].bib, // for example replace "9999" with "444"
-    f1: _apiData.runners[0].name,
-    f2: _apiData.runners[0].club,
+    f0: currApiData.runners[0].bib, // for example replace "9999" with "444"
+    f1: currApiData.runners[0].name,
+    f2: currApiData.runners[0].club,
   };
 
   // Find an element in the DOM with an id matching the key
   // Loop through each field in the _templateData object
-  for (var dataField in _templateData) {
+  for (var dataField in currTemplateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
       // Check if this field should be overridden
@@ -495,12 +494,14 @@ function updateTemplateDataFields(_templateData, _apiData) {
         );
       } else {
         // Otherwise use the value coming in from the templateData
-        idField.innerText = _templateData[dataField];
+        idField.innerText = currTemplateData[dataField];
       }
     } else {
       switch (dataField) {
         case "comment":
         case "epochID":
+          //console.debug("FYI: Optional #" + dataField + " missing from SPX template...");
+          break;
         case "fTemplateType":
           console.warn(
             "FYI: Optional #" + dataField + " missing from SPX template..."
