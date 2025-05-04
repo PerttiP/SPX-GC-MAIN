@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-04T14:20:18.810Z",
+  "updated": "2025-05-04T14:48:44.434Z",
   "templates": [
     {
       "description": "Namestrap left",
@@ -66,7 +66,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "333",
+          "value": "222",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -233,7 +233,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "333",
+          "value": "111",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -290,7 +290,7 @@
           "value": "Split"
         }
       ],
-      "onair": "true",
+      "onair": "false",
       "imported": "1746365526142",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html",
       "itemID": "1746368383042"

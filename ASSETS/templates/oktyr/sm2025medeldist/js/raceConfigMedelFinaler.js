@@ -195,6 +195,52 @@ function getClassForBibNumber(bibNumber) {
   throw new Error("Bib-numret " + bibNumber + " matchar ingen tävlingsklass.");
 }
 
+/**
+ * Beräknar löptiden (running time) för en löpare utifrån aktuell tid och starttiden.
+ * Om aktuell tid är tidigare än starttiden (dvs. det har gått nästan ett helt dygn),
+ * så beräknas tiden som (currentSeconds + (86400 - startSeconds)) mod 86400, vilket ger ett maximum
+ * på 23:59:59. När exakt 24 timmar passerat (alltså aktuellt klockslag = starttid) återställs timern till 0.
+ *
+ * @param {number} bibNumber - Det bib-nummer som löparen har.
+ * @param {number} [customInterval] - (Valfritt) Eventuellt custom intervall att skicka vidare till calculateStartTime.
+ * @returns {string} Löptiden i formatet HH:MM:SS.
+ */
+function calculateRunningTime(bibNumber, customInterval) {
+  // Hämta vilken klass bib-nummer hör till.
+  const klass = getClassForBibNumber(bibNumber);
+  // Beräkna starttiden i formatet HH:MM:SS för löparen.
+  const startTidStr = calculateStartTime(klass, bibNumber, customInterval);
+
+  // Hämta aktuell tid (sekunder sedan midnatt)
+  const now = new Date();
+  const currentSeconds =
+    now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+  // Omvandla starttiden (HH:MM:SS) till totala sekunder från midnatt.
+  const [startH, startM, startS] = startTidStr
+    .split(":")
+    .map((num) => parseInt(num, 10));
+  const startSeconds = startH * 3600 + startM * 60 + startS;
+
+  // Beräkna skillnaden med modulo 86400 (antal sekunder på ett dygn)
+  // Om aktuell tid är lägre än starttiden innebär det att loppet pågår från föregående dygn,
+  // därmed får vi: elapsed = (currentSeconds + (86400 - startSeconds)).
+  // När skillnaden når 86400 (alltså 24 timmar) återställs klockan till 0.
+  const elapsedSeconds = (currentSeconds - startSeconds + 86400) % 86400;
+
+  // Omvandla elapsedSeconds till HH:MM:SS
+  /*
+  const hours = Math.floor(elapsedSeconds / 3600);
+  const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+  const seconds = elapsedSeconds % 60;
+
+  if (formatAsString) {
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  }
+  */
+  return elapsedSeconds;
+}
+
 /* -------------------------------
    Exempelanvändning:
 ------------------------------- */
@@ -263,4 +309,16 @@ try {
 } catch (error) {
   console.error(error);
 }
+*/
+
+/* -------------------------------
+   Exempelanvändning:
+------------------------------- */
+
+// Antag att vi har en löpare från API:t med bib 207 och att starttiden
+// beräknas med calculateStartTime(getClassForBibNumber(207), 207)
+/*
+const bib = 207;
+const runningTime = calculateRunningTime(bib);
+console.log(`Löptid för bib ${bib}: ${runningTime}`);
 */

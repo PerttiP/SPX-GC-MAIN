@@ -104,7 +104,6 @@
         }
         console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
 
-        // TODO:
         // Beräkna running time för selected runner
         // SEE sm2025medeldist\js\raceConfigMedelFinaler.js
         const startTid = calculateStartTime(
@@ -118,7 +117,7 @@
         );
 
         if (stopWatch) {
-          stopWatch.preset(120, true);
+          stopWatch.preset(calculateRunningTime(runnerFromAPI.bib), true);
         }
 
         let klassAttVisa = "";
