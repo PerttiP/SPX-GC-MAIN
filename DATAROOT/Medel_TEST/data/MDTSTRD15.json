@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-05T08:27:14.284Z",
+  "updated": "2025-05-05T11:15:26.931Z",
   "templates": [
     {
       "description": "Split times left",
@@ -227,7 +227,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "111",
+          "value": "333",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -303,10 +303,10 @@
           "value": "Lower3rd"
         }
       ],
-      "onair": "false",
-      "imported": "1746431163527",
+      "onair": "true",
+      "imported": "1746443359851",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html",
-      "itemID": "1746431286235"
+      "itemID": "1746443367757"
     }
   ],
   "project": "Medel_TEST",

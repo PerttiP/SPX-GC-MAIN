@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-05T09:17:01.603Z",
+  "updated": "2025-05-05T09:21:44.418Z",
   "templates": [
     {
       "description": "Split times left",
@@ -227,7 +227,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "444",
+          "value": "333",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -303,7 +303,7 @@
           "value": "Lower3rd"
         }
       ],
-      "onair": "true",
+      "onair": "false",
       "imported": "1746434938796",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html",
       "itemID": "1746434948069"

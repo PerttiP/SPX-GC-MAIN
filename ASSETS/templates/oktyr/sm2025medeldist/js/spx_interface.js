@@ -718,15 +718,21 @@ async function fetchMockApiResponse(_klass, bibnr) {
       ],
     };
   } else if (bibnr === "777") {
-    // TESTING here WITHOUT 'meta-data'!: which is not expected to work since we expect FULL API data here!
+    // HAVE TESTED here WITHOUT 'meta-data'!: which is not expected to work since we expect FULL API data here!
     return {
-      bib: "777",
-      name: "Susanna Negative Test Case",
-      club: "OK Negativt Test",
-      start_time: "12:00",
-      split_times: [2450, 5080, 7840],
-      final_time: 10800,
-      place: 1,
+      competition: "Medel-Kval",
+      runner_class: "D21",
+      runners: [
+        {
+          bib: "777",
+          name: "Susanna Negative Test Case",
+          club: "OK Negativt Test",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+      ],
     };
   }
   console.log("Returning null from fetchMockApiResponse");
@@ -757,6 +763,15 @@ async function fetchMockApiResponseMany(_klass) {
       competition: "Medel-Kval",
       runner_class: "D21",
       runners: [
+        {
+          bib: "0",
+          name: "Test Runner",
+          club: "OK Test",
+          start_time: "14:40",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 0,
+        },
         {
           bib: "101",
           name: "Zerafina Pekkala",

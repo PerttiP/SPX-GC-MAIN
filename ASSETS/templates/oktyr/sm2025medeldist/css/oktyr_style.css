@@ -1,20 +1,39 @@
 /* oktyr_styles.css */
 /* Styles for SM2025 by William */
-/*  Changes: */
+
+/*
+Mix units appropriately:
+Use viewport units for elements that should scale with the overall screen (like full-screen hero sections), 
+and percentages for elements that need to scale relative to their parent container.
+*/
+
+/*  Changes by Pertti: */
 /*    Change1: Added ID selector for hiddenSpxData (required by template editor) */
 /*    Change2: Added Class selectors for caption, caption-bar and caption-text */
 /*    Change3: Added .graphic.vertical for vertical stacking option */
 /*          4: Removed SPECIAL för class="metaData", id="details, class="second" */
+/*          5: Added #stopwatch rules and adjusted specifier "runner .selected" */
+/*          6: Prevent any flex-child from forcing a minimum width for runner bib, name, club (See 'P: FIXME' comment) */
+/*          7: Adjusted min-width for .lowerThirdLeft and runner .name .club with using viewport unit vw */
 * {
   box-sizing: border-box;
 }
 
+/*
+Remove or Modify the Fixed Dimensions: 
+Consider removing or using relative units (like percent, vw/vh, or even min/max values) on your html and body 
+if you want the layout to be responsive:
+*/
 html,
 body {
   font-size: 20px;
   font-family: Inter, sans-serif;
+  /*
   width: 1920px;
   height: 1080px;
+  */
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   background-color: transparent;
@@ -58,18 +77,21 @@ p {
   /* at the bottom-left corner of its positioned ancestor */
   bottom: 0;
   left: 0;
-  width: 50%;
-  height: 30%;
+  width: 50vw; /* P: 50% of the viewport width */
+  height: 30vh; /* P: 30% of the viewport height */
   background: radial-gradient(
     100% 100% at 0% 100%,
     rgba(84, 136, 137, 0.8) 0%,
     rgba(84, 136, 137, 0) 100%
   );
 }
+
 .lowerThirdLeft .graphic {
   position: absolute;
   width: fit-content;
-  min-width: 500px;
+  /*min-width: 500px;*/
+  min-width: 40vw;
+
   /* at 40px from the bottom and left of its ancestor */
   bottom: 40px;
   left: 40px;
@@ -87,20 +109,6 @@ p {
   justify-content: flex-start; /* FIXME? */
 }
 
-/* FROM SPX <script> section in HTML:
-#gfx {
-  gap: 0;
-  border: 0;
-  opacity: 0;
-  z-index: 10;
-  display: flex;
-  bottom: 5vh;
-  position: absolute;
-  flex-direction: column;
-  transform-origin: bottom left;
-  border-left: var(--theme-accent-width) solid var(--theme-brandColor);
-}
-*/
 .lowerThirdRight .container {
   display: flex;
   justify-content: center;
@@ -341,6 +349,7 @@ p {
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 25vw;
 }
 
 /*
@@ -363,6 +372,7 @@ p {
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 15vw;
 }
 
 /* P: FIXME: allow these flex items to shrink appropriately */

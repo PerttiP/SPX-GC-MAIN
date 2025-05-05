@@ -222,7 +222,7 @@
         "customscript": "/ExtraFunctions/demoFunctions.js"
       },
       "onair": "false",
-      "imported": "1746434628856",
+      "imported": "1746437244219",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     },
     {
@@ -422,13 +422,13 @@
         }
       ],
       "onair": "false",
-      "imported": "1746434938796",
+      "imported": "1746443359851",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-05T08:48:58.796Z",
+  "updated": "2025-05-05T11:09:19.852Z",
   "showExtras": {
     "CustomControls": [
       {
