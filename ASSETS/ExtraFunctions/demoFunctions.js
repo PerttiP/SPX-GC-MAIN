@@ -97,13 +97,14 @@ function demo_toggle(eventButton) {
   }
 } // demo_toggle
 
-function oktyr_toggleStopWatch(stopWatchButton) {
+function oktyr_toggleStopWatch() {
+  alert("OK Tyr custom function oktyr_toggleStopWatch");
   console.log(
-    "OK Tyr custom function oktyr_toggleStopWatch(stopWatchButton) CALLED in ExtraFunctionsdemoFunctions.js.\nThe text given as function argument was:\n\n" +
-      stopWatchButton
+    "OK Tyr custom function oktyr_toggleStopWatch() CALLED in ExtraFunctionsdemoFunctions.js.\n"
   );
 
-  // console.log("swInst: ", swInst);
+  // Dispatch a custom event to notify that a toggle has happened.
+  window.dispatchEvent(new CustomEvent("stopWatchToggle"));
 
   /*
   IMPORTANT:
@@ -111,9 +112,10 @@ function oktyr_toggleStopWatch(stopWatchButton) {
   Assigning an object to the global window object only makes it accessible to scripts running on 
   that same page—not across multiple pages within the same web app session.
   */
-
+  /*
   console.log("stopWatch: ", stopWatch);
   console.log("window.LW_TyrStopWatch", window.LW_TyrStopWatch);
+  */
 }
 
 function clearAllChannels() {

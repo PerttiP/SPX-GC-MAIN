@@ -264,6 +264,19 @@
             value: "Split",
           },
         ],
+        showExtras: {
+          CustomControls: [
+            {
+              ftype: "togglebutton",
+              description: "Running time FREEZE and STOP",
+              bgclass: "bg_blue",
+              text0: "FREEZE TIME",
+              text1: "STOP TIME",
+              fcall: "oktyr_toggleStopWatch()",
+            },
+          ],
+          customscript: "/ExtraFunctions/demoFunctions.js",
+        },
       };
     </script>
   </head>
@@ -369,6 +382,24 @@
         }
         console.log("Type of stopWatch:", typeof stopWatch);
         console.log("Stopwatch was started");
+
+        // Listen for the custom toggle event, and react accordingly.
+        window.addEventListener("stopWatchToggle", () => {
+          console.log("stopWatchToggle event received");
+          // For example, toggle the stopwatch state:
+          // Note: Adjust these calls based on your stopwatch API.
+          if (
+            typeof stopWatch.freeze === "function" &&
+            typeof stopWatch.stop === "function"
+          ) {
+            // If the stopwatch is running, perform toggle to other state
+            if (stopWatch.getState() === "running") {
+              stopWatch.freeze(10); // freeze for 10 secs, then auto-resume
+              console.log("Stopwatch freezed");
+            }
+          }
+        });
+
         // TODO?: Assign it to a global?
         // window.stopWatch = stopWatch;
       });

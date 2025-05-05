@@ -1,5 +1,8 @@
 // COPY of static\js\lib\tyrstopwatch.js 2025-05-03 13:55
 
+// VERSION:
+// v 1.0    2025-05-03    Pertti
+
 // tyrStopWatch.js – expanded stopwatch functionality (non‑module version)
 //  - with seconds precision and formatted as H:MM.ss
 // Based partly on code by Mohammad-karimi with modifications for stopwatch behavior

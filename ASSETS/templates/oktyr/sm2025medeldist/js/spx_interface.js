@@ -231,6 +231,7 @@ function update(data) {
             // Continue processing to try retrieve and update leader and top runners.
           } else {
             console.log("Specific runner:", selectedRunner);
+            console.log(typeof selectedRunner);
           }
 
           // Retrieve the leader runner (runner with place === 1).
@@ -386,7 +387,7 @@ function next(data) {
   console.log("----- Next handler called.");
 
   // FIXME: remove, just a TEST:
-  pauseStopWatch();
+  pauseStopWatch(1);
 
   if (typeof runAnimationNEXT === "function") {
     runAnimationNEXT();
@@ -454,12 +455,12 @@ function validString(str) {
 */
 // ---------------------------------------------------------------------------------
 
-function pauseStopWatch() {
+function pauseStopWatch(timeInSeconds) {
   alert("pauseStopWatch() CALLED!"); //
 
   if (stopWatch) {
-    stopWatch.freeze(10);
-    console.log("Stopwatch freezed for 10 seconds.");
+    stopWatch.freeze(timeInSeconds);
+    console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
     /*
     setTimeout(function () {
       stopWatch.resume();
@@ -469,12 +470,12 @@ function pauseStopWatch() {
   }
 }
 
-function updateTemplateDataFields(currTemplateData, currApiData) {
+function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
   // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
   const fieldOverrides = {
-    f0: currApiData.runners[0].bib, // for example replace "9999" with "444"
-    f1: currApiData.runners[0].name,
-    f2: currApiData.runners[0].club,
+    f0: currRunnerFromAPI.bib, // for example replace "9999" with "444"
+    f1: currRunnerFromAPI.name,
+    f2: currRunnerFromAPI.club,
   };
 
   // Find an element in the DOM with an id matching the key
@@ -504,12 +505,12 @@ function updateTemplateDataFields(currTemplateData, currApiData) {
           break;
         case "fTemplateType":
           console.warn(
-            "FYI: Optional #" + dataField + " missing from SPX template..."
+            "WARN: Optional #" + dataField + " missing from SPX template..."
           );
           break;
         default:
           console.error(
-            "ERROR Placeholder #" + dataField + " missing from SPX template."
+            "ERROR: Placeholder #" + dataField + " missing from SPX template."
           );
       }
     }

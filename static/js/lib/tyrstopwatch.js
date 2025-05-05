@@ -1,3 +1,9 @@
+// VERSION:
+// v 1.1    2025-05-05    Pertti:
+
+// UPDATES:
+// v 1.1:   Added getState() function.
+
 // tyrStopWatch.js – expanded stopwatch functionality (non‑module version)
 //  - with seconds precision and formatted as H:MM.ss
 // Based partly on code by Mohammad-karimi with modifications for stopwatch behavior
@@ -61,6 +67,10 @@ class TyrStopWatch {
           "stopped" – The stopwatch is halted (the interval is cleared); elapsed time is fixed.
       */
     this.state = "stopped";
+  }
+
+  getState() {
+    return this.state;
   }
 
   // Returns the current elapsed time (in milliseconds).
@@ -132,7 +142,7 @@ class TyrStopWatch {
   }
 
   // ------------------------------
-  // Pause: freezes the display, but underlying time continues.
+  // Pause: "pauses" the clock indefinitely
   // ------------------------------
   pause() {
     if (this.state === "running") {
@@ -140,7 +150,7 @@ class TyrStopWatch {
       this.elapsedBase = Date.now() - this.startTime + this.elapsedBase;
       // Switch to "paused" so the display is no longer updated.
       this.state = "paused";
-      // Update the display one last time to show the frozen time.
+      // Update the display one last time to show the paused time.
       this.clockContainerElement.textContent = this.formatElapsedTime(
         this.elapsedBase
       );
@@ -228,9 +238,10 @@ class TyrStopWatch {
 
   // ------------------------------
   // Preset: sets the stopwatch to a specific starting value (in seconds)
-  // and optionally auto-resumes from that time.
+  // and default auto-starts ticking from that time.
   // ------------------------------
-  preset(timeInSeconds, autoResume = false) {
+  /*
+  preset_OLD(timeInSeconds, autoStart = true) {
     // Clear any existing interval.
     if (this.clockUpdateInterval) {
       clearInterval(this.clockUpdateInterval);
@@ -249,10 +260,96 @@ class TyrStopWatch {
     console.debug(
       `Stopwatch preset to ${this.formatElapsedTime(this.elapsedBase)}`
     );
-    // If autoResume is true, resume the stopwatch immediately from the preset value.
-    if (autoResume) {
-      this.resume();
-      console.debug("Stopwatch auto-resumed from preset.");
+    // If autoSTart is true, resume the stopwatch immediately from the preset value.
+    if (autoStart) {
+      // the elapsedBase has already been preset
+      this.startTime = Date.now(); // FIXME: Is this correct?
+      this.state = "running";
+
+      // The update function recalculates elapsed time and, if the stopwatch is in running state,
+      // it updates the displayed text. (If in paused state, the internal elapsed time is computed
+      // but the displayed value remains frozen.)
+      const updateClock = () => {
+        const elapsed = this.getElapsedTime();
+        if (this.state === "running") {
+          this.clockContainerElement.textContent =
+            this.formatElapsedTime(elapsed);
+        }
+      };
+
+      // Clear any previous interval to avoid having multiple timers.
+      if (this.clockUpdateInterval) {
+        clearInterval(this.clockUpdateInterval);
+      }
+      // Use an update interval of 500ms (0.5 seconds) rather than 50ms.
+      this.clockUpdateInterval = setInterval(updateClock, 500);
+
+      console.debug(
+        "Stopwatch auto-started from preset value of: ",
+        timeInSeconds
+      );
+    }
+  }
+  */
+
+  /**
+   * Preset: sets the stopwatch to a specific starting value (in seconds)
+   * and auto-starts ticking from that time.
+   */
+  preset(timeInSeconds, autoStart = true) {
+    // Clear any existing interval.
+    if (this.clockUpdateInterval) {
+      clearInterval(this.clockUpdateInterval);
+      this.clockUpdateInterval = null;
+    }
+
+    // Set the elapsedBase to the provided preset time (converted to milliseconds)
+    this.elapsedBase = timeInSeconds * 1000;
+    // Ensure startTime is cleared so that getElapsedTime() returns only elapsedBase until started.
+    this.startTime = null;
+    // Set state to stopped so the clock remains static.
+    this.state = "stopped";
+
+    // Immediately display the preset time.
+    if (this.clockContainerElement) {
+      this.clockContainerElement.textContent = this.formatElapsedTime(
+        this.elapsedBase
+      );
+    }
+    console.debug(
+      `Stopwatch preset to ${this.formatElapsedTime(this.elapsedBase)}`
+    );
+
+    // If autoStart is true, start the clock after a short delay.
+    if (autoStart) {
+      // Use a small delay (e.g. 200 ms) so that the preset value is visible briefly.
+      setTimeout(() => {
+        // Start ticking from the preset value.
+        // Record the current time as the startTime for further elapsed calculations.
+        this.startTime = Date.now();
+        // Set state to "running" so the update logic takes effect.
+        this.state = "running";
+
+        const updateClock = () => {
+          const elapsed = this.getElapsedTime(); // getElapsedTime() should calculate: (Date.now() - this.startTime) + this.elapsedBase
+          if (this.state === "running" && this.clockContainerElement) {
+            this.clockContainerElement.textContent =
+              this.formatElapsedTime(elapsed);
+          }
+        };
+
+        // Ensure no overlapping intervals.
+        if (this.clockUpdateInterval) {
+          clearInterval(this.clockUpdateInterval);
+        }
+        // Start updating the display every 500ms.
+        this.clockUpdateInterval = setInterval(updateClock, 500);
+
+        console.debug(
+          "Stopwatch auto-started from preset value of:",
+          timeInSeconds
+        );
+      }, 200); // delay in milliseconds—adjust as necessary (max 500ms acceptable)
     }
   }
 

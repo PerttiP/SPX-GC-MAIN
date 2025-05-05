@@ -15,16 +15,16 @@
     "resolution": "HD",
     "recents": [
       "Medel_TEST/ExtraFunctions",
-      "Medel_TEST/MDTSTRD13",
-      "Medel_TEST/MDTSTRD12",
-      "Medel_TEST/MDTSTRD11",
-      "Medel_TEST/MDTSTRD10"
+      "Medel_TEST/MEDTSTRD16",
+      "Medel_TEST/MDTSTRD15",
+      "Medel_TEST/MDTSTRD14",
+      "Medel_TEST/MDTSTRD13"
     ]
   },
   "globalExtras": {
-    "customscript": "/templates/oktyr/sm2025medeldist/js/buttonClickEventHandler.js"
+    "customscript": "/ExtraFunctions/demoFunctions.js"
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-04T15:36:33.506Z"
+  "updated": "2025-05-05T08:49:08.201Z"
 }
