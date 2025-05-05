@@ -63,8 +63,12 @@
 
         //console.clear();
         // First retrieve text to hidden elems
-        e("list_titel").innerHTML = htmlDecode(e("f_list_titel").innerText);
-        e("vald_klass").innerHTML = htmlDecode(e("f_vald_klass").innerText);
+        getEl("list_titel").innerHTML = htmlDecode(
+          getEl("f_list_titel").innerText
+        );
+        getEl("vald_klass").innerHTML = htmlDecode(
+          getEl("f_vald_klass").innerText
+        );
 
         // Get the vald klass from dropdown
         // NOTE: The value property is only available for form elements

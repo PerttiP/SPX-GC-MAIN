@@ -64,7 +64,8 @@ th {
 /* Some of Pertti's old specs from original table_style for startList: */
 
 /* Make the table responsive */
-.ListAsTable {
+.ListAsTable,
+.data-table {
   height: 90vh; /* Make the container fill almost the entire viewport height */
   display: flex; /* Use flexbox for easier row sizing */
   flex-direction: column; /* Ensure rows are stacked vertically */

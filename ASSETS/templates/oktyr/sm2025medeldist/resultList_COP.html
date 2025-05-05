@@ -19,6 +19,12 @@
         document.getElementsByClassName("ListAsTable").classList = "fadeIN";
         */
 
+        const containerElements = getAllEls("container");
+        for (let i = 0; i < containerElements.length; i++) {
+          // Iterate over each element and apply the class
+          containerElements[i].classList.add("fadeIN");
+        }
+
         // Check if the element exists before trying to access its classList
         const captionBar = document.getElementById("caption-bar-title");
         if (captionBar) {
@@ -43,6 +49,13 @@
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
+
+        const containerElements = getAllEls("container");
+        for (let i = 0; i < containerElements.length; i++) {
+          // Iterate over each element and apply the class
+          containerElements[i].classList.add("fadeOUT");
+        }
+
         const captionBar = document.getElementById("caption-bar-title");
         if (captionBar) {
           captionBar.classList.add("fadeOUT"); // Use classList.add to append the class
@@ -194,48 +207,30 @@
       Resultat Medeldistans D21
     </div>
 
-
     <!-- Custom container for the result list table -->
-  <div class="container">
-    <div class="graphic">
-      <table id="data-table">
-        <thead>
-          <tr>
-            <th>Place</th>
-            <th>Bib Number</th>
-            <th>Name</th>
-            <th>Club</th>
-            <th>Time</th>
-            <th>After Leader (+M.ss)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table rows will be inserted here via JavaScript -->
-        </tbody>
-      </table>
-  
+    <div class="container">
+      <div class="graphic">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Bib Number</th>
+              <th>Name</th>
+              <th>Club</th>
+              <th>Time</th>
+              <th>After Leader (+M.ss)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be inserted here via JavaScript -->
+          </tbody>
+        </table>
 
-    <!-- Table for result list -->
-    <!-- 
-    <table id="data-table">
-      <thead>
-        <tr>
-          <th>Place</th>
-          <th>Bib Number</th>
-          <th>Name</th>
-          <th>Club</th>
-          <th>Time</th>
-          <th>After Leader (+M.ss)</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
--->
-
-    <div id="hiddenSpxData" data-info="See styles.css">
-      <div data-info="List titel..." id="f_list_titel"></div>
-      <div data-info="Vald klass..." id="f_vald_klass"></div>
+        <div id="hiddenSpxData" data-info="See styles.css">
+          <div data-info="List titel..." id="f_list_titel"></div>
+          <div data-info="Vald klass..." id="f_vald_klass"></div>
+        </div>
+      </div>
     </div>
 
     <script>

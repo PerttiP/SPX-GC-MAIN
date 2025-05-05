@@ -68,18 +68,10 @@
       ],
       "onair": "false",
       "dataformat": "json",
-      "imported": "1746450358836",
+      "imported": "1746453773610",
       "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
     },
     {
-      "description": "Split times left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "6",
-      "webplayout": "6",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
       "DataFields": [
         {
           "field": "comment",
@@ -214,32 +206,17 @@
           "value": "Split"
         }
       ],
-      "showExtras": {
-        "CustomControls": [
-          {
-            "ftype": "togglebutton",
-            "description": "Running time FREEZE and STOP",
-            "bgclass": "bg_blue",
-            "text0": "FREEZE TIME",
-            "text1": "STOP TIME",
-            "fcall": "oktyr_toggleStopWatch()"
-          }
-        ],
-        "customscript": "/ExtraFunctions/demoFunctions.js"
-      },
-      "onair": "false",
-      "imported": "1746437244219",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "description": "Split times left",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "6",
+      "dataformat": "json",
+      "webplayout": "6",
+      "out": "manual",
+      "uicolor": "3"
     },
     {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
       "DataFields": [
         {
           "field": "comment",
@@ -284,20 +261,17 @@
           "value": "./css/themes/News.css"
         }
       ],
-      "onair": "false",
-      "imported": "1746275872353",
-      "relpath": "/oktyr/sm2025generisk/lowerThirdLeft.html"
+      "relpath": "/oktyr/sm2025generisk/lowerThirdLeft.html",
+      "description": "Namestrap left",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "5",
+      "dataformat": "json",
+      "webplayout": "5",
+      "out": "manual",
+      "uicolor": "3"
     },
     {
-      "description": "Namestrap left",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "8",
-      "webplayout": "8",
-      "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "steps": "2",
       "DataFields": [
         {
           "field": "comment",
@@ -427,19 +401,17 @@
           "value": "Lower3rd"
         }
       ],
-      "onair": "false",
-      "imported": "1746443359851",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html"
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html",
+      "description": "Namestrap left",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "8",
+      "dataformat": "json",
+      "webplayout": "8",
+      "out": "manual",
+      "uicolor": "3"
     },
     {
-      "description": "Start list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "7",
-      "webplayout": "7",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
       "DataFields": [
         {
           "field": "comment",
@@ -497,20 +469,17 @@
           "fcall": "refetchRunnersData()"
         }
       ],
-      "onair": "false",
+      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
+      "description": "Start list table template",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "7",
       "dataformat": "json",
-      "imported": "1746446518381",
-      "relpath": "/oktyr/sm2025medeldist/multiStartList.html"
+      "webplayout": "7",
+      "out": "manual",
+      "uicolor": "2"
     },
     {
-      "description": "Result list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "19",
-      "webplayout": "19",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "10",
       "DataFields": [
         {
           "field": "comment",
@@ -568,15 +537,20 @@
           "fcall": "refetchRunnersData()"
         }
       ],
-      "onair": "false",
+      "relpath": "/oktyr/sm2025medeldist/resultList_COP.html",
+      "description": "Result list table template",
+      "playserver": "-",
+      "playchannel": "1",
+      "playlayer": "19",
       "dataformat": "json",
-      "imported": "1746453237776",
-      "relpath": "/oktyr/sm2025medeldist/resultList_COP.html"
+      "webplayout": "19",
+      "out": "manual",
+      "uicolor": "2"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-05T13:53:57.776Z",
+  "updated": "2025-05-05T14:59:13.096Z",
   "showExtras": {
     "CustomControls": [
       {
@@ -586,6 +560,13 @@
         "text0": "FREEZE TIME",
         "text1": "STOP TIME",
         "fcall": "oktyr_toggleStopWatch()"
+      },
+      {
+        "ftype": "button",
+        "description": "Toggles time running -> paused -> stopped -> running",
+        "bgclass": "bg_grey",
+        "text": "TOGGLE TIME",
+        "fcall": "toggleTime"
       }
     ],
     "customscript": "ExtraFunctions/demoFunctions.js"
