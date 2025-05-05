@@ -405,9 +405,11 @@ p {
 
 #stopwatch {
   font-family: sans-serif;
-  font-size: 2em;
+  font-size: 1.3em;
   text-align: center;
   margin-top: 20vh;
+
+  /* padding-right: 10px; */
 
   /* From W */
   color: white;

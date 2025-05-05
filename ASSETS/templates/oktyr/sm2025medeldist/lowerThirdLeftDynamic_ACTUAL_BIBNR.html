@@ -61,12 +61,14 @@
       defer
     ></script>
     <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+    <!--
     <link
       rel="stylesheet"
       type="text/css"
       id="DynamicTheme"
       href="css/themes/News.css"
     />
+    -->
     <style>
       /* För att animationen ska fungera – se till att .graphic initialt är dold */
       .graphic {
@@ -418,20 +420,19 @@
           </div>
         </div>
 
-        <div class="data">
-          <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
+        <!-- MetaData: Box1 (f0 och f1) och Box2 (f2) -->
 
-          <!-- <div class="runner selected"> -->
-
-          <div class="runner">
-            <div class="place">4</div>
-            <div class="bib" id="vald_runner_bib"></div>
-            <div class="name" id="vald_runner_name"></div>
-            <div class="club" id="club_name"></div>
-            <div class="time">
-              <div class="raceClock" id="Clock_container">
-                <span id="stopwatch"></span>
-              </div>
+        <!-- FIXME?: 
+         Light/white background gives more contrast to dark text:
+         <div class="runner selected"> -->
+        <div class="runner">
+          <div class="place">4</div>
+          <div class="bib" id="vald_runner_bib"></div>
+          <div class="name" id="vald_runner_name"></div>
+          <div class="club" id="club_name"></div>
+          <div class="time">
+            <div class="raceClock" id="Clock_container">
+              <span id="stopwatch"></span>
             </div>
           </div>
         </div>
