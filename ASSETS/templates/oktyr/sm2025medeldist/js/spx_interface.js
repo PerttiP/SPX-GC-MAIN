@@ -386,8 +386,13 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
-  // FIXME: remove, just a TEST:
-  pauseStopWatch(1);
+  // FIXME: remove, just a TEST?:
+
+  // IDEA: Check if templateType is SPLIT or LOWER3RD
+  // If it is,then use CONTINUE as a fallback for PAUSE of TIME!
+  //  pauseStopWatch(1);
+
+  // Else we will need to use CONTINUE for pagination of start and result lists!
 
   if (typeof runAnimationNEXT === "function") {
     runAnimationNEXT();
@@ -416,6 +421,23 @@ function getEl(elementID) {
     return null;
   }
   return el;
+}
+
+function getAllEls(classSpecifierName) {
+  if (!classSpecifierName) {
+    console.warn("Element class specifier name is falsy, returning null.");
+    return null;
+  }
+  var elemsArr = document.getElementsByClassName(classSpecifierName);
+  if (!elemsArr || elemsArr.length < 1) {
+    console.warn(
+      "Elements with class name " +
+        classSpecifierName +
+        " not found, returning null."
+    );
+    return null;
+  }
+  return elemsArr;
 }
 
 window.onerror = function (msg, url, row, col, error) {

@@ -1,33 +1,27 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-05T11:15:26.931Z",
+  "updated": "2025-05-05T13:54:38.441Z",
   "templates": [
     {
-      "description": "Split times left",
+      "description": "Start list table template",
       "playserver": "OVERLAY",
       "playchannel": "1",
-      "playlayer": "6",
-      "webplayout": "6",
+      "playlayer": "7",
+      "webplayout": "7",
       "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
+      "uicolor": "2",
+      "steps": "10",
       "DataFields": [
         {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "This is a split time overlay with OK Tyr theme.",
-          "value": "[ PLACE BIB-NR NAME TIME ]"
-        },
-        {
           "ftype": "instruction",
-          "value": "Select from dropdowns. "
+          "value": "This template has several pages (steps). Click 'Continue' for next page..."
         },
         {
           "field": "f_list_titel",
           "ftype": "textfield",
-          "title": "Set title",
-          "value": "Split"
+          "title": "Set list title",
+          "value": "START LISTA"
         },
         {
           "field": "f_vald_klass",
@@ -62,134 +56,44 @@
           ]
         },
         {
-          "field": "f_vald_kontroll",
-          "ftype": "dropdown",
-          "title": "Select RadioControl",
-          "value": "MÅL",
-          "items": [
-            {
-              "text": "TV1",
-              "value": "TV1"
-            },
-            {
-              "text": "TV2",
-              "value": "TV2"
-            },
-            {
-              "text": "TV3",
-              "value": "TV3"
-            },
-            {
-              "text": "MÅL",
-              "value": "MÅL"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_runner_bib",
-          "ftype": "dropdown",
-          "title": "Select Runner",
-          "value": "444",
-          "items": [
-            {
-              "text": "0 - Test Runner",
-              "value": "0"
-            },
-            {
-              "text": "111 - Anna Andersson",
-              "value": "111"
-            },
-            {
-              "text": "222 - Lisa Bergström",
-              "value": "222"
-            },
-            {
-              "text": "333 - Karin Johansson",
-              "value": "333"
-            },
-            {
-              "text": "444 - Ferry Fyråsen",
-              "value": "444"
-            },
-            {
-              "text": "555 - Hanna Helenius",
-              "value": "555"
-            },
-            {
-              "text": "777 - Susanna Osborne",
-              "value": "777"
-            }
-          ]
-        },
-        {
-          "field": "f0",
-          "ftype": "caption",
-          "title": "Bib Number of Runner to Follow",
-          "value": "0"
-        },
-        {
-          "field": "f1",
-          "ftype": "caption",
-          "title": "Fullname",
-          "value": "TEST: TESTAR NAMN I CAPTION FIELD"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": ""
-        },
-        {
-          "field": "fTemplateType",
-          "ftype": "hidden",
-          "title": "",
-          "value": "Split"
+          "field": "f_refetch_btn",
+          "ftype": "button",
+          "title": "Refetch data",
+          "descr": "Refetch runners data",
+          "fcall": "refetchRunnersData()"
         }
       ],
-      "showExtras": {
-        "CustomControls": [
-          {
-            "ftype": "togglebutton",
-            "description": "Running time FREEZE and STOP",
-            "bgclass": "bg_blue",
-            "text0": "FREEZE TIME",
-            "text1": "STOP TIME",
-            "fcall": "oktyr_toggleStopWatch()"
-          }
-        ],
-        "customscript": "/ExtraFunctions/demoFunctions.js"
-      },
       "onair": "false",
-      "imported": "1746431158711",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "itemID": "1746431175436"
+      "dataformat": "json",
+      "imported": "1746365529997",
+      "relpath": "/oktyr/sm2025medeldist/multiStartList.html",
+      "itemID": "1746446524306"
     },
     {
-      "description": "Namestrap left",
+      "description": "Result list table template",
       "playserver": "OVERLAY",
       "playchannel": "1",
-      "playlayer": "8",
-      "webplayout": "8",
+      "playlayer": "19",
+      "webplayout": "19",
       "out": "manual",
-      "dataformat": "json",
-      "uicolor": "3",
-      "steps": "2",
+      "uicolor": "2",
+      "steps": "10",
       "DataFields": [
         {
           "field": "comment",
           "ftype": "textfield",
-          "title": "This is a lower third overlay with OK Tyr theme.",
-          "value": "[ (RUBRIK) NR NAMN KLUBB ]"
+          "title": "Nickname of this item on the rundown",
+          "value": "[ RESULTLIST TABLE ]"
         },
         {
           "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+          "value": "This template has several pages (steps). Click 'Continue' for next page..."
         },
         {
-          "field": "f_rubrik",
+          "field": "f_list_titel",
           "ftype": "textfield",
-          "title": "Caption",
-          "value": "SM 2025 Karlstad"
+          "title": "Set list title",
+          "value": "RESULTAT MEDELDISTANS"
         },
         {
           "field": "f_vald_klass",
@@ -224,89 +128,18 @@
           ]
         },
         {
-          "field": "f_vald_runner_bib",
-          "ftype": "dropdown",
-          "title": "Select Runner",
-          "value": "333",
-          "items": [
-            {
-              "text": "0 - Test Runner",
-              "value": "0"
-            },
-            {
-              "text": "1 - ",
-              "value": "1"
-            },
-            {
-              "text": "2 - ",
-              "value": "2"
-            },
-            {
-              "text": "3 - ",
-              "value": "3"
-            },
-            {
-              "text": "111 - Anna Andersson",
-              "value": "111"
-            },
-            {
-              "text": "222 - Lisa Bergström",
-              "value": "222"
-            },
-            {
-              "text": "333 - Karin Johansson",
-              "value": "333"
-            },
-            {
-              "text": "444 - Ferry Fyråsen",
-              "value": "444"
-            },
-            {
-              "text": "555 - Hanna Helenius",
-              "value": "555"
-            },
-            {
-              "text": "777 - Susanna Osborne",
-              "value": "777"
-            }
-          ]
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Number",
-          "value": "9999"
-        },
-        {
-          "field": "f1",
-          "ftype": "caption",
-          "title": "Fullname",
-          "value": "-"
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": "-"
-        },
-        {
-          "field": "f_pause_stopwatch_btn",
+          "field": "f_refetch_btn",
           "ftype": "button",
-          "title": "Pause StopWatch 10 seconds",
-          "descr": "Pause stopwatch for 10 seconds for selected runner",
-          "fcall": "pauseStopWatch()"
-        },
-        {
-          "field": "fTemplateType",
-          "ftype": "hidden",
-          "title": "",
-          "value": "Lower3rd"
+          "title": "Refetch data",
+          "descr": "Refetch runners data",
+          "fcall": "refetchRunnersData()"
         }
       ],
-      "onair": "true",
-      "imported": "1746443359851",
-      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html",
-      "itemID": "1746443367757"
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1746449818924",
+      "relpath": "/oktyr/sm2025medeldist/resultList_COP.html",
+      "itemID": "1746449826831"
     }
   ],
   "project": "Medel_TEST",

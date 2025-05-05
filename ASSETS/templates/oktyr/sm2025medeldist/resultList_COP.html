@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="css/table_style_v2.css" />
+    <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
+    <script src="js/spx_interface.js"></script>
+    <!-- This loads js/load_results_into_data_table.js from the <body> section! -->
+
+    <title>Resultat Medeldistans</title>
+
+    <script>
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        /*
+        document.getElementById("caption-bar").classList = "fadeIN";
+        document.getElementById("data-table").classList = "fadeIN";
+        document.getElementsByClassName("ListAsTable").classList = "fadeIN";
+        */
+
+        // Check if the element exists before trying to access its classList
+        const captionBar = document.getElementById("caption-bar-title");
+        if (captionBar) {
+          captionBar.classList.add("fadeIN"); // Use classList.add to append the class
+        } else {
+          console.error("Element with ID 'caption-bar-title' not found.");
+        }
+
+        const dataTable = document.getElementById("data-table");
+        if (dataTable) {
+          dataTable.classList.add("fadeIN"); // Use classList.add to append the class
+        } else {
+          console.error("Element with ID 'data-table' not found.");
+        }
+
+        const gfxElements = getAllEls("graphic");
+        for (let i = 0; i < gfxElements.length; i++) {
+          // Iterate over each element and apply the class
+          gfxElements[i].classList.add("fadeIN");
+        }
+      }
+
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        const captionBar = document.getElementById("caption-bar-title");
+        if (captionBar) {
+          captionBar.classList.add("fadeOUT"); // Use classList.add to append the class
+        } else {
+          console.error("Element with ID 'caption-bar-title' not found.");
+        }
+
+        const dataTable = document.getElementById("data-table");
+        if (dataTable) {
+          dataTable.classList.add("fadeOUT"); // Use classList.add to append the class
+        } else {
+          console.error("Element with ID 'data-table' not found.");
+        }
+
+        const gfxElements = getAllEls("graphic");
+        for (let i = 0; i < gfxElements.length; i++) {
+          // Iterate over each element and apply the class
+          gfxElements[i].classList.add("fadeOUT");
+        }
+      }
+
+      function runAnimationNEXT() {
+        // THIS WORKS!
+        //alert('runAnimationNEXT() CALLED!');
+        // Function to handle CONTINUE ("Next Page") button for next step
+        // (using "Global" variables in body section OR js/load_results_into_data_table_V3.js)
+        // NOTE: Number of steps in template has been set to steps: "10"!
+
+        nextPage();
+
+        /*
+        if (currentPage < maxNumPages) {
+          currentPage++; // Increment the page number
+          updateTable();
+        } else {
+          console.log("No more pages available!");
+          alert(
+            "Showing last page. No more pages available!\n You can STOP the overlay... and restart PLAY again..."
+          );
+        }
+*/
+      } // runAnimationNEXT
+
+      function runTemplateUpdate() {
+        //alert('runTemplateUpdate() CALLED!');
+
+        //console.clear();
+        // First retrieve text to hidden elems
+        getEl("caption-bar-title").innerHTML = htmlDecode(
+          getEl("f_list_titel").innerText +
+            " - " +
+            htmlDecode(getEl("f_vald_klass").innerText)
+        );
+
+        // Get the vald klass from dropdown
+        // NOTE: The value property is only available for form elements
+        // like <input>, <textarea>, or <select>.
+        /*
+        let element = document.getElementById("vald_klass");
+        console.log(element);
+        let selectedClass = "";
+        if (typeof element != "undefined" && element != null) {
+          // NOTE: Use innerText to get the content of the div.
+          selectedClass = element.innerText;
+          //alert('selectedClass' + selectedClass);
+        }
+        */
+
+        setTimeout(runAnimationIN, 100);
+      } // runTemplateUpdate
+    </script>
+
+    <script>
+      window.SPXGCTemplateDefinition = {
+        description: "Result list table template",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        playlayer: "19",
+        webplayout: "19",
+        out: "manual",
+        uicolor: "2",
+        steps: "10",
+
+        DataFields: [
+          {
+            field: "comment",
+            ftype: "textfield",
+            title: "Nickname of this item on the rundown",
+            value: "[ RESULTLIST TABLE ]",
+          },
+          {
+            ftype: "instruction",
+            value:
+              "This template has several pages (steps). Click 'Continue' for next page...",
+          },
+          {
+            field: "f_list_titel",
+            ftype: "textfield",
+            title: "Set list title",
+            value: "RESULTAT MEDELDISTANS",
+          },
+          {
+            field: "f_vald_klass",
+            ftype: "dropdown",
+            title: "Select Class",
+            value: "D21",
+            items: [
+              {
+                text: "D21",
+                value: "D21",
+              },
+              {
+                text: "H21",
+                value: "H21",
+              },
+              {
+                text: "D20",
+                value: "D20",
+              },
+              {
+                text: "H20",
+                value: "H20",
+              },
+              {
+                text: "D18",
+                value: "D18",
+              },
+              {
+                text: "H18",
+                value: "H18",
+              },
+            ],
+          },
+          {
+            field: "f_refetch_btn",
+            ftype: "button",
+            title: "Refetch data",
+            descr: "Refetch runners data",
+            fcall: "refetchRunnersData()",
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body class="resultList">
+    <!-- Caption Bar -->
+    <div class="caption-bar" id="caption-bar-title">
+      Resultat Medeldistans D21
+    </div>
+
+
+    <!-- Custom container for the result list table -->
+  <div class="container">
+    <div class="graphic">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Bib Number</th>
+            <th>Name</th>
+            <th>Club</th>
+            <th>Time</th>
+            <th>After Leader (+M.ss)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be inserted here via JavaScript -->
+        </tbody>
+      </table>
+  
+
+    <!-- Table for result list -->
+    <!-- 
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>Place</th>
+          <th>Bib Number</th>
+          <th>Name</th>
+          <th>Club</th>
+          <th>Time</th>
+          <th>After Leader (+M.ss)</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+-->
+
+    <div id="hiddenSpxData" data-info="See styles.css">
+      <div data-info="List titel..." id="f_list_titel"></div>
+      <div data-info="Vald klass..." id="f_vald_klass"></div>
+    </div>
+
+    <script>
+      /*  TODO:
+            Either do it all from here...
+            Or from js\load_results_into_data_table_V3.js
+
+           DECIDED 
+            to do the table here
+            but fetch data from API from elsewhere... probably js\load_results_into_data_table_V3.js?
+        */
+
+      // --- Sample Data for 24 runners ---
+      // In practice, you'll likely get your data from an API or other source.
+      const runnerDataArr = [];
+      for (let i = 1; i <= 24; i++) {
+        runnerDataArr.push({
+          place: i,
+          bib: 100 + i,
+          name: "Runner " + i,
+          club: "Club " + ((i % 5) + 1),
+          time: "00:" + String(30 + i).padStart(2, "0") + ":00", // dummy time
+          // For leader: if not running first, display difference versus place 1
+          afterLeader: i === 1 ? "0" : "+0:" + String(i - 1).padStart(2, "0"),
+        });
+      }
+
+      // --- Pagination Variables were earlier in js\load_results_into_data_table_V3.js ---
+      let currentResultPage = 1; // Start at page 1
+      let maxNumResultPages = 1;
+      const rowsPerResultPage = 10; // Number of rows per page
+
+      // --- Function to Render the Table Rows Based on the Current Page ---
+      function renderTable() {
+        const tbody = document.querySelector("#data-table tbody");
+        tbody.innerHTML = ""; // Clear previous content
+
+        // Calculate indexes
+        const startIndex = (currentResultPage - 1) * rowsPerResultPage;
+        const endIndex = startIndex + rowsPerResultPage;
+        const pageData = runnerDataArr.slice(startIndex, endIndex);
+
+        // Generate a row for each runner in the current page.
+        pageData.forEach((runner) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${runner.place}</td>
+            <td>${runner.bib}</td>
+            <td>${runner.name}</td>
+            <td>${runner.club}</td>
+            <td>${runner.time}</td>
+            <td>${runner.afterLeader}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // --- Pagination Functions ---
+      function nextPage() {
+        if (currentResultPage * rowsPerResultPage < runnerDataArr.length) {
+          currentResultPage++;
+          renderTable();
+        }
+      }
+
+      function prevPage() {
+        if (currentResultPage > 1) {
+          currentResultPage--;
+          renderTable();
+        }
+      }
+
+      // Initial table rendering
+      renderTable();
+    </script>
+  </body>
+</html>
