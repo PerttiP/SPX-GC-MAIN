@@ -48,10 +48,7 @@
         return localStorage.getItem("selectedRunnerBib");
       }
       function getSelectedRunnerName() {
-        // TEST2 of string literal usage in SPX template
-        // VERKAR FUNKA EN GÅNG VID INIT AV HTML MALL!
-        //return "Testar om namn kan ändras i en caption field"; // OK vid page init!
-        return localStorage.getItem("selectedRunnerName");
+        return localStorage.getItem("selectedRunnerName"); // OK vid page init!
       }
       /* MOVED into body section
       function pauseStopWatch(timeInSeconds) {
@@ -60,7 +57,7 @@
           console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
         }
       }
-*/
+      */
       // What we need from API
       // Objects for
       //  * vald_runner: (valdRunner)
@@ -74,7 +71,6 @@
       ) {
         // TODO: Set f1 and f2 label fields from localStorage if needed?
 
-        //console.clear();
         // Populate from  editor fields
         getEl("list_titel").innerHTML = htmlDecode(
           getEl("f_list_titel").innerText
@@ -92,7 +88,7 @@
         // Show leader runner data in graphic overlay
         if (leaderRunner) {
           getEl("leader_runner_bib").innerHTML = leaderRunner.bib;
-          getEl("leader_runner_name").innerHTML = leaderRunner.name; //"Tove Alexandersson";
+          getEl("leader_runner_name").innerHTML = leaderRunner.name;
           getEl("leader_runner_club").innerHTML = leaderRunner.club;
         }
 

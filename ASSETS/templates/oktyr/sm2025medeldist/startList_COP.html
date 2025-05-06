@@ -4,9 +4,18 @@
     <meta charset="UTF-8" />
 
     <link rel="stylesheet" href="css/table_style_v2.css" />
+
+    <!-- Global variable declarations placed in the head -->
+    <script>
+      let selectedClassForStartingList;
+      let startingListDataArr = []; // This will be set with API data instead of sample data.
+      // --- Pagination Variables were earlier in js\load_results_into_data_table_V3.js ---
+      let currentStartingListPage = 1; // Start at page 1
+      let maxNumStartingListPages = 5;
+      const rowsPerStartingListPage = 10; // Number of rows per page
+    </script>
     <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
     <script src="js/spx_interface.js"></script>
-    <!-- This loads js/load_runners_into_data_table.js from the <body> section! -->
 
     <title>Startlista Medeldistans</title>
 
@@ -18,38 +27,6 @@
         document.getElementById("caption-bar").classList = "fadeIN";
         document.getElementById("data-table").classList = "fadeIN";
         document.getElementsByClassName("ListAsTable").classList = "fadeIN";
-        */
-
-        /*
-        const containerElements = getAllEls("container");
-        for (let i = 0; i < containerElements.length; i++) {
-          // Iterate over each element and apply the class
-          containerElements[i].classList.add("fadeIN");
-        }
-
-        const dataTable = document.getElementById("data-table");
-        if (dataTable) {
-          dataTable.classList.add("fadeIN"); // Use classList.add to append the class
-        } else {
-          console.error("Element with ID 'data-table' not found.");
-        }
-
-        const gfxElements = getAllEls("graphic");
-        for (let i = 0; i < gfxElements.length; i++) {
-          // Iterate over each element and apply the class
-          gfxElements[i].classList.add("fadeIN");
-        }
-        */
-
-        // Check if the element exists before trying to access its classList
-        /*
-        const captionBar = document.getElementById("caption-bar-title");
-        if (captionBar) {
-          captionBar.classList.remove("fadeOUT");
-          captionBar.classList.add("fadeIN");
-        } else {
-          console.error("Element with ID 'caption-bar-title' not found.");
-        }
         */
 
         // Select all descendant elements of the element with class "startList"
@@ -65,34 +42,6 @@
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
 
-        /*
-        const containerElements = getAllEls("container");
-        for (let i = 0; i < containerElements.length; i++) {
-          // Iterate over each element and apply the class
-          containerElements[i].classList.add("fadeOUT");
-        }
-
-        const captionBar = document.getElementById("caption-bar-title");
-        if (captionBar) {
-          captionBar.classList.add("fadeOUT"); // Use classList.add to append the class
-        } else {
-          console.error("Element with ID 'caption-bar-title' not found.");
-        }
-
-        const dataTable = document.getElementById("data-table");
-        if (dataTable) {
-          dataTable.classList.add("fadeOUT"); // Use classList.add to append the class
-        } else {
-          console.error("Element with ID 'data-table' not found.");
-        }
-
-        const gfxElements = getAllEls("graphic");
-        for (let i = 0; i < gfxElements.length; i++) {
-          // Iterate over each element and apply the class
-          gfxElements[i].classList.add("fadeOUT");
-        }
-        */
-
         // Select all descendant elements of the element with class "startList"
         const allElements = document.querySelectorAll(".startList *");
 
@@ -104,11 +53,9 @@
       }
 
       function runAnimationNEXT() {
-        // THIS WORKS!
-        //alert('runAnimationNEXT() CALLED!');
         // Function to handle CONTINUE ("Next Page") button for next step
         // (using "Global" variables in body section OR js/load_runners_into_data_table_V3.js)
-        // NOTE: Number of steps in template has been set to steps: "10"!
+        // NOTE: Number of steps in template has been set to steps: "5"!
 
         nextPage();
       } // runAnimationNEXT
@@ -125,18 +72,12 @@
         );
 
         // Get the vald klass from dropdown
-        // NOTE: The value property is only available for form elements
-        // like <input>, <textarea>, or <select>.
-        /*
         let element = document.getElementById("vald_klass");
-        console.log(element);
-        let selectedClass = "";
+        //console.log(element);
         if (typeof element != "undefined" && element != null) {
           // NOTE: Use innerText to get the content of the div.
-          selectedClass = element.innerText;
-          //alert('selectedClass' + selectedClass);
+          selectedClassForStartingList = element.innerText;
         }
-        */
 
         setTimeout(runAnimationIN, 100);
       } // runTemplateUpdate
@@ -151,19 +92,19 @@
         webplayout: "19",
         out: "manual",
         uicolor: "2",
-        steps: "10",
+        steps: "5",
 
         DataFields: [
           {
             field: "comment",
             ftype: "textfield",
             title: "Nickname of this item on the rundown",
-            value: "[ RESULTLIST TABLE ]",
+            value: "[ STARTLIST TABLE ]",
           },
           {
             ftype: "instruction",
             value:
-              "This template has several pages (steps). Click 'Continue' for next page...",
+              "This template has several pages (5 steps). Click 'Continue' for next page...",
           },
           {
             field: "f_list_titel",
@@ -248,34 +189,25 @@
     </div>
 
     <script>
-      /*  TODO:
-            Either do it all from here...
-            Or from js\load_runners_into_data_table_V3.js
+      // Wait for the DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", async () => {
+        // TODO: construct url based on selected class
 
-           DECIDED 
-            to do the table here
-            but fetch data from API from elsewhere... probably js\load_runners_into_data_table_V3.js?
+        /*
+        D21 -> 1
+        D20 -> 2
+        D18 -> 3
+        H21 -> 4
+        H20 -> 5
+        H18 -> 6
         */
 
-      // --- Sample Data for 24 runners ---
-      // In practice, you'll likely get your data from an API or other source.
-      const runnerDataArr = [];
-      for (let i = 1; i <= 24; i++) {
-        runnerDataArr.push({
-          place: i,
-          bib: 100 + i,
-          name: "Runner " + i,
-          club: "Club " + ((i % 5) + 1),
-          time: "00:" + String(30 + i).padStart(2, "0") + ":00", // dummy time
-          // For leader: if not running first, display difference versus place 1
-          afterLeader: i === 1 ? "0" : "+0:" + String(i - 1).padStart(2, "0"),
-        });
-      }
+        // TODO:
+        const apiUrl = "TODO";
 
-      // --- Pagination Variables were earlier in js\load_dyn_data_table_V2.js ---
-      let currentRunnersPage = 1; // Start at page 1
-      let maxNumRunnersPages = 1;
-      const rowsPerRunnersPage = 10; // Number of rows per page
+        maxNumResultPages = Math.ceil(runnerDataArr.length / rowsPerResultPage);
+        renderTable();
+      });
 
       // --- Function to Render the Table Rows Based on the Current Page ---
       function renderTable() {
@@ -283,20 +215,19 @@
         tbody.innerHTML = ""; // Clear previous content
 
         // Calculate indexes
-        const startIndex = (currentRunnersPage - 1) * rowsPerRunnersPage;
-        const endIndex = startIndex + rowsPerRunnersPage;
-        const pageData = runnerDataArr.slice(startIndex, endIndex);
+        const startIndex =
+          (currentStartingListPage - 1) * rowsPerStartingListPage;
+        const endIndex = startIndex + rowsPerStartingListPage;
+        const pageData = startingListDataArr.slice(startIndex, endIndex);
 
         // Generate a row for each runner in the current page.
         pageData.forEach((runner) => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${runner.place}</td>
             <td>${runner.bib}</td>
             <td>${runner.name}</td>
-            <td>${runner.club}</td>
-            <td>${runner.time}</td>
-            <td>${runner.afterLeader}</td>
+            <td>${runner.runner_club}</td>
+            <td>${runner.start_time}</td>
           `;
           tbody.appendChild(tr);
         });
@@ -304,15 +235,18 @@
 
       // --- Pagination Functions ---
       function nextPage() {
-        if (currentRunnersPage * rowsPerRunnersPage < runnerDataArr.length) {
-          currentRunnersPage++;
+        if (
+          currentStartingListPage * rowsPerStartingListPage <
+          startingListDataArr.length
+        ) {
+          currentStartingListPage++;
           renderTable();
         }
       }
 
       function prevPage() {
-        if (currentRunnersPage > 1) {
-          currentRunnersPage--;
+        if (currentStartingListPage > 1) {
+          currentStartingListPage--;
           renderTable();
         }
       }
