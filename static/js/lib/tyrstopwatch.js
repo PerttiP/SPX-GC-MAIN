@@ -138,7 +138,7 @@ class TyrStopWatch {
     }
     // Use an update interval of 500ms (0.5 seconds) rather than 50ms.
     this.clockUpdateInterval = setInterval(updateClock, 500);
-    console.debug("Stopwatch started/resumed. State:", this.state);
+    //console.debug("Stopwatch started/resumed. State:", this.state);
   }
 
   // ------------------------------
@@ -154,10 +154,12 @@ class TyrStopWatch {
       this.clockContainerElement.textContent = this.formatElapsedTime(
         this.elapsedBase
       );
+      /*
       console.debug(
         "Stopwatch paused at:",
         this.formatElapsedTime(this.elapsedBase)
       );
+      */
     }
   }
 
@@ -180,10 +182,12 @@ class TyrStopWatch {
       this.clockContainerElement.textContent = this.formatElapsedTime(
         this.elapsedBase
       );
+      /*
       console.debug(
         "Stopwatch stopped at:",
         this.formatElapsedTime(this.elapsedBase)
       );
+      */
     }
   }
 
@@ -201,7 +205,7 @@ class TyrStopWatch {
       if (!this.clockUpdateInterval) {
         this.start();
       }
-      console.debug("Stopwatch resumed. State:", this.state);
+      //console.debug("Stopwatch resumed. State:", this.state);
     }
   }
 
@@ -219,7 +223,7 @@ class TyrStopWatch {
     if (this.clockContainerElement) {
       this.clockContainerElement.textContent = this.formatElapsedTime(0);
     }
-    console.debug("Stopwatch reset to 0:00.00");
+    //console.debug("Stopwatch reset to 0:00.00");
   }
 
   // ------------------------------
@@ -233,7 +237,7 @@ class TyrStopWatch {
     this.clockContainerElement = element;
     this.reset(); // Set display to 0:00.00 and state to stopped.
     this.start();
-    console.debug("Stopwatch show called, starting at 0:00.00");
+    //console.debug("Stopwatch show called, starting at 0:00.00");
   }
 
   // ------------------------------
@@ -316,9 +320,7 @@ class TyrStopWatch {
         this.elapsedBase
       );
     }
-    console.debug(
-      `Stopwatch preset to ${this.formatElapsedTime(this.elapsedBase)}`
-    );
+    //console.debug(`Stopwatch preset to ${this.formatElapsedTime(this.elapsedBase)}` );
 
     // If autoStart is true, start the clock after a short delay.
     if (autoStart) {
@@ -344,11 +346,12 @@ class TyrStopWatch {
         }
         // Start updating the display every 500ms.
         this.clockUpdateInterval = setInterval(updateClock, 500);
-
+        /*
         console.debug(
           "Stopwatch auto-started from preset value of:",
           timeInSeconds
         );
+*/
       }, 200); // delay in milliseconds—adjust as necessary (max 500ms acceptable)
     }
   }
@@ -367,11 +370,13 @@ class TyrStopWatch {
       setTimeout(() => {
         // Optionally update the display immediately before resuming if needed:
         this.resume();
+        /*
         console.debug(
           "Stopwatch resumed after freeze of",
           freezeTimeInSeconds,
           "seconds."
         );
+        */
       }, freezeTimeInSeconds * 1000);
     }
   }
@@ -382,7 +387,7 @@ class TyrStopWatch {
       this.clockContainerElement.style.display = "none";
       this.clockContainerElement.style.opacity = 0; //!important;
       this.clockContainerElement.classList.add("hiddenClock");
-      console.debug("Stopwatch hidden");
+      //console.debug("Stopwatch hidden");
     }
   }
 
@@ -396,7 +401,7 @@ class TyrStopWatch {
       this.clockContainerElement.textContent = this.formatElapsedTime(
         this.getElapsedTime()
       );
-      console.debug("Stopwatch unhidden");
+      //console.debug("Stopwatch unhidden");
     }
   }
 }
@@ -405,12 +410,27 @@ class TyrStopWatch {
 if (typeof window !== "undefined") {
   window.LW_TyrStopWatch = TyrStopWatch;
   console.log(
-    "Is this TyrStopWatch class only attached ONCE to the global object?"
+    "Is this TyrStopWatch class only attached ONCE to the global window object?"
   );
+
+  // Also attach it to document as soon as DOM is loaded!
+  // SEE 'DOMContentLoaded' below
+
   //localStorage.setItem("hasTyrStopWatchBeenInstantiated", "true");
 }
 
+// Attach the listener when DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("customSignal", function (e) {
+    console.log("Custom signal received via document (3):", e.detail);
+    //alert("Custom event on document received (3)");
+  });
+
+  document.LW_TyrStopWatch = window.LW_TyrStopWatch;
+});
+
+// FIXME?:
+/*
 forceToggleThis() = function() {
-
-
 }
+*/

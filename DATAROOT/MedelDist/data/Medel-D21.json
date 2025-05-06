@@ -1,14 +1,14 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-04T06:56:01.711Z",
+  "updated": "2025-05-06T17:19:32.619Z",
   "templates": [
     {
-      "description": "Namestrap left",
+      "description": "Split times left - for HD21",
       "playserver": "OVERLAY",
       "playchannel": "1",
-      "playlayer": "5",
-      "webplayout": "5",
+      "playlayer": "16",
+      "webplayout": "16",
       "out": "manual",
       "dataformat": "json",
       "uicolor": "3",
@@ -16,153 +16,12 @@
         {
           "field": "comment",
           "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
+          "title": "This is a split time overlay with OK Tyr theme.",
           "value": "[ PLACE BIB-NR NAME TIME ]"
         },
         {
           "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
-        },
-        {
-          "field": "f_list_titel",
-          "ftype": "textfield",
-          "title": "Set title",
-          "value": "Medel Split D21"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "D21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "D18"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_kontroll",
-          "ftype": "dropdown",
-          "title": "Select RadioControl",
-          "value": "RC1",
-          "items": [
-            {
-              "text": "RC1",
-              "value": "RC1"
-            },
-            {
-              "text": "RC2",
-              "value": "RC2"
-            },
-            {
-              "text": "RC3",
-              "value": "RC3"
-            },
-            {
-              "text": "RC4",
-              "value": "RC4"
-            },
-            {
-              "text": "RC5",
-              "value": "RC5"
-            },
-            {
-              "text": "RC6",
-              "value": "RC6"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_runner",
-          "ftype": "dropdown",
-          "title": "Select Runner",
-          "value": "1",
-          "items": [
-            {
-              "text": "1 - Firstname Lastname",
-              "value": "1"
-            },
-            {
-              "text": "2 - Firstname Lastname",
-              "value": "2"
-            },
-            {
-              "text": "3 - Firstname Lastname",
-              "value": "3"
-            }
-          ]
-        },
-        {
-          "field": "f0",
-          "ftype": "textfield",
-          "title": "Bib Number of Runner to Follow",
-          "value": "0"
-        },
-        {
-          "field": "f_follow_runner_btn",
-          "ftype": "button",
-          "title": "Follow Selected Runner",
-          "descr": "Set selected Runner bib to follow",
-          "fcall": "followSelectedRunner()"
-        },
-        {
-          "field": "f1",
-          "ftype": "caption",
-          "title": "Fullname",
-          "value": ""
-        },
-        {
-          "field": "f2",
-          "ftype": "caption",
-          "title": "Club",
-          "value": ""
-        },
-        {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
-        }
-      ],
-      "onair": "false",
-      "imported": "1745680351193",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "itemID": "1746341139720"
-    },
-    {
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ PLACE BIB-NR NAME TIME ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "You can leave any field empty. This is a lower-right overlay with a News theme."
+          "value": "Select class and runner from dropdowns."
         },
         {
           "field": "f_list_titel",
@@ -183,6 +42,498 @@
             {
               "text": "H21",
               "value": "H21"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_kontroll",
+          "ftype": "dropdown",
+          "title": "Select RadioControl",
+          "value": "TV1",
+          "items": [
+            {
+              "text": "TV1",
+              "value": "TV1"
+            },
+            {
+              "text": "TV2",
+              "value": "TV2"
+            },
+            {
+              "text": "TV3",
+              "value": "TV3"
+            },
+            {
+              "text": "MÅL",
+              "value": "MÅL"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_runner_bib",
+          "ftype": "dropdown",
+          "title": "Select Runner",
+          "value": "222",
+          "items": [
+            {
+              "text": "101",
+              "value": "101"
+            },
+            {
+              "text": "102",
+              "value": "102"
+            },
+            {
+              "text": "103",
+              "value": "103"
+            },
+            {
+              "text": "104",
+              "value": "104"
+            },
+            {
+              "text": "105",
+              "value": "105"
+            },
+            {
+              "text": "106",
+              "value": "106"
+            },
+            {
+              "text": "107",
+              "value": "107"
+            },
+            {
+              "text": "108",
+              "value": "108"
+            },
+            {
+              "text": "109",
+              "value": "109"
+            },
+            {
+              "text": "110",
+              "value": "110"
+            },
+            {
+              "text": "111",
+              "value": "111"
+            },
+            {
+              "text": "112",
+              "value": "112"
+            },
+            {
+              "text": "113",
+              "value": "113"
+            },
+            {
+              "text": "114",
+              "value": "114"
+            },
+            {
+              "text": "115",
+              "value": "115"
+            },
+            {
+              "text": "116",
+              "value": "116"
+            },
+            {
+              "text": "117",
+              "value": "117"
+            },
+            {
+              "text": "118",
+              "value": "118"
+            },
+            {
+              "text": "119",
+              "value": "119"
+            },
+            {
+              "text": "120",
+              "value": "120"
+            },
+            {
+              "text": "121",
+              "value": "121"
+            },
+            {
+              "text": "122",
+              "value": "122"
+            },
+            {
+              "text": "123",
+              "value": "123"
+            },
+            {
+              "text": "124",
+              "value": "124"
+            },
+            {
+              "text": "125",
+              "value": "125"
+            },
+            {
+              "text": "126",
+              "value": "126"
+            },
+            {
+              "text": "127",
+              "value": "127"
+            },
+            {
+              "text": "128",
+              "value": "128"
+            },
+            {
+              "text": "129",
+              "value": "129"
+            },
+            {
+              "text": "130",
+              "value": "130"
+            },
+            {
+              "text": "131",
+              "value": "131"
+            },
+            {
+              "text": "132",
+              "value": "132"
+            },
+            {
+              "text": "133",
+              "value": "133"
+            },
+            {
+              "text": "134",
+              "value": "134"
+            },
+            {
+              "text": "135",
+              "value": "135"
+            },
+            {
+              "text": "136",
+              "value": "136"
+            },
+            {
+              "text": "137",
+              "value": "137"
+            },
+            {
+              "text": "138",
+              "value": "138"
+            },
+            {
+              "text": "139",
+              "value": "139"
+            },
+            {
+              "text": "140",
+              "value": "140"
+            },
+            {
+              "text": "141",
+              "value": "141"
+            },
+            {
+              "text": "142",
+              "value": "142"
+            },
+            {
+              "text": "143",
+              "value": "143"
+            },
+            {
+              "text": "144",
+              "value": "144"
+            },
+            {
+              "text": "145",
+              "value": "145"
+            },
+            {
+              "text": "201",
+              "value": "201"
+            },
+            {
+              "text": "202",
+              "value": "202"
+            },
+            {
+              "text": "203",
+              "value": "203"
+            },
+            {
+              "text": "204",
+              "value": "204"
+            },
+            {
+              "text": "205",
+              "value": "205"
+            },
+            {
+              "text": "206",
+              "value": "206"
+            },
+            {
+              "text": "207",
+              "value": "207"
+            },
+            {
+              "text": "208",
+              "value": "208"
+            },
+            {
+              "text": "209",
+              "value": "209"
+            },
+            {
+              "text": "210",
+              "value": "210"
+            },
+            {
+              "text": "211",
+              "value": "211"
+            },
+            {
+              "text": "212",
+              "value": "212"
+            },
+            {
+              "text": "213",
+              "value": "213"
+            },
+            {
+              "text": "214",
+              "value": "214"
+            },
+            {
+              "text": "215",
+              "value": "215"
+            },
+            {
+              "text": "216",
+              "value": "216"
+            },
+            {
+              "text": "217",
+              "value": "217"
+            },
+            {
+              "text": "218",
+              "value": "218"
+            },
+            {
+              "text": "219",
+              "value": "219"
+            },
+            {
+              "text": "220",
+              "value": "220"
+            },
+            {
+              "text": "221",
+              "value": "221"
+            },
+            {
+              "text": "222",
+              "value": "222"
+            },
+            {
+              "text": "223",
+              "value": "223"
+            },
+            {
+              "text": "224",
+              "value": "224"
+            },
+            {
+              "text": "225",
+              "value": "225"
+            },
+            {
+              "text": "226",
+              "value": "226"
+            },
+            {
+              "text": "227",
+              "value": "227"
+            },
+            {
+              "text": "228",
+              "value": "228"
+            },
+            {
+              "text": "229",
+              "value": "229"
+            },
+            {
+              "text": "230",
+              "value": "230"
+            },
+            {
+              "text": "231",
+              "value": "231"
+            },
+            {
+              "text": "232",
+              "value": "232"
+            },
+            {
+              "text": "233",
+              "value": "233"
+            },
+            {
+              "text": "234",
+              "value": "234"
+            },
+            {
+              "text": "235",
+              "value": "235"
+            },
+            {
+              "text": "236",
+              "value": "236"
+            },
+            {
+              "text": "237",
+              "value": "237"
+            },
+            {
+              "text": "238",
+              "value": "238"
+            },
+            {
+              "text": "239",
+              "value": "239"
+            },
+            {
+              "text": "240",
+              "value": "240"
+            },
+            {
+              "text": "241",
+              "value": "241"
+            },
+            {
+              "text": "242",
+              "value": "242"
+            },
+            {
+              "text": "243",
+              "value": "243"
+            },
+            {
+              "text": "244",
+              "value": "244"
+            },
+            {
+              "text": "245",
+              "value": "245"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "caption",
+          "title": "Bib Number of Runner to Follow",
+          "value": "0"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": "TEST: TESTAR NAMN I CAPTION FIELD"
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": ""
+        },
+        {
+          "field": "fTemplateType",
+          "ftype": "hidden",
+          "title": "",
+          "value": "Split"
+        }
+      ],
+      "showExtras": {
+        "CustomControls": [
+          {
+            "ftype": "togglebutton",
+            "description": "Running time FREEZE and STOP",
+            "bgclass": "bg_blue",
+            "text0": "FREEZE TIME",
+            "text1": "STOP TIME",
+            "fcall": "toggle_time()"
+          },
+          {
+            "ftype": "button",
+            "description": "Toggles time running -> paused",
+            "bgclass": "bg_blue",
+            "text": "FREEZE TIME",
+            "fcall": "freeze_time()"
+          },
+          {
+            "ftype": "button",
+            "description": "Toggles time running -> stopped",
+            "bgclass": "bg_red",
+            "text": "STOP TIME",
+            "fcall": "stop_time()"
+          }
+        ],
+        "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
+      },
+      "onair": "false",
+      "imported": "1746549471068",
+      "relpath": "/oktyr/sm2025medeldist/splitTime_HD21.html",
+      "itemID": "1746551117483"
+    },
+    {
+      "description": "Namestrap left",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "8",
+      "webplayout": "8",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "steps": "2",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "This is a lower third overlay with OK Tyr theme.",
+          "value": "[ LOWER3RD NR NAMN KLUBB ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay with a News theme."
+        },
+        {
+          "field": "f_rubrik",
+          "ftype": "textfield",
+          "title": "Caption",
+          "value": "SM 2025 Karlstad"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
             },
             {
               "text": "D20",
@@ -198,106 +549,94 @@
             },
             {
               "text": "H18",
-              "value": "D18"
+              "value": "H18"
             }
           ]
         },
         {
-          "field": "f_vald_kontroll",
-          "ftype": "dropdown",
-          "title": "Select RadioControl",
-          "value": "RC1",
-          "items": [
-            {
-              "text": "RC1",
-              "value": "RC1"
-            },
-            {
-              "text": "RC2",
-              "value": "RC2"
-            },
-            {
-              "text": "RC3",
-              "value": "RC3"
-            },
-            {
-              "text": "RC4",
-              "value": "RC4"
-            },
-            {
-              "text": "RC5",
-              "value": "RC5"
-            },
-            {
-              "text": "RC6",
-              "value": "RC6"
-            }
-          ]
-        },
-        {
-          "field": "f_vald_runner",
+          "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner",
-          "value": "0 - Default Test Runner",
+          "value": "111",
           "items": [
             {
-              "text": "101 - F F",
+              "text": "0 - Test Runner",
+              "value": "0"
+            },
+            {
+              "text": "1 - ",
               "value": "1"
             },
             {
-              "text": "102 - B B",
+              "text": "2 - ",
               "value": "2"
             },
             {
-              "text": "103 - C C",
+              "text": "3 - ",
               "value": "3"
+            },
+            {
+              "text": "111 - Anna Andersson",
+              "value": "111"
+            },
+            {
+              "text": "222 - Lisa Bergström",
+              "value": "222"
+            },
+            {
+              "text": "333 - Karin Johansson",
+              "value": "333"
+            },
+            {
+              "text": "444 - Ferry Fyråsen",
+              "value": "444"
+            },
+            {
+              "text": "555 - Hanna Helenius",
+              "value": "555"
+            },
+            {
+              "text": "777 - Susanna Osborne",
+              "value": "777"
             }
           ]
         },
         {
           "field": "f0",
           "ftype": "textfield",
-          "title": "Bib Number of Runner to Follow",
-          "value": "0"
-        },
-        {
-          "field": "f_follow_runner_btn",
-          "ftype": "button",
-          "title": "Follow Selected Runner",
-          "descr": "Set selected Runner bib to follow",
-          "fcall": "followSelectedRunner()"
+          "title": "Number",
+          "value": "9999"
         },
         {
           "field": "f1",
           "ftype": "caption",
           "title": "Fullname",
-          "value": ""
+          "value": "-"
         },
         {
           "field": "f2",
           "ftype": "caption",
           "title": "Club",
-          "value": ""
+          "value": "-"
         },
         {
-          "field": "f99",
-          "ftype": "filelist",
-          "title": "Visual theme",
-          "assetfolder": "./css/themes/",
-          "extension": "css",
-          "value": "./css/themes/News.css"
+          "field": "f_pause_stopwatch_btn",
+          "ftype": "button",
+          "title": "Pause StopWatch 10 seconds",
+          "descr": "Pause stopwatch for 10 seconds for selected runner",
+          "fcall": "pauseStopWatch()"
+        },
+        {
+          "field": "fTemplateType",
+          "ftype": "hidden",
+          "title": "",
+          "value": "Lower3rd"
         }
       ],
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
-      "description": "Namestrap left - Template modified via UI",
-      "playserver": "-",
-      "playchannel": "1",
-      "playlayer": "5",
-      "dataformat": "json",
-      "webplayout": "20",
-      "out": "manual",
-      "uicolor": "3",
-      "itemID": "1746341761711"
+      "onair": "false",
+      "imported": "1746551089246",
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic_ACTUAL_BIBNR.html",
+      "itemID": "1746551120254"
     }
   ],
   "project": "MedelDist",

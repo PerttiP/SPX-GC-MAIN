@@ -1,4 +1,7 @@
 {
+  "warning": "Modifications done in the SPX will overwrite this file.",
+  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
+  "updated": "2025-05-06T15:37:25.906Z",
   "templates": [
     {
       "description": "Split times left",
@@ -151,35 +154,31 @@
             "bgclass": "bg_blue",
             "text0": "FREEZE TIME",
             "text1": "STOP TIME",
-            "fcall": "oktyr_toggleStopWatch()"
+            "fcall": "toggle_time()"
           },
           {
             "ftype": "button",
-            "description": "Toggles time running -> paused -> stopped -> running",
-            "bgclass": "bg_grey15",
-            "text": "TOGGLE TIME",
-            "fcall": "toggle_time()"
+            "description": "Toggles time running -> paused",
+            "bgclass": "bg_blue",
+            "text": "FREEZE TIME",
+            "fcall": "freeze_time()"
+          },
+          {
+            "ftype": "button",
+            "description": "Toggles time running -> stopped",
+            "bgclass": "bg_red",
+            "text": "STOP TIME",
+            "fcall": "stop_time()"
           }
         ],
-        "customscript": "/ExtraFunctions/demoFunctions.js"
+        "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
-      "onair": "false",
-      "imported": "1746535419840",
-      "relpath": "/oktyr/sm2025medeldist/splitTime.html"
+      "onair": "true",
+      "imported": "1746545478834",
+      "relpath": "/oktyr/sm2025medeldist/splitTime.html",
+      "itemID": "1746545495236"
     }
   ],
-  "warning": "Modifications done in the SPX will overwrite this file.",
-  "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-06T12:43:39.840Z",
-  "showExtras": {
-    "CustomControls": [
-      {
-        "ftype": "button",
-        "description": "Toggles time:\\n running -> paused -> stopped -> running",
-        "bgclass": "bg_grey15",
-        "text": "TOGGLE TIME",
-        "fcall": "toggle_time()"
-      }
-    ]
-  }
+  "project": "TTT4",
+  "rundown": "TTT4RD46"
 }

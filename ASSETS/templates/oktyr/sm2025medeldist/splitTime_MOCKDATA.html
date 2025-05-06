@@ -273,18 +273,24 @@
               bgclass: "bg_blue",
               text0: "FREEZE TIME",
               text1: "STOP TIME",
-              fcall: "oktyr_toggleStopWatch()",
+              fcall: "toggle_time()",
             },
             {
               ftype: "button",
-              description:
-                "Toggles time running -> paused -> stopped -> running",
-              bgclass: "bg_grey15",
-              text: "TOGGLE TIME",
-              fcall: "toggle_time()",
+              description: "Toggles time running -> paused",
+              bgclass: "bg_blue",
+              text: "FREEZE TIME",
+              fcall: "freeze_time()",
+            },
+            {
+              ftype: "button",
+              description: "Toggles time running -> stopped",
+              bgclass: "bg_red",
+              text: "STOP TIME",
+              fcall: "stop_time()",
             },
           ],
-          customscript: "/ExtraFunctions/demoFunctions.js",
+          customscript: "/templates/oktyr/sm2025medeldist/js/spx_interface.js",
         },
       };
     </script>
@@ -354,9 +360,7 @@
       <div data-info="Number......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
-      <!--
       <div data-info="TemplateType......" id="fTemplateType"></div>
-      -->
     </div>
 
     <!-- Inline initialization script -->
@@ -386,7 +390,9 @@
           stopWatch.show(stopWatchEl);
           // TODO: Testing to set globals in demoFunctions from here:
           globStopWatch = stopWatch;
-          window.globStopWatch = stopWatch;
+          window.globStopWatch = globStopWatch;
+          document.globStopWatch = globStopWatch;
+          document.LW_TyrStopWatch = stopWatch;
         } else {
           console.error(
             "Failed to instantiate 'stopWatch' from window.LW_TyrStopWatch()"
@@ -412,9 +418,6 @@
             }
           }
         });
-
-        // TODO?: Assign it to a global?
-        // window.stopWatch = stopWatch;
       });
     </script>
   </body>

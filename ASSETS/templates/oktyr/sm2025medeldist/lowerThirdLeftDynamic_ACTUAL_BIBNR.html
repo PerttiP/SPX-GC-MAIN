@@ -101,8 +101,10 @@
       function runTemplateUpdate(runnerFromAPI, fieldsFromTemplate) {
         //alert("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
 
-        if (!runnerFromAPI && !runnerFromAPI.runners) {
-          console.error("runnerFromAPI is EMPTY or NULL");
+        if (!runnerFromAPI || !runnerFromAPI.runners) {
+          console.error(
+            "runnerFromAPI is EMPTY or NULL or runnerFromAPI.runners is empty"
+          );
           return; // <----------- RETURN!
         }
         console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
@@ -472,9 +474,7 @@
       <div data-info="StartNumber......" id="f0"></div>
       <div data-info="Fullname........." id="f1"></div>
       <div data-info="Club............." id="f2"></div>
-      <!--
       <div data-info="TemplateType......" id="fTemplateType"></div>
-      -->
     </div>
 
     <!-- Inline initialization script -->

@@ -4,14 +4,17 @@
 
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025 (medeldist)
 
+// FIXME:
+// Save these 'persistently' in Local Storage?: for each Update or Play
 let selectedClass;
 let selectedRunnerBib;
 let selectedRadioSplitId;
-//let validRunnerSelectedInUI = true;
 
-let templateType; // "LowerThird" or "Split" or "Other"
+let templateType; // "lowerThird" or "split" or "other"
 
 let stopWatch;
+let shouldRunToggleTimerTask = false;
+let doFreezeTimerOnce = false;
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
@@ -22,12 +25,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // Listen for the custom "templateRundownItemSaved" event on window.
   window.addEventListener("templateRundownItemSaved", (event) => {
     // The event.detail carries the data you dispatched.
-    console.log("Notified of template rundown item save:", event.detail);
+    console.log(
+      "Notified of template rundown item save via window:",
+      event.detail
+    );
+  });
+
+  // TODO: Use shared target!
+  document.addEventListener("templateRundownItemSaved", (event) => {
+    // The event.detail carries the data you dispatched.
+    console.log(
+      "Notified of template rundown item save via document:",
+      event.detail
+    );
   });
 });
 
 // Listen for the custom toggle event, and react accordingly.
-window.addEventListener("stopWatchToggle", () => {
+document.addEventListener("stopWatchToggle", () => {
   // FIXME: DID NOT WORK from HTML body in SplitTime.html
   console.log("stopWatchToggle event received");
   // For example, toggle the stopwatch state:
@@ -47,6 +62,28 @@ window.addEventListener("stopWatchToggle", () => {
       );
     }
   }
+});
+
+// Set up a listener that listens for the event.
+/*
+globOKTyrEventBus.addEventListener("customSignal", function (e) {
+  console.log("Custom signal on the OK Tyr event bus received:", e.detail);
+  alert("Custom event on the OK Tyr event bus received");
+});
+*/
+
+// In spx_interface.js:
+document.addEventListener("customSignal", function (e) {
+  console.log("Custom signal received via document (1):", e.detail);
+  alert("Custom event on document received (1)");
+});
+
+// Attach the listener when DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("customSignal", function (e) {
+    console.log("Custom signal received via document (2):", e.detail);
+    alert("Custom event on document received (2)");
+  });
 });
 
 /* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config! */
@@ -211,7 +248,7 @@ function update(data) {
   }
 
   // templateType - Expected values "split", "lower3rd", or "other".
-  const templateType = (templateData.fTemplateType || "other").toLowerCase();
+  templateType = (templateData.fTemplateType || "other").toLowerCase();
   console.log("----- Update templateType:", templateType);
 
   // Decide which template update function to call based on the provided type.
@@ -254,7 +291,9 @@ function update(data) {
             // Continue processing to try retrieve and update leader and top runners.
           } else {
             console.log("Specific runner:", selectedRunner);
-            console.log(typeof selectedRunner);
+            console.log("typeof selectedRunner: ", typeof selectedRunner); //object
+            // 2025-05-06:
+            localStorage.setItem("selectedRunnerName", selectedRunner.name);
           }
 
           // Retrieve the leader runner (runner with place === 1).
@@ -339,6 +378,9 @@ function update(data) {
             return; //################## RETURN !!!
           } else {
             console.log("Specific runner: ", selectedRunner);
+
+            // 2025-05-06:
+            localStorage.setItem("selectedRunnerName", selectedRunner.name);
           }
 
           // Update any DOM elements associated with our template data fields
@@ -381,13 +423,23 @@ function update(data) {
   }
 }
 
+// Start the recursive periodical timer, as long as graphic overlay is playing:
+if (shouldRunToggleTimerTask) runToggleTimerTaskPeriodically();
+
 // Receive item data from SPX Graphics Controller
 // and store values in hidden DOM elements for
 // use in the template.
 
 // Play handler
 function play() {
-  // console.log('----- Play handler called.')
+  console.log("----- Play handler called.");
+
+  if (templateType === "split" && !shouldRunToggleTimerTask) {
+    shouldRunToggleTimerTask = true;
+
+    console.log("STARTED runToggleTimerTaskPeriodically");
+  }
+
   if (typeof runAnimationIN === "function") {
     runAnimationIN();
   } else {
@@ -397,7 +449,13 @@ function play() {
 
 // Stop handler
 function stop() {
-  // console.log('----- Stop handler called.')
+  if (templateType === "split") {
+    shouldRunToggleTimerTask = false;
+
+    console.log("STOPPED runToggleTimerTaskPeriodically");
+  }
+
+  console.log("----- Stop handler called.");
   if (typeof runAnimationOUT === "function") {
     runAnimationOUT();
   } else {
@@ -409,10 +467,10 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
-  // Check if templateType is SPLIT or LOWER3RD
+  // Check if templateType is SPLIT (or LOWER3RD?
   // If it is, then use CONTINUE as a fallback for PAUSE of TIME!
 
-  if (templateType !== "other" && stopWatch) {
+  if (templateType === "split" && stopWatch) {
     pauseStopWatch(10);
   }
 
@@ -502,17 +560,9 @@ function validString(str) {
 // ---------------------------------------------------------------------------------
 
 function pauseStopWatch(timeInSeconds) {
-  alert("pauseStopWatch() CALLED!"); //
-
   if (stopWatch) {
     stopWatch.freeze(timeInSeconds);
     console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
-    /*
-    setTimeout(function () {
-      stopWatch.resume();
-      console.log("Stopwatch resumed after pause of 10 seconds.");
-    }, 10000);
-    */
   }
 }
 
@@ -570,6 +620,98 @@ function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
 // ----------------------------------------------------------------------------------
 async function fetchApiResponseMany(_klass) {
   return "NOT DONE YET";
+}
+
+// This task shall run every second as long as the graphic overlay is playing!
+function runToggleTimerTaskPeriodically() {
+  if (!shouldRunToggleTimerTask) {
+    console.log(
+      "Periodic ToggleTimer task has been stopped; no further tasks."
+    );
+    return; // Stop further execution if the flag is false.
+  }
+
+  // Perform the task if the flag is set
+  if (doFreezeTimerOnce) {
+    // We shall try to freeze the timer only if it currently is running!
+    if (stopWatch && stopWatch.getState() === "running") {
+      stopWatch.freeze(10);
+      console.log("Stopwatch freezed for 10 seconds.");
+    }
+    doFreezeTimerOnce = false;
+  }
+
+  // Schedule the next run:
+  setTimeout(runToggleTimerTaskPeriodically, 1000);
+}
+
+// Function to stop the timer:
+function stopToggleTimerTask() {
+  shouldRunToggleTimerTask = false;
+  console.log(
+    "Periodic ToggleTimer task was stopped via call of stopToggleTimerTask()."
+  );
+}
+
+/* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config! */
+/*
+window.updateFollowedRunner = function () {
+  //alert("updateFollowedRunner() CALLED!");
+  console.log("window.updateFollowedRunner called in spx_interface.js!");
+};
+*/
+// ----------------------------------------------------------------------------------
+//  StopWatch Toggling
+//
+// Requires:
+//  "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config!
+// ----------------------------------------------------------------------------------
+
+function toggle_time() {
+  //alert("OK Tyr custom function toggle_time");
+  console.log(
+    "OK Tyr globalExtras custom function toggle_time CALLED in spx_interface.js.\n"
+  );
+
+  // pauseStopWatch(10);
+
+  if (stopWatch) {
+    stopWatch.freeze(10);
+    console.log("Stopwatch freezed for 10 seconds.");
+  }
+}
+
+// ----------------------------------------------------------------------------------
+//  StopWatch Freeze
+//
+// Requires:
+//  showExtras: { CustomControls: ... IN templates DataFields!
+// AND:
+//  Adding Project Extras via UI with path to .../js/spx_interface.js
+// ----------------------------------------------------------------------------------
+
+function freeze_time() {
+  //alert("OK Tyr custom function toggle_time");
+  console.log(
+    "OK Tyr Project showExtras custom function freeze_time CALLED in spx_interface.js.\n"
+  );
+
+  if (!doFreezeTimerOnce) {
+    doFreezeTimerOnce = true;
+    //shouldRunToggleTimerTask = true;
+  }
+}
+
+function freezeStopWatchInstance(sw) {
+  if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
+    // If the stopwatch is running, perform toggle to other state
+    if (sw.getState() === "running") {
+      sw.freeze(10); // freeze for 10 secs, then auto-resume
+      console.log("Stopwatch freezed");
+    } else {
+      console.log("Stopwatch was not running. state was: ", sw.getState());
+    }
+  }
 }
 
 // ----------------------------------------------------------------------------------

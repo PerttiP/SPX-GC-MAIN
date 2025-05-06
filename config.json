@@ -14,17 +14,27 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
-      "Medel_TEST/ExtraFunctions",
-      "Medel_TEST/MDTSTRD16",
-      "Medel_TEST/MDTSTRD15",
-      "ToggleTimeTest/TTTRD4",
-      "ToggleTimeTest/TTTRD3"
+      "MedelDist/Medel-D21",
+      "FREEZEPROJ/FRZTSTRD2",
+      "FREEZEPROJ/FRZTSTRD1",
+      "TTT4/TTT4RD46",
+      "TTT4/TTT4RD45"
     ]
   },
   "globalExtras": {
-    "customscript": "/ExtraFunctions/demoFunctions.js"
+    "customscript": "/ExtraFunctions/demoFunctions.js",
+    "CustomControls": [
+      {
+        "description": "Corner logo on/off",
+        "ftype": "togglebutton",
+        "bgclass": "bg_grey",
+        "text0": "Logo ON",
+        "text1": "Logo OFF",
+        "fcall": "logoToggle(this)"
+      }
+    ]
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-06T08:39:40.467Z"
+  "updated": "2025-05-06T17:15:13.817Z"
 }

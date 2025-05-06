@@ -15,16 +15,12 @@ jsonRunnerInfoDataGlob = {};
 // ----------------------------------------------------------
 
 /*
-FOR REAL PRODUCTION: 
-Get values from API response of GET REQ 'get list of all runners for class = XX in competition = YY'
-
-TODO:
-
-Get ALL runnerData results from API for specific class and put into runnerDataArr array
-runnerDataArr.length
+DEPRECATED VERSION - Do NOT use for real env!
 */
 
-console.log("!!!! Started load_results_into_data_table script !!!!");
+console.log(
+  "!!!! DEPRECATED !!!! Started load_results_into_data_table script !!!!"
+);
 
 function getJsonSize(data) {
   if (Array.isArray(data)) {

@@ -2559,16 +2559,27 @@ function saveTemplateItemChanges(elementID) {
 // Define a function to send a template-rundown-item-saved signal via a custom event.
 function sendTemplateRundownItemSavedNotification(data) {
   // Create a custom event named "templateUpdated" with details.
-  const event = new CustomEvent("templateRundownItemSaved", { detail: data });
+  const event = new CustomEvent("templateRundownItemSaved", {
+    bubbles: true,
+    detail: data,
+  });
 
   // Dispatch the event on window (or you could use document).
   if (!window.dispatchEvent(event)) {
-    console.debug("Failed to dispatch event (templateRundownItemSaved)");
+    console.debug(
+      "Failed to dispatch event (templateRundownItemSaved) on window"
+    );
+  }
+
+  if (!document.dispatchEvent(event)) {
+    console.debug(
+      "Failed to dispatch event (templateRundownItemSaved) on document"
+    );
   }
 }
 
 function saveTemplateItemChangesByElement(itemrow) {
-  console.debug("PERTTI DEBUG: saveTemplateItemChangesByElement in spx_gc!");
+  console.debug("PERTTI DEBUG: saveTemplateItemChangesByElement in spx_gc!"); //OK! I C U
   /*
   if (typeof runSaveDataFromTemplateUpdate() === "function") {
     runSaveDataFromTemplateUpdate(); // Update will follow if User presses PLAY next

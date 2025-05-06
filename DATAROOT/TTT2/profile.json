@@ -164,22 +164,11 @@
         "customscript": "/ExtraFunctions/demoFunctions.js"
       },
       "onair": "false",
-      "imported": "1746535419840",
+      "imported": "1746533176418",
       "relpath": "/oktyr/sm2025medeldist/splitTime.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-06T12:43:39.840Z",
-  "showExtras": {
-    "CustomControls": [
-      {
-        "ftype": "button",
-        "description": "Toggles time:\\n running -> paused -> stopped -> running",
-        "bgclass": "bg_grey15",
-        "text": "TOGGLE TIME",
-        "fcall": "toggle_time()"
-      }
-    ]
-  }
+  "updated": "2025-05-06T12:06:16.418Z"
 }

@@ -17,7 +17,34 @@
 //
 // --------------------------------------------------------------
 
+// ABANDONED using this demoFunctions file in config.json!!!
+console.log("!!!! demoFunctions was loaded !!!!");
+
+/*
 let globStopWatch = null;
+let LW_TyrStopWatch;
+*/
+// Create an event bus (make sure this is globally accessible).
+//var globOKTyrEventBus = new EventTarget();
+
+// Function to dispatch an event on the OK Tyr event bus.
+/*
+function sendOKTyrEvent(data) {
+  const event = new CustomEvent("customSignal", { detail: data });
+  res = globOKTyrEventBus.dispatchEvent(event);
+  console.log("dispatchEvent result: ", res);
+}
+*/
+
+// Function to dispatch an event on a shared context, the global document:
+function sendOKTyrEvent(data) {
+  const event = new CustomEvent("customSignal", {
+    bubbles: true,
+    detail: data,
+  });
+  const res = document.dispatchEvent(event);
+  console.log("dispatchEvent result:", res); //true
+}
 
 function hello(options) {
   // This is a demo function that can be used
@@ -99,6 +126,9 @@ function demo_toggle(eventButton) {
   }
 } // demo_toggle
 
+// Button event is caught here, but cannot propagate or send event or use any globals to notify my code about this click event.
+// MOVED function toggle_time()  to spx_interface.js
+// ABANDONED using this demoFunctions file in config.json!!!
 function oktyr_toggleStopWatch() {
   alert("OK Tyr custom function oktyr_toggleStopWatch");
   console.log(
@@ -107,7 +137,7 @@ function oktyr_toggleStopWatch() {
 
   // FIXME: DID NOT WORK
   // Dispatch a custom event to notify that a toggle has happened.
-  window.dispatchEvent(new CustomEvent("stopWatchToggle"));
+  document.dispatchEvent(new CustomEvent("stopWatchToggle"));
 
   /*
   IMPORTANT:
@@ -134,51 +164,6 @@ function oktyr_toggleStopWatch() {
     console.debug("window.LW_TyrStopWatch exists! Trying to freeze...");
     freezeStopWatchInstance(window.LW_TyrStopWatch);
     console.error("window.LW_TyrStopWatch NOT FOUND HERE");
-  }
-}
-
-function toggle_time() {
-  alert("OK Tyr custom function toggle_time");
-  console.log(
-    "OK Tyr custom function toggle_time CALLED in ExtraFunctionsdemoFunctions.js.\n"
-  );
-
-  if (globStopWatch) {
-    console.debug("globStopWatch exists! Trying to freeze...");
-    freezeStopWatchInstance(globStopWatch);
-    return;
-  } else {
-    console.error("globStopWatch NOT FOUND HERE");
-  }
-
-  // FIXME:
-  // Uncaught ReferenceError: stopWatch is not defined
-  if (window.globStopWatch) {
-    console.debug("window.globStopWatch exists! Trying to freeze...");
-    freezeStopWatchInstance(window.globStopWatch);
-    return;
-  } else {
-    console.error("window.globStopWatch NOT FOUND HERE");
-  }
-
-  if (window.LW_TyrStopWatch) {
-    console.debug("window.LW_TyrStopWatch exists! Trying to freeze...");
-    freezeStopWatchInstance(window.LW_TyrStopWatch);
-    return;
-  } else {
-    console.error("window.LW_TyrStopWatch NOT FOUND HERE");
-  }
-}
-
-function freezeStopWatchInstance(sw) {
-  if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
-    // If the stopwatch is running, perform toggle to other state
-    if (sw.getState() === "running") {
-      sw.freeze(10); // freeze for 10 secs, then auto-resume
-      console.log("Stopwatch freezed");
-    } else {
-      console.log("Stopwatch was not running. state was: ", sw.getState());
-    }
   }
 }
 
