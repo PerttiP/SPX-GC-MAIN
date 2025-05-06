@@ -5,9 +5,19 @@
 
     <link rel="stylesheet" href="css/table_style_v2.css" />
     <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
-    <script src="js/spx_interface.js"></script>
-    <!-- This loads js/load_results_into_data_table.js from the <body> section! -->
 
+    <!-- Global variable declarations placed in the head -->
+    <script>
+      let selectedClassForResultList;
+      let runnerDataArr = []; // This will be set with API data instead of sample data.
+      // --- Pagination Variables were earlier in js\load_results_into_data_table_V3.js ---
+      let currentResultPage = 1; // Start at page 1
+      let maxNumResultPages = 5;
+      const rowsPerResultPage = 10; // Number of rows per page
+    </script>
+    <!-- Include the fetch function file -->
+    <script src="js/fetchRunnersData.js"></script>
+    <script src="js/spx_interface.js"></script>
     <title>Resultat Medeldistans</title>
 
     <script>
@@ -83,11 +93,9 @@
       }
 
       function runAnimationNEXT() {
-        // THIS WORKS!
-        //alert('runAnimationNEXT() CALLED!');
         // Function to handle CONTINUE ("Next Page") button for next step
-        // (using "Global" variables in body section OR js/load_results_into_data_table_V3.js)
-        // NOTE: Number of steps in template has been set to steps: "10"!
+        // (using "Global" variables in body section)
+        // NOTE: Number of steps in template has been set to steps: "5"!
 
         nextPage();
       } // runAnimationNEXT
@@ -104,18 +112,13 @@
         );
 
         // Get the vald klass from dropdown
-        // NOTE: The value property is only available for form elements
-        // like <input>, <textarea>, or <select>.
-        /*
         let element = document.getElementById("vald_klass");
-        console.log(element);
-        let selectedClass = "";
+        //console.log(element);
         if (typeof element != "undefined" && element != null) {
           // NOTE: Use innerText to get the content of the div.
-          selectedClass = element.innerText;
-          //alert('selectedClass' + selectedClass);
+          selectedClassForResultList = element.innerText;
+          //alert('selectedClassForResultList' + selectedClassForResultList);
         }
-        */
 
         setTimeout(runAnimationIN, 100);
       } // runTemplateUpdate
@@ -130,7 +133,7 @@
         webplayout: "19",
         out: "manual",
         uicolor: "2",
-        steps: "10",
+        steps: "5",
 
         DataFields: [
           {
@@ -142,7 +145,7 @@
           {
             ftype: "instruction",
             value:
-              "This template has several pages (steps). Click 'Continue' for next page...",
+              "This template has several pages (5 steps). Click 'Continue' for next page...",
           },
           {
             field: "f_list_titel",
@@ -226,37 +229,60 @@
       <div data-info="Vald klass..." id="f_vald_klass"></div>
     </div>
 
+    <!-- Other logic such as renderTable and the initialization logic -->
     <script>
-      /*  TODO:
-            Either do it all from here...
-            Or from js\load_results_into_data_table_V3.js
+      // Wait for the DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", async () => {
+        // TODO: construct url based on selected class
 
-           DECIDED 
-            to do the table here
-            but fetch data from API from elsewhere... probably js\load_results_into_data_table_V3.js?
+        /*
+        D21 -> 1
+        D20 -> 2
+        D18 -> 3
+        H21 -> 4
+        H20 -> 5
+        H18 -> 6
         */
 
-      // --- Sample Data for 24 runners ---
-      // In practice, you'll likely get your data from an API or other source.
-      const runnerDataArr = [];
-      for (let i = 1; i <= 24; i++) {
-        runnerDataArr.push({
-          place: i,
-          bib: 100 + i,
-          name: "Runner " + i,
-          club: "Club " + ((i % 5) + 1),
-          time: "00:" + String(30 + i).padStart(2, "0") + ":00", // dummy time
-          // For leader: if not running first, display difference versus place 1
-          afterLeader: i === 1 ? "0" : "+0:" + String(i - 1).padStart(2, "0"),
-        });
-      }
+        const apiUrl = "http://85.24.189.92:5000/api/10/1/runners"; // Adjust your URL accordingly
 
-      // --- Pagination Variables were earlier in js\load_results_into_data_table_V3.js ---
-      let currentResultPage = 1; // Start at page 1
-      let maxNumResultPages = 1;
-      const rowsPerResultPage = 10; // Number of rows per page
+        try {
+          // Call the fetchRunnersData function defined in fetchRunnersData.js
+          const fetchedResult = await fetchRunnersData(apiUrl);
 
-      // --- Function to Render the Table Rows Based on the Current Page ---
+          // Extract the runners array from the fetched result:
+          runnerDataArr = fetchedResult.runners || [];
+
+          if (!Array.isArray(runnerDataArr)) {
+            throw new Error("Fetched runner data is not an array!");
+          }
+
+          // Optionally, transform the data if needed to suit renderTable expectations:
+          runnerDataArr = runnerDataArr.map((runner, index) => {
+            return {
+              place: index + 1,
+              bib: runner.bib,
+              name: runner.name,
+              runner_club: runner.runner_club,
+              // FIXME: replace with final time when available!!!
+              start_time: runner.start_time,
+              after_leader: index === 0 ? "0" : "", // you could compute differences here if needed
+            };
+          });
+        } catch (error) {
+          console.error("Primary data fetch failed, using fallback:", error);
+          // If fetching the primary data fails, fall back to the top-10 runners. (that could have been cached)
+          const fallbackUrl = "http://85.24.189.92:5000/api/10/1/runners"; // adjust if you have a dedicated fallback URL
+          runnerDataArr = await getFallbackData(fallbackUrl);
+          // Reset pagination variables so that data displays from the first page!
+          currentResultPage = 1;
+        }
+
+        maxNumResultPages = Math.ceil(runnerDataArr.length / rowsPerResultPage);
+        renderTable();
+      });
+
+      // --- Function to Render the Table Rows based on the Current Page ---
       function renderTable() {
         const tbody = document.querySelector("#data-table tbody");
         tbody.innerHTML = ""; // Clear previous content
@@ -264,6 +290,7 @@
         // Calculate indexes
         const startIndex = (currentResultPage - 1) * rowsPerResultPage;
         const endIndex = startIndex + rowsPerResultPage;
+        // Make a slice from the array!:
         const pageData = runnerDataArr.slice(startIndex, endIndex);
 
         // Generate a row for each runner in the current page.
@@ -273,9 +300,9 @@
             <td>${runner.place}</td>
             <td>${runner.bib}</td>
             <td>${runner.name}</td>
-            <td>${runner.club}</td>
-            <td>${runner.time}</td>
-            <td>${runner.afterLeader}</td>
+            <td>${runner.runner_club}</td>
+            <td>${runner.start_time}</td>
+            <td>${runner.after_leader}</td>
           `;
           tbody.appendChild(tr);
         });

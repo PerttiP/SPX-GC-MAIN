@@ -38,6 +38,29 @@ function getJsonSize(data) {
   return 0;
 }
 
+// 1. A helper function to fetch runner data from the API endpoint.
+async function fetchRunnerData(apiUrl) {
+  console.log("apiUrl: ", apiUrl);
+  try {
+    // It is recommended to remove { mode: "no-cors" } if your endpoint supports CORS.
+    // mode: "no-cors" returns an opaque response, which makes it hard to read the data.
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("======  DATA AFTER FETCH:", data);
+    console.log("Size of DATA: ", JSON.stringify(data).length);
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching runner data:", error);
+    // Optionally: fall back to sample data if you need something concrete while debugging:
+    // return getSampleData();
+    return null;
+  }
+}
+
 // -----------------------------------------------------------------------------
 
 // IMPORTANT: the JSON file must be hosted on a server, for fetch to work!!! ???
@@ -47,7 +70,9 @@ function getJsonSize(data) {
 
 const urlToAPI = "http://85.24.189.92:5000/api/10/1/runners";
 
-fetch("http://85.24.189.92:5000/api/10/1/runners", { mode: "no-cors" })
+console.warn("!!!! Starting fetch from API...");
+
+fetch(urlToAPI) // { mode: "no-cors" })
   .then((response) => {
     // Response is opaque; you cannot read most of its content
     console.log(response);
