@@ -449,6 +449,20 @@ p {
   animation-name: fadeOut;
 }
 
+.SPXfadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.5s;
+}
+
+.SPXfadeOUT {
+  opacity: 0 !important;
+  display: none !important;
+  background-color: rgba(255, 255, 255, 0); /* transparent */
+  transition: all;
+  transition-duration: 0.2s;
+}
+
 #hiddenSpxData {
   top: 50%;
   left: 50%;

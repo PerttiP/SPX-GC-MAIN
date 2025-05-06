@@ -409,3 +409,8 @@ if (typeof window !== "undefined") {
   );
   //localStorage.setItem("hasTyrStopWatchBeenInstantiated", "true");
 }
+
+forceToggleThis() = function() {
+
+
+}

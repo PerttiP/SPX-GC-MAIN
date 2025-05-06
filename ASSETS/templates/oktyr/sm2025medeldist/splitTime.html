@@ -275,6 +275,14 @@
               text1: "STOP TIME",
               fcall: "oktyr_toggleStopWatch()",
             },
+            {
+              ftype: "button",
+              description:
+                "Toggles time running -> paused -> stopped -> running",
+              bgclass: "bg_grey15",
+              text: "TOGGLE TIME",
+              fcall: "toggle_time()",
+            },
           ],
           customscript: "/ExtraFunctions/demoFunctions.js",
         },
@@ -376,6 +384,9 @@
         stopWatch = new window.LW_TyrStopWatch();
         if (stopWatch) {
           stopWatch.show(stopWatchEl);
+          // TODO: Testing to set globals in demoFunctions from here:
+          globStopWatch = stopWatch;
+          window.globStopWatch = stopWatch;
         } else {
           console.error(
             "Failed to instantiate 'stopWatch' from window.LW_TyrStopWatch()"
@@ -386,6 +397,7 @@
 
         // Listen for the custom toggle event, and react accordingly.
         window.addEventListener("stopWatchToggle", () => {
+          // FIXME: DID NOT WORK
           console.log("stopWatchToggle event received");
           // For example, toggle the stopwatch state:
           // Note: Adjust these calls based on your stopwatch API.

@@ -17,6 +17,8 @@
 //
 // --------------------------------------------------------------
 
+let globStopWatch = null;
+
 function hello(options) {
   // This is a demo function that can be used
   // with onPlay handler in the template definition
@@ -103,6 +105,7 @@ function oktyr_toggleStopWatch() {
     "OK Tyr custom function oktyr_toggleStopWatch() CALLED in ExtraFunctionsdemoFunctions.js.\n"
   );
 
+  // FIXME: DID NOT WORK
   // Dispatch a custom event to notify that a toggle has happened.
   window.dispatchEvent(new CustomEvent("stopWatchToggle"));
 
@@ -112,10 +115,71 @@ function oktyr_toggleStopWatch() {
   Assigning an object to the global window object only makes it accessible to scripts running on 
   that same page—not across multiple pages within the same web app session.
   */
-  /*
-  console.log("stopWatch: ", stopWatch);
-  console.log("window.LW_TyrStopWatch", window.LW_TyrStopWatch);
-  */
+
+  if (globStopWatch) {
+    console.debug("globStopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(globStopWatch);
+  } else {
+    console.error("globStopWatch NOT FOUND HERE");
+  }
+
+  if (stopWatch) {
+    console.debug("stopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(stopWatch);
+  } else {
+    console.error("stopWatch NOT FOUND HERE");
+  }
+
+  if (window.LW_TyrStopWatch) {
+    console.debug("window.LW_TyrStopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(window.LW_TyrStopWatch);
+    console.error("window.LW_TyrStopWatch NOT FOUND HERE");
+  }
+}
+
+function toggle_time() {
+  alert("OK Tyr custom function toggle_time");
+  console.log(
+    "OK Tyr custom function toggle_time CALLED in ExtraFunctionsdemoFunctions.js.\n"
+  );
+
+  if (globStopWatch) {
+    console.debug("globStopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(globStopWatch);
+    return;
+  } else {
+    console.error("globStopWatch NOT FOUND HERE");
+  }
+
+  // FIXME:
+  // Uncaught ReferenceError: stopWatch is not defined
+  if (window.globStopWatch) {
+    console.debug("window.globStopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(window.globStopWatch);
+    return;
+  } else {
+    console.error("window.globStopWatch NOT FOUND HERE");
+  }
+
+  if (window.LW_TyrStopWatch) {
+    console.debug("window.LW_TyrStopWatch exists! Trying to freeze...");
+    freezeStopWatchInstance(window.LW_TyrStopWatch);
+    return;
+  } else {
+    console.error("window.LW_TyrStopWatch NOT FOUND HERE");
+  }
+}
+
+function freezeStopWatchInstance(sw) {
+  if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
+    // If the stopwatch is running, perform toggle to other state
+    if (sw.getState() === "running") {
+      sw.freeze(10); // freeze for 10 secs, then auto-resume
+      console.log("Stopwatch freezed");
+    } else {
+      console.log("Stopwatch was not running. state was: ", sw.getState());
+    }
+  }
 }
 
 function clearAllChannels() {

@@ -26,6 +26,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Listen for the custom toggle event, and react accordingly.
+window.addEventListener("stopWatchToggle", () => {
+  // FIXME: DID NOT WORK from HTML body in SplitTime.html
+  console.log("stopWatchToggle event received");
+  // For example, toggle the stopwatch state:
+  // Note: Adjust these calls based on your stopwatch API.
+  if (
+    typeof stopWatch.freeze === "function" &&
+    typeof stopWatch.stop === "function"
+  ) {
+    // If the stopwatch is running, perform toggle to other state
+    if (stopWatch.getState() === "running") {
+      stopWatch.freeze(10); // freeze for 10 secs, then auto-resume
+      console.log("Stopwatch freezed");
+    } else {
+      console.log(
+        "Stopwatch was not running. state was: ",
+        stopWatch.getState()
+      );
+    }
+  }
+});
+
 /* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config! */
 /*
 window.updateFollowedRunner = function () {
@@ -386,11 +409,12 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
-  // FIXME: remove, just a TEST?:
+  // Check if templateType is SPLIT or LOWER3RD
+  // If it is, then use CONTINUE as a fallback for PAUSE of TIME!
 
-  // IDEA: Check if templateType is SPLIT or LOWER3RD
-  // If it is,then use CONTINUE as a fallback for PAUSE of TIME!
-  //  pauseStopWatch(1);
+  if (templateType !== "other" && stopWatch) {
+    pauseStopWatch(10);
+  }
 
   // Else we will need to use CONTINUE for pagination of start and result lists!
 

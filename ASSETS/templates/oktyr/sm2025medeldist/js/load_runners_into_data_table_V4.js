@@ -24,7 +24,7 @@ Get ALL runnerData results from API for specific class and put into runnerDataAr
 runnerDataArr.length
 */
 
-console.log("!!!! Started load_results_into_data_table script !!!!");
+console.log("!!!! Started load_runners_into_data_table script !!!!");
 
 function getJsonSize(data) {
   if (Array.isArray(data)) {
@@ -46,6 +46,28 @@ function getJsonSize(data) {
 // NOTE: JSON Specification Compliance: JSON mandates double quotes for key names.
 
 const urlToAPI = "http://85.24.189.92:5000/api/10/1/runners";
+
+fetch("http://85.24.189.92:5000/api/10/1/runners", { mode: "no-cors" })
+  .then((response) => {
+    // Response is opaque; you cannot read most of its content
+    console.log(response);
+
+    if (!response.ok) {
+      console.log(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json(); // Parse JSON data
+  })
+  // Once fetched, the data remains in memory for the lifetime of the webpage
+  .then((data) => {
+    console.log("======  DATA AFTER FETCH (1):");
+    console.log(data);
+    console.log("Size of DATA: ", getJsonSize(data));
+  })
+  .catch((error) => {
+    console.error("Error fetching JSON data:", error);
+  });
+
 fetch(urlToAPI)
   .then((response) => {
     if (!response.ok) {
@@ -56,7 +78,7 @@ fetch(urlToAPI)
   })
   // Once fetched, the data remains in memory for the lifetime of the webpage
   .then((data) => {
-    console.log("======  DATA AFTER FETCH:");
+    console.log("======  DATA AFTER FETCH (2):");
     console.log(data);
     console.log("Size of DATA: ", getJsonSize(data));
 
@@ -87,7 +109,7 @@ A table like this must exist in HTML:
 </table>
 */
 
-/* OLD VERSION: replaced with renderTabke in HTML body section */
+/* OLD VERSION: replaced with renderTable in HTML body section */
 /*
 function updateTable(numTotalItems, numPages) {
   const table = document.getElementById("data-table");
@@ -147,4 +169,4 @@ function updateTable(numTotalItems, numPages) {
 */
 // -------------------------------------------------------------------
 
-console.log("!!!! Now load_results_into_data_table script has FINISHED !!!!");
+console.log("!!!! Now load_runners_into_data_table script has FINISHED !!!!");

@@ -3,7 +3,9 @@
 body {
   font-family: sans-serif;
   margin: 20px;
-  background: #f2f2f2;
+  /* P: IMPORTANT CHANGE! */
+  /* background: #f2f2f2; */
+  background-color: rgba(255, 255, 255, 0); /* transparent */
 }
 /* Caption bar styles */
 .caption-bar {
@@ -69,6 +71,39 @@ th {
   height: 90vh; /* Make the container fill almost the entire viewport height */
   display: flex; /* Use flexbox for easier row sizing */
   flex-direction: column; /* Ensure rows are stacked vertically */
+}
+
+/* ADDED by P */
+.SPXfadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.5s;
+}
+
+/* ADDED by P */
+.SPXfadeOUT {
+  opacity: 0 !important;
+  display: none !important;
+  background-color: rgba(255, 255, 255, 0); /* transparent */
+  transition: all;
+  transition-duration: 0.2s;
+}
+
+/* From W's oktyr_style.css */
+.oktyrfadeIN {
+  opacity: 1 !important;
+  transition: all;
+  transition-duration: 0.8s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeIn;
+}
+
+.oktyrfadeOUT {
+  opacity: 0 !important;
+  transition: all;
+  transition-duration: 0.4s;
+  animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
+  animation-name: fadeOut;
 }
 
 /*

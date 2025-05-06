@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="css/table_style_v2.css" />
     <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
     <script src="js/spx_interface.js"></script>
-    <!-- This loads js/load_results_into_data_table.js from the <body> section! -->
+    <!-- This loads js/load_runners_into_data_table.js from the <body> section! -->
 
-    <title>Resultat Medeldistans</title>
+    <title>Startlista Medeldistans</title>
 
     <script>
       function runAnimationIN() {
@@ -20,23 +20,16 @@
         document.getElementsByClassName("ListAsTable").classList = "fadeIN";
         */
 
+        /*
         const containerElements = getAllEls("container");
         for (let i = 0; i < containerElements.length; i++) {
           // Iterate over each element and apply the class
-          containerElements[i].classList.add("SPXfadeIN");
-        }
-
-        // Check if the element exists before trying to access its classList
-        const captionBar = document.getElementById("caption-bar-title");
-        if (captionBar) {
-          captionBar.classList.add("SPXfadeIN"); // Use classList.add to append the class
-        } else {
-          console.error("Element with ID 'caption-bar-title' not found.");
+          containerElements[i].classList.add("fadeIN");
         }
 
         const dataTable = document.getElementById("data-table");
         if (dataTable) {
-          dataTable.classList.add("SPXfadeIN"); // Use classList.add to append the class
+          dataTable.classList.add("fadeIN"); // Use classList.add to append the class
         } else {
           console.error("Element with ID 'data-table' not found.");
         }
@@ -44,32 +37,51 @@
         const gfxElements = getAllEls("graphic");
         for (let i = 0; i < gfxElements.length; i++) {
           // Iterate over each element and apply the class
-          gfxElements[i].classList.add("SPXfadeIN");
+          gfxElements[i].classList.add("fadeIN");
         }
+        */
+
+        // Check if the element exists before trying to access its classList
+        /*
+        const captionBar = document.getElementById("caption-bar-title");
+        if (captionBar) {
+          captionBar.classList.remove("fadeOUT");
+          captionBar.classList.add("fadeIN");
+        } else {
+          console.error("Element with ID 'caption-bar-title' not found.");
+        }
+        */
+
+        // Select all descendant elements of the element with class "startList"
+        const allElements = document.querySelectorAll(".startList *");
+
+        // Loop over each element and remove and then add the "fadeXX" class
+        allElements.forEach((element) => {
+          element.classList.remove("SPXfadeOUT");
+          element.classList.add("SPXfadeIN");
+        });
       }
 
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
 
+        /*
         const containerElements = getAllEls("container");
         for (let i = 0; i < containerElements.length; i++) {
           // Iterate over each element and apply the class
-          containerElements[i].classList.remove("SPXfadeIN");
-          containerElements[i].classList.add("SPXfadeOUT");
+          containerElements[i].classList.add("fadeOUT");
         }
 
         const captionBar = document.getElementById("caption-bar-title");
         if (captionBar) {
-          captionBar.classList.remove("SPXfadeIN");
-          captionBar.classList.add("SPXfadeOUT");
+          captionBar.classList.add("fadeOUT"); // Use classList.add to append the class
         } else {
           console.error("Element with ID 'caption-bar-title' not found.");
         }
 
         const dataTable = document.getElementById("data-table");
         if (dataTable) {
-          dataTable.classList.remove("SPXfadeIN");
-          dataTable.classList.add("SPXfadeOUT");
+          dataTable.classList.add("fadeOUT"); // Use classList.add to append the class
         } else {
           console.error("Element with ID 'data-table' not found.");
         }
@@ -77,16 +89,25 @@
         const gfxElements = getAllEls("graphic");
         for (let i = 0; i < gfxElements.length; i++) {
           // Iterate over each element and apply the class
-          gfxElements[i].classList.remove("SPXfadeIN");
-          gfxElements[i].classList.add("SPXfadeOUT");
+          gfxElements[i].classList.add("fadeOUT");
         }
+        */
+
+        // Select all descendant elements of the element with class "startList"
+        const allElements = document.querySelectorAll(".startList *");
+
+        // Loop over each element and remove and then add the "fadeXX" class
+        allElements.forEach((element) => {
+          element.classList.remove("SPXfadeIN");
+          element.classList.add("SPXfadeOUT");
+        });
       }
 
       function runAnimationNEXT() {
         // THIS WORKS!
         //alert('runAnimationNEXT() CALLED!');
         // Function to handle CONTINUE ("Next Page") button for next step
-        // (using "Global" variables in body section OR js/load_results_into_data_table_V3.js)
+        // (using "Global" variables in body section OR js/load_runners_into_data_table_V3.js)
         // NOTE: Number of steps in template has been set to steps: "10"!
 
         nextPage();
@@ -123,7 +144,7 @@
 
     <script>
       window.SPXGCTemplateDefinition = {
-        description: "Result list table template",
+        description: "Start list table template",
         playserver: "OVERLAY",
         playchannel: "1",
         playlayer: "19",
@@ -194,13 +215,13 @@
     </script>
   </head>
 
-  <body class="resultList">
+  <body class="startList">
     <!-- Caption Bar -->
     <div class="caption-bar" id="caption-bar-title">
-      Resultat Medeldistans D21
+      Startlista Medeldistans
     </div>
 
-    <!-- Custom container for the result list table -->
+    <!-- Custom container for the start list table -->
     <div class="container">
       <div class="graphic">
         <table id="data-table">
@@ -229,11 +250,11 @@
     <script>
       /*  TODO:
             Either do it all from here...
-            Or from js\load_results_into_data_table_V3.js
+            Or from js\load_runners_into_data_table_V3.js
 
            DECIDED 
             to do the table here
-            but fetch data from API from elsewhere... probably js\load_results_into_data_table_V3.js?
+            but fetch data from API from elsewhere... probably js\load_runners_into_data_table_V3.js?
         */
 
       // --- Sample Data for 24 runners ---
@@ -251,10 +272,10 @@
         });
       }
 
-      // --- Pagination Variables were earlier in js\load_results_into_data_table_V3.js ---
-      let currentResultPage = 1; // Start at page 1
-      let maxNumResultPages = 1;
-      const rowsPerResultPage = 10; // Number of rows per page
+      // --- Pagination Variables were earlier in js\load_dyn_data_table_V2.js ---
+      let currentRunnersPage = 1; // Start at page 1
+      let maxNumRunnersPages = 1;
+      const rowsPerRunnersPage = 10; // Number of rows per page
 
       // --- Function to Render the Table Rows Based on the Current Page ---
       function renderTable() {
@@ -262,8 +283,8 @@
         tbody.innerHTML = ""; // Clear previous content
 
         // Calculate indexes
-        const startIndex = (currentResultPage - 1) * rowsPerResultPage;
-        const endIndex = startIndex + rowsPerResultPage;
+        const startIndex = (currentRunnersPage - 1) * rowsPerRunnersPage;
+        const endIndex = startIndex + rowsPerRunnersPage;
         const pageData = runnerDataArr.slice(startIndex, endIndex);
 
         // Generate a row for each runner in the current page.
@@ -283,15 +304,15 @@
 
       // --- Pagination Functions ---
       function nextPage() {
-        if (currentResultPage * rowsPerResultPage < runnerDataArr.length) {
-          currentResultPage++;
+        if (currentRunnersPage * rowsPerRunnersPage < runnerDataArr.length) {
+          currentRunnersPage++;
           renderTable();
         }
       }
 
       function prevPage() {
-        if (currentResultPage > 1) {
-          currentResultPage--;
+        if (currentRunnersPage > 1) {
+          currentRunnersPage--;
           renderTable();
         }
       }

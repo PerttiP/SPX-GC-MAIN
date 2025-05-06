@@ -170,7 +170,8 @@ div {
   color: var(--theme-lite-color);
   background-color: var(--theme-brandColor);
 }
-*/ #welcomeText {
+
+#welcomeText {
   opacity: 0; /* animated */
   font-size: 5em;
   font-weight: bold;
