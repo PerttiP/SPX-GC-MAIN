@@ -126,6 +126,43 @@ function demo_toggle(eventButton) {
   }
 } // demo_toggle
 
+/*
+REQUIRED IN CONFIG:
+"globalExtras": {
+    "customscript": "/ExtraFunctions/demoFunctions.js",
+    "CustomControls": [
+      {
+        "description": "Corner logo on/off",
+        "ftype": "togglebutton",
+        "bgclass": "bg_grey",
+        "text0": "Logo ON",
+        "text1": "Logo OFF",
+        "fcall": "logoToggle(this)"
+      }
+    ]
+  },
+*/
+function logoToggle(eventButton) {
+  // A basic toggle example
+  let curValue = eventButton.getAttribute("data-spx-status");
+  let colClass = eventButton.getAttribute("data-spx-color");
+  if (curValue == "false") {
+    eventButton.setAttribute("data-spx-status", "true");
+    eventButton.innerText = eventButton.getAttribute("data-spx-stoptext");
+    eventButton.classList.remove(colClass);
+    eventButton.classList.add("bg_red");
+    // add START logic here
+    alert("A demo.\nModify the script to actually START something...");
+  } else {
+    eventButton.setAttribute("data-spx-status", "false");
+    eventButton.innerText = eventButton.getAttribute("data-spx-playtext");
+    eventButton.classList.remove("bg_red");
+    eventButton.classList.add(colClass);
+    // add STOP logic here
+    alert("Demo continues.\nThe script could actually STOP something...");
+  }
+} // demo_toggle
+
 // Button event is caught here, but cannot propagate or send event or use any globals to notify my code about this click event.
 // MOVED function toggle_time()  to spx_interface.js
 // ABANDONED using this demoFunctions file in config.json!!!

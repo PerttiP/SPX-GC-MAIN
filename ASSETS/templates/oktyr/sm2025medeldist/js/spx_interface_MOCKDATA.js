@@ -127,27 +127,18 @@ function getDataFromLocalStorage(isRadioSplit) {
 }
 
 function getTopThreeRunners(runners) {
-  // Validate that runners is an array.
-  if (!Array.isArray(runners)) {
-    console.error("Expected runners to be an array.");
-    return [];
-  }
-
-  // Ensure that a string value like "1" and a numeric value like 1 are treated equivalently
   // Filter for runners whose place is 1, 2, or 3
   const topRunners = runners.filter((runner) =>
-    [1, 2, 3].includes(Number(runner.place))
+    [1, 2, 3].includes(runner.place)
   );
 
   // Sort the filtered runners in ascending order by `place` 1, 2, 3
-  // compare function subtracts one runner’s place from the other’s
-  // Sort the filtered runners in ascending order by `place`
-  topRunners.sort((a, b) => Number(a.place) - Number(b.place));
+  topRunners.sort((a, b) => a.place - b.place); // compare function subtracts one runner’s place from the other’s
 
   return topRunners;
 }
 
-// OLD HARD-CODED MOCKTEST 2025-04-24:
+// HARD-CODED MOCKTEST 2025-04-24:
 const mockData_OneRunner = {
   // 'meta-data':
   competition: "Medel-Kval",
@@ -164,27 +155,6 @@ const mockData_OneRunner = {
       place: 4,
     },
   ],
-};
-
-// UDPATED HARD-CODED MOCKTEST 2025-05-07:
-const mockData_OneRunner_OneSplit = {
-  // 'meta-data':
-  competition: "Medel-Kval",
-  runner_class: "D21",
-  split: {
-    id: 150,
-    name: "Mock Split - Radio 2,9 km",
-    runners: [
-      {
-        team: null,
-        bib: "144",
-        name: "Eva Rådberg",
-        club: "OK Tyr",
-        start_time: 745900,
-        split_time: 753878,
-      },
-    ],
-  },
 };
 
 function validateApiResponseDataTypes(data) {
@@ -208,47 +178,6 @@ function validateApiResponseDataTypes(data) {
       Number.isInteger(runner.final_time) &&
       Number.isInteger(runner.place)
   );
-}
-
-function validateApiResponseSplitDataTypes(data) {
-  // Validate top-level meta-data.
-  if (
-    typeof data.competition !== "string" ||
-    typeof data.runner_class !== "string" ||
-    typeof data.split !== "object" ||
-    data.split === null
-  ) {
-    return false;
-  }
-
-  // Validate split-level properties.
-  if (
-    typeof data.split.id !== "number" ||
-    typeof data.split.name !== "string" ||
-    !Array.isArray(data.split.runners)
-  ) {
-    return false;
-  }
-
-  // Validate each runner in the runners array.
-  return data.split.runners.every((runner) => {
-    // Check for core runner properties.
-    if (
-      typeof runner.bib !== "string" ||
-      typeof runner.name !== "string" ||
-      typeof runner.club !== "string" ||
-      typeof runner.start_time !== "number" ||
-      typeof runner.split_time !== "number"
-    ) {
-      return false;
-    }
-
-    // Validate team can be either null or a string.
-    if (runner.team !== null && typeof runner.team !== "string") {
-      return false;
-    }
-    return true;
-  });
 }
 
 /**
@@ -282,41 +211,6 @@ function findSpecificRunner(apiData, valdKlass, valdBib) {
   // Find the runner with a bib that matches valdBib.
   // Converting both values to strings can help when one is a string vs. number.
   const runner = apiData.runners.find(
-    (runner) => String(runner.bib) === String(valdBib)
-  );
-
-  if (!runner) {
-    console.error(`No runner found with bib ${valdBib}.`);
-    alert("Startnumret " + valdBib + " hittades inte i löpardatat.");
-    return null;
-  }
-
-  return runner;
-}
-
-/**
- * Given API data with a split object containing a runners array, and a selected bib,
- * return the runner object that has that bib.
- *
- * @param {*} apiSplitData
- * @param {*} valdBib
- * @returns {Object|null} The runner object if found; otherwise, null.
- */
-function findSpecificRunnerFromSplit(apiSplitData, valdBib) {
-  // Verify that the API data exists and that there is a split with a runners array.
-  if (
-    !apiSplitData ||
-    !apiSplitData.split ||
-    !Array.isArray(apiSplitData.split.runners)
-  ) {
-    console.error("No runners found in API data.");
-    alert("Inga löpardata från API endpoint.");
-    return null;
-  }
-
-  // Find the runner with a bib that matches valdBib.
-  // Converting both values to strings ensures that numbers and string representations match.
-  const runner = apiSplitData.split.runners.find(
     (runner) => String(runner.bib) === String(valdBib)
   );
 
@@ -365,31 +259,26 @@ function update(data) {
       fetchMockApiResponseMany(selectedClass)
         .then((apiData) => {
           // Validate that API data exists.
-          if (
-            !apiData ||
-            !apiData.split ||
-            !Array.isArray(apiData.split.runners) ||
-            apiData.split.runners.length === 0
-          ) {
-            console.warn("No API data or split with runners array available!");
+          if (!apiData || !apiData.runners || apiData.runners.length === 0) {
+            console.warn("No API data or runners available!");
             alert(
               "Fetch från API misslyckades!\nVälj klass och startnummer\nFörsök sedan på nytt!"
             );
             return;
           }
-          console.log("Mock API Split Response:", apiData);
-          console.log("with: " + apiData.split.runners.length + " runners.");
+          console.log("Mock API Response:", apiData);
+          console.log("with: " + apiData.runners.length + " runners.");
 
           // Optionally validate the API data types.
           console.log(
-            "validateApiResponseSplitDataTypes:",
-            validateApiResponseSplitDataTypes(apiData)
+            "validateApiResponseDataTypes:",
+            validateApiResponseDataTypes(apiData)
           );
 
           // Find the specific runner using your existing function.
-          let selectedRunner = findSpecificRunnerFromSplit(
+          const selectedRunner = findSpecificRunner(
             apiData,
-            //selectedClass, // Allow all classes, as long as bib matches
+            selectedClass,
             selectedRunnerBib
           );
           if (!selectedRunner) {
@@ -405,16 +294,10 @@ function update(data) {
             console.log("typeof selectedRunner: ", typeof selectedRunner); //object
             // 2025-05-06:
             localStorage.setItem("selectedRunnerName", selectedRunner.name);
-            localStorage.setItem("selectedRunnerClub", selectedRunner.club);
-            localStorage.setItem(
-              "selectedRunnerObject",
-              JSON.stringify(selectedRunner)
-            );
           }
 
-          // NOTE: Now assuming that 'place' exists for sorting purposes!
           // Retrieve the leader runner (runner with place === 1).
-          const leaderRunner = apiData.split.runners.find(
+          const leaderRunner = apiData.runners.find(
             (runner) => runner.place === 1
           );
           if (leaderRunner) {
@@ -423,8 +306,8 @@ function update(data) {
             console.error("No runner with place === 1 found.");
           }
 
-          // Get the top three runners from the split runners array.
-          const topThreeRunners = getTopThreeRunners(apiData.split.runners);
+          // Get the top three runners from the array.
+          const topThreeRunners = getTopThreeRunners(apiData.runners);
           console.log("Top-3 Runners:", topThreeRunners);
           if (!topThreeRunners || topThreeRunners.length !== 3) {
             console.warn("No top 3-runners with place 1,2,3 found.");
@@ -432,38 +315,7 @@ function update(data) {
 
           // Update any DOM elements associated with our template data fields
           // FIXME: Might not work correctly for SPLIT template type???
-
-          // BUG 0507 #2: Om ingen löpare hittades (fel klass var vald)
-          // FIX?: Visa föregående vald löpare?
-          // TODO VERIFY:
-          if (!selectedRunner) {
-            console.error("NOT selectedRunner");
-            // Tillfällig för debug:
-            selectedRunner = JSON.parse(
-              localStorage.getItem("selectedRunnerObject")
-            );
-
-            const userConfirmed = confirm(
-              "Do you want to show previous runner as selected runner?"
-            );
-
-            if (userConfirmed) {
-              console.log("The user answered: YES");
-              console.log(
-                "Using previously saved selectedRunner:",
-                selectedRunner
-              );
-            } else {
-              console.log(
-                "User declined, not using the previous selectedRunner."
-              );
-              // You could clear selectedRunner if needed:
-              selectedRunner = null;
-            }
-          }
-
           updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> VERIFY IT!
-          // FIXME: Could I even SKIP this, if it does not change anything shown in editor?
 
           if (typeof runSplitTemplateUpdate === "function") {
             // This triggers the graphic overlay update
@@ -490,12 +342,6 @@ function update(data) {
 
     case "lower3rd":
       // MOCKTEST for LowerThird: Simulate an API response (will return Mock data for bib id)!
-      /*
-        INGEN split-tid!!!
-        ENDAST aktuell running time i stopWatch komponenten!
-        Jag behöver INTE anropa API endpoint för detta!
-        Utan jag ska kunna plocka info från startlist datat!!!
-      */
       fetchMockApiResponse(selectedClass, selectedRunnerBib)
         .then((apiData) => {
           // Validate that API data exists.
@@ -586,11 +432,11 @@ if (shouldRunToggleTimerTask) runToggleTimerTaskPeriodically();
 
 // Play handler
 function play() {
-  //console.log("----- Play handler called.");
+  console.log("----- Play handler called.");
 
   if (templateType === "split" && !shouldRunToggleTimerTask) {
-    shouldRunToggleTimerTask = true; // start the periodic task
-    runToggleTimerTaskPeriodically(); // UPDATE 2025-05-07
+    shouldRunToggleTimerTask = true;
+
     console.log("STARTED runToggleTimerTaskPeriodically");
   }
 
@@ -603,14 +449,13 @@ function play() {
 
 // Stop handler
 function stop() {
-  //console.log("----- Stop handler called.");
-
   if (templateType === "split") {
-    // stop the periodic task
     shouldRunToggleTimerTask = false;
+
     console.log("STOPPED runToggleTimerTaskPeriodically");
   }
 
+  console.log("----- Stop handler called.");
   if (typeof runAnimationOUT === "function") {
     runAnimationOUT();
   } else {
@@ -622,7 +467,7 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
-  // Check if templateType is SPLIT (or LOWER3RD)?
+  // Check if templateType is SPLIT (or LOWER3RD?
   // If it is, then use CONTINUE as a fallback for PAUSE of TIME!
 
   if (templateType === "split" && stopWatch) {
@@ -730,7 +575,7 @@ function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
   };
 
   // Find an element in the DOM with an id matching the key
-  // Loop through each field in the currtemplateData object
+  // Loop through each field in the _templateData object
   for (var dataField in currTemplateData) {
     var idField = document.getElementById(dataField);
     if (idField) {
@@ -756,7 +601,7 @@ function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
           break;
         case "fTemplateType":
           console.warn(
-            "WARN: Recommended #" + dataField + " missing from SPX template..."
+            "WARN: Optional #" + dataField + " missing from SPX template..."
           );
           break;
         default:
@@ -777,7 +622,7 @@ async function fetchApiResponseMany(_klass) {
   return "NOT DONE YET";
 }
 
-// This periodic task shall run every second as long as the graphic overlay is playing!
+// This task shall run every second as long as the graphic overlay is playing!
 function runToggleTimerTaskPeriodically() {
   if (!shouldRunToggleTimerTask) {
     console.log(
@@ -800,7 +645,7 @@ function runToggleTimerTaskPeriodically() {
   setTimeout(runToggleTimerTaskPeriodically, 1000);
 }
 
-// Function to stop the periodic task: (will always be stopped at stop() call when graphic overlay is stopped)
+// Function to stop the timer:
 function stopToggleTimerTask() {
   shouldRunToggleTimerTask = false;
   console.log(
@@ -1082,145 +927,166 @@ async function fetchMockApiResponse(_klass, bibnr) {
   return null; // Explicitly return null if no match, else undefined would be returned
 }
 
-//
-// MOCKDATA for split data
-//
+/*
+async function fetchMockApiResponse(selKlass, selBib) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        // resolve should return an object with a runners property
+        runners: [{ name: "Ferry Fyråsen", bib: "444" }],
+      });
+    }, 500);
+  });
+}
+*/
 
-// First mock data object
-const apiMockSplitData1 = {
-  competition: "Mock Competition Beta",
-  runner_class: "D21",
-  split: {
-    id: 150,
-    name: "Mock Split - TV1",
-    runners: [
-      {
-        team: "Squad X",
-        bib: "101",
-        name: "Alice Smith",
-        club: "OK Sprinters",
-        start_time: 745800,
-        split_time: 753800,
-        place: 1,
-      },
-      {
-        team: "Team Bravo",
-        bib: "102",
-        name: "Bernadette Brown",
-        club: "OK Runners",
-        start_time: 745820,
-        split_time: 753820,
-        place: 3,
-      },
-      {
-        team: "Team Ski",
-        bib: "103",
-        name: "Johanna Hagström",
-        club: "OK Göteborg",
-        start_time: 745820,
-        split_time: 753820,
-        place: 2,
-      },
-      {
-        team: null,
-        bib: "111",
-        name: "Anna-Lisa Carlsson",
-        club: "IFK Sunne",
-        start_time: 856730,
-        split_time: 876540,
-        place: 4,
-      },
-    ],
-  },
-};
-
-const apiMockSplitData2 = {
-  competition: "Mock Competition Alpha",
-  runner_class: "H21",
-  split: {
-    id: 150,
-    name: "Mock Split - TV1",
-    runners: [
-      {
-        team: null,
-        bib: "201",
-        name: "Melwin Lyckesol",
-        club: "IF Höppera",
-        start_time: 745900,
-        split_time: 753878,
-        place: 1,
-      },
-      {
-        team: null,
-        bib: "202",
-        name: "Emil Rådberg",
-        club: "OK Tyr",
-        start_time: 745900,
-        split_time: 753878,
-        place: 4,
-      },
-      {
-        team: null,
-        bib: "203",
-        name: "Charlie Chaplin",
-        club: "OK Comedy Club",
-        start_time: 745930,
-        split_time: 753910,
-        place: 3,
-      },
-      {
-        team: null,
-        bib: "222",
-        name: "John Doe",
-        club: "OK Thunder",
-        start_time: 745930,
-        split_time: 753910,
-        place: 2,
-      },
-    ],
-  },
-};
-
-const apiMockSplitData3 = {
-  competition: "Mock Competition Gamma",
-  runner_class: "H21",
-  split: {
-    id: 150,
-    name: "Mock Split - Trail Run",
-    runners: [
-      {
-        team: null,
-        bib: "301",
-        name: "Charlie Day",
-        club: "OK Trailblazers",
-        start_time: 745700,
-        split_time: 753700,
-      },
-      {
-        team: "Team Charlie",
-        bib: "302",
-        name: "Dana White",
-        club: "OK Fast",
-        start_time: 745710,
-        split_time: 753710,
-      },
-    ],
-  },
-};
-
-// UPDATED MOCKTEST for splitTime:
+// MOCKTEST for splitTime:
 async function fetchMockApiResponseMany(_klass) {
   // MOCKTEST responding with several runners in a specific class (D21 or H21)
-  // UPDATED WITH:
   // Including current place on current or last passed (?) split during competition.
   // Also including split times for all radio split controls.
   if (_klass === "D21") {
     // Mock data
-    return apiMockSplitData1;
+    return {
+      competition: "Medel-Kval",
+      runner_class: "D21",
+      runners: [
+        {
+          bib: "0",
+          name: "Test Runner",
+          club: "OK Test",
+          start_time: "14:40",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 0,
+        },
+        {
+          bib: "101",
+          name: "Zerafina Pekkala",
+          club: "OK Nåjd",
+          start_time: "11:00",
+          split_times: [24500, 50800, 78400],
+          final_time: 108000,
+          place: 12,
+        },
+        {
+          bib: "102",
+          name: "Linda Fahlin",
+          club: "OK Tyr",
+          start_time: "11:30",
+          split_times: [21500, 30800, 58400],
+          final_time: 10800,
+          place: 7,
+        },
+        {
+          bib: "111",
+          name: "Anna Andersson",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "333",
+          name: "Karin Johansson",
+          club: "OK Djerf",
+          start_time: "12:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+        {
+          bib: "444",
+          name: "Ferdina Fyrisdottir",
+          club: "OK Fyran",
+          start_time: "12:04",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+        {
+          bib: "222",
+          name: "Lisa Bergström",
+          club: "IFK Göteborg",
+          start_time: "12:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "555",
+          name: "Hanna Helenius",
+          club: "OK Tyr",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 5,
+        },
+        {
+          bib: "777",
+          name: "Susanna Osborne",
+          club: "OK Bat",
+          start_time: "12:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 6,
+        },
+      ],
+    };
   } else if (_klass === "H21") {
-    return apiMockSplitData2;
-  } else {
-    return apiMockSplitData3;
+    // Mock data
+    return {
+      competition: "Medel-Kval",
+      runner_class: "H21",
+      runners: [
+        {
+          bib: "201",
+          name: "Johan Olsson",
+          club: "OK SKogsmårdarna",
+          start_time: "14:00",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 1,
+        },
+        {
+          bib: "202",
+          name: "Pär Hultgren",
+          club: "IFK Malmö",
+          start_time: "14:02",
+          split_times: [2520, 5190, 7950],
+          final_time: 10950,
+          place: 2,
+        },
+        {
+          bib: "203",
+          name: "Kalle Arvidsson",
+          club: "OK Björnen",
+          start_time: "14:04",
+          split_times: [2580, 5300, 8080],
+          final_time: 11200,
+          place: 3,
+        },
+        {
+          bib: "444",
+          name: "Ferry Fyråsen",
+          club: "OK Fyran",
+          start_time: "14:44",
+          split_times: [2450, 5080, 7840],
+          final_time: 10800,
+          place: 4,
+        },
+        {
+          bib: "555",
+          name: "Pelle Pettersson",
+          club: "OK Hällefors",
+          start_time: "16:46",
+          split_times: [12450, 35080, 53840],
+          final_time: 60800,
+          place: 5,
+        },
+      ],
+    };
   }
 }
 

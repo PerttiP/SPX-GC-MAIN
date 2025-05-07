@@ -32,6 +32,11 @@
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
+    <script
+      type="text/javascript"
+      src="js/customConfirmationOverlay.js"
+      defer
+    ></script>
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
 
     <link
@@ -191,7 +196,7 @@
           {
             field: "f_vald_runner_bib",
             ftype: "dropdown",
-            title: "Select Runner",
+            title: "Select Runner (D21: 101-145, H21: 201-245)",
             value: "0",
             items: [
               { text: "101", value: "101" },
@@ -290,7 +295,7 @@
             field: "f0",
             ftype: "caption",
             title: "Bib Number of Runner to Follow",
-            value: "0",
+            value: "D21: 101-145, H21: 201-245",
           },
           {
             field: "f1",
@@ -298,8 +303,8 @@
             title: "Fullname",
             //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init! But it would not work for updating.
             //value: `TEST: ${selectedRunnerName}`, // FIXME: TEST1
-            value: `TEST: ${getSelectedRunnerName()}`, // FIXME: TEST2
-            //value: "",
+            //value: `TEST: ${getSelectedRunnerName()}`, // FIXME: TEST2  ->
+            value: "",
           },
           {
             field: "f2",
