@@ -663,11 +663,11 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746626847636",
+      "imported": "1746628332169",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-07T14:07:38.343Z"
+  "updated": "2025-05-07T14:32:12.169Z"
 }

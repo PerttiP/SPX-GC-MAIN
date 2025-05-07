@@ -55,6 +55,11 @@
     <!-- Next scripts use defer and are executed in order -->
     <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
     <script type="text/javascript" src="/js/lib/tyrstopwatch.js" defer></script>
+    <script
+      type="text/javascript"
+      src="js/fetchSpecificRunner.js"
+      defer
+    ></script>
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
 
     <script
@@ -102,14 +107,8 @@
 
       function runTemplateUpdate(runnerFromAPI, fieldsFromTemplate) {
         console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
-        console.log(
-          "runnerFromAPI.runners.length: ",
-          runnerFromAPI.runners.length()
-        );
-        if (!runnerFromAPI || !runnerFromAPI.runners) {
-          console.error(
-            "runnerFromAPI is EMPTY or NULL or runnerFromAPI.runners is empty"
-          );
+        if (!runnerFromAPI) {
+          console.error("runnerFromAPI is EMPTY or NULL");
           return; // <----------- RETURN!
         }
 
@@ -138,7 +137,7 @@
         if (runnerFromAPI) {
           getEl("vald_runner_bib").innerHTML = runnerFromAPI.bib;
           getEl("vald_runner_name").innerHTML = runnerFromAPI.name;
-          getEl("club_name").innerHTML = runnerFromAPI.club;
+          getEl("club_name").innerHTML = runnerFromAPI.runner_club;
         }
 
         // Show all text-boxes
@@ -316,23 +315,23 @@
             field: "f_vald_runner_bib",
             ftype: "dropdown",
             title: "Select Runner (D21: 101-145, H21: 201-245)",
-            value: "0",
+            value: "100",
             items: [
               {
-                text: "0 - Test Runner",
-                value: "0",
+                text: "100 - Test Runner",
+                value: "100",
               },
               {
-                text: "1 - ",
-                value: "1",
+                text: "101 - ",
+                value: "101",
               },
               {
-                text: "2 - ",
-                value: "2",
+                text: "102 - ",
+                value: "102",
               },
               {
-                text: "3 - ",
-                value: "3",
+                text: "103 - ",
+                value: "103",
               },
               {
                 text: "111 - Anna Andersson",
