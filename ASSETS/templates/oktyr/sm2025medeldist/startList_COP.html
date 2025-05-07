@@ -174,12 +174,10 @@
         <table id="data-table">
           <thead>
             <tr>
-              <th>Place</th>
               <th>Bib Number</th>
               <th>Name</th>
               <th>Club</th>
               <th>Time</th>
-              <th>After Leader (+M.ss)</th>
             </tr>
           </thead>
           <tbody>
@@ -209,13 +207,78 @@
         */
 
         // TODO:
-        const apiUrl = "TODO";
+        const apiUrl = "http://85.24.189.92:5000/api/10/1/spx";
+        // const apiUrl = `https://example.com/api/startlist/${selectedClass}`;
 
-        maxNumResultPages = Math.ceil(runnerDataArr.length / rowsPerResultPage);
+        try {
+          // Fetch the start list data from the primary endpoint
+          const response = await fetch(apiUrl);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const fetchedResult = await response.json();
+          console.log("Fetched API Data:", fetchedResult);
+
+          // Transform the fetched data into an array of runner objects.
+          // The API returns an object where each key "itemX" holds an array of field objects.
+          let tempArray = [];
+          Object.keys(fetchedResult).forEach((key) => {
+            if (key.startsWith("item")) {
+              const fieldsArray = fetchedResult[key];
+              let runner = {};
+
+              // Map fields to properties based on their title.
+              fieldsArray.forEach((fieldObj) => {
+                switch (fieldObj.title.toLowerCase()) {
+                  case "bib":
+                    runner.bib = fieldObj.value;
+                    break;
+                  case "fullname":
+                    runner.name = fieldObj.value;
+                    break;
+                  case "runnerclub":
+                    runner.runner_club = fieldObj.value;
+                    break;
+                  case "starttime":
+                    runner.start_time = fieldObj.value;
+                    break;
+                  case "class":
+                    runner.class = fieldObj.value;
+                    break;
+                  default:
+                    // Any additional fields can be handled here.
+                    break;
+                }
+              });
+              tempArray.push(runner);
+            }
+          });
+          startingListDataArr = tempArray;
+
+          // Verify that the fetched data is an array.
+          if (!Array.isArray(startingListDataArr)) {
+            throw new Error("Fetched start list data is not an array!");
+          }
+        } catch (error) {
+          console.error("Primary data fetch failed, using fallback:", error);
+          // If the primary fetch fails, use a fallback URL.
+          // The function getFallbackData is assumed to return a Promise resolving to a valid data array.
+          const fallbackUrl = "http://85.24.189.92:5000/api/10/1/runners"; // Adjust if needed.
+          startingListDataArr = await getFallbackData(fallbackUrl);
+          // Reset the current page to 1 when using fallback data.
+          currentStartingListPage = 1;
+        }
+
+        // Compute the maximum number of pages.
+        maxNumStartingListPages = Math.ceil(
+          startingListDataArr.length / rowsPerStartingListPage
+        );
+
+        // Render the table using the existing renderTable() function.
         renderTable();
       });
 
-      // --- Function to Render the Table Rows Based on the Current Page ---
+      // --- Function to Render the Table Rows based on the Current Page ---
       function renderTable() {
         const tbody = document.querySelector("#data-table tbody");
         tbody.innerHTML = ""; // Clear previous content

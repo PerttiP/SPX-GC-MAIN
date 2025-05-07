@@ -198,16 +198,25 @@ const mockData_OneRunner_OneSplit = {
   },
 };
 
-// UDPATED HARD-CODED MOCKTEST 2025-05-07: for Lower3rd
-const mockData_OneSingleRunner = {
-  // 'meta-data' and 'runner' data in a shared object:
-  bib: 102,
-  competition: "MeOS Tredagars, etapp 1",
-  name: "Isak Ohlsson",
-  runner_class: "H21",
-  runner_club: "Gamleby OK",
-  start_time: 327600,
-};
+// FIXME: Varför ändrade Gustav på hela JSON strukturen???
+// UDPATED HARD-CODED MOCKTEST 2025-05-07:
+//const mockData_OneRunner_OneSplit_WithPlace = {
+// 'meta-data':
+/*
+"competition": "MeOS TEST",
+  "id": 100,
+  "name": "TV1 – 1.1 km",
+  "runner_class": "H21",
+  "splits": [
+    {
+      "bib": 112,
+      "club": "Ljusne-Ala OK",
+      "name": "Erik Hansson",
+      "place": "1",
+      "split_time": 56100,
+      "start_time": 345600
+    },
+*/
 
 function validateApiResponseDataTypes(data) {
   if (

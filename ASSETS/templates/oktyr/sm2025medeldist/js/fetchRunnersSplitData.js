@@ -91,6 +91,7 @@ async function fetchRunnersSplitData(
 }
 
 // Example usage:
+/*
 fetchRunnersSplitData(
   "https://your-api-endpoint.com/getSplit",
   "SM Medel Kval",
@@ -105,3 +106,4 @@ fetchRunnersSplitData(
     // Handle errors as appropriate.
     console.error("Fetch failed:", error);
   });
+*/
