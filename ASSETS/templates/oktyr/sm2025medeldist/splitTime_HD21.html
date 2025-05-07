@@ -102,6 +102,22 @@
           getEl("vald_runner_bib").innerHTML = valdRunner.bib;
           getEl("vald_runner_name").innerHTML = valdRunner.name;
           getEl("vald_runner_club").innerHTML = valdRunner.club;
+
+          // Beräkna running time för vald runner
+          // SEE sm2025medeldist\js\raceConfigMedelFinaler.js
+          const startTid = calculateStartTime(
+            getClassForBibNumber(valdRunner.bib),
+            valdRunner.bib
+          );
+          console.log(
+            `Klass ${getClassForBibNumber(valdRunner.bib)} - Bib ${
+              valdRunner.bib
+            } startar kl. ${startTid}`
+          );
+
+          if (stopWatch) {
+            stopWatch.preset(calculateRunningTime(valdRunner.bib), true);
+          }
         }
 
         const list_titel = document.getElementById("list_titel");

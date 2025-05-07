@@ -11,6 +11,8 @@ async function fetchSpecificRunnerData(runnerClass, bibNbr) {
 
   // http://85.24.189.92:5000/api/10/1/runners/102
 
+  //FIXME: mapping of API key -> runner_class
+
   const apiUrl = "http://85.24.189.92:5000/api/10/1/runners/102";
 
   const fullUrl = `${apiUrl}/${runnerClass}/runners/${bibNbr}`;

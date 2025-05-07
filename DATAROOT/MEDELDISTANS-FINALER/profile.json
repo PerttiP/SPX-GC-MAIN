@@ -494,7 +494,7 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746626858343",
+      "imported": "1746629219230",
       "relpath": "/oktyr/sm2025medeldist/splitTime_HD21.html"
     },
     {
@@ -669,5 +669,5 @@
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-07T14:32:12.169Z"
+  "updated": "2025-05-07T14:46:59.230Z"
 }
