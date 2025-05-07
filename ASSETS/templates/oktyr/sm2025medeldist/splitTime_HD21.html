@@ -32,13 +32,13 @@
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
-    <script
-      type="text/javascript"
-      src="js/customConfirmationOverlay.js"
-      defer
-    ></script>
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
 
+    <script
+      type="text/javascript"
+      src="js/raceConfigMedelFinaler.js"
+      defer
+    ></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -55,7 +55,7 @@
       function getSelectedRunnerName() {
         return localStorage.getItem("selectedRunnerName"); // OK vid page init!
       }
-      /* MOVED into body section
+      /* MOVED first into body section, and then MOVED TO TOP OF spx_interface!
       function pauseStopWatch(timeInSeconds) {
         if (stopWatch) {
           stopWatch.freeze(timeInSeconds);
@@ -152,7 +152,7 @@
             field: "comment",
             ftype: "textfield",
             title: "This is a split time overlay with OK Tyr theme.",
-            value: "[ PLACE BIB-NR NAME TIME ]",
+            value: "[ PLACE BIB-NR NAME CLUB TIME ]",
           },
           {
             ftype: "instruction",
@@ -315,7 +315,7 @@
           {
             field: "f_pause_stopwatch_btn",
             ftype: "button",
-            title: "Pause StopWatch 10 seconds",
+            title: "Pause Watch 10 seconds",
             descr: "Pause stopwatch for 10 seconds for selected runner",
             fcall: "pauseStopWatch()",
           },
@@ -418,7 +418,7 @@
       <div data-info="Vald klass..." id="f_vald_klass"></div>
       <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
       <div data-info="Vald runner..." id="f_vald_runner_bib"></div>
-      <div data-info="Number......." id="f0"></div>
+      <div data-info="StartNumber......." id="f0"></div>
       <div data-info="Fullname....." id="f1"></div>
       <div data-info="Club........." id="f2"></div>
       <div data-info="TemplateType......" id="fTemplateType"></div>
@@ -428,14 +428,14 @@
     <script type="text/javascript" defer>
       document.addEventListener("DOMContentLoaded", () => {
         console.log("!!!! DOM content loaded (inline initialization) !!!! ");
-
+        /* MOVED TO TOP OF spx_interface!
         function pauseStopWatch(timeInSeconds) {
           if (stopWatch) {
             stopWatch.freeze(timeInSeconds);
             console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
           }
         }
-
+        */
         /*
           This code will run on each page load, so each page gets its own separate—and fresh—stopwatch instance. 
           They do not share state or data between the pages unless you implement an external state persistence mechanism 

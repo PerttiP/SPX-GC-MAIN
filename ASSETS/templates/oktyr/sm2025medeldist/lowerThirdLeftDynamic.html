@@ -49,24 +49,26 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>LEFT CORNER</title>
+    <title>Graphics - Lower3rd left corner</title>
+    <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+    <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
     <!-- Next scripts use defer and are executed in order -->
     <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
     <script type="text/javascript" src="/js/lib/tyrstopwatch.js" defer></script>
     <script type="text/javascript" src="js/spx_interface.js" defer></script>
-    <script type="text/javascript" src="js/lib/anime.min.js" defer></script>
+
     <script
       type="text/javascript"
       src="js/raceConfigMedelFinaler.js"
       defer
     ></script>
-    <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+
     <!--
     <link
       rel="stylesheet"
       type="text/css"
       id="DynamicTheme"
-      href="css/themes/News.css"
+      href="css/themes/oktyr.css"
     />
     -->
     <style>
@@ -99,15 +101,17 @@
        */
 
       function runTemplateUpdate(runnerFromAPI, fieldsFromTemplate) {
-        //alert("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
-
+        console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
+        console.log(
+          "runnerFromAPI.runners.length: ",
+          runnerFromAPI.runners.length()
+        );
         if (!runnerFromAPI || !runnerFromAPI.runners) {
           console.error(
             "runnerFromAPI is EMPTY or NULL or runnerFromAPI.runners is empty"
           );
           return; // <----------- RETURN!
         }
-        console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
 
         // Beräkna running time för selected runner
         // SEE sm2025medeldist\js\raceConfigMedelFinaler.js
@@ -125,12 +129,10 @@
           stopWatch.preset(calculateRunningTime(runnerFromAPI.bib), true);
         }
 
-        let klassAttVisa = "";
-        if (getClassForBibNumber(runnerFromAPI.bib)) {
-          klassAttVisa = getClassForBibNumber(runnerFromAPI.bib);
+        let klassAttVisa = getClassForBibNumber(runnerFromAPI.bib);
+        if (klassAttVisa) {
+          getEl("vald_klass").innerHTML = klassAttVisa;
         }
-
-        getEl("vald_klass").innerHTML = klassAttVisa;
 
         // Show selected runner data in graphic overlay
         if (runnerFromAPI) {
@@ -236,11 +238,11 @@
 
       // Layer 1 is at the very back and 20 is the highest ("closest to the camera")
       window.SPXGCTemplateDefinition = {
-        description: "Namestrap left",
+        description: "Namestrap left corner",
         playserver: "OVERLAY",
         playchannel: "1",
-        playlayer: "8",
-        webplayout: "8",
+        playlayer: "12",
+        webplayout: "12",
         out: "manual",
         dataformat: "json",
         uicolor: "3",
@@ -250,12 +252,12 @@
             field: "comment",
             ftype: "textfield",
             title: "This is a lower third overlay with OK Tyr theme.",
-            value: "[ LOWER3RD NR NAMN KLUBB ]",
+            value: "[ BIB-NR NAMN KLUBB TIME ]",
           },
           {
             ftype: "instruction",
             value:
-              "You can leave any field empty. This is a lower-left overlay with a News theme.",
+              "You can leave any field empty. This is a lower-left overlay.",
           },
           {
             field: "f_rubrik",
@@ -313,8 +315,8 @@
           {
             field: "f_vald_runner_bib",
             ftype: "dropdown",
-            title: "Select Runner",
-            value: "111",
+            title: "Select Runner (D21: 101-145, H21: 201-245)",
+            value: "0",
             items: [
               {
                 text: "0 - Test Runner",
@@ -360,26 +362,26 @@
           },
           {
             field: "f0",
-            ftype: "textfield",
-            title: "Number",
-            value: "9999",
+            ftype: "caption",
+            title: "Bib Number of Runner to Follow",
+            value: "D21: 101-145, H21: 201-245",
           },
           {
             field: "f1",
             ftype: "caption",
             title: "Fullname",
-            value: "-",
+            value: "",
           },
           {
             field: "f2",
             ftype: "caption",
             title: "Club",
-            value: "-",
+            value: "",
           },
           {
             field: "f_pause_stopwatch_btn",
             ftype: "button",
-            title: "Pause StopWatch 10 seconds",
+            title: "Pause Watch 10 seconds",
             descr: "Pause stopwatch for 10 seconds for selected runner",
             fcall: "pauseStopWatch()",
           },
@@ -389,16 +391,34 @@
             title: "",
             value: "Lower3rd",
           },
-          /*
           {
             field: "f_update_from_api_btn",
             ftype: "button",
             title: "Update & Follow",
             descr: "Update live data for selected Runner",
-            fcall: "window.updateFollowedRunner()",
+            fcall: "document.updateFollowedRunner()",
           },
-          */
         ],
+        showExtras: {
+          CustomControls: [
+            {
+              ftype: "button",
+              description: "Toggles time running -> paused",
+              bgclass: "bg_blue",
+              text: "FREEZE TIME",
+              fcall: "freeze_time()",
+            },
+            {
+              ftype: "button",
+              description: "Toggles time running -> stopped",
+              bgclass: "bg_red",
+              text: "STOP TIME",
+              fcall: "stop_time()",
+            },
+          ],
+          // FIXME: Is this needed here for projectExtras?
+          customscript: "/templates/oktyr/sm2025medeldist/js/spx_interface.js",
+        },
       };
     </script>
   </head>
@@ -466,6 +486,8 @@
               </div>
             </div>
     -->
+
+    <!-- Required hidden fields for editor UI input controls -->
 
     <div id="hiddenSpxData" data-info="See spx_styles.css">
       <div data-info="Rubrik..........." id="f_rubrik"></div>

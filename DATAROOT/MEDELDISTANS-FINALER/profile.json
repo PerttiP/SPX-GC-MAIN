@@ -14,7 +14,7 @@
           "field": "comment",
           "ftype": "textfield",
           "title": "This is a split time overlay with OK Tyr theme.",
-          "value": "[ PLACE BIB-NR NAME TIME ]"
+          "value": "[ PLACE BIB-NR NAME CLUB TIME ]"
         },
         {
           "ftype": "instruction",
@@ -455,7 +455,7 @@
         {
           "field": "f_pause_stopwatch_btn",
           "ftype": "button",
-          "title": "Pause StopWatch 10 seconds",
+          "title": "Pause Watch 10 seconds",
           "descr": "Pause stopwatch for 10 seconds for selected runner",
           "fcall": "pauseStopWatch()"
         },
@@ -494,11 +494,180 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746613153792",
+      "imported": "1746626858343",
       "relpath": "/oktyr/sm2025medeldist/splitTime_HD21.html"
+    },
+    {
+      "description": "Namestrap left corner",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "12",
+      "webplayout": "12",
+      "out": "manual",
+      "dataformat": "json",
+      "uicolor": "3",
+      "steps": "2",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "This is a lower third overlay with OK Tyr theme.",
+          "value": "[ BIB-NR NAMN KLUBB TIME ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "You can leave any field empty. This is a lower-left overlay."
+        },
+        {
+          "field": "f_rubrik",
+          "ftype": "textfield",
+          "title": "Caption",
+          "value": "SM 2025 Karlstad"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "D21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "H18"
+            }
+          ]
+        },
+        {
+          "field": "f_vald_runner_bib",
+          "ftype": "dropdown",
+          "title": "Select Runner (D21: 101-145, H21: 201-245)",
+          "value": "0",
+          "items": [
+            {
+              "text": "0 - Test Runner",
+              "value": "0"
+            },
+            {
+              "text": "1 - ",
+              "value": "1"
+            },
+            {
+              "text": "2 - ",
+              "value": "2"
+            },
+            {
+              "text": "3 - ",
+              "value": "3"
+            },
+            {
+              "text": "111 - Anna Andersson",
+              "value": "111"
+            },
+            {
+              "text": "222 - Lisa Bergström",
+              "value": "222"
+            },
+            {
+              "text": "333 - Karin Johansson",
+              "value": "333"
+            },
+            {
+              "text": "444 - Ferry Fyråsen",
+              "value": "444"
+            },
+            {
+              "text": "555 - Hanna Helenius",
+              "value": "555"
+            },
+            {
+              "text": "777 - Susanna Osborne",
+              "value": "777"
+            }
+          ]
+        },
+        {
+          "field": "f0",
+          "ftype": "caption",
+          "title": "Bib Number of Runner to Follow",
+          "value": "D21: 101-145, H21: 201-245"
+        },
+        {
+          "field": "f1",
+          "ftype": "caption",
+          "title": "Fullname",
+          "value": ""
+        },
+        {
+          "field": "f2",
+          "ftype": "caption",
+          "title": "Club",
+          "value": ""
+        },
+        {
+          "field": "f_pause_stopwatch_btn",
+          "ftype": "button",
+          "title": "Pause Watch 10 seconds",
+          "descr": "Pause stopwatch for 10 seconds for selected runner",
+          "fcall": "pauseStopWatch()"
+        },
+        {
+          "field": "fTemplateType",
+          "ftype": "hidden",
+          "title": "",
+          "value": "Lower3rd"
+        },
+        {
+          "field": "f_update_from_api_btn",
+          "ftype": "button",
+          "title": "Update & Follow",
+          "descr": "Update live data for selected Runner",
+          "fcall": "document.updateFollowedRunner()"
+        }
+      ],
+      "showExtras": {
+        "CustomControls": [
+          {
+            "ftype": "button",
+            "description": "Toggles time running -> paused",
+            "bgclass": "bg_blue",
+            "text": "FREEZE TIME",
+            "fcall": "freeze_time()"
+          },
+          {
+            "ftype": "button",
+            "description": "Toggles time running -> stopped",
+            "bgclass": "bg_red",
+            "text": "STOP TIME",
+            "fcall": "stop_time()"
+          }
+        ],
+        "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
+      },
+      "onair": "false",
+      "imported": "1746626847636",
+      "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
     }
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-07T10:19:13.792Z"
+  "updated": "2025-05-07T14:07:38.343Z"
 }

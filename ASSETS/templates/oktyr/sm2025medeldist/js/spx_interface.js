@@ -21,16 +21,26 @@ console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
 
-  // Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
-  // Listen for the custom "templateRundownItemSaved" event on window.
-  window.addEventListener("templateRundownItemSaved", (event) => {
-    // The event.detail carries the data you dispatched.
-    console.log(
-      "Notified of template rundown item save via window:",
-      event.detail
-    );
-  });
+  // WARN: This function would be local to the event listener callback only:
+  /*
+  function pauseStopWatch(timeInSeconds) {
+    if (stopWatch) {
+      stopWatch.freeze(timeInSeconds);
+      console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
+    }
+  }
+  */
 
+  // Define and expose the function to global scope:
+  window.pauseStopWatch = function (timeInSeconds) {
+    if (stopWatch) {
+      stopWatch.freeze(timeInSeconds);
+      console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
+    }
+  };
+
+  // Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
+  // Listen for the custom "templateRundownItemSaved" event.
   // TODO: Use shared target!
   document.addEventListener("templateRundownItemSaved", (event) => {
     // The event.detail carries the data you dispatched.
@@ -41,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Listen for the custom toggle event, and react accordingly.
+// Listen for the custom toggle event, and react accordingly. (NOT WORKING)
 document.addEventListener("stopWatchToggle", () => {
   // FIXME: DID NOT WORK from HTML body in SplitTime.html
   console.log("stopWatchToggle event received");
@@ -111,6 +121,7 @@ function getDataFromLocalStorage(isRadioSplit) {
   }
   // Only for split time with radio controls:
   if (isRadioSplit) {
+    selectedRadioSplitId = localStorage.getItem("selectedRadioSplitId");
     if (selectedRadioSplitId === null) {
       console.error("refetchRunnersData with selectedRadioSplitId === null");
       alert(
@@ -187,6 +198,17 @@ const mockData_OneRunner_OneSplit = {
   },
 };
 
+// UDPATED HARD-CODED MOCKTEST 2025-05-07: for Lower3rd
+const mockData_OneSingleRunner = {
+  // 'meta-data' and 'runner' data in a shared object:
+  bib: 102,
+  competition: "MeOS Tredagars, etapp 1",
+  name: "Isak Ohlsson",
+  runner_class: "H21",
+  runner_club: "Gamleby OK",
+  start_time: 327600,
+};
+
 function validateApiResponseDataTypes(data) {
   if (
     typeof data.competition !== "string" ||
@@ -208,6 +230,60 @@ function validateApiResponseDataTypes(data) {
       Number.isInteger(runner.final_time) &&
       Number.isInteger(runner.place)
   );
+}
+
+// Validator function to check that the API data has the expected structure and types.
+function validateRunnerApiData(data) {
+  // Check that data is an object.
+  if (!data || typeof data !== "object") {
+    console.error("API data is not a valid object.");
+    return false;
+  }
+
+  // Check that each required property exists with the correct type.
+  if (typeof data.bib !== "number") {
+    console.error(
+      `Invalid type for "bib": expected number, got ${typeof data.bib}`
+    );
+    return false;
+  }
+
+  if (typeof data.competition !== "string") {
+    console.error(
+      `Invalid type for "competition": expected string, got ${typeof data.competition}`
+    );
+    return false;
+  }
+
+  if (typeof data.name !== "string") {
+    console.error(
+      `Invalid type for "name": expected string, got ${typeof data.name}`
+    );
+    return false;
+  }
+
+  if (typeof data.runner_class !== "string") {
+    console.error(
+      `Invalid type for "runner_class": expected string, got ${typeof data.runner_class}`
+    );
+    return false;
+  }
+
+  if (typeof data.runner_club !== "string") {
+    console.error(
+      `Invalid type for "runner_club": expected string, got ${typeof data.runner_club}`
+    );
+    return false;
+  }
+
+  if (typeof data.start_time !== "number") {
+    console.error(
+      `Invalid type for "start_time": expected number, got ${typeof data.start_time}`
+    );
+    return false;
+  }
+
+  return true;
 }
 
 function validateApiResponseSplitDataTypes(data) {
@@ -269,15 +345,6 @@ function findSpecificRunner(apiData, valdKlass, valdBib) {
   }
 
   // Allow ALL classes as long as bib number matches!!!
-  // If you also want to check that the overall API data has the correct class,
-  // you can uncomment the following:
-  /*
-  if (apiData.runner_class !== valdKlass) {
-    console.warn("API data class does not match the selected class.");
-    alert("Startnumret " + valdBib + " hittades inte för vald klass.");
-    return null;
-  }
-  */
 
   // Find the runner with a bib that matches valdBib.
   // Converting both values to strings can help when one is a string vs. number.
@@ -337,8 +404,8 @@ function update(data) {
   var templateData = JSON.parse(data);
   console.log("----- Update handler called with data:", templateData);
 
-  console.log("----- Vald runner_class: ", templateData.f_vald_klass);
-  console.log("----- Vald runner bib: ", templateData.f_vald_runner_bib);
+  //console.log("----- Vald runner_class: ", templateData.f_vald_klass);
+  //console.log("----- Vald runner bib: ", templateData.f_vald_runner_bib);
 
   selectedClass = templateData.f_vald_klass;
   selectedRunnerBib = templateData.f_vald_runner_bib;
@@ -346,11 +413,11 @@ function update(data) {
   // Save persistently?
   if (selectedClass) {
     localStorage.setItem("selectedClass", selectedClass);
-    console.log("Class saved: ", selectedClass);
+    //console.log("Class saved: ", selectedClass);
   }
   if (selectedRunnerBib) {
     localStorage.setItem("selectedRunnerBib", selectedRunnerBib);
-    console.log("BibNr saved", selectedRunnerBib);
+    //console.log("BibNr saved", selectedRunnerBib);
   }
 
   // templateType - Expected values "split", "lower3rd", or "other".
@@ -361,6 +428,10 @@ function update(data) {
   // The default case will also catch scenarios where templateType might not be defined.
   switch (templateType) {
     case "split":
+      // TODO: RadioSplitId (TV1, TV2, TV3, MÅL)
+      selectedRadioSplitId = templateData.f_vald_kontroll;
+      localStorage.setItem("selectedRadioSplitId", selectedRadioSplitId);
+
       // When using mock data for testing, call the mock API.
       fetchMockApiResponseMany(selectedClass)
         .then((apiData) => {
@@ -402,8 +473,9 @@ function update(data) {
             // Continue processing to try retrieve and update leader and top runners.
           } else {
             console.log("Specific runner:", selectedRunner);
-            console.log("typeof selectedRunner: ", typeof selectedRunner); //object
+            //console.log("typeof selectedRunner: ", typeof selectedRunner); //object
             // 2025-05-06:
+            localStorage.setItem("selectedRunnerBib", selectedRunner.bib);
             localStorage.setItem("selectedRunnerName", selectedRunner.name);
             localStorage.setItem("selectedRunnerClub", selectedRunner.club);
             localStorage.setItem(
@@ -430,12 +502,9 @@ function update(data) {
             console.warn("No top 3-runners with place 1,2,3 found.");
           }
 
-          // Update any DOM elements associated with our template data fields
-          // FIXME: Might not work correctly for SPLIT template type???
-
           // BUG 0507 #2: Om ingen löpare hittades (fel klass var vald)
-          // FIX?: Visa föregående vald löpare?
-          // TODO VERIFY:
+          // FIX: Visa föregående vald löpare!
+          // VERIFIED 0507
           if (!selectedRunner) {
             console.error("NOT selectedRunner");
             // Tillfällig för debug:
@@ -444,9 +513,9 @@ function update(data) {
             );
 
             const userConfirmed = confirm(
-              "Do you want to show previous runner as selected runner?"
+              "Vill du visa föregående löpare med nr?: " +
+                localStorage.getItem(selectedRunner.bib)
             );
-
             if (userConfirmed) {
               console.log("The user answered: YES");
               console.log(
@@ -462,7 +531,9 @@ function update(data) {
             }
           }
 
-          updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> VERIFY IT!
+          // Update any DOM elements associated with our template data fields
+          // FIXME: Might not work correctly for SPLIT template type???
+          updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> 'VERIFIED' 05-05!
           // FIXME: Could I even SKIP this, if it does not change anything shown in editor?
 
           if (typeof runSplitTemplateUpdate === "function") {
@@ -489,60 +560,40 @@ function update(data) {
       break;
 
     case "lower3rd":
-      // MOCKTEST for LowerThird: Simulate an API response (will return Mock data for bib id)!
       /*
-        INGEN split-tid!!!
+        INGEN split-tid!!! INGA radio-kontroller!
         ENDAST aktuell running time i stopWatch komponenten!
-        Jag behöver INTE anropa API endpoint för detta!
-        Utan jag ska kunna plocka info från startlist datat!!!
+        Jag behöver egentligen INTE anropa API endpoint för detta!
+        Utan jag skulle kunna plocka info från startlist datat (som fallback)!!!
       */
-      fetchMockApiResponse(selectedClass, selectedRunnerBib)
+      // 2025-05-07: UPDATED FOR PRODUCTION
+      fetchSpecificRunnerData(selectedClass, selectedRunnerBib)
         .then((apiData) => {
-          // Validate that API data exists.
-          if (!apiData || !apiData.runners || apiData.runners.length === 0) {
-            console.warn("No API data or runners available!");
+          console.log("Specific Runner Data:", apiData);
+
+          // Validate the API data.
+          if (!validateRunnerApiData(apiData)) {
             alert(
               "Fetch från API misslyckades!\nVälj klass och startnummer\nFörsök sedan på nytt!"
             );
-            return;
-          }
-          console.log("Mock API Response:", apiData);
-          console.log("with: " + apiData.runners.length + " runners.");
-
-          // Optionally validate the API data types.
-          console.log(
-            "validateApiResponseDataTypes:",
-            validateApiResponseDataTypes(apiData)
-          );
-
-          const selectedRunner = findSpecificRunner(
-            apiData,
-            selectedClass,
-            selectedRunnerBib
-          );
-
-          if (!selectedRunner) {
-            // alerts visas redan från findSpecificRunner funktionen!
             console.warn(
               "Specific runner with bib: " +
                 selectedRunnerBib +
                 " was not found."
             );
-
             return; //################## RETURN !!!
-          } else {
-            console.log("Specific runner: ", selectedRunner);
-
-            // 2025-05-06:
-            localStorage.setItem("selectedRunnerName", selectedRunner.name);
           }
 
+          console.log("API data has valid structure and data types.");
+
+          // Further processing of valid apiData can go here.
+          localStorage.setItem("selectedRunnerName", apiData.name);
           // Update any DOM elements associated with our template data fields
-          updateTemplateDataFields(templateData, selectedRunner); // UPDATED 2025-05-04 17:30 -> VERIFY IT!
+          updateTemplateDataFields(templateData, apiData);
 
           if (typeof runTemplateUpdate === "function") {
             // This triggers the graphic overlay update
-            runTemplateUpdate(selectedRunner, templateData);
+            runTemplateUpdate(apiData, templateData);
           } else {
             console.error(
               "runTemplateUpdate() function missing from SPX template."
@@ -550,7 +601,7 @@ function update(data) {
           }
         })
         .catch((error) => {
-          console.error("Error fetching mock API response:", error);
+          console.error("Error fetching API response:", error);
         });
 
       // Exit the update() function after handling the asynchronous call.
@@ -713,14 +764,14 @@ function validString(str) {
       fcall: "pauseStopWatch()" 
 */
 // ---------------------------------------------------------------------------------
-
+/* MOVED TO TOP OF spx_interface
 function pauseStopWatch(timeInSeconds) {
   if (stopWatch) {
     stopWatch.freeze(timeInSeconds);
     console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
   }
 }
-
+*/
 function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
   // If you want to override values for f0, f1, and f2, you can define an object to map the new values:
   const fieldOverrides = {
@@ -773,6 +824,30 @@ function updateTemplateDataFields(currTemplateData, currRunnerFromAPI) {
   PRODUCTION: Send API request and receive response
 */
 // ----------------------------------------------------------------------------------
+
+// Wrapper function that fetches and validates the API response using async/await.
+/* NOT NEEDED (it was just for fun)
+async function fetchApiResponseSingleAsync() {
+  try {
+    const apiData = await fetchSpecificRunnerData("HD21-TEST", 102);
+    console.log("Specific Runner Data:", apiData);
+
+    // Validate the structure and data types of the API response.
+    if (!validateRunnerApiData(apiData)) {
+      throw new Error("API data validation failed.");
+    }
+
+    // If we reach this point, the API data is valid.
+    console.log("API data has valid structure and data types.");
+
+    // Further processing can be done here...
+    // For example, update your UI or store the data for later use.
+  } catch (error) {
+    console.error("Error fetching API response:", error);
+  }
+}
+  */
+
 async function fetchApiResponseMany(_klass) {
   return "NOT DONE YET";
 }
