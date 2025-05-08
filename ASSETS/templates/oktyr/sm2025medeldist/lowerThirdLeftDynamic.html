@@ -55,27 +55,25 @@
     <!-- Next scripts use defer and are executed in order -->
     <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
     <script type="text/javascript" src="js/lib/tyrstopwatch.js" defer></script>
-    <script
-      type="text/javascript"
-      src="js/fetchSpecificRunner.js"
-      defer
-    ></script>
-    <script type="text/javascript" src="js/spx_interface.js" defer></script>
-
+    <!-- The raceConfig and the fetch files MUST be loaded before spx_interface.js -->
     <script
       type="text/javascript"
       src="js/raceConfigMedelFinaler.js"
       defer
     ></script>
+    <script
+      type="text/javascript"
+      src="js/fetchSpecificRunnerData.js"
+      defer
+    ></script>
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
 
-    <!--
     <link
       rel="stylesheet"
       type="text/css"
       id="DynamicTheme"
       href="css/themes/oktyr.css"
     />
-    -->
     <style>
       /* För att animationen ska fungera – se till att .graphic initialt är dold */
       .graphic {

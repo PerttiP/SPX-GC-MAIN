@@ -39,7 +39,23 @@ async function fetchRunnersData(apiUrl) {
 
     if (!response.ok) {
       // HTTP-level error (non 200-299 status)
-      throw new Error(`HTTP error: ${response.status}`);
+      let friendlyMessage;
+      switch (response.status) {
+        case 404:
+          friendlyMessage =
+            "The requested data was not found. Please check your selection and try again.";
+          break;
+
+        case 500:
+          friendlyMessage =
+            "Our server encountered an error. Please try again later or contact support.";
+          break;
+        default:
+          friendlyMessage = `An unexpected error occurred (Error code: ${response.status}). Please try again.`;
+      }
+      alert(friendlyMessage);
+      // Throw a new error with this operator-friendly message.
+      throw new Error(friendlyMessage);
     }
 
     const data = await response.json();

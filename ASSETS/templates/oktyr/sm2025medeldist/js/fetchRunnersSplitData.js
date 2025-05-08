@@ -65,6 +65,21 @@ async function fetchRunnersSplitData(
 
     // Check if the response is ok (status in the range 200-299)
     if (!response.ok) {
+      let friendlyMessage;
+      switch (response.status) {
+        case 404:
+          friendlyMessage =
+            "The requested data was not found. Please check your selection and try again.";
+          break;
+
+        case 500:
+          friendlyMessage =
+            "Our server encountered an error. Please try again later or contact support.";
+          break;
+        default:
+          friendlyMessage = `An unexpected error occurred (Error code: ${response.status}). Please try again.`;
+      }
+      alert(friendlyMessage);
       throw new Error(`Network response error: ${response.status}`);
     }
 

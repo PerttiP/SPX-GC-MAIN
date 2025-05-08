@@ -32,13 +32,14 @@
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
-    <script type="text/javascript" src="js/spx_interface.js" defer></script>
-
+    <!-- The raceConfig and any fetch files MUST be loaded before spx_interface.js -->
     <script
       type="text/javascript"
       src="js/raceConfigMedelFinaler.js"
       defer
     ></script>
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -270,13 +271,14 @@
             field: "f_vald_kontroll",
             ftype: "dropdown",
             title: "Select RadioControl",
-            value: "TV1",
+            value: "1",
             items: [
-              { text: "TV1", value: "TV1" },
-              { text: "TV2", value: "TV2" },
-              { text: "TV3", value: "TV3" }, // "Förvarning"?
-              //{ text: "Förvarning", value: "Förvarning" },
-              { text: "MÅL", value: "MÅL" },
+              // FIXME: Correct splitID for race!
+              { text: "TV1", value: "1" },
+              { text: "TV2", value: "2" },
+              { text: "TV3", value: "3" }, // "Förvarning"?
+              //{ text: "Förvarning", value: "35" },
+              { text: "MÅL", value: "4" },
             ],
           },
           {

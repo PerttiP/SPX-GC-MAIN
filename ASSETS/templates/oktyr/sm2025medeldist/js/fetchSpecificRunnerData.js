@@ -24,8 +24,25 @@ async function fetchSpecificRunnerData(runnerClass, bibNbr) {
     });
 
     if (!response.ok) {
-      // If the response has a non-OK status, throw an error to be caught below.
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      if (!response.ok) {
+        let friendlyMessage;
+        switch (response.status) {
+          case 404:
+            friendlyMessage =
+              "The requested data was not found. Please check your selection and try again.";
+            break;
+
+          case 500:
+            friendlyMessage =
+              "Our server encountered an error. Please try again later or contact support.";
+            break;
+          default:
+            friendlyMessage = `An unexpected error occurred (Error code: ${response.status}). Please try again.`;
+        }
+        alert(friendlyMessage);
+        // Throw a new error with this operator-friendly message.
+        throw new Error(friendlyMessage);
+      }
     }
 
     // Parse and return the JSON response.

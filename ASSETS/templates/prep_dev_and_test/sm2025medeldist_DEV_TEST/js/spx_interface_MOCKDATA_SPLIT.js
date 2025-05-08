@@ -6,8 +6,8 @@
 
 // Save these 'persistently' in Local Storage?: for each Update or Play
 let selectedClass;
-let selectedRunnerBib; // A number!
-let selectedRadioSplitId; // A number!
+let selectedRunnerBib;
+let selectedRadioSplitId;
 
 let templateType; // "lowerThird" or "split" or "other"
 
@@ -112,7 +112,6 @@ function getDataFromLocalStorage(isRadioSplit) {
     }
   }
 
-  console.log("Previous runner's data from localStorage: ");
   console.log("selectedClass: ", selectedClass);
   console.log("selectedRunnerBib: ", selectedRunnerBib);
   console.log("selectedRadioSplitId: ", selectedRadioSplitId);
@@ -420,18 +419,12 @@ function update(data) {
   // The default case will also catch scenarios where templateType might not be defined.
   switch (templateType) {
     case "split":
-      // TODO: RadioSplitId EX: 100, 200, 300, 400 = (TV1, TV2, TV3, MÅL)
+      // TODO: RadioSplitId (TV1, TV2, TV3, MÅL)
       selectedRadioSplitId = templateData.f_vald_kontroll;
-      console.warn(typeof selectedRadioSplitId); // string!
+      localStorage.setItem("selectedRadioSplitId", selectedRadioSplitId);
 
-      localStorage.setItem(
-        "selectedRadioSplitId",
-        Number(selectedRadioSplitId)
-      );
-
-      // 2025-05-08: FIXME: UPDATE FOR PRODUCTION!
-      //  fetchRunnersSplit(selectedClass, Number(selectedRadioSplitId))
-      fetchRunnersSplit(3, 150)
+      // When using mock data for testing, call the mock API.
+      fetchMockApiResponseMany(selectedClass)
         .then((apiData) => {
           // Validate that API data exists.
           if (
@@ -446,7 +439,7 @@ function update(data) {
             );
             return;
           }
-          console.log("API Split Response:", apiData);
+          console.log("Mock API Split Response:", apiData);
           console.log("with: " + apiData.split.runners.length + " runners.");
 
           // Optionally validate the API data types.
@@ -512,7 +505,7 @@ function update(data) {
 
             const userConfirmed = confirm(
               "Vill du visa föregående löpare med nr?: " +
-                localStorage.getItem(selectedRunnerBib)
+                localStorage.getItem(selectedRunner.bib)
             );
             if (userConfirmed) {
               console.log("The user answered: YES");
@@ -844,56 +837,10 @@ async function fetchApiResponseSingleAsync() {
     console.error("Error fetching API response:", error);
   }
 }
-*/
+  */
 
-/**
- * Fetches API data for many runners for a specified split
- *
- * The endpoint URL is built as:
- *   http://85.24.189.92:5000/api/{competition}/{runnerClass}/splits/{splitID}
- *
- * For now, competition is hard-coded as 10.
- *
- * @param {string|number} runnerClass - The class parameter for the API. (e.g., "3")
- * @param {string|number} splitID - The identification number for the split (radio control).
- * @returns {Promise<Object>} A promise that resolves to the parsed JSON data.
- * @throws {Error} if the fetch fails or the status is not OK.
- */
-async function fetchRunnersSplit(runnerClass, splitID) {
-  // FIXME: Hard-coded keys (TEST SITE: http://85.24.189.92:5000/api/10/3/splits/150)
-  const competition = 1; // FIXME: Verify that ID 1 -> MedelDistans Final SM2025
-
-  const url = `http://85.24.189.92:5000/api/${competition}/${runnerClass}/splits/${splitID}`;
-  console.log("Fetching data from URL:", url);
-
-  try {
-    const response = await fetch(url, { method: "GET" });
-    if (!response.ok) {
-      let friendlyMessage;
-      switch (response.status) {
-        case 404:
-          friendlyMessage =
-            "The requested data was not found. Please check your selection and try again.";
-          break;
-
-        case 500:
-          friendlyMessage =
-            "Our server encountered an error. Please try again later or contact support.";
-          break;
-        default:
-          friendlyMessage = `An unexpected error occurred (Error code: ${response.status}). Please try again.`;
-      }
-      alert(friendlyMessage);
-      // Throw a new error with this operator-friendly message.
-      throw new Error(friendlyMessage);
-    }
-    // Parse JSON data from the response.
-    const apiData = await response.json();
-    return apiData;
-  } catch (error) {
-    console.error("Error fetching API data:", error);
-    throw error;
-  }
+async function fetchApiResponseMany(_klass) {
+  return "NOT DONE YET";
 }
 
 // This periodic task shall run every second as long as the graphic overlay is playing!

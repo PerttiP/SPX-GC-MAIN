@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T07:29:55.680Z",
+  "updated": "2025-05-08T09:53:31.619Z",
   "templates": [
     {
       "description": "Namestrap left corner",
@@ -66,7 +66,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner (D21: 101-145, H21: 201-245)",
-          "value": "0",
+          "value": "111",
           "items": [
             {
               "text": "0 - Test Runner",
@@ -174,6 +174,78 @@
       "itemID": "1746626864985"
     },
     {
+      "description": "Start list table template",
+      "playserver": "OVERLAY",
+      "playchannel": "1",
+      "playlayer": "19",
+      "webplayout": "19",
+      "out": "manual",
+      "uicolor": "2",
+      "steps": "5",
+      "DataFields": [
+        {
+          "field": "comment",
+          "ftype": "textfield",
+          "title": "Nickname of this item on the rundown",
+          "value": "[ STARTLIST TABLE ]"
+        },
+        {
+          "ftype": "instruction",
+          "value": "This template has several pages (5 steps). Click 'Continue' for next page..."
+        },
+        {
+          "field": "f_list_titel",
+          "ftype": "textfield",
+          "title": "Set list title",
+          "value": "RESULTAT MEDELDISTANS"
+        },
+        {
+          "field": "f_vald_klass",
+          "ftype": "dropdown",
+          "title": "Select Class",
+          "value": "H21",
+          "items": [
+            {
+              "text": "D21",
+              "value": "D21"
+            },
+            {
+              "text": "H21",
+              "value": "H21"
+            },
+            {
+              "text": "D20",
+              "value": "D20"
+            },
+            {
+              "text": "H20",
+              "value": "H20"
+            },
+            {
+              "text": "D18",
+              "value": "D18"
+            },
+            {
+              "text": "H18",
+              "value": "H18"
+            }
+          ]
+        },
+        {
+          "field": "f_refetch_btn",
+          "ftype": "button",
+          "title": "Refetch data",
+          "descr": "Refetch runners data",
+          "fcall": "refetchRunnersData()"
+        }
+      ],
+      "onair": "false",
+      "dataformat": "json",
+      "imported": "1746635031620",
+      "relpath": "/oktyr/sm2025medeldist/startList_COP.html",
+      "itemID": "1746635045166"
+    },
+    {
       "description": "Split times left - for HD21",
       "playserver": "OVERLAY",
       "playchannel": "1",
@@ -203,7 +275,7 @@
           "field": "f_vald_klass",
           "ftype": "dropdown",
           "title": "Select Class",
-          "value": "D21",
+          "value": "H21",
           "items": [
             {
               "text": "D21",
@@ -219,23 +291,23 @@
           "field": "f_vald_kontroll",
           "ftype": "dropdown",
           "title": "Select RadioControl",
-          "value": "TV1",
+          "value": "1",
           "items": [
             {
               "text": "TV1",
-              "value": "TV1"
+              "value": "1"
             },
             {
               "text": "TV2",
-              "value": "TV2"
+              "value": "2"
             },
             {
               "text": "TV3",
-              "value": "TV3"
+              "value": "3"
             },
             {
               "text": "MÅL",
-              "value": "MÅL"
+              "value": "4"
             }
           ]
         },
@@ -243,7 +315,7 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner (D21: 101-145, H21: 201-245)",
-          "value": "111",
+          "value": "101",
           "items": [
             {
               "text": "101",
@@ -667,81 +739,9 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746629219230",
+      "imported": "1746695814393",
       "relpath": "/oktyr/sm2025medeldist/splitTime_HD21.html",
-      "itemID": "1746629225178"
-    },
-    {
-      "description": "Start list table template",
-      "playserver": "OVERLAY",
-      "playchannel": "1",
-      "playlayer": "19",
-      "webplayout": "19",
-      "out": "manual",
-      "uicolor": "2",
-      "steps": "5",
-      "DataFields": [
-        {
-          "field": "comment",
-          "ftype": "textfield",
-          "title": "Nickname of this item on the rundown",
-          "value": "[ STARTLIST TABLE ]"
-        },
-        {
-          "ftype": "instruction",
-          "value": "This template has several pages (5 steps). Click 'Continue' for next page..."
-        },
-        {
-          "field": "f_list_titel",
-          "ftype": "textfield",
-          "title": "Set list title",
-          "value": "RESULTAT MEDELDISTANS"
-        },
-        {
-          "field": "f_vald_klass",
-          "ftype": "dropdown",
-          "title": "Select Class",
-          "value": "H21",
-          "items": [
-            {
-              "text": "D21",
-              "value": "D21"
-            },
-            {
-              "text": "H21",
-              "value": "H21"
-            },
-            {
-              "text": "D20",
-              "value": "D20"
-            },
-            {
-              "text": "H20",
-              "value": "H20"
-            },
-            {
-              "text": "D18",
-              "value": "D18"
-            },
-            {
-              "text": "H18",
-              "value": "H18"
-            }
-          ]
-        },
-        {
-          "field": "f_refetch_btn",
-          "ftype": "button",
-          "title": "Refetch data",
-          "descr": "Refetch runners data",
-          "fcall": "refetchRunnersData()"
-        }
-      ],
-      "onair": "false",
-      "dataformat": "json",
-      "imported": "1746635031620",
-      "relpath": "/oktyr/sm2025medeldist/startList_COP.html",
-      "itemID": "1746635045166"
+      "itemID": "1746695821404"
     }
   ],
   "project": "MEDELDISTANS-FINALER",

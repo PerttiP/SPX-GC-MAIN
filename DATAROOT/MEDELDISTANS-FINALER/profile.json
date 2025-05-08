@@ -46,23 +46,23 @@
           "field": "f_vald_kontroll",
           "ftype": "dropdown",
           "title": "Select RadioControl",
-          "value": "TV1",
+          "value": "1",
           "items": [
             {
               "text": "TV1",
-              "value": "TV1"
+              "value": "1"
             },
             {
               "text": "TV2",
-              "value": "TV2"
+              "value": "2"
             },
             {
               "text": "TV3",
-              "value": "TV3"
+              "value": "3"
             },
             {
               "text": "MÅL",
-              "value": "MÅL"
+              "value": "4"
             }
           ]
         },
@@ -494,7 +494,7 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746689306557",
+      "imported": "1746697970261",
       "relpath": "/oktyr/sm2025medeldist/splitTime_HD21.html"
     },
     {
@@ -560,23 +560,23 @@
           "field": "f_vald_runner_bib",
           "ftype": "dropdown",
           "title": "Select Runner (D21: 101-145, H21: 201-245)",
-          "value": "0",
+          "value": "100",
           "items": [
             {
-              "text": "0 - Test Runner",
-              "value": "0"
+              "text": "100 - Test Runner",
+              "value": "100"
             },
             {
-              "text": "1 - ",
-              "value": "1"
+              "text": "101 - ",
+              "value": "101"
             },
             {
-              "text": "2 - ",
-              "value": "2"
+              "text": "102 - ",
+              "value": "102"
             },
             {
-              "text": "3 - ",
-              "value": "3"
+              "text": "103 - ",
+              "value": "103"
             },
             {
               "text": "111 - Anna Andersson",
@@ -663,7 +663,7 @@
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
       "onair": "false",
-      "imported": "1746628332169",
+      "imported": "1746694112844",
       "relpath": "/oktyr/sm2025medeldist/lowerThirdLeftDynamic.html"
     },
     {
@@ -740,5 +740,5 @@
   ],
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T07:28:26.557Z"
+  "updated": "2025-05-08T09:52:50.261Z"
 }
