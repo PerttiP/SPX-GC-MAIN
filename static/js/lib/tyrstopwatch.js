@@ -4,10 +4,6 @@
 // UPDATES:
 // v 1.1:   Added getState() function.
 
-// IMPORTANT:
-// This file MUST be placed in server's static public root, that serves static files!!!
-// -> static\js\lib\tyrstopwatch.js
-
 // tyrStopWatch.js – expanded stopwatch functionality (non‑module version)
 //  - with seconds precision and formatted as H:MM.ss
 // Based partly on code by Mohammad-karimi with modifications for stopwatch behavior

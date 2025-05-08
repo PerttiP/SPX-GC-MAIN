@@ -13,7 +13,7 @@ let templateType; // "lowerThird" or "split" or "other"
 
 let stopWatch;
 let shouldRunToggleTimerTask = false;
-let doFreezeTimerOnce = false;
+//let doFreezeTimerOnce = false; // MOVED TO demoFunctions!
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
@@ -940,7 +940,7 @@ window.updateFollowedRunner = function () {
 // Requires:
 //  "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config!
 // ----------------------------------------------------------------------------------
-
+/*
 function toggle_time() {
   //alert("OK Tyr custom function toggle_time");
   console.log(
@@ -954,7 +954,7 @@ function toggle_time() {
     console.log("Stopwatch freezed for 10 seconds.");
   }
 }
-
+*/
 // ----------------------------------------------------------------------------------
 //  StopWatch Freeze
 //
@@ -963,7 +963,7 @@ function toggle_time() {
 // AND:
 //  Adding Project Extras via UI with path to .../js/spx_interface.js
 // ----------------------------------------------------------------------------------
-
+/* NOT WORKING
 function freeze_time() {
   //alert("OK Tyr custom function toggle_time");
   console.log(
@@ -975,7 +975,8 @@ function freeze_time() {
     //shouldRunToggleTimerTask = true;
   }
 }
-
+*/
+/* NOT WORKING
 function freezeStopWatchInstance(sw) {
   if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
     // If the stopwatch is running, perform toggle to other state
@@ -987,7 +988,7 @@ function freezeStopWatchInstance(sw) {
     }
   }
 }
-
+*/
 // ----------------------------------------------------------------------------------
 /*
   Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js

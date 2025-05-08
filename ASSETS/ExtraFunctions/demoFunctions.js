@@ -20,6 +20,12 @@
 // ABANDONED using this demoFunctions file in config.json!!!
 console.log("!!!! demoFunctions was loaded !!!!");
 
+//let doFreezeTimerOnce = false; // MOVED HERE from spx_interface.js  ->  MUST be GLOBAL for whole UI!
+// BUT IF TRYING TO INIT THE FLAG HERE I INSTEAD GET:
+// ISSUE: Uncaught ReferenceError: doFreezeTimerOnce is not defined at runToggleTimerTaskPeriodically (spx_interface.js)
+// WORKAROUND: Use persistent storage for this VERY GLOBAL FLAG!:
+localStorage.setItem("doFreezeTimerOnce", "false");
+
 /*
 let globStopWatch = null;
 let LW_TyrStopWatch;
@@ -37,6 +43,7 @@ function sendOKTyrEvent(data) {
 */
 
 // Function to dispatch an event on a shared context, the global document:
+/*
 function sendOKTyrEvent(data) {
   const event = new CustomEvent("customSignal", {
     bubbles: true,
@@ -45,6 +52,7 @@ function sendOKTyrEvent(data) {
   const res = document.dispatchEvent(event);
   console.log("dispatchEvent result:", res); //true
 }
+*/
 
 function hello(options) {
   // This is a demo function that can be used
@@ -142,7 +150,20 @@ REQUIRED IN CONFIG:
     ]
   },
 */
-function logoToggle(eventButton) {
+function timerToggle(eventButton) {
+  //alert("OK Tyr custom function toggle_time");
+  console.log(
+    "OK Tyr Project showExtras custom function timerToggle CALLED in demoFunctions.js.\n"
+  );
+
+  //  if (!doFreezeTimerOnce) {
+  //    doFreezeTimerOnce = true; // Flag set for ToggleTimerTask in spx_interface!
+
+  // WORKAROUND: Use persistent storage for setting this VERY GLOBAL FLAG!:
+  localStorage.setItem("doFreezeTimerOnce", "true");
+  //shouldRunToggleTimerTask = true; // Should not be needed (handled by PLAY command)
+  //  }
+
   // A basic toggle example
   let curValue = eventButton.getAttribute("data-spx-status");
   let colClass = eventButton.getAttribute("data-spx-color");
@@ -152,20 +173,22 @@ function logoToggle(eventButton) {
     eventButton.classList.remove(colClass);
     eventButton.classList.add("bg_red");
     // add START logic here
-    alert("A demo.\nModify the script to actually START something...");
+    //alert("A demo.\nModify the script to actually START something...");
   } else {
     eventButton.setAttribute("data-spx-status", "false");
     eventButton.innerText = eventButton.getAttribute("data-spx-playtext");
     eventButton.classList.remove("bg_red");
     eventButton.classList.add(colClass);
     // add STOP logic here
-    alert("Demo continues.\nThe script could actually STOP something...");
+    //alert("Demo continues.\nThe script could actually STOP something...");
   }
-} // demo_toggle
+} // timerToggle
 
+// FIXME:
 // Button event is caught here, but cannot propagate or send event or use any globals to notify my code about this click event.
-// MOVED function toggle_time()  to spx_interface.js
+// MOVED function toggle_time() to spx_interface.js
 // ABANDONED using this demoFunctions file in config.json!!!
+/*
 function oktyr_toggleStopWatch() {
   alert("OK Tyr custom function oktyr_toggleStopWatch");
   console.log(
@@ -175,13 +198,6 @@ function oktyr_toggleStopWatch() {
   // FIXME: DID NOT WORK
   // Dispatch a custom event to notify that a toggle has happened.
   document.dispatchEvent(new CustomEvent("stopWatchToggle"));
-
-  /*
-  IMPORTANT:
-  About global window object
-  Assigning an object to the global window object only makes it accessible to scripts running on 
-  that same page—not across multiple pages within the same web app session.
-  */
 
   if (globStopWatch) {
     console.debug("globStopWatch exists! Trying to freeze...");
@@ -203,7 +219,7 @@ function oktyr_toggleStopWatch() {
     console.error("window.LW_TyrStopWatch NOT FOUND HERE");
   }
 }
-
+*/
 function clearAllChannels() {
   // Will CLEAR all playout channels instantly, a "PANIC" button.
   console.log("Clearing gfx...");

@@ -13,7 +13,7 @@ let templateType; // "lowerThird" or "split" or "other"
 
 let stopWatch;
 let shouldRunToggleTimerTask = false;
-//let doFreezeTimerOnce = false;  //NOTE: MOVED to demoFunctions !!!
+let doFreezeTimerOnce = false; //NOTE: A persistent flag in local storage is also used from demoFunctions !!!
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
@@ -852,14 +852,27 @@ function runToggleTimerTaskPeriodically() {
     return; // Stop further execution if the flag is false.
   }
 
-  // Perform the task if the flag is set
-  if (doFreezeTimerOnce) {
-    // We shall try to freeze the timer only if it currently is running!
-    if (stopWatch && stopWatch.getState() === "running") {
-      stopWatch.freeze(10);
-      console.log("Stopwatch freezed for 10 seconds.");
+  // Perform the task if either the global flag is set OR the persistent flag is set (from demoFunctions)!:
+  if (
+    doFreezeTimerOnce ||
+    localStorage.getItem("doFreezeTimerOnce") === "true"
+  ) {
+    const userConfirmed = confirm(
+      "Vill du frysa klockan i 10 sekunder för vald löpare?: " +
+        localStorage.getItem(selectedRunnerBib)
+    );
+    if (userConfirmed) {
+      console.log("The user answered: YES: We shall FREEZE TIMER!");
+
+      // We shall try to freeze the timer only if it currently is running!
+      if (stopWatch && stopWatch.getState() === "running") {
+        stopWatch.freeze(10);
+        console.log("Stopwatch freezed for 10 seconds.");
+      }
     }
+
     doFreezeTimerOnce = false;
+    localStorage.setItem("doFreezeTimerOnce", "false");
   }
 
   // Schedule the next run:
@@ -910,7 +923,7 @@ function toggle_time() {
 // AND:
 //  Adding Project Extras via UI with path to .../js/spx_interface.js
 // ----------------------------------------------------------------------------------
-
+/*
 function freeze_time() {
   //alert("OK Tyr custom function toggle_time");
   console.log(
@@ -922,7 +935,8 @@ function freeze_time() {
     //shouldRunToggleTimerTask = true;
   }
 }
-
+*/
+/*
 function freezeStopWatchInstance(sw) {
   if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
     // If the stopwatch is running, perform toggle to other state
@@ -934,7 +948,7 @@ function freezeStopWatchInstance(sw) {
     }
   }
 }
-
+*/
 // ----------------------------------------------------------------------------------
 /*
   Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js
