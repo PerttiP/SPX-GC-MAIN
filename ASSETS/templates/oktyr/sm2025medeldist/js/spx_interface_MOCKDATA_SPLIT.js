@@ -858,8 +858,7 @@ function runToggleTimerTaskPeriodically() {
     localStorage.getItem("doFreezeTimerOnce") === "true"
   ) {
     const userConfirmed = confirm(
-      "Vill du frysa klockan i 10 sekunder för vald löpare?: " +
-        localStorage.getItem(selectedRunnerBib)
+      "Vill du frysa klockan i 10 sekunder för vald löpare?"
     );
     if (userConfirmed) {
       console.log("The user answered: YES: We shall FREEZE TIMER!");

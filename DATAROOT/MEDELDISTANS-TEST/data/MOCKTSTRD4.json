@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T16:27:37.465Z",
+  "updated": "2025-05-08T17:19:57.016Z",
   "templates": [
     {
       "description": "Split times left",
@@ -166,7 +166,7 @@
         ],
         "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js"
       },
-      "onair": "false",
+      "onair": "true",
       "imported": "1746721583364",
       "relpath": "/oktyr/sm2025medeldist/splitTime_MOCKDATA.html",
       "itemID": "1746721590833"
