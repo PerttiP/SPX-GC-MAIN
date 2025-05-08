@@ -12,7 +12,7 @@ body {
 .caption-bar {
   background-color: #b14340;
   color: white;
-  padding: 10px 20px;
+  padding: 15px 20px;
   font-size: 1.5em;
   text-align: center;
   margin-bottom: 10px;
@@ -28,12 +28,26 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
+  font-size: 1.4em; /* Adjust the size to be slightly bigger */
+  font-weight: bold; /* Make the text bold */
 }
+
 th {
   background-color: #fafafa;
 }
 
 /* ADDED by Pertti */
+.data-table,
+.ListAsTable {
+  height: 95vh; /* Make the container fill almost the entire viewport height */
+  display: flex; /* Use flexbox for easier row sizing */
+  flex-direction: column; /* Ensure rows are stacked vertically */
+}
+
+#data-table td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 .hidden {
   display: none; /* Hide rows with no data */
@@ -44,7 +58,6 @@ th {
 .resultList .container {
   display: flex;
   justify-content: center;
-  /*align-items: top;*/ /* NOT VALID CSS */
   align-items: flex-start;
   position: absolute;
   padding: 10px 80px;
@@ -59,20 +72,9 @@ th {
 .resultList .graphic {
   width: 100%;
   height: fit-content;
-  /*margin: 40px;*/
   border-radius: 8px;
   overflow: hidden; /* wide content), it will be clipped */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Some of Pertti's old specs from original table_style for startList: */
-
-/* Make the table responsive */
-.ListAsTable,
-.data-table {
-  height: 90vh; /* Make the container fill almost the entire viewport height */
-  display: flex; /* Use flexbox for easier row sizing */
-  flex-direction: column; /* Ensure rows are stacked vertically */
 }
 
 /* ADDED by P */

@@ -421,6 +421,7 @@ function update(data) {
             !Array.isArray(apiData.split.runners) ||
             apiData.split.runners.length === 0
           ) {
+            // FIXME: 2025-05-08:
             console.warn("No API data or split with runners array available!");
             alert(
               "Fetch från API misslyckades!\nVälj klass och startnummer\nFörsök sedan på nytt!"
@@ -842,7 +843,7 @@ async function fetchApiResponseSingleAsync() {
  */
 async function fetchRunnersSplit(runnerClass, splitID) {
   // FIXME: Hard-coded keys (TEST SITE: http://85.24.189.92:5000/api/10/3/splits/150)
-  const competition = 1; // FIXME: Verify that ID 1 -> MedelDistans Final SM2025
+  const competition = 10; // FIXME: Verify that ID 1 -> MedelDistans Final SM2025
 
   const url = `http://85.24.189.92:5000/api/${competition}/${runnerClass}/splits/${splitID}`;
   console.log("Fetching data from URL:", url);

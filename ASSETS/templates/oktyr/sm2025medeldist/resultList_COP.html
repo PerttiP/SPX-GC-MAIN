@@ -36,9 +36,9 @@
         }
 
         // Check if the element exists before trying to access its classList
-        const captionBar = document.getElementById("caption-bar-title");
-        if (captionBar) {
-          captionBar.classList.add("SPXfadeIN"); // Use classList.add to append the class
+        const captionBarTitle = document.getElementById("caption-bar-title");
+        if (captionBarTitle) {
+          captionBarTitle.classList.add("SPXfadeIN"); // Use classList.add to append the class
         } else {
           console.error("Element with ID 'caption-bar-title' not found.");
         }
@@ -103,19 +103,26 @@
         //alert('runTemplateUpdate() CALLED!');
 
         //console.clear();
-        // First retrieve text to hidden elems
-        getEl("caption-bar-title").innerHTML = htmlDecode(
-          getEl("f_list_titel").innerText +
-            " - " +
-            htmlDecode(getEl("f_vald_klass").innerText)
-        );
+        let elemCapBarTitle = document.getElementById("caption-bar-title");
 
-        // Get the vald klass from dropdown
-        let element = document.getElementById("vald_klass");
-        //console.log(element);
-        if (typeof element != "undefined" && element != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedClassForResultList = element.innerText;
+        // First get vald klass from dropdown
+        elemKlass = getEl("f_vald_klass"); // document.getElementById("f_vald_klass");
+        if (elemKlass) {
+          selectedClassForResultList = htmlDecode(elemKlass.innerText);
+
+          if (elemCapBarTitle && selectedClassForResultList !== null) {
+            const validClasses = ["H21", "D21", "H20", "D20", "H18", "D18"];
+            if (validClasses.includes(selectedClassForResultList)) {
+              elemCapBarTitle.textContent =
+                "Resultat Medeldistans" + " - " + selectedClassForResultList;
+            } else {
+              elemCapBarTitle.textContent = "Resultat Medeldistans";
+            }
+          }
+        } else {
+          if (elemCapBarTitle) {
+            elemCapBarTitle.textContent = "Resultat Medeldistans";
+          }
         }
 
         setTimeout(runAnimationIN, 100);
@@ -145,12 +152,14 @@
             value:
               "This template has several pages (5 steps). Click 'Continue' for next page...",
           },
+          /*
           {
             field: "f_list_titel",
             ftype: "textfield",
             title: "Set list title",
             value: "RESULTAT MEDELDISTANS",
           },
+          */
           {
             field: "f_vald_klass",
             ftype: "dropdown",
@@ -205,12 +214,12 @@
         <table id="data-table">
           <thead>
             <tr>
-              <th>Place</th>
-              <th>Bib Number</th>
-              <th>Name</th>
-              <th>Club</th>
-              <th>Time</th>
-              <th>After Leader (+M.ss)</th>
+              <th>Plac</th>
+              <th>Startnummer</th>
+              <th>Namn</th>
+              <th>Klubb</th>
+              <th>Tid</th>
+              <th>+M.ss</th>
             </tr>
           </thead>
           <tbody>
@@ -221,7 +230,6 @@
     </div>
 
     <div id="hiddenSpxData" data-info="See styles.css">
-      <div data-info="List titel..." id="f_list_titel"></div>
       <div data-info="Vald klass..." id="f_vald_klass"></div>
     </div>
 

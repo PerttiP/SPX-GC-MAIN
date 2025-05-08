@@ -1,7 +1,7 @@
 {
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T12:01:02.958Z",
+  "updated": "2025-05-08T13:16:45.127Z",
   "templates": [
     {
       "description": "Namestrap left corner",
@@ -845,7 +845,7 @@
           "field": "f_vald_klass",
           "ftype": "dropdown",
           "title": "Select Class",
-          "value": "D21",
+          "value": "D20",
           "items": [
             {
               "text": "D21",
@@ -881,7 +881,7 @@
           "fcall": "refetchRunnersData()"
         }
       ],
-      "onair": "true",
+      "onair": "false",
       "dataformat": "json",
       "imported": "1746704050294",
       "relpath": "/oktyr/sm2025medeldist/resultList_COP.html",
