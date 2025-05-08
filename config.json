@@ -14,11 +14,11 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
+      "MEDELDISTANS-FINALER/HD18",
+      "MEDELDISTANS-FINALER/HD20",
       "MEDELDISTANS-FINALER/HD21",
       "Medel_TEST/ExtraFunctions",
-      "Medel_TEST/MDTSTRD16",
-      "MedelDist/Medel-D21",
-      "FREEZEPROJ/FRZTSTRD2"
+      "Medel_TEST/MDTSTRD16"
     ]
   },
   "globalExtras": {
@@ -36,5 +36,5 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-07T16:24:05.176Z"
+  "updated": "2025-05-08T04:02:35.527Z"
 }

@@ -4,7 +4,6 @@
 
 // Controller interface for softpix Template Pack 1.3.2 & for OK Tyr SM 2025 (medeldist)
 
-// FIXME:
 // Save these 'persistently' in Local Storage?: for each Update or Play
 let selectedClass;
 let selectedRunnerBib;
@@ -20,16 +19,6 @@ console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
-
-  // WARN: This function would be local to the event listener callback only:
-  /*
-  function pauseStopWatch(timeInSeconds) {
-    if (stopWatch) {
-      stopWatch.freeze(timeInSeconds);
-      console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
-    }
-  }
-  */
 
   // Define and expose the function to global scope:
   window.pauseStopWatch = function (timeInSeconds) {
@@ -74,21 +63,13 @@ document.addEventListener("stopWatchToggle", () => {
   }
 });
 
-// Set up a listener that listens for the event.
-/*
-globOKTyrEventBus.addEventListener("customSignal", function (e) {
-  console.log("Custom signal on the OK Tyr event bus received:", e.detail);
-  alert("Custom event on the OK Tyr event bus received");
-});
-*/
-
-// In spx_interface.js:
+// Set up a listener that listens for the customSignal event. (NOT WORKING)
 document.addEventListener("customSignal", function (e) {
   console.log("Custom signal received via document (1):", e.detail);
   alert("Custom event on document received (1)");
 });
 
-// Attach the listener when DOM is ready
+// Attach the listener when DOM is ready. (NOT WORKING)
 document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("customSignal", function (e) {
     console.log("Custom signal received via document (2):", e.detail);
@@ -104,7 +85,7 @@ window.updateFollowedRunner = function () {
 };
 */
 
-// TODO: Could we use local storage as a fallback to get 'previous' selected Runner's data?
+// Use local storage as a fallback to get 'previous' selected Runner's data
 function getDataFromLocalStorage(isRadioSplit) {
   selectedClass = localStorage.getItem("selectedClass");
   selectedRunnerBib = localStorage.getItem("selectedRunnerBib");

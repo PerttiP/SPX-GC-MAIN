@@ -28,7 +28,7 @@
     <script type="text/javascript" src="js/lib/anime.min.js"></script>
     <!-- Next scripts use defer and are executed in order -->
     <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
-    <script type="text/javascript" src="/js/lib/tyrstopwatch.js" defer></script>
+    <script type="text/javascript" src="js/lib/tyrstopwatch.js" defer></script>
     <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
     <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
     <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
@@ -453,7 +453,7 @@
         }
         */
         /*
-          This code will run on each page load, so each page gets its own separate—and fresh—stopwatch instance. 
+          This code will run on each page load, so each page gets its own separate and fresh stopwatch instance. 
           They do not share state or data between the pages unless you implement an external state persistence mechanism 
           (like using sessionStorage, localStorage, a Shared Worker, or turning your app into a single‑page application).
         */
@@ -468,7 +468,7 @@
         console.log("Type of LW_TyrStopWatch:", typeof window.LW_TyrStopWatch);
         //console.log("Value of LW_TyrStopWatch:", window.LW_TyrStopWatch);
 
-        // Instantiate and start the stopwatch. (Requires /js/lib/tyrstopwatch.js)
+        // Instantiate and start the stopwatch. (Requires js/lib/tyrstopwatch.js)
         stopWatch = new window.LW_TyrStopWatch();
         if (stopWatch) {
           stopWatch.show(stopWatchEl);
