@@ -36,7 +36,7 @@ th {
   background-color: #fafafa;
 }
 
-/* ADDED by Pertti */
+/* ADDED by P */
 .data-table,
 .ListAsTable {
   height: 95vh; /* Make the container fill almost the entire viewport height */
@@ -53,7 +53,7 @@ th {
   display: none; /* Hide rows with no data */
 }
 
-/* COPIED from oktyr_style.css */
+/* COPIED from oktyr_style.css, but MODIFIED HERE! */
 
 .resultList .container {
   display: flex;
@@ -75,6 +75,68 @@ th {
   border-radius: 8px;
   overflow: hidden; /* wide content), it will be clipped */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* If you want to control column widths differently, you can target each column.
+   For example, if you know there are exactly six columns:
+*/
+.resultList #data-table th:nth-child(1) {
+  width: 10%; /* Adjust as needed */
+}
+.resultList #data-table th:nth-child(2) {
+  width: 10%;
+}
+.resultList #data-table th:nth-child(3) {
+  width: 30%;
+}
+.resultList #data-table th:nth-child(4) {
+  width: 30%;
+}
+.resultList #data-table th:nth-child(5) {
+  width: 10%; /* Adjust as needed */
+}
+.resultList #data-table th:nth-child(6) {
+  width: 10%; /* Adjust as needed */
+}
+
+/* ADDED by P */
+
+.startList .container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  padding: 10px 80px;
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(
+    100% 100% at 0% 100%,
+    rgba(84, 136, 137, 0.8) 0%,
+    rgba(84, 136, 137, 0) 100%
+  );
+}
+.startList .graphic {
+  width: 100%;
+  height: fit-content;
+  border-radius: 8px;
+  overflow: hidden; /* wide content), it will be clipped */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* If you want to control column widths differently, you can target each column.
+   For example, if you know there are exactly four columns:
+*/
+.startList #data-table th:nth-child(1) {
+  width: 10%; /* Adjust as needed */
+}
+.startList #data-table th:nth-child(2) {
+  width: 40%;
+}
+.startList #data-table th:nth-child(3) {
+  width: 40%;
+}
+.startList #data-table th:nth-child(4) {
+  width: 10%;
 }
 
 /* ADDED by P */
@@ -109,32 +171,3 @@ th {
   animation: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s;
   animation-name: fadeOut;
 }
-
-/*
-Tables normally have display: table as their default CSS display property, 
-which supports table-specific layout behaviors such as automatic column sizing.
-*/
-/*
-table {
-  border-collapse: collapse;
-  width: 100%;
-  height: 100%;
-  table-layout: fixed; /* FIXME: Equal column widths - REALLY??? */
-/*  max-width: 100%; /* Prevent the table from exceeding the container size */
-/*
-}
-th,
-td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: left;
-  background-color: #f2f2f2;
-  /*font-size: calc(1vw + 0.5vh); /* Text size adjusts proportionally */
-/*font-size: calc(4.1vw + 0.4vh); /* approximately 88px ? */
-/*
-  font-size: calc(2vw + 0.2vh);
-}
-tr {
-  height: 9%; /* Each row takes up 10% of the table's height */
-/*
-}*/

@@ -1,5 +1,6 @@
 /* oktyr_styles.css */
 /* Styles for SM2025 by William */
+/* NOTE: Styles for start & result lists are in \css\table_style_v3.css */
 
 /*
 Mix units appropriately:
@@ -141,7 +142,7 @@ p {
   flex-direction: column; /* Stack children vertically */
   justify-content: flex-start; /* FIXME? */
 }
-
+/* MOVED TO css\table_style_v3.css WITH SOME UPDATES AS WELL!:
 .resultList .container {
   display: flex;
   justify-content: center;
@@ -170,7 +171,7 @@ p {
 .resultList .runner .time {
   padding: 1rem 0.625rem;
 }
-
+*/
 #gfx {
   opacity: 0;
 }

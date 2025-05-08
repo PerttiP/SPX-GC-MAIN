@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <link rel="stylesheet" href="css/table_style_v2.css" />
+    <link rel="stylesheet" href="css/table_style_v3.css" />
 
     <!-- Global variable declarations placed in the head -->
     <script>
@@ -70,19 +70,26 @@
         //alert('runTemplateUpdate() CALLED!');
 
         //console.clear();
-        // First retrieve text to hidden elems
-        getEl("caption-bar-title").innerHTML = htmlDecode(
-          getEl("f_list_titel").innerText +
-            " - " +
-            htmlDecode(getEl("f_vald_klass").innerText)
-        );
+        let elemCapBarTitle = document.getElementById("caption-bar-title");
 
-        // Get the vald klass from dropdown
-        let element = document.getElementById("vald_klass");
-        //console.log(element);
-        if (typeof element != "undefined" && element != null) {
-          // NOTE: Use innerText to get the content of the div.
-          selectedClassForStartingList = element.innerText;
+        // First get vald klass from dropdown
+        elemKlass = getEl("f_vald_klass"); // document.getElementById("f_vald_klass");
+        if (elemKlass) {
+          selectedClassForResultList = htmlDecode(elemKlass.innerText);
+
+          if (elemCapBarTitle && selectedClassForResultList !== null) {
+            const validClasses = ["H21", "D21", "H20", "D20", "H18", "D18"];
+            if (validClasses.includes(selectedClassForResultList)) {
+              elemCapBarTitle.textContent =
+                "Startlista Medeldistans" + " - " + selectedClassForResultList;
+            } else {
+              elemCapBarTitle.textContent = "Startlista Medeldistans";
+            }
+          }
+        } else {
+          if (elemCapBarTitle) {
+            elemCapBarTitle.textContent = "Startlista Medeldistans";
+          }
         }
 
         setTimeout(runAnimationIN, 100);
@@ -112,12 +119,14 @@
             value:
               "This template has several pages (5 steps). Click 'Continue' for next page...",
           },
+          /*
           {
             field: "f_list_titel",
             ftype: "textfield",
             title: "Set list title",
-            value: "RESULTAT MEDELDISTANS",
+            value: "STARTLISTA MEDELDISTANS",
           },
+          */
           {
             field: "f_vald_klass",
             ftype: "dropdown",
@@ -150,6 +159,7 @@
               },
             ],
           },
+          /* NOT USED
           {
             field: "f_refetch_btn",
             ftype: "button",
@@ -157,6 +167,7 @@
             descr: "Refetch runners data",
             fcall: "refetchRunnersData()",
           },
+          */
         ],
       };
     </script>
