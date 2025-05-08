@@ -206,7 +206,7 @@
         H18 -> 6
         */
 
-        // TODO:
+        // FIXME:
         const apiUrl = "http://85.24.189.92:5000/api/10/1/spx";
         // const apiUrl = `https://example.com/api/startlist/${selectedClass}`;
 
@@ -263,7 +263,7 @@
           console.error("Primary data fetch failed, using fallback:", error);
           // If the primary fetch fails, use a fallback URL.
           // The function getFallbackData is assumed to return a Promise resolving to a valid data array.
-          const fallbackUrl = "http://85.24.189.92:5000/api/10/1/runners"; // Adjust if needed.
+          const fallbackUrl = "http://85.24.189.92:5000/api/1/1/runners"; // FIXME: Adjust if needed.
           startingListDataArr = await getFallbackData(fallbackUrl);
           // Reset the current page to 1 when using fallback data.
           currentStartingListPage = 1;

@@ -46,6 +46,9 @@
  * @param {number} splitId - The ID for the split.
  * @returns {Promise<Object>} The transformed API response.
  */
+
+// TESTS WITHOUT property runners.place !!!
+/*
 async function fetchRunnersSplitData(
   apiUrl,
   competition,
@@ -104,6 +107,7 @@ async function fetchRunnersSplitData(
     throw error;
   }
 }
+*/
 
 // Example usage:
 /*

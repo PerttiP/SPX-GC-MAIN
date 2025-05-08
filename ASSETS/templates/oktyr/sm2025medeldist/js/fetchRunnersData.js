@@ -9,6 +9,8 @@ These initialization variables are only executed once when the web page is loade
 /*
 FOR REAL PRODUCTION: 
 
+Used by ASSETS\templates\oktyr\sm2025medeldist\resultList.html
+
 Get ALL runnerData from API for specific class and put into runnerDataArr array
 Check runnerDataArr.length for number of runners received
 Or better: Use JSON.stringify(data).length
@@ -29,6 +31,8 @@ function getJsonSize(data) {
 }
 
 async function fetchRunnersData(apiUrl) {
+  // Using the AbortController with a timeout, you add an extra layer of fault handling
+  // to ensure your application doesn’t wait indefinitely for a response.
   const controller = new AbortController();
   const timeout = 10000; // in milliseconds (10 seconds)
   const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -74,25 +78,6 @@ async function fetchRunnersData(apiUrl) {
     }
 
     // Rethrow the error so that calling code can also handle it.
-    throw error;
-  }
-}
-
-// A helper function to fetch runner data from the API endpoint.
-async function fetchRunnersData_PROD(apiUrl) {
-  console.log("Fetching from apiUrl: ", apiUrl);
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    console.log("Size of DATA: ", JSON.stringify(data).length);
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching runners data:", error);
     throw error;
   }
 }
@@ -159,7 +144,7 @@ async function fetchRunnersData_TEST(apiUrl) {
 // -----------------------------------------------------------------------------
 
 // NOTE: JSON Specification Compliance: JSON mandates double quotes for key names.
-/* FÖRSTA PROVSKOTTET:
+/* FÖRSTA PROVSKOTTET 6/5:
 const urlToAPI = "http://85.24.189.92:5000/api/10/1/runners";
 
 console.warn("!!!! Starting fetch from API...");

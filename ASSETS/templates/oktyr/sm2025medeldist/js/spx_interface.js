@@ -176,30 +176,11 @@ const mockData_OneRunner_OneSplit = {
         club: "OK Tyr",
         start_time: 745900,
         split_time: 753878,
+        // place  // Place is MISSING HERE!
       },
     ],
   },
 };
-
-// FIXME: Varför ändrade Gustav på hela JSON-strukturen???
-// UDPATED HARD-CODED MOCKTEST 2025-05-07:
-//const mockData_OneRunner_OneSplit_WithPlace = {
-// 'meta-data':
-/*
-"competition": "MeOS TEST",
-  "id": 100,
-  "name": "TV1 – 1.1 km",
-  "runner_class": "H21",
-  "splits": [
-    {
-      "bib": 112,
-      "club": "Ljusne-Ala OK",
-      "name": "Erik Hansson",
-      "place": "1",
-      "split_time": 56100,
-      "start_time": 345600
-    },
-*/
 
 function validateApiResponseDataTypes(data) {
   if (
@@ -548,7 +529,7 @@ function update(data) {
           }
         })
         .catch((error) => {
-          console.error("Error fetching mock API response:", error);
+          console.error("Error fetching API response:", error);
         });
 
       // Exit the update() function after handling the asynchronous call.
@@ -892,6 +873,17 @@ async function fetchRunnersSplit(runnerClass, splitID) {
     return apiData;
   } catch (error) {
     console.error("Error fetching API data:", error);
+    // When the fetch fails in a network-related way (e.g., connection timeout),
+    // the error message commonly is "Failed to fetch". In that case, provide a friendly message.
+    let friendlyMessage = "";
+    if (error.message.indexOf("Failed to fetch") !== -1) {
+      friendlyMessage =
+        "Network error: The server could not be reached. Please check your connection and try again.";
+    } else {
+      friendlyMessage =
+        error.message || "An unknown error occurred. Please try again.";
+    }
+    alert(friendlyMessage);
     throw error;
   }
 }

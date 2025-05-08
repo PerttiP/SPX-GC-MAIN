@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <link rel="stylesheet" href="css/table_style_v2.css" />
-    <!-- NOTE: Scripts in the <head> section are executed before the rest of the page is loaded. -->
+    <link rel="stylesheet" href="css/table_style_v3.css" />
 
     <!-- Global variable declarations placed in the head -->
     <script>
@@ -230,7 +229,7 @@
     <script>
       // Wait for the DOM to be fully loaded
       document.addEventListener("DOMContentLoaded", async () => {
-        // TODO: construct url based on selected class
+        // FIXME: construct url based on selected class
 
         /*
         D21 -> 1
@@ -269,7 +268,7 @@
         } catch (error) {
           console.error("Primary data fetch failed, using fallback:", error);
           // If fetching the primary data fails, fall back to the top-10 runners. (that could have been cached)
-          const fallbackUrl = "http://85.24.189.92:5000/api/10/1/runners"; // adjust if you have a dedicated fallback URL
+          const fallbackUrl = "http://85.24.189.92:5000/api/1/1/runners"; // FIXME: adjust this fallback URL
           runnerDataArr = await getFallbackData(fallbackUrl);
           // Reset pagination variables so that data displays from the first page!
           currentResultPage = 1;
@@ -293,6 +292,16 @@
         // Generate a row for each runner in the current page.
         pageData.forEach((runner) => {
           const tr = document.createElement("tr");
+          // FIXME:
+          tr.innerHTML = `
+            <td>44</td>
+            <td>1234</td>
+            <td>Elizabeth Carolina Longstockingname</td>
+            <td>IFK Göteborg Orientering Lag 3</td>
+            <td>12:00</td>
+            <td>+0.45</td>
+          `;
+          /*
           tr.innerHTML = `
             <td>${runner.place}</td>
             <td>${runner.bib}</td>
@@ -301,6 +310,7 @@
             <td>${runner.start_time}</td>
             <td>${runner.after_leader}</td>
           `;
+          */
           tbody.appendChild(tr);
         });
       }
