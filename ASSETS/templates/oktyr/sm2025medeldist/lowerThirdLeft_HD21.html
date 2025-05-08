@@ -96,13 +96,6 @@
       let clipEast = "inset(0% 100% 0% 0%)";
       let clipSout = "inset(0% 0% 100% 0%)";
 
-      /**
-       * The error "Failed to get element <ELEMENT_NAME> by Id" typically happens when:
-       *
-       * 1. Element Doesn't Exist: The HTML element with the specified ID ("f_vald_klass") is not present in the DOM (Document Object Model) when the JavaScript code attempts to access it.
-       * 2. Timing Issue: The JavaScript code runs before the HTML element is loaded and added to the DOM. This can occur if the script is placed in the <head> or loaded before the body of the document is fully parsed.
-       */
-
       function runTemplateUpdate(runnerFromAPI, fieldsFromTemplate) {
         console.log("runTemplateUpdate(runnerFromAPI): ", runnerFromAPI);
         if (!runnerFromAPI) {
@@ -294,21 +287,6 @@
               },
             ],
           },
-          /* NOT REQUIRED HERE (Only for split time)
-          {
-            field: "f_vald_kontroll",
-            ftype: "dropdown",
-            title: "Select RadioControl",
-            value: "TV1",
-            items: [
-              { text: "TV1", value: "TV1" },
-              { text: "TV2", value: "TV2" },
-              { text: "TV3", value: "TV3" }, // "Förvarning"?
-              //{ text: "Förvarning", value: "Förvarning" },
-              { text: "MÅL", value: "MÅL" },
-            ],
-          },
-          */
           {
             field: "f_vald_runner_bib",
             ftype: "dropdown",
@@ -388,13 +366,6 @@
             title: "",
             value: "Lower3rd",
           },
-          {
-            field: "f_update_from_api_btn",
-            ftype: "button",
-            title: "Update & Follow",
-            descr: "Update live data for selected Runner",
-            fcall: "document.updateFollowedRunner()",
-          },
         ],
         showExtras: {
           CustomControls: [
@@ -404,13 +375,6 @@
               bgclass: "bg_blue",
               text: "FREEZE TIME",
               fcall: "freeze_time()",
-            },
-            {
-              ftype: "button",
-              description: "Toggles time running -> stopped",
-              bgclass: "bg_red",
-              text: "STOP TIME",
-              fcall: "stop_time()",
             },
           ],
           // FIXME: Is this needed here for projectExtras?

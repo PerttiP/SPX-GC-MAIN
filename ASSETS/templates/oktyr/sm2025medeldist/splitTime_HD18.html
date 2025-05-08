@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--
+    (c) 2024 SPX Graphics
+    Template for SPX. See SPXGCTemplateDefinition -object below for data field descriptions.
+	----
+
+    splitTime.html
+    Description: A lower third in the bottom left corner,
+    with data fields for split times with BIB NAME TIME.
+
+	Changes:
+    21.04.2025 Kept style tag as gfx and not renamed to SPXgfx.
+    23.04.2025 This template uses styles from William in oktyr_style.css!
+    29.04.2025 Removed DynamicTheme from DOM (editor).
+               Added fTemplateType with ftype 'hidden'.
+
+
+  Important considerations:
+    Using the defer attribute or placing your code at the end of the <body> helps ensure that page rendering isn’t blocked.
+-->
+
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Graphics - Split Time</title>
+    <link rel="stylesheet" type="text/css" href="css/oktyr_style.css" />
+    <script type="text/javascript" src="js/lib/anime.min.js"></script>
+    <!-- Next scripts use defer and are executed in order -->
+    <!-- The tyrstopwatch MUST be loaded before any script that will instantiate or use it -->
+    <script type="text/javascript" src="js/lib/tyrstopwatch.js" defer></script>
+    <!--   <script type="text/javascript" src="js/RunnerData.js" defer></script> -->
+    <script type="text/javascript" src="js/SPXTemplateData.js" defer></script>
+    <script type="text/javascript" src="js/SPXFieldData.js" defer></script>
+    <!-- The raceConfig and any fetch files MUST be loaded before spx_interface.js -->
+    <script
+      type="text/javascript"
+      src="js/raceConfigMedelFinaler.js"
+      defer
+    ></script>
+    <script type="text/javascript" src="js/spx_interface.js" defer></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      id="DynamicTheme"
+      href="css/themes/oktyr.css"
+    />
+
+    <script>
+      const selectedRunnerName = "TESTAR NAMN I CAPTION FIELD"; // TEST1 of string literal usage in SPX template
+
+      function getSelectedRunnerBibNr() {
+        return localStorage.getItem("selectedRunnerBib");
+      }
+      function getSelectedRunnerName() {
+        return localStorage.getItem("selectedRunnerName"); // OK vid page init!
+      }
+      /* MOVED first into body section, and then MOVED TO TOP OF spx_interface!
+              function pauseStopWatch(timeInSeconds) {
+                if (stopWatch) {
+                  stopWatch.freeze(timeInSeconds);
+                  console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
+                }
+              }
+              */
+
+      // What we need from API
+      // Objects for
+      //  * vald_runner: (valdRunner)
+      //  * leader_runner: (leaderRunner)  REDUNDANT
+      //  * top_three_runners: (topThreeRunners) -> Array!
+      // NOTE: Any of these MIGHT be null, if not found in API endpoint!
+      function runSplitTemplateUpdate(
+        valdRunner,
+        leaderRunner,
+        topThreeRunners
+      ) {
+        // TODO: Set f1 and f2 label fields from localStorage if needed?
+
+        // Populate from  editor fields
+        getEl("list_titel").innerHTML = htmlDecode(
+          getEl("f_list_titel").innerText
+        );
+        getEl("vald_klass").innerHTML = htmlDecode(
+          getEl("f_vald_klass").innerText
+        );
+        getEl("vald_kontroll").innerHTML = htmlDecode(
+          getEl("f_vald_kontroll").innerText
+        );
+        getEl("vald_runner_bib").innerHTML = htmlDecode(
+          getEl("f_vald_runner_bib").innerText
+        );
+
+        // Show leader runner data in graphic overlay
+        /* REDUNDANT: Using top-3 instead
+                if (leaderRunner) {
+                  getEl("leader_runner_bib").innerHTML = leaderRunner.bib;
+                  getEl("leader_runner_name").innerHTML = leaderRunner.name;
+                  getEl("leader_runner_club").innerHTML = leaderRunner.club;
+                }
+                */
+        // Show selected runner data in graphic overlay
+        if (valdRunner) {
+          getEl("vald_runner_bib").innerHTML = valdRunner.bib;
+          getEl("vald_runner_name").innerHTML = valdRunner.name;
+          getEl("vald_runner_club").innerHTML = valdRunner.club;
+
+          // Beräkna running time för vald runner
+          // SEE sm2025medeldist\js\raceConfigMedelFinaler.js
+          const startTid = calculateStartTime(
+            getClassForBibNumber(valdRunner.bib),
+            valdRunner.bib
+          );
+          console.log(
+            `Klass ${getClassForBibNumber(valdRunner.bib)} - Bib ${
+              valdRunner.bib
+            } startar kl. ${startTid}`
+          );
+
+          if (stopWatch) {
+            stopWatch.preset(calculateRunningTime(valdRunner.bib), true);
+          }
+        }
+
+        if (!topThreeRunners) {
+          if (topThreeRunners.length !== 3) {
+            console.warn(
+              "All top 3-runners with place 1,2,3 not found. topThreeRunners.length=",
+              topThreeRunners.length
+            );
+          }
+        }
+        // Now dynamically render the top-3 board (this function handles 0–3 items)
+        renderTopThreeRunners(topThreeRunners);
+
+        const list_titel = document.getElementById("list_titel");
+        list_titel.innerText = list_titel.innerText + " ";
+
+        const vald_klass = document.getElementById("vald_klass");
+        vald_klass.innerText = vald_klass.innerText + " ";
+
+        const vald_kontroll = document.getElementById("vald_kontroll");
+        vald_kontroll.innerText = vald_kontroll.innerText;
+
+        console.log("vald_kontroll.innerText: ", vald_kontroll.innerText);
+
+        setTimeout(runAnimationIN, 50);
+      } // runTemplateUpdate
+
+      function runAnimationIN() {
+        // basic animation by swapping the CSS class
+        const splitTimeElements = document.getElementsByClassName("splitTime");
+        // iterate through the elements and add the class
+        for (let i = 0; i < splitTimeElements.length; i++) {
+          splitTimeElements[i].classList.add("fadeIN");
+        }
+      }
+
+      function runAnimationOUT() {
+        // basic animation by swapping the CSS class
+        const splitTimeElements = document.getElementsByClassName("splitTime");
+        // iterate through the elements and add the class
+        for (let i = 0; i < splitTimeElements.length; i++) {
+          splitTimeElements[i].classList.add("fadeOUT");
+        }
+      }
+
+      function renderTopThreeRunners(topThreeRunners) {
+        // Find the main container that holds the runner divs
+        const container = document.querySelector(".graphic");
+        if (!container) {
+          console.error("No container found for runners.");
+          return;
+        }
+
+        // Remove any previously generated dynamic top runner divs.
+        const oldDynamicRows = container.querySelectorAll(
+          ".dynamic-top-runner"
+        );
+        oldDynamicRows.forEach((elem) => elem.remove());
+
+        if (!topThreeRunners || topThreeRunners.length === 0) {
+          console.warn("No top runners available.");
+          return;
+        }
+
+        topThreeRunners.forEach((runner) => {
+          let runnerDiv = document.createElement("div");
+          runnerDiv.classList.add("dynamic-top-runner");
+          if (runner.place === 1) {
+            runnerDiv.classList.add("runner", "leader");
+          } else if (runner.place === 2) {
+            runnerDiv.classList.add("runner", "second");
+          } else if (runner.place === 3) {
+            runnerDiv.classList.add("runner", "third");
+          } else {
+            runnerDiv.classList.add("runner");
+          }
+
+          // Set runner info
+          // For the leader, show the full running time; for others, show the time difference.
+          const timeContent =
+            runner.place === 1
+              ? formatTime(runner.start_time) // Assuming formatTime is available for formatting full times.
+              : "+" + computeTimeDifference(runner, topThreeRunners);
+
+          // Set the inner HTML with the top-3 board info
+          runnerDiv.innerHTML = `
+                    <div class="place">${runner.place}</div>
+                    <div class="bib">${runner.bib}</div>
+                    <div class="name">${runner.name}</div>
+                    <div class="club">${runner.club}</div>
+                    <div class="time">${timeContent}</div>
+                  `;
+
+          // Insert each dynamic row before the always-present selected runner div.
+          const selectedRunnerDiv = container.querySelector(".runner.selected");
+          if (selectedRunnerDiv) {
+            container.insertBefore(runnerDiv, selectedRunnerDiv);
+          } else {
+            container.appendChild(runnerDiv);
+          }
+        });
+      }
+
+      window.SPXGCTemplateDefinition = {
+        description: "Split times left - for HD18",
+        playserver: "OVERLAY",
+        playchannel: "1",
+        //Layer 1 is at the very back and 20 is the highest ("closest to the camera")
+        playlayer: "14",
+        webplayout: "14",
+        out: "manual",
+        dataformat: "json",
+        uicolor: "3",
+        DataFields: [
+          {
+            field: "comment",
+            ftype: "textfield",
+            title: "This is a split time overlay with OK Tyr theme.",
+            value: "[ PLACE BIB-NR NAME CLUB TIME ]",
+          },
+          {
+            ftype: "instruction",
+            value: "Select class and runner from dropdowns.",
+          },
+          {
+            field: "f_list_titel",
+            ftype: "textfield",
+            title: "Set title",
+            value: "Split",
+          },
+          {
+            field: "f_vald_klass",
+            ftype: "dropdown",
+            title: "Select Class",
+            value: "D18",
+            items: [
+              {
+                text: "D18",
+                value: "D18",
+              },
+              {
+                text: "H18",
+                value: "H18",
+              },
+            ],
+          },
+          {
+            field: "f_vald_kontroll",
+            ftype: "dropdown",
+            title: "Select RadioControl",
+            value: "1",
+            items: [
+              // FIXME: Correct splitID for race!
+              { text: "TV1", value: "1" },
+              { text: "TV2", value: "2" },
+              { text: "TV3", value: "3" }, // "Förvarning"?
+              //{ text: "Förvarning", value: "35" },
+              { text: "MÅL", value: "4" },
+            ],
+          },
+          {
+            field: "f_vald_runner_bib",
+            ftype: "dropdown",
+            title: "Select Runner (D18: 501-545, H18: 601-645)",
+            value: "0",
+            items: [
+              { text: "501", value: "501" },
+              { text: "502", value: "502" },
+              { text: "503", value: "503" },
+              { text: "504", value: "504" },
+              { text: "505", value: "505" },
+              { text: "506", value: "506" },
+              { text: "507", value: "507" },
+              { text: "508", value: "508" },
+              { text: "509", value: "509" },
+              { text: "510", value: "510" },
+              { text: "511", value: "511" },
+              { text: "512", value: "512" },
+              { text: "513", value: "513" },
+              { text: "514", value: "514" },
+              { text: "515", value: "515" },
+              { text: "516", value: "516" },
+              { text: "517", value: "517" },
+              { text: "518", value: "518" },
+              { text: "519", value: "519" },
+              { text: "520", value: "520" },
+              { text: "521", value: "521" },
+              { text: "522", value: "522" },
+              { text: "523", value: "523" },
+              { text: "524", value: "524" },
+              { text: "525", value: "525" },
+              { text: "526", value: "526" },
+              { text: "527", value: "527" },
+              { text: "528", value: "528" },
+              { text: "529", value: "529" },
+              { text: "530", value: "530" },
+              { text: "531", value: "531" },
+              { text: "532", value: "532" },
+              { text: "533", value: "533" },
+              { text: "534", value: "534" },
+              { text: "535", value: "535" },
+              { text: "536", value: "536" },
+              { text: "537", value: "537" },
+              { text: "538", value: "538" },
+              { text: "539", value: "539" },
+              { text: "540", value: "540" },
+              { text: "541", value: "541" },
+              { text: "542", value: "542" },
+              { text: "543", value: "543" },
+              { text: "544", value: "544" },
+              { text: "545", value: "545" },
+              { text: "601", value: "601" },
+              { text: "602", value: "602" },
+              { text: "603", value: "603" },
+              { text: "604", value: "604" },
+              { text: "605", value: "605" },
+              { text: "606", value: "606" },
+              { text: "607", value: "607" },
+              { text: "608", value: "608" },
+              { text: "609", value: "609" },
+              { text: "610", value: "610" },
+              { text: "611", value: "611" },
+              { text: "612", value: "612" },
+              { text: "613", value: "613" },
+              { text: "614", value: "614" },
+              { text: "615", value: "615" },
+              { text: "616", value: "616" },
+              { text: "617", value: "617" },
+              { text: "618", value: "618" },
+              { text: "619", value: "619" },
+              { text: "620", value: "620" },
+              { text: "621", value: "621" },
+              { text: "622", value: "622" },
+              { text: "623", value: "623" },
+              { text: "624", value: "624" },
+              { text: "625", value: "625" },
+              { text: "626", value: "626" },
+              { text: "627", value: "627" },
+              { text: "628", value: "628" },
+              { text: "629", value: "629" },
+              { text: "630", value: "630" },
+              { text: "631", value: "631" },
+              { text: "632", value: "632" },
+              { text: "633", value: "633" },
+              { text: "634", value: "634" },
+              { text: "635", value: "635" },
+              { text: "636", value: "636" },
+              { text: "637", value: "637" },
+              { text: "638", value: "638" },
+              { text: "639", value: "639" },
+              { text: "640", value: "640" },
+              { text: "641", value: "641" },
+              { text: "642", value: "642" },
+              { text: "643", value: "643" },
+              { text: "644", value: "644" },
+              { text: "645", value: "645" },
+            ],
+          },
+          {
+            field: "f0",
+            ftype: "caption",
+            title: "Bib Number of Runner to Follow",
+            value: "D18: 501-545, H18: 601-645",
+          },
+          {
+            field: "f1",
+            ftype: "caption",
+            title: "Fullname",
+            //value: getSelectedRunnersName(), // This calls getSelectedRunnersName() and uses its return value!!! It works at init! But it would not work for updating.
+            //value: `TEST: ${selectedRunnerName}`, // FIXME: TEST1
+            //value: `TEST: ${getSelectedRunnerName()}`, // FIXME: TEST2  ->
+            value: "",
+          },
+          {
+            field: "f2",
+            ftype: "caption",
+            title: "Club",
+            value: "",
+          },
+          {
+            field: "f_pause_stopwatch_btn",
+            ftype: "button",
+            title: "Pause Watch 10 seconds",
+            descr: "Pause stopwatch for 10 seconds for selected runner",
+            fcall: "pauseStopWatch()",
+          },
+          {
+            field: "fTemplateType",
+            ftype: "hidden",
+            title: "",
+            value: "Split",
+          },
+        ],
+        showExtras: {
+          CustomControls: [
+            {
+              ftype: "togglebutton",
+              description: "Running time FREEZE and STOP",
+              bgclass: "bg_blue",
+              text0: "FREEZE TIME",
+              text1: "STOP TIME",
+              fcall: "toggle_time()",
+            },
+            {
+              ftype: "button",
+              description: "Toggles time running -> paused",
+              bgclass: "bg_blue",
+              text: "FREEZE TIME",
+              fcall: "freeze_time()",
+            },
+            {
+              ftype: "button",
+              description: "Toggles time running -> stopped",
+              bgclass: "bg_red",
+              text: "STOP TIME",
+              fcall: "stop_time()",
+            },
+          ],
+          customscript: "/templates/oktyr/sm2025medeldist/js/spx_interface.js",
+        },
+      };
+    </script>
+  </head>
+
+  <body class="splitTime">
+    <div class="container">
+      <div class="graphic">
+        <div class="header">
+          <div class="logo"><img src="images/sun_logo.png" alt="" /></div>
+          <p>
+            <span id="list_titel">SPLIT</span><span id="vald_klass"></span
+            ><span id="vald_kontroll"></span>
+          </p>
+        </div>
+
+        <!-- If any top-three runners are dynamically added, they will appear above this selected runner! -->
+
+        <div class="runner selected">
+          <div class="place"></div>
+          <div class="bib"><span id="vald_runner_bib"></span></div>
+          <div class="name"><span id="vald_runner_name"></span></div>
+          <div class="club"><span id="vald_runner_club"></span></div>
+          <div class="time">
+            <div class="raceClock" id="Clock_container">
+              <span id="stopwatch"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Required hidden fields for editor UI input controls -->
+    <div id="hiddenSpxData" data-info="See styles.css">
+      <div data-info="List titel..." id="f_list_titel"></div>
+      <div data-info="Vald klass..." id="f_vald_klass"></div>
+      <div data-info="Vald kontroll..." id="f_vald_kontroll"></div>
+      <div data-info="Vald runner..." id="f_vald_runner_bib"></div>
+      <div data-info="StartNumber......." id="f0"></div>
+      <div data-info="Fullname....." id="f1"></div>
+      <div data-info="Club........." id="f2"></div>
+      <div data-info="TemplateType......" id="fTemplateType"></div>
+    </div>
+
+    <!-- Inline initialization script -->
+    <script type="text/javascript" defer>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("!!!! DOM content loaded (inline initialization) !!!! ");
+        /* MOVED TO TOP OF spx_interface!
+        function pauseStopWatch(timeInSeconds) {
+          if (stopWatch) {
+            stopWatch.freeze(timeInSeconds);
+            console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
+          }
+        }
+        */
+        /*
+          This code will run on each page load, so each page gets its own separate and fresh stopwatch instance. 
+          They do not share state or data between the pages unless you implement an external state persistence mechanism 
+          (like using sessionStorage, localStorage, a Shared Worker, or turning your app into a single‑page application).
+        */
+
+        // Grab a reference to the container DOM element.
+        const stopWatchEl = document.getElementById("stopwatch");
+        if (!stopWatchEl) {
+          console.error("Could not get container element 'stopwatch' from DOM");
+          return;
+        }
+
+        console.log("Type of LW_TyrStopWatch:", typeof window.LW_TyrStopWatch);
+        //console.log("Value of LW_TyrStopWatch:", window.LW_TyrStopWatch);
+
+        // Instantiate and start the stopwatch. (Requires js/lib/tyrstopwatch.js)
+        stopWatch = new window.LW_TyrStopWatch();
+        if (stopWatch) {
+          stopWatch.show(stopWatchEl);
+          // TODO: Testing to set globals in demoFunctions from here:
+          globStopWatch = stopWatch;
+          window.globStopWatch = globStopWatch;
+          document.globStopWatch = globStopWatch;
+          document.LW_TyrStopWatch = stopWatch;
+        } else {
+          console.error(
+            "Failed to instantiate 'stopWatch' from window.LW_TyrStopWatch()"
+          );
+        }
+        console.log("Type of stopWatch:", typeof stopWatch);
+        console.log("Stopwatch was started");
+
+        // Listen for the custom toggle event, and react accordingly.
+        document.addEventListener("stopWatchToggle", () => {
+          // FIXME: DID NOT WORK
+          console.log("stopWatchToggle event received");
+          // For example, toggle the stopwatch state:
+          // Note: Adjust these calls based on your stopwatch API.
+          if (
+            typeof stopWatch.freeze === "function" &&
+            typeof stopWatch.stop === "function"
+          ) {
+            // If the stopwatch is running, perform toggle to other state
+            if (stopWatch.getState() === "running") {
+              stopWatch.freeze(10); // freeze for 10 secs, then auto-resume
+              console.log("Stopwatch freezed");
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

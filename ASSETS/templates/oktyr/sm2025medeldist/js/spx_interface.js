@@ -85,6 +85,13 @@ window.updateFollowedRunner = function () {
 };
 */
 
+window.pauseStopWatch = function () {
+  if (stopWatch) {
+    stopWatch.freeze(10);
+    console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
+  }
+};
+
 // Use local storage as a fallback to get 'previous' selected Runner's data
 function getDataFromLocalStorage(isRadioSplit) {
   selectedClass = localStorage.getItem("selectedClass");
@@ -744,7 +751,7 @@ function validString(str) {
       fcall: "pauseStopWatch()" 
 */
 // ---------------------------------------------------------------------------------
-/* MOVED TO TOP OF spx_interface
+/* MOVED TO TOP OF spx_interface (NOT WORKING)
 function pauseStopWatch(timeInSeconds) {
   if (stopWatch) {
     stopWatch.freeze(timeInSeconds);

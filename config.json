@@ -15,10 +15,10 @@
     "resolution": "HD",
     "recents": [
       "MEDELDISTANS-FINALER/HD21",
-      "MEDELDISTANS-FINALER/HD18",
       "MEDELDISTANS-FINALER/HD20",
-      "Medel_TEST/ExtraFunctions",
-      "Medel_TEST/MDTSTRD16"
+      "TTT4/TTT4RD46",
+      "SM2025/Medeldist",
+      "OKTYR_EXTRA/ExtraFunctions"
     ]
   },
   "globalExtras": {
@@ -36,5 +36,5 @@
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T13:14:28.448Z"
+  "updated": "2025-05-08T14:39:13.059Z"
 }
