@@ -63,10 +63,11 @@
         }
       }
       */
+
       // What we need from API
       // Objects for
       //  * vald_runner: (valdRunner)
-      //  * leader_runner: (leaderRunner)
+      //  * leader_runner: (leaderRunner)  REDUNDANT
       //  * top_three_runners: (topThreeRunners) -> Array!
       // NOTE: Any of these MIGHT be null, if not found in API endpoint!
       function runSplitTemplateUpdate(
@@ -91,12 +92,13 @@
         );
 
         // Show leader runner data in graphic overlay
+        /* REDUNDANT: Using top-3 instead
         if (leaderRunner) {
           getEl("leader_runner_bib").innerHTML = leaderRunner.bib;
           getEl("leader_runner_name").innerHTML = leaderRunner.name;
           getEl("leader_runner_club").innerHTML = leaderRunner.club;
         }
-
+        */
         // Show selected runner data in graphic overlay
         if (valdRunner) {
           getEl("vald_runner_bib").innerHTML = valdRunner.bib;
@@ -119,6 +121,17 @@
             stopWatch.preset(calculateRunningTime(valdRunner.bib), true);
           }
         }
+
+        if (!topThreeRunners) {
+          if (topThreeRunners.length !== 3) {
+            console.warn(
+              "All top 3-runners with place 1,2,3 not found. topThreeRunners.length=",
+              topThreeRunners.length
+            );
+          }
+        }
+        // Now dynamically render the top-3 board (this function handles 0–3 items)
+        renderTopThreeRunners(topThreeRunners);
 
         const list_titel = document.getElementById("list_titel");
         list_titel.innerText = list_titel.innerText + " ";
@@ -143,7 +156,6 @@
         }
       }
 
-      // FIXME: Hide it!!!
       function runAnimationOUT() {
         // basic animation by swapping the CSS class
         const splitTimeElements = document.getElementsByClassName("splitTime");
@@ -151,6 +163,64 @@
         for (let i = 0; i < splitTimeElements.length; i++) {
           splitTimeElements[i].classList.add("fadeOUT");
         }
+      }
+
+      function renderTopThreeRunners(topThreeRunners) {
+        // Find the main container that holds the runner divs
+        const container = document.querySelector(".graphic");
+        if (!container) {
+          console.error("No container found for runners.");
+          return;
+        }
+
+        // Remove any previously generated dynamic top runner divs.
+        const oldDynamicRows = container.querySelectorAll(
+          ".dynamic-top-runner"
+        );
+        oldDynamicRows.forEach((elem) => elem.remove());
+
+        if (!topThreeRunners || topThreeRunners.length === 0) {
+          console.warn("No top runners available.");
+          return;
+        }
+
+        topThreeRunners.forEach((runner) => {
+          let runnerDiv = document.createElement("div");
+          runnerDiv.classList.add("dynamic-top-runner");
+          if (runner.place === 1) {
+            runnerDiv.classList.add("runner", "leader");
+          } else if (runner.place === 2) {
+            runnerDiv.classList.add("runner", "second");
+          } else if (runner.place === 3) {
+            runnerDiv.classList.add("runner", "third");
+          } else {
+            runnerDiv.classList.add("runner");
+          }
+
+          // Set runner info
+          // For the leader, show the full running time; for others, show the time difference.
+          const timeContent =
+            runner.place === 1
+              ? formatTime(runner.start_time) // Assuming formatTime is available for formatting full times.
+              : "+" + computeTimeDifference(runner, topThreeRunners);
+
+          // Set the inner HTML with the top-3 board info
+          runnerDiv.innerHTML = `
+            <div class="place">${runner.place}</div>
+            <div class="bib">${runner.bib}</div>
+            <div class="name">${runner.name}</div>
+            <div class="club">${runner.club}</div>
+            <div class="time">${timeContent}</div>
+          `;
+
+          // Insert each dynamic row before the always-present selected runner div.
+          const selectedRunnerDiv = container.querySelector(".runner.selected");
+          if (selectedRunnerDiv) {
+            container.insertBefore(runnerDiv, selectedRunnerDiv);
+          } else {
+            container.appendChild(runnerDiv);
+          }
+        });
       }
 
       window.SPXGCTemplateDefinition = {
@@ -383,14 +453,9 @@
             ><span id="vald_kontroll"></span>
           </p>
         </div>
-        <div class="runner leader">
-          <div class="place">1</div>
-          <div class="bib"><span id="leader_runner_bib"></span></div>
-          <div class="name"><span id="leader_runner_name"></span></div>
-          <div class="club"><span id="leader_runner_club"></span></div>
-          <div class="time">1:02:36</div>
-        </div>
-        <!-- <div class="runner"> -->
+
+        <!-- If any top-three runners are dynamically added, they will appear above this selected runner! -->
+
         <div class="runner selected">
           <div class="place"></div>
           <div class="bib"><span id="vald_runner_bib"></span></div>
@@ -401,29 +466,6 @@
               <span id="stopwatch"></span>
             </div>
           </div>
-        </div>
-        <div class="runner">
-          <div class="place">5</div>
-          <div class="bib">52</div>
-          <div class="name">Erika Källvik-Lufen</div>
-          <div class="club">IFK Göteborg Orientering</div>
-          <div class="time">+0:43</div>
-        </div>
-        <div class="runner">
-          <div class="place">6</div>
-          <div class="bib">102</div>
-          <div class="name">
-            Ett extremt långt namn som vi ska se hur det påverkar design
-          </div>
-          <div class="club">Från ett långt klubbnamn i sverige</div>
-          <div class="time">+1:22</div>
-        </div>
-        <div class="runner">
-          <div class="place">7</div>
-          <div class="bib">112</div>
-          <div class="name">Sandre Hane</div>
-          <div class="club">Gotlandsbro IK</div>
-          <div class="time">+108:03</div>
         </div>
       </div>
     </div>

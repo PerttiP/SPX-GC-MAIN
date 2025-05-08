@@ -241,6 +241,68 @@ function calculateRunningTime(bibNumber, customInterval) {
   return elapsedSeconds;
 }
 
+// ---------- Helper Functions (for Top-3 board) ----------
+/**
+ * Formats a time (for place #1, the full finish time).
+ * Here you could transform a number (e.g., 745800) into a string ("1:02:36").
+ */
+function formatTime(timeInSeconds) {
+  // Dummy implementation for now.
+  const hours = Math.floor(timeInSeconds / 3600);
+  const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  const seconds = timeInSeconds % 60;
+  return (
+    hours +
+    ":" +
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0")
+  );
+}
+
+/**
+ * Helper to format a time difference.
+ * Formats as "m:ss" if less than 1 hour, or "h:mm:ss" otherwise.
+ */
+function formatTimeDiff(totalSeconds) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart(2, "0")}`;
+  } else {
+    return `${minutes}:${String(seconds).padStart(2, "0")}`;
+  }
+}
+
+/**
+ * Computes the time difference for a given runner relative to the leader,
+ * using the provided topThreeRunners array.
+ *
+ * @param {Object} runner - The runner for which to compute the difference.
+ * @param {Array} topThreeRunners - The array of top runners (including the leader).
+ * @returns {string} The formatted time difference (e.g., "0:43"). Returns an empty string if unable to compute.
+ */
+function computeTimeDifference(runner, topThreeRunners) {
+  // Find the leader (runner with place === 1) within the passed-in array.
+  const leader = topThreeRunners.find((r) => Number(r.place) === 1);
+  if (!leader) {
+    return "";
+  }
+
+  // Compute the elapsed times (in seconds) for both the leader and the given runner.
+  const leaderElapsed = calculateRunningTime(parseInt(leader.bib, 10));
+  const runnerElapsed = calculateRunningTime(parseInt(runner.bib, 10));
+
+  // Compute the difference in seconds (ensure it's non-negative).
+  const diffInSeconds = Math.max(0, runnerElapsed - leaderElapsed);
+
+  // Format the difference for display.
+  return formatTimeDiff(diffInSeconds);
+}
+
 /* -------------------------------
    Exempelanvändning:
 ------------------------------- */

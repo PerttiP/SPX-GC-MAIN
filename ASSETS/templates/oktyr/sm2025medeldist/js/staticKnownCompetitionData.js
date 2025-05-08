@@ -6,6 +6,8 @@
  * generate 'static' text and values for dropdown items in
  * SPX-GC editor view.
  * 
+ * NOT INTENDED to be called during runtime in production!
+ * 
  --------------------------------------------------------- 
 MedelDistans - A Finaler (sträcka i km - beräknad sluttid)
 D21	4,9km – 30-35min	
