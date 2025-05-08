@@ -400,6 +400,7 @@
             title: "Club",
             value: "",
           },
+          /*
           {
             field: "f_pause_stopwatch_btn",
             ftype: "button",
@@ -407,6 +408,7 @@
             descr: "Pause stopwatch for 10 seconds for selected runner",
             fcall: "pauseStopWatch()",
           },
+          */
           {
             field: "fTemplateType",
             ftype: "hidden",
@@ -501,24 +503,6 @@
         }
         console.log("Type of stopWatch:", typeof stopWatch);
         console.log("Stopwatch was started");
-
-        // Listen for the custom toggle event, and react accordingly.
-        document.addEventListener("stopWatchToggle", () => {
-          // FIXME: DID NOT WORK
-          console.log("stopWatchToggle event received");
-          // For example, toggle the stopwatch state:
-          // Note: Adjust these calls based on your stopwatch API.
-          if (
-            typeof stopWatch.freeze === "function" &&
-            typeof stopWatch.stop === "function"
-          ) {
-            // If the stopwatch is running, perform toggle to other state
-            if (stopWatch.getState() === "running") {
-              stopWatch.freeze(10); // freeze for 10 secs, then auto-resume
-              console.log("Stopwatch freezed");
-            }
-          }
-        });
       });
     </script>
   </body>

@@ -14,11 +14,11 @@
     "autoplayLocalRenderer": "true",
     "resolution": "HD",
     "recents": [
-      "MEDELDISTANS-TEST/MOCKTSTRD4",
-      "MEDELDISTANS-TEST/MOCKTSTRD3",
-      "MEDELDISTANS-TEST/MOCKTSTRD2",
-      "MEDELDISTANS-TEST/MOCKTSTRD1",
-      "MEDELDISTANS-FINALER/HD21"
+      "MEDELDISTANS-DEMO/DEMO_RD1",
+      "MEDELDISTANS-FINALER/HD21",
+      "Medel_TEST/ExtraFunctions",
+      "Medel_TEST/MDTSTRD10",
+      "MEDELDISTANS-FINALER/HD18"
     ]
   },
   "globalExtras": {
@@ -29,12 +29,12 @@
         "ftype": "togglebutton",
         "bgclass": "bg_grey",
         "text0": "FREEZE TIME",
-        "text1": "PAUSE TIME",
+        "text1": "FREEZE TIME",
         "fcall": "timerToggle(this)"
       }
     ]
   },
   "warning": "Modifications done in the SPX will overwrite this file.",
   "copyright": "(c) 2020- SPX Graphics (https://spx.graphics)",
-  "updated": "2025-05-08T16:26:30.845Z"
+  "updated": "2025-05-08T18:59:10.131Z"
 }

@@ -37,6 +37,9 @@ async function fetchRunnersData(apiUrl) {
   const timeout = 10000; // in milliseconds (10 seconds)
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
+  // FIXME:
+  apiUrl = "https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/results";
+
   try {
     const response = await fetch(apiUrl, { signal: controller.signal });
     clearTimeout(timeoutId);

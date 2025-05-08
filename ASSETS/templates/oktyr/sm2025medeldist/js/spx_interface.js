@@ -13,20 +13,12 @@ let templateType; // "lowerThird" or "split" or "other"
 
 let stopWatch;
 let shouldRunToggleTimerTask = false;
-//let doFreezeTimerOnce = false; // MOVED TO demoFunctions!
+let doFreezeTimerOnce = false; //NOTE: A persistent flag in local storage is also used from demoFunctions !!!
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
-
-  // Define and expose the function to global scope:
-  window.pauseStopWatch = function (timeInSeconds) {
-    if (stopWatch) {
-      stopWatch.freeze(timeInSeconds);
-      console.log("Stopwatch freezed for " + timeInSeconds + " seconds.");
-    }
-  };
 
   // Set up a listener for event dispatched from spx_gc.js: (NOT WORKING)
   // Listen for the custom "templateRundownItemSaved" event.
@@ -41,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Listen for the custom toggle event, and react accordingly. (NOT WORKING)
+/*
 document.addEventListener("stopWatchToggle", () => {
   // FIXME: DID NOT WORK from HTML body in SplitTime.html
   console.log("stopWatchToggle event received");
@@ -62,8 +55,10 @@ document.addEventListener("stopWatchToggle", () => {
     }
   }
 });
+*/
 
 // Set up a listener that listens for the customSignal event. (NOT WORKING)
+/*
 document.addEventListener("customSignal", function (e) {
   console.log("Custom signal received via document (1):", e.detail);
   alert("Custom event on document received (1)");
@@ -76,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Custom event on document received (2)");
   });
 });
+*/
 
 /* OK only if "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config! */
 /*
@@ -220,13 +216,16 @@ function validateRunnerApiData(data) {
     return false;
   }
 
+  //FIXME:
   // Check that each required property exists with the correct type.
+  /*
   if (typeof data.bib !== "number") {
     console.error(
       `Invalid type for "bib": expected number, got ${typeof data.bib}`
     );
     return false;
   }
+    */
 
   if (typeof data.competition !== "string") {
     console.error(
@@ -660,15 +659,7 @@ function stop() {
 function next(data) {
   console.log("----- Next handler called.");
 
-  // Check if templateType is SPLIT (or LOWER3RD)?
-  // If it is, then use CONTINUE as a fallback for PAUSE of TIME!
-
-  if (templateType === "split" && stopWatch) {
-    pauseStopWatch(10);
-  }
-
-  // Else we will need to use CONTINUE for pagination of start and result lists!
-
+  // We need to use CONTINUE for pagination of start and result lists!
   if (typeof runAnimationNEXT === "function") {
     runAnimationNEXT();
   } else {
@@ -851,9 +842,14 @@ async function fetchApiResponseSingleAsync() {
 async function fetchRunnersSplit(runnerClass, splitID) {
   // FIXME: Hard-coded keys (TEST SITE: http://85.24.189.92:5000/api/10/3/splits/150)
   const competition = 10; // FIXME: Verify that ID 1 -> MedelDistans Final SM2025
-
+  /*
   const url = `http://85.24.189.92:5000/api/${competition}/${runnerClass}/splits/${splitID}`;
   console.log("Fetching data from URL:", url);
+*/
+
+  // const url = `https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/results`;
+
+  const url = "https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/splits/100";
 
   try {
     const response = await fetch(url, { method: "GET" });
@@ -905,14 +901,27 @@ function runToggleTimerTaskPeriodically() {
     return; // Stop further execution if the flag is false.
   }
 
-  // Perform the task if the flag is set
-  if (doFreezeTimerOnce) {
+  // Perform the task if either the global flag is set OR the persistent flag is set (from demoFunctions)!:
+  if (
+    doFreezeTimerOnce ||
+    localStorage.getItem("doFreezeTimerOnce") === "true"
+  ) {
+    /* William: REMOVE the alert!
+    const userConfirmed = confirm(
+      "Vill du frysa klockan i 20 sekunder för vald löpare?"
+    );
+    if (userConfirmed) {
+      console.log("The user answered: YES: We shall FREEZE TIMER!");
+    */
     // We shall try to freeze the timer only if it currently is running!
     if (stopWatch && stopWatch.getState() === "running") {
-      stopWatch.freeze(10);
-      console.log("Stopwatch freezed for 10 seconds.");
+      stopWatch.freeze(20); /* William: INCREASE to 20 secs. */
+      console.log("Stopwatch freezed for 20 seconds.");
     }
+    //}
+
     doFreezeTimerOnce = false;
+    localStorage.setItem("doFreezeTimerOnce", "false");
   }
 
   // Schedule the next run:
@@ -934,27 +943,7 @@ window.updateFollowedRunner = function () {
   console.log("window.updateFollowedRunner called in spx_interface.js!");
 };
 */
-// ----------------------------------------------------------------------------------
-//  StopWatch Toggling
-//
-// Requires:
-//  "globalExtras": { "customscript": "/templates/oktyr/sm2025medeldist/js/spx_interface.js" is defined in config!
-// ----------------------------------------------------------------------------------
-/*
-function toggle_time() {
-  //alert("OK Tyr custom function toggle_time");
-  console.log(
-    "OK Tyr globalExtras custom function toggle_time CALLED in spx_interface.js.\n"
-  );
 
-  // pauseStopWatch(10);
-
-  if (stopWatch) {
-    stopWatch.freeze(10);
-    console.log("Stopwatch freezed for 10 seconds.");
-  }
-}
-*/
 // ----------------------------------------------------------------------------------
 //  StopWatch Freeze
 //
@@ -976,19 +965,7 @@ function freeze_time() {
   }
 }
 */
-/* NOT WORKING
-function freezeStopWatchInstance(sw) {
-  if (typeof sw.freeze === "function" && typeof sw.stop === "function") {
-    // If the stopwatch is running, perform toggle to other state
-    if (sw.getState() === "running") {
-      sw.freeze(10); // freeze for 10 secs, then auto-resume
-      console.log("Stopwatch freezed");
-    } else {
-      console.log("Stopwatch was not running. state was: ", sw.getState());
-    }
-  }
-}
-*/
+
 // ----------------------------------------------------------------------------------
 /*
   Functionality copied/borrowed from ...\SPX-GC_1.3.3\SPX-GC-main\static\js\spx_gc.js
