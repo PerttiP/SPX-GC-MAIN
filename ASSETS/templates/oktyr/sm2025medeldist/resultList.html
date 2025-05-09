@@ -250,11 +250,9 @@
         H18 -> 6
         */
 
-        const apiUrl = "http://85.24.189.92:5000/api/10/1/runners"; // Adjust your URL accordingly
-
         try {
           // Call the fetchRunnersData function defined in fetchRunnersData.js
-          const fetchedResult = await fetchRunnersData(apiUrl);
+          const fetchedResult = await fetchRunnersData(); // url set in function!
 
           // Extract the runners array from the fetched result:
           runnerDataArr = fetchedResult.runners || [];

@@ -16,6 +16,15 @@ jsonRunnerInfoDataGlob = {};
 
 /*
 DEPRECATED VERSION - Do NOT use for real env!
+==============================================
+
+
+DEPRECATED:  NOT USED IN PROD !!!!
+DEPRECATED:  NOT USED IN PROD !!!!
+
+DEPRECATED:  NOT USED IN PROD !!!!
+
+
 */
 
 console.log(
@@ -41,7 +50,9 @@ function getJsonSize(data) {
 
 // NOTE: JSON Specification Compliance: JSON mandates double quotes for key names.
 
+// DEPRECATED:  NOT USED IN PROD !!!!
 const urlToAPI = "http://85.24.189.92:5000/api/10/1/runners";
+
 fetch(urlToAPI)
   .then((response) => {
     if (!response.ok) {

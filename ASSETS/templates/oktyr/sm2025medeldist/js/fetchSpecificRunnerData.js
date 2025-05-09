@@ -19,7 +19,9 @@ async function fetchSpecificRunnerData(runnerClass, bibNbr) {
 
   // https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/runners/102
 
-  const apiUrl = `https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/runners/${bibNbr}`;
+  const apiUrl = `https://wmln67w3-5000.euw.devtunnels.ms/api/10/1/runners/${String(
+    bibNbr
+  )}`;
 
   try {
     //const response = await fetch(fullUrl, {

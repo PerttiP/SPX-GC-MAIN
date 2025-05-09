@@ -1,5 +1,49 @@
-
 # SPX Graphics Controller
+
+## OK TYR - SM2025 Installation Guide
+
+### Config
+
+1. Make sure that this is present in config.json:
+
+````javascript
+"globalExtras": {
+"customscript": "/ExtraFunctions/demoFunctions.js",
+"CustomControls": [
+{
+"description": "StopWatch timer toggle",
+"ftype": "togglebutton",
+"bgclass": "bg_grey",
+"text0": "FREEZE TIME",
+"text1": "FREEZE TIME",
+"fcall": "timerToggle(this)"
+}
+]
+},
+'''
+
+2. Make sure that you copy this 'tyrstopwatch.js' file
+
+[https://github.com/PerttiP/SPX-GC-MAIN/blob/main/static/js/lib/tyrstopwatch.js](https://github.com/PerttiP/SPX-GC-MAIN/blob/main/static/js/lib/tyrstopwatch.js)
+
+is copied and put it into SPX-GC servers folder at:
+
+static\js\lib
+
+MORE TODO...
+
+
+## STATUS
+
+### Global fetch MUST be available!
+
+In production browsers, global fetch should be available.
+
+Impact of Missing fetch:
+
+In your development setup, client-side fetch calls are working mostly correctly. The “fetch is not defined” error is likely coming from code run in a simulated environment (for example, jsdom during template import) rather than during normal client-side execution in a user's browser.
+
+If your production environment is a browser, then global fetch should be available. However, if parts of your production pipeline are still using server-side rendering with jsdom, you'll need to ensure that a proper fetch polyfill (or Node.js’s built‑in fetch) is injected there.
 
 ### Manage and control HTML graphics in live production.
 
@@ -14,7 +58,7 @@
 [ToolsOnAir](https://www.toolsonair.com/),
 [CasparCG](https://github.com/CasparCG),
 [Wirecast](https://www.wirecast.io/en/?ref=spx.graphics),
-[XSplit](https://www.xsplit.com/?ref=spx.graphics), 
+[XSplit](https://www.xsplit.com/?ref=spx.graphics),
 [MimoLive](https://mimolive.com/?ref=spx.graphics),
 [TopDirector](https://www.topdirector.com/?ref=spx.graphics),
 [Tricaster](https://www.vizrt.com/products/tricaster/?ref=spx.graphics),
@@ -25,7 +69,6 @@
 or <i>any other</i> video pipeline supporting HTML overlays.
 
 > For the latest released **version 1.3.3** please visit [spx.graphics/controller](https://spx.graphics/controller/pricing).
-
 
 <small>Resources:</small><BR>
 🟩 [**spx.graphics**/_controller_](https://spx.graphics/controller)<br>
@@ -39,18 +82,13 @@ or <i>any other</i> video pipeline supporting HTML overlays.
 
 <br>
 
-
->  Readme updated **December 19 2024**.<br><small>See [RELEASE_NOTES.md](RELEASE_NOTES.md) for latest changes.</small>
-
-
+> Readme updated **December 19 2024**.<br><small>See [RELEASE_NOTES.md](RELEASE_NOTES.md) for latest changes.</small>
 
 <br>
 
 ![snapshot](screenshots/00-spx-gc-principle2.png)
 
-
 <br>
-
 
 ### Table of Contents
 
@@ -73,7 +111,6 @@ or <i>any other</i> video pipeline supporting HTML overlays.
 - [Security and Vulnerabilities](#security)
 - [MIT License](#license)
 
-
 **SPX Graphics Controller** can be used to playout lower thirds, bumpers, logos and other on-screen graphics in live web streams or live TV broadcasts. Playout happens using "renderer" URL's from the SPX Server. The live output can be used in various softwares, such as OBS, vMix or CasparCG using the "browser source" approach.
 
 Content for the graphic templates are entered into _elements_ which are stored on _rundowns_ within _projects_.
@@ -91,26 +128,26 @@ Originally SPX was developed for [YLE](https://www.yle.fi), a public broadcaster
 <BR>
 
 <a id="demo"></a>
+
 ## Live demo 🔥
 
 🟢 Try SPX here: [spxcloud.app/demo](https://demo.spxcloud.app/gc/00-Getting-Started/1-Intro-To-Graphics).
 
 > Please be aware there is just _one instance_ running for demo purposes, so expect clashes and overall quirky experience if multiple users are logged in at once. Changes made in demo are reset automatically every 15 minutes.
 
-
 <BR>
 
 # Screenshots <a id="screenshots"></a>
-|  | |
-| ------ | ------ |
-| ![animation](screenshots/spx-gc-ui-anim-v1-0.gif) | SPX's UI is browser based and can be operated with a mouse or keyboard. Additonal _extra controls_ can be added as _plugins_ to execute specific tasks or to trigger events in external devices. |
-| ![project list](screenshots/01-spx-gc-projectlist.png) | Content is managed in _projects_. Each project can have unlimited amount of _rundowns_ and _graphics templates_. Projects and their rundowns and settings are stored in _dataroot -folder_. |
-| ![controller](screenshots/05-spx-gc-controller-rundown.png) | Main Controller: rundown with few items and a local preview. Items can be edited and controlled also with keyboard shortcuts. Fullscreen viewing mode recommended. Buttons below preview are customizeable. | 
-| [![intro video on Youtube](screenshots/yt_mockup.png)](https://www.youtube.com/watch?v=e5LTFC9MlOI) | An introduction video on Youtube. There are more images in the screenshots -folder.  | 
-| [![intro video on Youtube](screenshots/yt_mockup-showreel.png)](https://youtu.be/Ruxz4DACDT4) | A showreel of SPX Graphics.  | 
 
-----
+|                                                                                                     |                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![animation](screenshots/spx-gc-ui-anim-v1-0.gif)                                                   | SPX's UI is browser based and can be operated with a mouse or keyboard. Additonal _extra controls_ can be added as _plugins_ to execute specific tasks or to trigger events in external devices.            |
+| ![project list](screenshots/01-spx-gc-projectlist.png)                                              | Content is managed in _projects_. Each project can have unlimited amount of _rundowns_ and _graphics templates_. Projects and their rundowns and settings are stored in _dataroot -folder_.                 |
+| ![controller](screenshots/05-spx-gc-controller-rundown.png)                                         | Main Controller: rundown with few items and a local preview. Items can be edited and controlled also with keyboard shortcuts. Fullscreen viewing mode recommended. Buttons below preview are customizeable. |
+| [![intro video on Youtube](screenshots/yt_mockup.png)](https://www.youtube.com/watch?v=e5LTFC9MlOI) | An introduction video on Youtube. There are more images in the screenshots -folder.                                                                                                                         |
+| [![intro video on Youtube](screenshots/yt_mockup-showreel.png)](https://youtu.be/Ruxz4DACDT4)       | A showreel of SPX Graphics.                                                                                                                                                                                 |
 
+---
 
 <BR>
 
@@ -135,70 +172,79 @@ npm run dev
 
 # Or without hot reloading:
 node server.js
-```
+````
+
 ### pm2 process manager<a id="pm2"></a>
-* Installation of `pm2` process manager ([https://pm2.keymetrics.io/](https://pm2.keymetrics.io/)) can help in advanced production scanarios.
-* To run the server in **production mode** use `npm start` which will run the server in the background with `pm2` process manager which will automatically restart the server if a crash occurs. Deeper usage and configuration options of _pm2_ is outside the scope of this readme-file. 
+
+- Installation of `pm2` process manager ([https://pm2.keymetrics.io/](https://pm2.keymetrics.io/)) can help in advanced production scanarios.
+- To run the server in **production mode** use `npm start` which will run the server in the background with `pm2` process manager which will automatically restart the server if a crash occurs. Deeper usage and configuration options of _pm2_ is outside the scope of this readme-file.
 
 ```sh
 npm start
 ```
 
-### Run multiple instances<a id="multipleinstances"></a> 
-* To run several instances of SPX (on different ports) with `pm2` prepare a `ecosystem.config.js` -file to same folder as config.json with details of each instance, such as:
+### Run multiple instances<a id="multipleinstances"></a>
+
+- To run several instances of SPX (on different ports) with `pm2` prepare a `ecosystem.config.js` -file to same folder as config.json with details of each instance, such as:
+
 ```javascript
 // Example "ecosystem.config.js" file for pm2 to run multiple instances of SPX.
 
 module.exports = {
-  apps : [
+  apps: [
     {
-    'name': 'GC1',
-    'script': 'server.js',
-    'args': 'config.json'
+      name: "GC1",
+      script: "server.js",
+      args: "config.json",
     },
     {
-      'name': 'GC2',
-      'script': 'server.js',
-      'args': 'config5001.json'
-      }
-  ]
+      name: "GC2",
+      script: "server.js",
+      args: "config5001.json",
+    },
+  ],
 };
-
 ```
+
 Then launch multiple instances with pm2:
+
 ```sh
 pm2 start ecosystem.config.js
 ```
-Stop all running instances 
+
+Stop all running instances
+
 ```sh
 pm2 kill
 ```
 
-
-
-
 ---
+
 # First launch <a id="firstlaunch"></a>
-* When the app is started the very first time a default browser is launched with SPX user interface open
-* In the subsequent server starts use a web browser (such as Chrome) and load SPX gui from URL shown in the console at the start-up.
-* With `general.launchBrowser = true` flag the browser can be opened every time automatically. This is set to false by default.
+
+- When the app is started the very first time a default browser is launched with SPX user interface open
+- In the subsequent server starts use a web browser (such as Chrome) and load SPX gui from URL shown in the console at the start-up.
+- With `general.launchBrowser = true` flag the browser can be opened every time automatically. This is set to false by default.
+
 ```
   ╭───────────────────────────╮
   │ Open SPX in a browser:    │
   │ http://127.0.0.1:5656     │
   ╰───────────────────────────╯
 ```
+
 > Port 5656 is the default value in config and can be changed.
 
 If installation and server start-up worked, you should see a Config screen in your browser asking a preference regarding user access.
 ![snapshot](screenshots/01-spx-loginpolicy.png)
 There are two alternatives:
-  * **`YES`**: Username and password are reguired to access the application.
-  * **`NO`**: Application will not require a login.
-  * This config screen is shown
-    * at first startup, or
-    * when `config.json` is missing, or
-    * when `config.json` **has** username but password is left **empty**
+
+- **`YES`**: Username and password are reguired to access the application.
+- **`NO`**: Application will not require a login.
+- This config screen is shown
+  - at first startup, or
+  - when `config.json` is missing, or
+  - when `config.json` **has** username but password is left **empty**
 
 Depending on the selection made, you will either be asked to login or you land to the Welcome page and you are free to explore the application. If password is given it will be stored in the config-file in unreadable, encrypted format.
 
@@ -228,8 +274,8 @@ Congratulations! Now go back to your project's settings and add more templates t
 
 > When a new version becomes available it will be shown on the Welcome page of the application.
 
-
 # App configuration options <a id="config"></a>
+
 > Application **DOES NOT** come with `config.json` and it will be generated at server start up.
 
 SPX uses a `JSON file` to store configuration settings, such as folder paths, playout server settings or user interface language options. Most of the settings can be changed from the configuration page.
@@ -238,16 +284,16 @@ SPX uses a `JSON file` to store configuration settings, such as folder paths, pl
 
 Some rarely used settings are left out from configuration page and can be changed by manually modifying the _config file_ in a text editor.
 
-
 The default configuration file name is `config.json` but it is possible to run the server with a specific configuration file. For instance you might have two instances running on the same system, using shared project files and templates but on different server ports and using different renderers. (See also [pm2 process manager](#pm2))
 
 To run the server with another config, provide the config file as the first command line argument, for example:
+
 ```sh
 SPX_win64.exe myOtherConfig.json
 ```
 
-
 An example `config.json` of the SPX server
+
 ```json
 {
   "general": {
@@ -288,7 +334,8 @@ An example `config.json` of the SPX server
   }
 }
 ```
->**Please note**: the server will fail to start if config is not valid JSON. You can use [JSONLint](https://jsonlint.com/) to validate JSON data.
+
+> **Please note**: the server will fail to start if config is not valid JSON. You can use [JSONLint](https://jsonlint.com/) to validate JSON data.
 
 ## Config parameters
 
@@ -298,49 +345,50 @@ An example `config.json` of the SPX server
 
 <a id="templatesource"></a>
 **`general.templatesource`** (Added in v 1.0.9) For CasparCG playout the templates can be loaded from the _filesystem_ or via _http-connection_ provided by SPX. Supported values are:
-* `spx-ip-address` to automatically use SPX's IP address and http -protocol for playing out templates from SPX's template folder. This is the default behaviour.
-* `casparcg-template-path` to playout templates from target CasparCG server's file system template-path. (See _caspar.config_ file) Note, in this workflow the templates *must be in two places*: in SPX ASSETS/templates -folder *and* CasparCG's templates folder. And if a changes are done to either location, those changes should also be done to the other. `rsync` or other mirroring technique should be considered...
-* `http://<ip-address>` manually entered address can be used when the automatically generated IP address is not usable. For instance Docker containers or VM hosted instances may expose internal IP address which can not be accessed from outside.
-> Please note _templatesource_ only affects CasparCG playout and not web playout. Also file:// protocol is more restrictive in using external data sources and it can yield javascript errors, such as CORS. 
 
-**`general.preview`** Version 1.1.0 introduced the first implementation of preview. Any output renderer is treated as a preview renderer if `preview=true` parameters is present in the renderer URL. CasparCG preview server is not implemented in v.1.1.0 but the `renderer?preview=true` URL can be added to CasparCG "manually" using ACMP protocol commands. 
+- `spx-ip-address` to automatically use SPX's IP address and http -protocol for playing out templates from SPX's template folder. This is the default behaviour.
+- `casparcg-template-path` to playout templates from target CasparCG server's file system template-path. (See _caspar.config_ file) Note, in this workflow the templates _must be in two places_: in SPX ASSETS/templates -folder _and_ CasparCG's templates folder. And if a changes are done to either location, those changes should also be done to the other. `rsync` or other mirroring technique should be considered...
+- `http://<ip-address>` manually entered address can be used when the automatically generated IP address is not usable. For instance Docker containers or VM hosted instances may expose internal IP address which can not be accessed from outside.
+  > Please note _templatesource_ only affects CasparCG playout and not web playout. Also file:// protocol is more restrictive in using external data sources and it can yield javascript errors, such as CORS.
+
+**`general.preview`** Version 1.1.0 introduced the first implementation of preview. Any output renderer is treated as a preview renderer if `preview=true` parameters is present in the renderer URL. CasparCG preview server is not implemented in v.1.1.0 but the `renderer?preview=true` URL can be added to CasparCG "manually" using ACMP protocol commands.
 `Preview` value dictates which event on the rundown triggers a preview in a the preview renderer. Values available:
 
-* `selected` (the default value) Preview will play whenever a _focus_ is changed on the rundown.
-* `none` preview will not be triggered
-* ~~`next`~~ Preview will play _the next item_ from the rundown when an item is played. (Option coming later) 
+- `selected` (the default value) Preview will play whenever a _focus_ is changed on the rundown.
+- `none` preview will not be triggered
+- ~~`next`~~ Preview will play _the next item_ from the rundown when an item is played. (Option coming later)
 
 **`general.renderer`** Version 1.1.0 introduced an option to have the local renderer in traditional position at the top right corner of SPX UI **or** taken out to a floating window. This is stored to config file and each consecutive controller reload will act according to set preference. Possible values are
 
-* `normal` an inline renderer view
-* `popup` renderer in a floating window "popup" (notice, it is possible that popup blocker prevent this from working as expected)
+- `normal` an inline renderer view
+- `popup` renderer in a floating window "popup" (notice, it is possible that popup blocker prevent this from working as expected)
 
-**`general.resolution`** Version 1.3.0 introduced a new option for affecting output from SPX. Please note this is the renderer viewport size, templates will *also* need to support set size and aspect ratio. Most templates are implemented, or optimized, for 16:9 aspect ratio and 1920x1080 output size.
+**`general.resolution`** Version 1.3.0 introduced a new option for affecting output from SPX. Please note this is the renderer viewport size, templates will _also_ need to support set size and aspect ratio. Most templates are implemented, or optimized, for 16:9 aspect ratio and 1920x1080 output size.
 
-* `HD` = 1920 x 1080 pixels (16:9)
-* `4K` = 3840 x 2160 pixels (16:9)
-* `AUTO` = Full output height and width of the browser viewport rendering the template. Please note most SPX templates are prepared for 16:9 HD output and if using other sizes, this may require changes in the template sizing and layout properties. Typically used term for these kind of HTML layouts is "responsive design".
- 
+- `HD` = 1920 x 1080 pixels (16:9)
+- `4K` = 3840 x 2160 pixels (16:9)
+- `AUTO` = Full output height and width of the browser viewport rendering the template. Please note most SPX templates are prepared for 16:9 HD output and if using other sizes, this may require changes in the template sizing and layout properties. Typically used term for these kind of HTML layouts is "responsive design".
+
 <a id="locales"></a>**`general.langfile`** is a file reference in `locales`-folder for a JSON file containing UI strings in that language. Folder is scanned at server start and files are shown in the configuration as language options. There are some hardcoded strings in the UI still which are gradually improved. Some texts are "user settings" (plugin and extension UI texts, template instructions) and cannot be added to the locale strings.
 
 <img src="https://static.thenounproject.com/png/1713999-200.png" align="right" width="50" style="vertical-align:middle;margin-right:10px; margin-top:10px">If you are interested in translating SPX user interface to your local language please see [SPXLocaleEditor](https://github.com/TuomoKu/SPXLocaleEditor) repository for a browser based utility for modifying locale-files.
 
 Localization credits:
 | Language | Contributor | Bundled in version |
-|  ------ | ----- | ----- |
-|  Dutch | Koen Willems, Netherlands | v1.0.12 |
-|  Chinese | Anosi Wang, China | v1.1.0 |
-|  Swedish | Christina F., Finland | v1.1.2 |
-|  Portuguese | Joao M., Portugal | v1.1.2 |
-|  Japanese | Masakazu Nakano, Japan | v1.3.0 |
-|  German | Manuel Grund, Austria  | v1.3.3 |
+| ------ | ----- | ----- |
+| Dutch | Koen Willems, Netherlands | v1.0.12 |
+| Chinese | Anosi Wang, China | v1.1.0 |
+| Swedish | Christina F., Finland | v1.1.2 |
+| Portuguese | Joao M., Portugal | v1.1.2 |
+| Japanese | Masakazu Nakano, Japan | v1.3.0 |
+| German | Manuel Grund, Austria | v1.3.3 |
 
 <BR>
-
 
 <a id="log"></a>**`general.loglevel`** default value is `info`. Other possible values are `error` (least), `warn`, `verbose` and `debug` (most log data). Log messages are shown in the SPX console window and are stored into log files in logfolder. The active file is named `access.log`. Log files can be useful in troubleshooting, `verbose` is the recommeded level for troubleshooting. If further analysis is needed `debug` level produces even more information. Remember to set log level back to `info` since heavy logging will increase disk usage and may effect software performance.
 
 <a id="globalextras"></a> **`globalExtras{}`** are additional user interface controls, or _plugins_, shown below preview window in all project as opposed to [projectExtras](#projectextras) which are project specific. Each item has an UI component (a button) and associated function call available in the specified `javascript file`. When a new `config.json` is created it has some demo extra controls to introduce related consepts and possibilities.
+
 > **PLEASE NOTE:** Global extras will be replaced by [Plugins](#plugins) in future versions, since they are easier to install and maintain.
 
 <br>
@@ -349,7 +397,7 @@ Localization credits:
 
 > ⚠ If SPX is used with CasparCG **version 2.3.x LTS is recommended.** See [CasparCG Releases](https://github.com/CasparCG/server/releases).
 
-Starting from v.1.0.12 SPX does not have a CasparCG server assigned by default in the [configuration](#config). To add CasparCG server(s) go to Configuration and scroll down to CasparCG servers. Add a new server by giving it name such as `OVERLAY`, `ip-address` (or `localhost`) and a `port` number (5250 is CasparCG's default port). Click on Save at the bottom of the page and there will be an empty line to add another server. Add as many as you have in your production, such as OVERLAY (for CG's), VIDEOWALL, FULLSCREEN etc... 
+Starting from v.1.0.12 SPX does not have a CasparCG server assigned by default in the [configuration](#config). To add CasparCG server(s) go to Configuration and scroll down to CasparCG servers. Add a new server by giving it name such as `OVERLAY`, `ip-address` (or `localhost`) and a `port` number (5250 is CasparCG's default port). Click on Save at the bottom of the page and there will be an empty line to add another server. Add as many as you have in your production, such as OVERLAY (for CG's), VIDEOWALL, FULLSCREEN etc...
 
 > The name `OVERLAY` is preferred, since this name is used in all [SPX Store](https://spx.graphics/store) templates and the default template pack which comes with the application. **Note:** use only alphanumeric names for CasparCG servers, without special characters or spaces.
 
@@ -361,45 +409,48 @@ SPX has three options for loading templates, see section about configuring [temp
 
 If you have problems during playout it is recommeded to [set log level](#log) higher and observe SPX console window messages for potential cause.
 
-<!-- 
-During production if server name is not found there will be an error message on the console: 
+<!--
+During production if server name is not found there will be an error message on the console:
 ```js
 // Error message if CasparCG server is not configured
 Template requests CasparCG server [SERVERNAME] but a server by that name was not found in SPX configuration. Make sure app configuration and project settings match. This does not effect web playout.
 ```
 -->
 
-> **REMEMBER** SPX server process must be restarted whenever changes are made to configuration. 
+> **REMEMBER** SPX server process must be restarted whenever changes are made to configuration.
 
 <br>
 
 # Renderer parameters <a id="renderer"></a>
+
 SPX renderer is at `/renderer` URL and it supports additional parameters for specialized workflows. In a typical use (such as 16:9 single renderer production) these can be safely ignored.
 
-| Parameter | Datatype | Example | Remark
-|  ------ | ----- | ----- | ---- |
-|  `layers` | Array of numbers | `[1,2,3,4,20]` |
-|  `preview` | Boolean | `true` |
-|  ~~`width`~~ | ~~integer~~ | ~~`1920`~~ | Removed in 1.3.0
-|  ~~`height`~~ | ~~integer~~ | ~~`1080`~~ | Removed in 1.3.0
-|  `fps` | number | `50` or `29.97` | Value is passed to templates but none of the official templates uses this property at all.
+| Parameter    | Datatype         | Example         | Remark                                                                                     |
+| ------------ | ---------------- | --------------- | ------------------------------------------------------------------------------------------ |
+| `layers`     | Array of numbers | `[1,2,3,4,20]`  |
+| `preview`    | Boolean          | `true`          |
+| ~~`width`~~  | ~~integer~~      | ~~`1920`~~      | Removed in 1.3.0                                                                           |
+| ~~`height`~~ | ~~integer~~      | ~~`1080`~~      | Removed in 1.3.0                                                                           |
+| `fps`        | number           | `50` or `29.97` | Value is passed to templates but none of the official templates uses this property at all. |
 
 An example renderer URL for _"a vertical HD-Ready screen, showing only layers 2 and 3 and at 15 fps refresh rate"_.
 
 ```
 renderer/?width=768&height=1366&layers=[2,3]
 ```
-**PLEASE NOTE:** `fps` parameter value is stored to `window.top.spxRenderer.fps` -global variable of the renderer and it's utilization requires support from the templates themselves. This value IS NOT USED by any templates at the moment developed by SPX Graphics. 
+
+**PLEASE NOTE:** `fps` parameter value is stored to `window.top.spxRenderer.fps` -global variable of the renderer and it's utilization requires support from the templates themselves. This value IS NOT USED by any templates at the moment developed by SPX Graphics.
 
 **PLEASE NOTE:** `width` and `height` parameters were removed in v.1.3.0 as Application Configuration now supports `AUTO` sizing mode that will adjust renderer size to match dimensions of the holding viewport, such as `browser size` settings in OBS or similar software.
 
 <br>
 
 # Projects and rundowns <a id="dataroot"></a>
+
 All content in SPX is stored as files in `dataroot` folder which is specified in the configuration.
 
-* **Projects** are _subfolders_ in the dataroot-folder
-* **Rundowns** are _files_ in project subfolders.
+- **Projects** are _subfolders_ in the dataroot-folder
+- **Rundowns** are _files_ in project subfolders.
 
 Projects can be added and removed on the _Projects_ page and rundowns can be added and removed inside project on the _Rundows_ page. Most changes are saved automatically. If the UI becomes unresponsive it is usually fixed by refreshing the current page (Ctrl+R).
 
@@ -417,7 +468,8 @@ File structure of dataroot:
              ┝━ Rundown 1.json
              ┕━ Rundown 2.json
 ```
->Typically users don't need to do any manual file management using computer's filesystem.
+
+> Typically users don't need to do any manual file management using computer's filesystem.
 
 <a id="profile"></a>**Project specific settings**, such as assigned templates and project extras are stored into `profile.json` within each project folder.
 
@@ -430,17 +482,20 @@ File structure of dataroot:
 <a id="projectextras"></a> **showExtras** are additional user interface controls, or _plugins_, shown below preview window in current project as opposed to [globalExtras](#globalextras) which are shown in every project. Each item has an UI component (a button) and associated function call available in the specified `javascript file`.
 
 <a id="variables"></a> **projectVariables** are advanced properties introduced in v.1.1.1. Variables can be used to drive a shared value across several templates on the rundown. If a field in template definition has a `prvar` property defined when template is added to the project, this will cause a _projectVariable_ to be added (or appended to an existing projectVariable of the same name) into the project's `variables` array in `profile.json` file. The latest added template will set the default value of that variable. See example:
+
 ```json
-            /* Example field in the templateDefinition */
-            {
-                "field" : "f0",
-                "ftype" : "textfield",
-                "title" : "Name of the event",
-                "value" : "Fakemusic Fest 2022",
-                "prvar" : "eventName"
-            }
+/* Example field in the templateDefinition */
+{
+  "field": "f0",
+  "ftype": "textfield",
+  "title": "Name of the event",
+  "value": "Fakemusic Fest 2022",
+  "prvar": "eventName"
+}
 ```
+
 If several templates use a projectVariable by the same name, this template references will be added to an array. When template is removed from the project, its reference will be removed from the `users` array. See example:
+
 ```json
           /* Example variables array from profile.json */
           "variables": [
@@ -482,68 +537,69 @@ An example projects settings `<PROJECT>/profile.json`:
           "title": "Social media hashtag",
           "value": "#welldone"
         }
-      ],
+      ]
     }
   ],
   "showExtras": {
-	"customscript": "/ExtraFunctions/demoFunctions.js",
-	"CustomControls": [
-        {
-          "description": "Play simple bumper",
-          "ftype": "button",
-          "bgclass": "bg_orange",
-          "text": "Bumper FX",
-          "fcall": "PlayBumper",
-        },
-        {
-          "description": "Corner logo on/off",
-          "ftype": "togglebutton",
-          "bgclass": "bg_green",
-          "text0": "Logo ON",
-          "text1": "Logo OFF",
-          "fcall": "logoToggle(this)"
-        },
-        {
-          "description": "Sound FX",
-          "ftype": "selectbutton",
-          "bgclass": "bg_blue",
-          "text": "Play",
-          "fcall": "playSelectedAudio",
-          "value": "yes.wav",
-          "items": [
-              {
-                  "text": "No!",
-                  "value": "no.wav"
-              },
-              {
-                  "text": "Yesss!",
-                  "value": "yes.wav"
-              }
-          ]
-        },
-	  ]
-	}
+    "customscript": "/ExtraFunctions/demoFunctions.js",
+    "CustomControls": [
+      {
+        "description": "Play simple bumper",
+        "ftype": "button",
+        "bgclass": "bg_orange",
+        "text": "Bumper FX",
+        "fcall": "PlayBumper"
+      },
+      {
+        "description": "Corner logo on/off",
+        "ftype": "togglebutton",
+        "bgclass": "bg_green",
+        "text0": "Logo ON",
+        "text1": "Logo OFF",
+        "fcall": "logoToggle(this)"
+      },
+      {
+        "description": "Sound FX",
+        "ftype": "selectbutton",
+        "bgclass": "bg_blue",
+        "text": "Play",
+        "fcall": "playSelectedAudio",
+        "value": "yes.wav",
+        "items": [
+          {
+            "text": "No!",
+            "value": "no.wav"
+          },
+          {
+            "text": "Yesss!",
+            "value": "yes.wav"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
-> The above project has just one template (`hashtag.html`) assigned with three extra controls of different types. 
 
-Custom control's ftype can be 
-* **button**: a simple push button (with `text` as caption)
-* **togglebutton**: button with separate on / off states
-* **selectbutton**: a select list with an execute selection button
-* **ftypes**
-    - `hidden` value is used, title shown
-    - `textfield` a typical input field
-    - `dropdown` options provided as an array
-        - `"items":[ {"text": "Hundred", "value": 100}, {"text": "Dozen", "value": 12} ]`
-        - `value` is one of the item array values
-    - `caption` text of "value" is shown in UI. Useful with static graphics.
+> The above project has just one template (`hashtag.html`) assigned with three extra controls of different types.
 
+Custom control's ftype can be
 
+- **button**: a simple push button (with `text` as caption)
+- **togglebutton**: button with separate on / off states
+- **selectbutton**: a select list with an execute selection button
+- **ftypes**
+  - `hidden` value is used, title shown
+  - `textfield` a typical input field
+  - `dropdown` options provided as an array
+    - `"items":[ {"text": "Hundred", "value": 100}, {"text": "Dozen", "value": 12} ]`
+    - `value` is one of the item array values
+  - `caption` text of "value" is shown in UI. Useful with static graphics.
 
-----
+---
 
 # Templates
+
 SPX uses HTML templates for visuals.
 
 Templates can have any features supported by the renderers, such as Canvas objects, WebGL animations, CSS transforms and animations, animation libraries, such as GSAP, ThreeJS, Anime, Lottie/Bodymovin and templates can utilize ajax calls for data visualizations and other advanced uses.
@@ -572,9 +628,10 @@ Recommended folder structure for templates
                   ┕━ Template2.html
 
 ```
+
 > The templates must be within `ASSETS/templates` folder structure. It is preferred to have a single subfolder for all _your_ templates (myCompany in the example above) and futher subfolders for different _template packs_ or _visual styles_ within it (ProjectA, ProjectB in the example).
 
-SPX user interface and web playout always loads templates from `ASSETS/templates` folder, but CasparCG playout can be [configured](#templatesources) to playout _copied_ templates from template-path folder configured in CasparCG Server caspar.config -file. 
+SPX user interface and web playout always loads templates from `ASSETS/templates` folder, but CasparCG playout can be [configured](#templatesources) to playout _copied_ templates from template-path folder configured in CasparCG Server caspar.config -file.
 
 <!--
 > <a id="fileprotocol"></a>**CasparCG** does not support absolute file paths with HTML-templates using file protocol. SPX-GC loads templates from ASSETS/templates -folder which acts as a http server. (Serving templates over http to CasparCG is planned for future version of SPX-GC.) **The simplest** way currently to configure CasparCG and SPX-GC together is to make ASSETS/templates folder the templates folder of CasparCG. To make this change, move your existing HTML-templates to ASSETS/templates and re-configure `caspar.config` to use that as `templates-folder`. [Video: template path configuration](https://www.youtube.com/watch?v=bjVzdaR9a0U).
@@ -597,151 +654,155 @@ Theoretically all properties are optional, but it's recommended most properties,
 <!-- Place it as the last item within the HEAD section -->
 
 <script>
-    window.SPXGCTemplateDefinition = {
-        "description": "Top left with icon",
-        "playserver": "OVERLAY",
-        "playchannel": "1",
-        "playlayer": "7",
-        "webplayout": "7",
-        "steps" : "1",
-        "out": "manual",
-        "uicolor": "2",
-        "dataformat": "json",
-        "DataFields": [
-            {
-                "ftype" : "instruction",
-                "value" : "A example demo template definition. Learn what it does and make use of it's capabilities."
-            },
-            {
-                "field" : "f0",
-                "ftype" : "textfield",
-                "title" : "Info text",
-                "value" : ""
-            },
-            {
-                "field": "f1",
-                "ftype": "dropdown",
-                "title": "Select logo scaling",
-                "value": "0.3",
-                "items": [
-                    {
-                        "text": "Tiny logo",
-                        "value": "0.3"
-                    },
-                    {
-                        "text": "Huge logo",
-                        "value": "1.2"
-                    }
-                ]
-            },
-            {
-                "field" : "f2",
-                "ftype" : "textarea",
-                "title" : "Multiline field",
-                "value" : "First line\nSecond line\n\nFourth one"
-            },
-            {
-                "ftype" : "divider"
-            },
-            {
-                "field": "f3",
-                "ftype": "filelist",
-                "title": "Choose background image from global ASSETS-folder",
-                "assetfolder" : "/media/images/bg/" ,
-                "extension" : "png",
-                "value": "/media/images/bg/checker.png",
-            },
-            {
-                "field": "f4",
-                "ftype": "filelist",
-                "title": "Choose CSS stylesheet from template's relative styles-folder",
-                "assetfolder" : "./styles/" ,
-                "extension" : "css",
-                "value": "./styles/defaultStyle.css",
-            },
-            {
-                "field": "f5",
-                "ftype": "number",
-                "title": "Rotation degrees",
-                "value": "45",
-            },
-            {
-                "field": "f6",
-                "ftype": "checkbox",
-                "title": "Show logo",
-                "value": "1",
-            },
-            {
-                "field": "f7",
-                "ftype": "button",
-                "title": "Click me",
-                "descr": "Describe button function here",
-                "fcall": "myCustomHello('world')"
-            },
-            {
-                "ftype": "spacer"
-            },
-            {
-                "field": "f8",
-                "ftype": "color",
-                "title": "Text color",
-                "value": "rgba(255, 255, 255, 1.0)"
-            }
-        ]
-    };
+  window.SPXGCTemplateDefinition = {
+    description: "Top left with icon",
+    playserver: "OVERLAY",
+    playchannel: "1",
+    playlayer: "7",
+    webplayout: "7",
+    steps: "1",
+    out: "manual",
+    uicolor: "2",
+    dataformat: "json",
+    DataFields: [
+      {
+        ftype: "instruction",
+        value:
+          "A example demo template definition. Learn what it does and make use of it's capabilities.",
+      },
+      {
+        field: "f0",
+        ftype: "textfield",
+        title: "Info text",
+        value: "",
+      },
+      {
+        field: "f1",
+        ftype: "dropdown",
+        title: "Select logo scaling",
+        value: "0.3",
+        items: [
+          {
+            text: "Tiny logo",
+            value: "0.3",
+          },
+          {
+            text: "Huge logo",
+            value: "1.2",
+          },
+        ],
+      },
+      {
+        field: "f2",
+        ftype: "textarea",
+        title: "Multiline field",
+        value: "First line\nSecond line\n\nFourth one",
+      },
+      {
+        ftype: "divider",
+      },
+      {
+        field: "f3",
+        ftype: "filelist",
+        title: "Choose background image from global ASSETS-folder",
+        assetfolder: "/media/images/bg/",
+        extension: "png",
+        value: "/media/images/bg/checker.png",
+      },
+      {
+        field: "f4",
+        ftype: "filelist",
+        title: "Choose CSS stylesheet from template's relative styles-folder",
+        assetfolder: "./styles/",
+        extension: "css",
+        value: "./styles/defaultStyle.css",
+      },
+      {
+        field: "f5",
+        ftype: "number",
+        title: "Rotation degrees",
+        value: "45",
+      },
+      {
+        field: "f6",
+        ftype: "checkbox",
+        title: "Show logo",
+        value: "1",
+      },
+      {
+        field: "f7",
+        ftype: "button",
+        title: "Click me",
+        descr: "Describe button function here",
+        fcall: "myCustomHello('world')",
+      },
+      {
+        ftype: "spacer",
+      },
+      {
+        field: "f8",
+        ftype: "color",
+        title: "Text color",
+        value: "rgba(255, 255, 255, 1.0)",
+      },
+    ],
+  };
 </script>
 ```
 
-* **playserver**: one of the available CasparCG server names in config or "-" for none
-* **playchannel**: CasparCG playout channel
-* **playlayer**: CasparCG playout layer
-* **webplayout**: a number between 1..20, or "-" for none
+- **playserver**: one of the available CasparCG server names in config or "-" for none
+- **playchannel**: CasparCG playout channel
+- **playlayer**: CasparCG playout layer
+- **webplayout**: a number between 1..20, or "-" for none
 
 > `Layer` is a number between 1..20. Layer 1 is at the very back and 20 is the highest ("closest to the camera"). Layers can be changed for each template in each project separately in the Project Settings.
 
-* **out**: how layer should be taken out:
-  * `manual` default way: press STOP to animate out
-  * `none` play only. Suitable for wipes / bumpers
-  * `[numeric]` milliseconds until STOP is executed
-* **steps**: how many phases in animation? For normal in-out templates this is 1. For templates with 2 or more steps the _Continue_ button gets enabled.
-* **dataformat**: how template logic is expecting data
-    - `json` the default value (from 1.2.2)
-    - `xml` for compatibility with older CasparCG templates
-* **ftypes**
-    -  _ftypes_ (for field types) define template's GUI controls in SPX controller
-    - the values of first two fileds are used as content preview in the rundown, so the order of fields should be considered for the ease of use
-    - The developer of the HTML template can consider how to utilize these values, for instance a `dropdown` control can be used to pick the name of the show host, or it can drive other values via javascript in the templates. See /ASSETS/templates/smartpx -folder for some inspiration.
+- **out**: how layer should be taken out:
+  - `manual` default way: press STOP to animate out
+  - `none` play only. Suitable for wipes / bumpers
+  - `[numeric]` milliseconds until STOP is executed
+- **steps**: how many phases in animation? For normal in-out templates this is 1. For templates with 2 or more steps the _Continue_ button gets enabled.
+- **dataformat**: how template logic is expecting data
+  - `json` the default value (from 1.2.2)
+  - `xml` for compatibility with older CasparCG templates
+- **ftypes**
+  - _ftypes_ (for field types) define template's GUI controls in SPX controller
+  - the values of first two fileds are used as content preview in the rundown, so the order of fields should be considered for the ease of use
+  - The developer of the HTML template can consider how to utilize these values, for instance a `dropdown` control can be used to pick the name of the show host, or it can drive other values via javascript in the templates. See /ASSETS/templates/smartpx -folder for some inspiration.
 
-| Field type |  Description | Example |
-| ------ | ------ | ----- |
-| `hidden` | A variable which is not editable by the user. _Value_ is used by the template and, _title_ shown as static text on UI. | `Red color (#f00)`  |
-| `caption` | The _value_ is shown in UI. Caption can be used to display texts to operators of the template. | `This template does not have editable values` |
-| `textfield`  | A typical single line text input field. | `Firstname Lastname` |
-| `dropdown` | A dropdown selector list. Options is an _items_ array, each consisting of _text_ (which is visible) and the  _value_ (which the template will use). The default selection is defined as `value` and it must be one of the values in the _items_ array. See an example definition above. | `"items":[ {"text": "Hundred", "value": 100}, {"text": "Dozen", "value": 12} ]` |
-| `textarea`  | A multiline text control which accepts _return_ key for new lines. (Added in 1.0.2)| `First line \n Second line` |
-| `filelist` | A dropdown selector list for files of of given type _extension_ in an _assetfolder_ within ASSETS -folderstructure of SPX. This is useful for picking images or other media files in templates. (Added in 1.0.3). Version 1.0.15 introduced _relative folders_. If `assetfolder` path value starts with `"./"` the path is considered relative to the template root folder. This is useful for optional CSS styles or alternative images. See examples of both path styles above. | `sport_logo.png, news_logo.png` |
-| `divider` | A utility ftype to add a visual divider to a template. Can be used to create visual seqments for ease of use. (Added in 1.0.3) | |
-| `instruction` | _Value_ can be used as a longer help text on the template but does not have any other functionality. (Added in 1.0.6) | `Max 100 characters to the field below.`  |
-| `number` | _Value_ is exposed as a number field in the template UI. (Added in 1.0.7) | `45`  |
-| `checkbox` | `Title` is used as label in UI. _Value_ is "0" or "1" when checked. (Added in 1.0.10) | `[x] Show logo`  |
-| `color` | `Title` is used as label in UI. _Value_ is a valid CSS color string such as `rgb(255,0,0)` (full red) or `rgba(0,0,0,0.33)` (black with 33% opacity). (Added in 1.1.1)<BR>_**Please note**: The Color Picker UI feels a bit flaky, color may need to be selected two or more times for it to register as intended. This may improve in future versions._| `rgba(255,255,255,1.0)`  |
-| `spacer` | Just an empty line to separate out sections. This can be used in very complex templates to visually separate control groups (Added in 1.1.2) | `(no parameters)`|
-
+| Field type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Example                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `hidden`      | A variable which is not editable by the user. _Value_ is used by the template and, _title_ shown as static text on UI.                                                                                                                                                                                                                                                                                                                                                            | `Red color (#f00)`                                                              |
+| `caption`     | The _value_ is shown in UI. Caption can be used to display texts to operators of the template.                                                                                                                                                                                                                                                                                                                                                                                    | `This template does not have editable values`                                   |
+| `textfield`   | A typical single line text input field.                                                                                                                                                                                                                                                                                                                                                                                                                                           | `Firstname Lastname`                                                            |
+| `dropdown`    | A dropdown selector list. Options is an _items_ array, each consisting of _text_ (which is visible) and the _value_ (which the template will use). The default selection is defined as `value` and it must be one of the values in the _items_ array. See an example definition above.                                                                                                                                                                                            | `"items":[ {"text": "Hundred", "value": 100}, {"text": "Dozen", "value": 12} ]` |
+| `textarea`    | A multiline text control which accepts _return_ key for new lines. (Added in 1.0.2)                                                                                                                                                                                                                                                                                                                                                                                               | `First line \n Second line`                                                     |
+| `filelist`    | A dropdown selector list for files of of given type _extension_ in an _assetfolder_ within ASSETS -folderstructure of SPX. This is useful for picking images or other media files in templates. (Added in 1.0.3). Version 1.0.15 introduced _relative folders_. If `assetfolder` path value starts with `"./"` the path is considered relative to the template root folder. This is useful for optional CSS styles or alternative images. See examples of both path styles above. | `sport_logo.png, news_logo.png`                                                 |
+| `divider`     | A utility ftype to add a visual divider to a template. Can be used to create visual seqments for ease of use. (Added in 1.0.3)                                                                                                                                                                                                                                                                                                                                                    |                                                                                 |
+| `instruction` | _Value_ can be used as a longer help text on the template but does not have any other functionality. (Added in 1.0.6)                                                                                                                                                                                                                                                                                                                                                             | `Max 100 characters to the field below.`                                        |
+| `number`      | _Value_ is exposed as a number field in the template UI. (Added in 1.0.7)                                                                                                                                                                                                                                                                                                                                                                                                         | `45`                                                                            |
+| `checkbox`    | `Title` is used as label in UI. _Value_ is "0" or "1" when checked. (Added in 1.0.10)                                                                                                                                                                                                                                                                                                                                                                                             | `[x] Show logo`                                                                 |
+| `color`       | `Title` is used as label in UI. _Value_ is a valid CSS color string such as `rgb(255,0,0)` (full red) or `rgba(0,0,0,0.33)` (black with 33% opacity). (Added in 1.1.1)<BR>_**Please note**: The Color Picker UI feels a bit flaky, color may need to be selected two or more times for it to register as intended. This may improve in future versions._                                                                                                                          | `rgba(255,255,255,1.0)`                                                         |
+| `spacer`      | Just an empty line to separate out sections. This can be used in very complex templates to visually separate control groups (Added in 1.1.2)                                                                                                                                                                                                                                                                                                                                      | `(no parameters)`                                                               |
 
 > **Note** additional user interface controls may be added in future releases.
 
 ## Anatomy of an example rundown item
+
 ![anatomy-of-an-item](screenshots/anatomy-of-an-item.png)
 
+---
 
-----
 # Using SPX with OBS / vMix / Wirecast... <a id="streaming"></a>
-SPX's animated graphics and overlays can be integrated used in streaming and videoconferencing with any video- or streaming application which has a support for "Browser" or "HTML Sources". SPX provides a URL address which is entered to the streaming software as a layer / input / source. In OBS use `Browser source`, in vMIX it's called `Web Browser input` and in XSplit it's a `Webpage source`... 
+
+SPX's animated graphics and overlays can be integrated used in streaming and videoconferencing with any video- or streaming application which has a support for "Browser" or "HTML Sources". SPX provides a URL address which is entered to the streaming software as a layer / input / source. In OBS use `Browser source`, in vMIX it's called `Web Browser input` and in XSplit it's a `Webpage source`...
+
 ```
 http://localhost:5656/renderer
 ```
 
 If you have several inputs (for instance for multiple presenters) you can limit which layers get's rendered to different screens with the `layers` parameter in Renderer url, for instance:
+
 ```
 http://localhost:5656/renderer/?layers=[2,4,20]
 ```
@@ -750,13 +811,16 @@ See [Youtube video](https://www.youtube.com/watch?v=YwXYWadiFoE) on using SPX wi
 
 <br>
 
-----
+---
+
 # SPX with https protocol <a id="https"></a>
+
 Originally SPX was designed for local, on-site installation and usage, but more and more production is done via the cloud where a secure data transfer and the use of https protocol is a must. SPX can work with https, but it will require a bit of setup.
 
 Please read our Knowledge Base [article about https with SPX Server](https://spxgc.tawk.help/article/https-protocol).
 
-----
+---
+
 # Control SPX with external devices such as Elgato Stream Deck... <a id="controlApi"></a>
 
 <img align="left" width="100" height="100" src="screenshots/streamdeck.png">
@@ -774,6 +838,7 @@ SPX can also be used with Bitfocus Companion, see https://bitfocus.io/companion.
 > **OSC -protocol** is not supported in SPX 1.0.x but will be added in a future version.
 
 # Plugins and Extensions <a id="plugins"></a>
+
 Version 1.0.10 introduced `ASSETS/plugins` -folder for additional functionality, such as custom function triggering `plugin buttons` and `extensions` which are additional user interfaces or panels. For instance [Scoreboard](https://www.spx.graphics/store/Scoreboard-plugin-p313595701) is a sports clock extension with an independent user interface. Another example is a SocialPlayout - an upcoming extension for moderating and LIVE playout of social messages from various social media platforms, such as Twitter, Instagram, Facebook, Youtube, etc.
 
 Each plugin has a subfolder with at least an init.js file and optionally other folders and files, such as html, css and js.
@@ -786,12 +851,10 @@ Each plugin has a subfolder with at least an init.js file and optionally other f
 
 **A Knowledge Base** at [spxgc.tawk.help](https://spxgc.tawk.help/) is a growing collection of self-help articles in various SPX related topics.
 
-
 **Github** [issue tracker](https://github.com/TuomoKu/SPX-GC/issues) should be used for bug reports. For other feedback such as feature requests or other comments (for now at least) please use Google Forms feedback form at <A href="https://forms.gle/T26xMFyNZt9E9S6d8">https://forms.gle/T26xMFyNZt9E9S6d8</A>. All constructive feedback is highly appreciated!
 
-
-
 ### _Gotcha's & Known Issues_ (things to be aware of)
+
 - If UI becomes wonky reload the view (F5 / Ctrl+R).
 - There is spagetti code whenever worked tired. Try to accept it...
 - Undocumented features do exist. (templateEvents, TTS, pm2, cfg:hostname/usercommapass/greeting...)
@@ -800,19 +863,21 @@ Each plugin has a subfolder with at least an init.js file and optionally other f
 <br>
 
 # Security <a id="security"></a>
-As more and more SPX instances are being deployed in the cloud as opposed to running on-prem, more emphasis will need to go into security. 
+
+As more and more SPX instances are being deployed in the cloud as opposed to running on-prem, more emphasis will need to go into security.
 
 Thanks to security researchers who have already helped making SPX more resilient:
 
-* 2024-06 **Merbin Russel**
-* 2024-07 **Mohsin Khan**
+- 2024-06 **Merbin Russel**
+- 2024-07 **Mohsin Khan**
 
 If you come across a possible vulnerability, please use the Security Advisories feature on Github to report these.
 
 <br>
 
 # SPX Cloud SaaS <a id="spxcloud"></a>
-For high performance broadcast or event production graphics you can subscribe to our official [SPX Cloud](https://spxcloud.app) for a  day, week, month or more.
+
+For high performance broadcast or event production graphics you can subscribe to our official [SPX Cloud](https://spxcloud.app) for a day, week, month or more.
 
 SPX Cloud runs in a modern, global infrastructure with secure connections and sFTP connectivity for managing your own SPX Cloud instance assets, templates and media files. SPX Cloud is a perfect graphics solution for remote production.
 
@@ -821,26 +886,26 @@ Visit [spxcloud.app](https://spxcloud.app) to create your own instance with a FR
 <br>
 
 # Roadmap <a id="roadmap"></a>
+
 New releases will try address found issues and bugs in older versions and they will also introduce new features and functionality. See table for some planned features and use [feedback](#feedback) to submit suggestions.
 
 > **DISCUSS FEATURES:** Visit [spx.kampsite.co](https://spx.kampsite.co) to discuss and propose new features and vote them up 🚀
 
 <small>When a new version becomes available it will be promoted on the Welcome page of the application (if access to internet). Several versions can be installed (into different folders) and if there are no backwards compatibility issues between versions they can be configured to use the same dataroot -folder for projects/rundowns. </small>
 
-
-| Release | Planned features (subject to change)| Timeframe |
-| ------ | ------ | ----- |
-| 1.X  | ~~Mac install folder [issue (#3)](/../../issues/3) fix~~. ~~Help page update~~, ~~internal logic change to fix [playlist item issue (#1)](/../../issues/1)~~, ~~http protocol for CasparCG templates~~, ~~simple rundown view for mobile / tablet browsers~~, automatically running rundowns, item grouping, ~~textarea control~~, ~~item / file duplication~~. Project and ~~rundown~~ rename. ~~Export/import CSV~~| TBD |
-| X.X  | Under consideration: OSC support, Built-in NDI support, mediafile picker, video playback control templates, ~~graphics preview~~, ~~MIDI interface~~, global extras editor in appconfig, ~~public API for controls~~, ~~HTML template store~~,  ~~community marketplace~~. ~~Video tutorials.~~ ~~Knowledgebase~~. Forum. ~~Discord support channel.~~ Free lunches. | TBD |
+| Release | Planned features (subject to change)                                                                                                                                                                                                                                                                                                                                                                                  | Timeframe |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| 1.X     | ~~Mac install folder [issue (#3)](/../../issues/3) fix~~. ~~Help page update~~, ~~internal logic change to fix [playlist item issue (#1)](/../../issues/1)~~, ~~http protocol for CasparCG templates~~, ~~simple rundown view for mobile / tablet browsers~~, automatically running rundowns, item grouping, ~~textarea control~~, ~~item / file duplication~~. Project and ~~rundown~~ rename. ~~Export/import CSV~~ | TBD       |
+| X.X     | Under consideration: OSC support, Built-in NDI support, mediafile picker, video playback control templates, ~~graphics preview~~, ~~MIDI interface~~, global extras editor in appconfig, ~~public API for controls~~, ~~HTML template store~~, ~~community marketplace~~. ~~Video tutorials.~~ ~~Knowledgebase~~. Forum. ~~Discord support channel.~~ Free lunches.                                                   | TBD       |
 
 Strikethrough items are already done.<BR>
 Visit [spx.kampsite.co](https://spx.kampsite.co) to discuss the roadmap.
 
-<BR>
-----
+## <BR>
 
 # MIT License <a id="license"></a>
-Copyright 2020-2024 Tuomo Kulomaa <tuomo@softpix.io> & [SPX Graphics](http://spx.graphics) 
+
+Copyright 2020-2024 Tuomo Kulomaa <tuomo@softpix.io> & [SPX Graphics](http://spx.graphics)
 
 This project is licensed under the terms of the MIT license.
 See [LICENSE.txt](LICENSE.txt)
@@ -856,5 +921,3 @@ Have you seen this yet? [SPX Graphics for Zoom](https://spx.graphics/zoom)
 SPX Graphics as native Zoom Marketplace application. Install for **free** and use professionally designed and animated live graphics right within the Zoom client. No need to install any software on the computer or use software switchers or virtual cameras. More designs and graphics layers can be added from SPX Store. We also provide customized graphics packages to Enterprise users. Please [contact us](https://spx.graphics/contact) for more info.
 
 Install the app FOR FREE now: **[ Add to Zoom ](https://app.spxzoom.com/install)**
-
-

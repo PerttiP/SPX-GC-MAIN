@@ -30,7 +30,7 @@ function getJsonSize(data) {
   return 0;
 }
 
-async function fetchRunnersData(apiUrl) {
+async function fetchRunnersData() {
   // Using the AbortController with a timeout, you add an extra layer of fault handling
   // to ensure your application doesn’t wait indefinitely for a response.
   const controller = new AbortController();

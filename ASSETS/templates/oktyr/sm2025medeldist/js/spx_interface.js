@@ -17,6 +17,110 @@ let doFreezeTimerOnce = false; //NOTE: A persistent flag in local storage is als
 
 console.log("!!!! NOTE: This spx_interface.js script MUST EXECUTE FIRST !!!!");
 
+// FIXME FOR PRODUCTION:
+// ---------------------
+
+// Base URL for your API that might be changed later.
+const BASE_API_URL = "https://wmln67w3-5000.euw.devtunnels.ms/api";
+
+// Map runner class strings to numbers.
+const runnerClassMapping = {
+  D21: 1,
+  D20: 2,
+  D18: 3,
+  H21: 4,
+  H20: 5,
+  H18: 6,
+};
+
+/**
+ * Builds the API URL based on the provided parameters.
+ *
+ * @param {Object} options - Options for building the URL.
+ * @param {string} [options.runnerClass] - The runner class (e.g., "D21", "H21").
+ *      If provided, this is mapped to a corresponding numeric endpoint.
+ * @param {string|number} [options.splitId] - An optional split identifier.
+ * @param {string|number} [options.bibNbr] - An optional bib number.
+ * @returns {string} The complete URL for the GET request.
+ */
+function buildApiUrl({ runnerClass, splitId, bibNbr } = {}) {
+  // Start with the base API URL.
+  let url = BASE_API_URL;
+
+  // If runnerClass is provided, map it to a number and append as a path segment.
+  if (runnerClass) {
+    if (!runnerClassMapping.hasOwnProperty(runnerClass)) {
+      throw new Error(`Invalid runnerClass value: ${runnerClass}`);
+    }
+    // Append the mapped number as a path segment.
+    url += `/${runnerClassMapping[runnerClass]}`;
+  }
+
+  // Prepare any remaining keys as query parameters.
+  const params = new URLSearchParams();
+  if (splitId !== undefined && splitId !== null) {
+    params.append("splitId", splitId);
+  }
+  if (bibNbr !== undefined && bibNbr !== null) {
+    params.append("bibNbr", bibNbr);
+  }
+
+  // If there are query parameters, append them to the URL.
+  const queryString = params.toString();
+  if (queryString) {
+    url += `?${queryString}`;
+  }
+
+  return url;
+}
+
+/**
+ * Makes a GET request to our API using the given parameters.
+ *
+ * @param {Object} options - Options for the API request.
+ * @param {string} [options.runnerClass] - The runner class which is mapped to a number.
+ * @param {string|number} [options.splitId] - Optional split identifier.
+ * @param {string|number} [options.bibNbr] - Optional bib number.
+ * @returns {Promise<Object>} The JSON response from the API.
+ */
+async function apiGetRequest({ runnerClass, splitId, bibNbr } = {}) {
+  // Build the URL based on the parameters.
+  const url = buildApiUrl({ runnerClass, splitId, bibNbr });
+  console.log("Sending GET to URL:", url); // Useful for debugging
+
+  try {
+    // Perform the GET request.
+    const response = await fetch(url);
+
+    // Check if the response is OK (status in the 200-299 range).
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    // Parse and return JSON data.
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("API GET request failed: ", error);
+    // Optionally, you could also implement fallback behavior here.
+    throw error;
+  }
+}
+
+// Example usage:
+// Suppose you want to send a request for a runner with runnerClass "H21",
+// a splitId of 123, and a bibNbr of 456. The URL will be built as follows:
+// https://wmln67w3-5000.euw.devtunnels.ms/api/4?splitId=123&bibNbr=456
+/*
+apiGetRequest({ runnerClass: "H21", splitId: 123, bibNbr: 456 })
+  .then((data) => {
+    console.log("API response:", data);
+  })
+  .catch((err) => {
+    console.error("Error during API call:", err);
+  });
+*/
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("!!!! DOM content loaded (spx_interface) !!!! ");
 
